@@ -1,8 +1,9 @@
-const CACHE = 'neo-flowoff-v4';
+const CACHE = 'neo-flowoff-v5';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js',
   './manifest.webmanifest', './public/icon-192.png', './public/icon-512.png', './public/maskable-512.png',
   './public/flowoff logo.png', './public/FLOWPAY.png', './public/neo_ico.png', './public/icon-512x512.png',
+  './public/poston.png', './public/logos/proia.png',
   './public/icons/icon-48x48.webp', './public/icons/icon-72x72.webp', './public/icons/icon-96x96.webp',
   './public/icons/icon-128x128.webp', './public/icons/icon-144x144.webp', './public/icons/icon-152x152.webp',
   './public/icons/icon-192x192.webp', './public/icons/icon-256x256.webp', './public/icons/icon-384x384.webp',
