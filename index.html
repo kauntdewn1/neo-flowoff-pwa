@@ -32,6 +32,19 @@
       <div class="compact-title">NEØ.FLOWOFF</div>
     </header>
 
+    <!-- Banner de instalação PWA -->
+    <div id="pwa-install-banner" class="pwa-banner">
+      <div class="pwa-content">
+        <div class="pwa-icon">📱</div>
+        <div class="pwa-text">
+          <strong>Instale o app</strong>
+          <span>Adicione à tela inicial para acesso rápido</span>
+        </div>
+        <button id="pwa-install-btn" class="pwa-btn">Instalar</button>
+        <button id="pwa-dismiss" class="pwa-dismiss">×</button>
+      </div>
+    </div>
+
     <!-- Conteúdo com áreas "rotas" -->
     <main id="router">
       <!-- HOME / HERO-PORTFÓLIO -->
@@ -196,6 +209,52 @@
     if (link) {
       link.href = link.href.split('?')[0] + '?v=' + Date.now();
     }
+
+    // PWA Install Banner
+    let deferredPrompt;
+    const pwaBanner = document.getElementById('pwa-install-banner');
+    const installBtn = document.getElementById('pwa-install-btn');
+    const dismissBtn = document.getElementById('pwa-dismiss');
+
+    // Verificar se já foi instalado ou dispensado
+    if (localStorage.getItem('pwa-dismissed') === 'true' || window.matchMedia('(display-mode: standalone)').matches) {
+      pwaBanner.style.display = 'none';
+    }
+
+    // Escutar evento beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      pwaBanner.style.display = 'block';
+    });
+
+    // Botão instalar
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          pwaBanner.style.display = 'none';
+        }
+        deferredPrompt = null;
+      }
+    });
+
+    // Botão dispensar
+    dismissBtn.addEventListener('click', () => {
+      pwaBanner.style.display = 'none';
+      localStorage.setItem('pwa-dismissed', 'true');
+    });
+
+    // Auto-hide após 10 segundos
+    setTimeout(() => {
+      if (pwaBanner.style.display !== 'none') {
+        pwaBanner.style.opacity = '0';
+        setTimeout(() => {
+          pwaBanner.style.display = 'none';
+        }, 300);
+      }
+    }, 10000);
   </script>
 </body>
 </html>
