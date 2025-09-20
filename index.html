@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="cache-control" content="no-cache">
+  <!-- iOS PWA -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="public/icons/icon-192x192.webp">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>NEØ.FLOWOFF</title>
+  <link rel="stylesheet" href="styles.css?v=2.0">
+</head>
+<body>
+  <!-- App Shell -->
+  <div id="app">
+
+    <!-- Logo flutuante -->
+    <div class="floating-logo">
+      <img src="public/flowoff logo.png" alt="NEØ.FLOWOFF" class="logo-img">
+    </div>
+
+    <!-- Topbar com grande título iOS-like -->
+    <header class="topbar blur">
+      <div class="status-spacer"></div>
+      <div class="large-title" data-title="NEØ.FLOWOFF">NEØ.FLOWOFF</div>
+      <div class="compact-title">NEØ.FLOWOFF</div>
+    </header>
+
+    <!-- Conteúdo com áreas "rotas" -->
+    <main id="router">
+      <!-- HOME / HERO-PORTFÓLIO -->
+      <section class="route active" id="home">
+        <div class="hero-card neon">
+          <h1>Agência de Marketing na blockchain</h1>
+          <p>Marketing com tecnologias e soluções | Desenvolvemos sistemas, WebApp's e Tokens</p>
+          <div class="cta-row">
+            <button class="btn primary" data-open="lead">Iniciar projeto</button>
+            <a class="btn ghost" href="https://wa.me/5551999999999" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="grid">
+          <!-- mocks/prints -->
+          <article class="card glow">
+            <div class="thumb thumb-1"></div>
+            <h3>WebApp • Dash Gamificado</h3>
+            <p>Arquitetura escalável, autenticação e tokens de recompensa.</p>
+          </article>
+
+          <article class="card glow">
+            <div class="thumb thumb-2"></div>
+            <h3>POSTØN</h3>
+            <p>Gestão inteligente de redes sociais com IA e automações.</p>
+          </article>
+
+          <article class="card glow">
+            <div class="thumb thumb-3"></div>
+            <h3>PRO.IA</h3>
+            <p>Treinamento para transformar IA em faturamento real.</p>
+          </article>
+
+          <article class="card glow">
+            <div class="thumb thumb-4"></div>
+            <h3>NEØ.FLOWOFF</h3>
+            <p>Laboratório de marketing, blockchain e sistemas digitais.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- PROJETOS -->
+      <section class="route" id="projects">
+        <div class="section-title">Projetos</div>
+        <div class="list">
+          <div class="list-item">
+            <div>
+              <h4>Site/WebApp sob medida</h4>
+              <p>Performance, acessibilidade, conversão. Sem modinha.</p>
+            </div>
+            <button class="chip">ver</button>
+          </div>
+          <div class="list-item">
+            <div>
+              <h4>SAAS / BAAS</h4>
+              <p>Produtos prontos ou personalizados, com integrações.</p>
+            </div>
+            <button class="chip">detalhes</button>
+          </div>
+          <div class="list-item">
+            <div>
+              <h4>Integração cripto</h4>
+              <p>Wallet, pagamentos, tokens. Sem teatrinho.</p>
+            </div>
+            <button class="chip">ver</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CAPTAÇÃO (form) -->
+      <section class="route" id="start">
+        <div class="section-title">Iniciar Projeto</div>
+        <form id="lead-form" class="card form glow">
+          <label>Nome<input name="name" required></label>
+          <label>Email<input type="email" name="email" required></label>
+          <label>WhatsApp<input name="whats" placeholder="+55 (00) 00000-0000" required></label>
+          <label>Tipo de projeto
+            <select name="type" required>
+              <option value="site">Site / WebApp</option>
+              <option value="saas">SAAS / BAAS</option>
+              <option value="poston">POSTØN</option>
+              <option value="proia">PRO.IA</option>
+            </select>
+          </label>
+          <button class="btn primary" type="submit">Enviar</button>
+          <p class="muted center" id="lead-status"></p>
+        </form>
+      </section>
+
+      <!-- ECOSSISTEMA (selos finais) -->
+      <section class="route" id="ecosystem">
+        <div class="section-title">Ecossistema</div>
+        <div class="badges">
+          <div class="badge glass">
+            <img alt="FlowPay" src="public/FLOWPAY.png">
+            <div><b>FlowPay</b><span>Pagamentos integrados</span></div>
+          </div>
+          <div class="badge glass">
+            <img alt="NEØ Protocol" src="public/neo_ico.png">
+            <div><b>NEØ Protocol</b><span>Camada tecnológica</span></div>
+          </div>
+          <div class="badge glass">
+            <img alt="POSTØN" src="public/icon-512x512.png">
+            <div><b>POSTØN</b><span>Gestão de redes sociais</span></div>
+          </div>
+          <div class="badge glass">
+            <img alt="NEØ.FLOWOFF" src="public/flowoff logo.png">
+            <div><b>NEØ.FLOWOFF</b><span>Assinatura criativa</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modal lead rápido -->
+      <dialog id="lead" class="sheet">
+        <form method="dialog" class="sheet-body">
+          <h3>Falar direto comigo</h3>
+          <p>Respondo rápido. Sem burocracia.</p>
+          <a class="btn primary block" href="https://wa.me/5551999999999" target="_blank" rel="noopener">WhatsApp</a>
+          <button class="btn ghost block">Fechar</button>
+        </form>
+      </dialog>
+
+      <!-- Offline banner -->
+      <div id="offline" class="offline">Sem conexão. Funcionalidades limitadas.</div>
+    </main>
+
+    <!-- Tab bar iOS-like -->
+    <nav class="tabbar blur">
+      <button data-route="home" class="active">Home</button>
+      <button data-route="projects">Projetos</button>
+      <button data-route="start">Iniciar</button>
+      <button data-route="ecosystem">Ecossistema</button>
+    </nav>
+  </div>
+
+  <script src="app.js" type="module"></script>
+  <script>
+    // Force CSS reload
+    const link = document.querySelector('link[href*="styles.css"]');
+    if (link) {
+      link.href = link.href.split('?')[0] + '?v=' + Date.now();
+    }
+  </script>
+</body>
+</html>
