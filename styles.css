@@ -124,7 +124,7 @@ main{
 .thumb-2{background: linear-gradient(135deg, rgba(122,44,255,.4), rgba(255,47,179,.3), rgba(0,208,255,.2)); position:relative}
 
 /* Card 3: POSTØN */
-.thumb-3{background-image:linear-gradient(135deg, rgba(122,44,255,.3), transparent), url('public/poston.png'); background-size:cover; opacity:.9}
+.thumb-3{background-image:linear-gradient(135deg, rgba(122,44,255,.3), transparent), url('public/poston_home.png'); background-size:cover; opacity:.9}
 
 /* Card 4: PRO.IA */
 .thumb-4{background-image:linear-gradient(135deg, rgba(0,208,255,.3), transparent), url('public/logos/proia.png'); background-size:cover; opacity:.9}
