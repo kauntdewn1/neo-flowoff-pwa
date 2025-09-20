@@ -115,12 +115,82 @@ main{
   opacity:.6; filter: blur(14px); z-index:-1;
 }
 
-.thumb{height:90px; border-radius:10px; background:#14141f; border:1px solid rgba(255,255,255,.06)}
+.thumb{height:90px; border-radius:10px; background:#14141f; border:1px solid rgba(255,255,255,.06); position:relative; overflow:hidden}
 .thumb-1{background-image:linear-gradient(135deg, rgba(0,208,255,.3), transparent), url('public/icon-512.png'); background-size:cover; opacity:.9}
-.thumb-2{background-image:linear-gradient(135deg, rgba(122,44,255,.3), transparent), url('public/icon-512x512.png'); background-size:cover; opacity:.9}
+.thumb-2{background: linear-gradient(135deg, rgba(122,44,255,.4), rgba(255,47,179,.3), rgba(0,208,255,.2)); position:relative}
 .thumb-3{background-image:linear-gradient(135deg, rgba(0,208,255,.3), transparent), url('public/icon-512.png'); background-size:cover; opacity:.9}
 .thumb-4{background-image:linear-gradient(135deg, rgba(255,47,179,.3), transparent), url('public/icon-512.png'); background-size:cover; opacity:.9}
 .thumb-5{background-image:linear-gradient(135deg, rgba(255,47,179,.3), transparent), url('public/flowoff logo.png'); background-size:cover; opacity:.9}
+
+/* Gamificação Preview */
+.gamification-preview{
+  position:absolute; inset:0; padding:8px; display:flex; flex-direction:column; gap:4px;
+  background: linear-gradient(135deg, rgba(0,0,0,.3), rgba(0,0,0,.1));
+}
+
+.xp-bar{
+  position:relative; height:12px; background:rgba(255,255,255,.1); border-radius:6px; overflow:hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.3);
+}
+
+.xp-fill{
+  height:100%; width:75%; background: linear-gradient(90deg, #ff2fb3, #7a2cff, #00d0ff);
+  border-radius:6px; position:relative; animation: xpGlow 2s ease-in-out infinite;
+}
+
+.xp-fill::after{
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+  animation: xpShine 1.5s ease-in-out infinite;
+}
+
+.xp-text{
+  position:absolute; top:-18px; right:0; font-size:8px; font-weight:600; color:#fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.5);
+}
+
+.badges-row{
+  display:flex; gap:4px; justify-content:center; margin:2px 0;
+}
+
+.badge-icon{
+  width:16px; height:16px; display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,.1); border-radius:50%; font-size:8px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.3));
+  animation: badgeFloat 3s ease-in-out infinite;
+}
+
+.badge-icon:nth-child(2){animation-delay:.5s}
+.badge-icon:nth-child(3){animation-delay:1s}
+
+.leaderboard-mini{
+  flex:1; display:flex; flex-direction:column; gap:1px; font-size:6px; color:rgba(255,255,255,.8);
+}
+
+.leader-item{
+  padding:1px 4px; background:rgba(255,255,255,.05); border-radius:3px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+
+.microcopy{
+  font-size:11px; color:var(--neon); font-weight:600; margin-top:4px;
+  text-align:center; font-style:italic;
+}
+
+@keyframes xpGlow{
+  0%, 100%{box-shadow: 0 0 8px rgba(255,47,179,.4)}
+  50%{box-shadow: 0 0 12px rgba(122,44,255,.6)}
+}
+
+@keyframes xpShine{
+  0%{transform:translateX(-100%)}
+  100%{transform:translateX(100%)}
+}
+
+@keyframes badgeFloat{
+  0%, 100%{transform:translateY(0px)}
+  50%{transform:translateY(-2px)}
+}
 
 .section-title{font-weight:700; font-size:22px; margin:4px 4px 12px}
 .list{display:flex; flex-direction:column; gap:10px}
