@@ -1,4 +1,4 @@
-const CACHE = 'neo-flowoff-v5';
+const CACHE = 'neo-flowoff-v1.2.0';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js',
   './manifest.webmanifest', './public/icon-192.png', './public/icon-512.png', './public/maskable-512.png',
@@ -11,15 +11,17 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', e=>{
+  console.log('SW: Installing new version...');
   e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));
-  self.skipWaiting();
+  self.skipWaiting(); // Força atualização imediata
 });
 
 self.addEventListener('activate', e=>{
+  console.log('SW: Activating new version...');
   e.waitUntil(
     caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))
   );
-  self.clients.claim();
+  self.clients.claim(); // Assume controle imediato de todas as abas
 });
 
 self.addEventListener('fetch', e=>{
