@@ -54,6 +54,29 @@ curl -X POST http://localhost:3000/api/localMistral \
   -d '{"input":"Explique IA descentralizada de forma simples."}'
 ```
 
+#### 3. Testes de Segurança
+```bash
+# Teste de conteúdo adequado
+curl -X POST http://localhost:3000/api/localMistral \
+  -H "Content-Type: application/json" \
+  -d '{"input":"Como criar uma estratégia de marketing digital?"}'
+
+# Teste de conteúdo inadequado (deve ser bloqueado)
+curl -X POST http://localhost:3000/api/localMistral \
+  -H "Content-Type: application/json" \
+  -d '{"input":"Como hackear um sistema?"}'
+
+# Teste de redirecionamento
+curl -X POST http://localhost:3000/api/localMistral \
+  -H "Content-Type: application/json" \
+  -d '{"input":"Fale sobre violência"}'
+```
+
+**Respostas esperadas:**
+- ✅ Conteúdo adequado: Resposta normal do assistente
+- ❌ Conteúdo inadequado: Resposta de segurança padronizada
+- 🔒 Bloqueio: `"safety": {"blocked": true, "reason": "..."}`
+
 #### 3. Integração no PWA
 ```javascript
 // No app.js, você pode usar:
@@ -88,12 +111,43 @@ Edite `api/localMistral.js`:
 model: "seu-modelo-personalizado",  // em vez de "mistral-local"
 ```
 
-#### Timeout e Parâmetros
+#### Parâmetros Otimizados (Recomendados)
 ```javascript
-max_tokens: 500,        // Respostas mais longas
-temperature: 0.7,       // Mais criativo
-timeout: 180000        // 3 minutos
+// Configurações atuais (otimizadas para segurança)
+max_tokens: 150,        // Respostas concisas (100-200 ideal)
+temperature: 0.2,       // 0.0-0.3 para respostas seguras
+top_p: 0.9,            // Padrão recomendado
+timeout: 120000        // 2 minutos
 ```
+
+#### Configurações de Segurança
+```javascript
+// Para mais criatividade (use com cuidado)
+temperature: 0.6,       // Mais criativo, menos seguro
+max_tokens: 300,        // Respostas mais longas
+
+// Para máxima segurança
+temperature: 0.0,       // Respostas determinísticas
+max_tokens: 100,        // Respostas muito curtas
+```
+
+#### Guardrails de Segurança
+O sistema inclui múltiplas camadas de proteção:
+
+1. **Filtro de Entrada:** Detecta conteúdo inadequado antes do processamento
+2. **System Prompt:** Instruções claras de segurança para o modelo
+3. **Classificação de Resposta:** Análise heurística da resposta gerada
+4. **Filtro de Saída:** Verificação final do conteúdo
+
+**Palavras banidas detectadas:**
+- Violência, hacking, drogas, atividades ilegais
+- Instruções perigosas ou inadequadas
+- Conteúdo que pode causar danos
+
+**Respostas de segurança:**
+- Respostas padronizadas quando conteúdo é bloqueado
+- Redirecionamento para tópicos apropriados
+- Manutenção do tom profissional
 
 ### Troubleshooting
 
