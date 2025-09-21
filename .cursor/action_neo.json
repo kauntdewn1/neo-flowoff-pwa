@@ -1,0 +1,40 @@
+{
+    "alteracoes": {
+      "home": {
+        "nova_secao": {
+          "id": "flowoff_section",
+          "posicao": "abaixo_do_card_principal",
+          "titulo": "FlowOFF",
+          "conteudo": "FlowOFF é agência que já fez gestão de redes sociais comum, um solução que muitas empresas buscam mas não sabem que uma nova estratégia já está sendo usada e que poucos sabem ou possuem abordagem visionária de estratégias e tecnologias que fazem todo o diferencial para o rompimento das barreiras que levam aos resultados reais. Hoje oferecemos consultoria com apresentação de novas táticas e estratégias, com soluções de gestão de dados, e tecnologias que podem ser desenvolvidas para cada tipo de organização, atendendo as particularidades de cada empresa."
+        },
+        "reordenacao_cards": [
+          {
+            "id": "dashboards_gamificados",
+            "posicao": "abaixo_flowoff_section",
+            "acao": "manter"
+          },
+          {
+            "id": "webapp",
+            "posicao": "abaixo_flowoff_section",
+            "acao": "manter"
+          },
+          {
+            "id": "neo_flowoff",
+            "posicao": "abaixo_flowoff_section",
+            "acao": "mover"
+          }
+        ],
+        "remover_para_projetos": [
+          {
+            "id": "poston",
+            "destino": "projetos"
+          },
+          {
+            "id": "pro_ia",
+            "destino": "projetos"
+          }
+        ]
+      }
+    }
+  }
+  
