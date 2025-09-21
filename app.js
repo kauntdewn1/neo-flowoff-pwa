@@ -11,11 +11,6 @@ const sections = [...document.querySelectorAll('.route')];
 function go(route){
   routes.forEach(r => document.getElementById(r).classList.toggle('active', r===route));
   buttons.forEach(b => b.classList.toggle('active', b.dataset.route===route));
-  // atualiza título grande
-  const large = document.querySelector('.large-title');
-  large.textContent = route === 'home' ? 'NEØ.FLOWOFF' :
-    route === 'projects' ? 'Projetos' :
-    route === 'start' ? 'Iniciar' : 'Ecossistema';
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
