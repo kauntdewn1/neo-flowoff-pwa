@@ -140,32 +140,6 @@ window.addEventListener('load', async () => {
   }
 });
 
-// Funcionalidade do botão do agente
-const agentBtn = document.getElementById('agent-quick-access');
-if (agentBtn) {
-  agentBtn.addEventListener('click', () => {
-    // Abrir modal do agente
-    const agentModal = document.getElementById('agent-modal');
-    if (agentModal) {
-      agentModal.showModal();
-      
-      // Focar no input
-      setTimeout(() => {
-        const input = document.getElementById('agent-input');
-        if (input) input.focus();
-      }, 100);
-    }
-    
-    // Feedback visual no botão
-    agentBtn.style.transform = 'scale(0.9)';
-    setTimeout(() => {
-      agentBtn.style.transform = '';
-    }, 150);
-    
-    // Vibração se disponível
-    navigator.vibrate?.(50);
-  });
-}
 
 // Funcionalidade do modal do agente
 const agentModal = document.getElementById('agent-modal');
