@@ -133,7 +133,37 @@ Sua resposta:`;
       top_p: CONFIG.top_p
     }, { timeout: CONFIG.timeout });
 
-    const rawOutput = r.data?.response || r.data?.text || JSON.stringify(r.data);
+    // Processar resposta do Ollama (pode vir como stream ou objeto)
+    let rawOutput = '';
+    
+    if (typeof r.data === 'string') {
+      // Se for string, extrair apenas a resposta final do stream
+      const lines = r.data.split('\n').filter(line => line.trim());
+      let finalResponse = '';
+      
+      for (const line of lines) {
+        try {
+          const parsed = JSON.parse(line);
+          if (parsed.done === true && parsed.response) {
+            finalResponse = parsed.response;
+            break;
+          } else if (parsed.response) {
+            finalResponse += parsed.response;
+          }
+        } catch (e) {
+          // Ignorar linhas que não são JSON válido
+          continue;
+        }
+      }
+      
+      rawOutput = finalResponse || r.data;
+    } else if (r.data?.response) {
+      rawOutput = r.data.response;
+    } else if (r.data?.text) {
+      rawOutput = r.data.text;
+    } else {
+      rawOutput = JSON.stringify(r.data);
+    }
     
     // Classificar segurança da resposta
     const safety = classifyResponseSafety(rawOutput);
