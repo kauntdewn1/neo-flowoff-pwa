@@ -292,6 +292,74 @@ if (agentMessages) {
   addMessage('👋 Olá! Sou o Agente NEO FlowOff. Como posso ajudar você hoje?', 'system');
 }
 
+// Widget de Atendimento Flutuante
+const agentWidget = document.getElementById('agent-widget');
+const agentWidgetToggle = document.getElementById('agent-widget-toggle');
+const agentWidgetPopup = document.getElementById('agent-widget-popup');
+const agentWidgetClose = document.getElementById('agent-widget-close');
+
+let isWidgetOpen = false;
+
+// Função para abrir/fechar o widget
+function toggleWidget() {
+  isWidgetOpen = !isWidgetOpen;
+  
+  if (isWidgetOpen) {
+    agentWidgetPopup.classList.add('active');
+    agentWidgetToggle.style.transform = 'translateY(-2px)';
+    agentWidgetToggle.style.boxShadow = '0 12px 35px rgba(255,47,179,.5)';
+    
+    // Vibração se disponível
+    navigator.vibrate?.(30);
+  } else {
+    agentWidgetPopup.classList.remove('active');
+    agentWidgetToggle.style.transform = '';
+    agentWidgetToggle.style.boxShadow = '';
+  }
+}
+
+// Event listeners para o widget
+if (agentWidgetToggle) {
+  agentWidgetToggle.addEventListener('click', toggleWidget);
+}
+
+if (agentWidgetClose) {
+  agentWidgetClose.addEventListener('click', () => {
+    isWidgetOpen = false;
+    agentWidgetPopup.classList.remove('active');
+    agentWidgetToggle.style.transform = '';
+    agentWidgetToggle.style.boxShadow = '';
+  });
+}
+
+// Fechar widget clicando fora
+document.addEventListener('click', (e) => {
+  if (isWidgetOpen && !agentWidget.contains(e.target)) {
+    isWidgetOpen = false;
+    agentWidgetPopup.classList.remove('active');
+    agentWidgetToggle.style.transform = '';
+    agentWidgetToggle.style.boxShadow = '';
+  }
+});
+
+// Fechar widget com ESC
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && isWidgetOpen) {
+    isWidgetOpen = false;
+    agentWidgetPopup.classList.remove('active');
+    agentWidgetToggle.style.transform = '';
+    agentWidgetToggle.style.boxShadow = '';
+  }
+});
+
+// Auto-abrir widget após 3 segundos (opcional)
+setTimeout(() => {
+  if (!isWidgetOpen) {
+    // Mostrar notificação sutil
+    agentWidgetToggle.style.animation = 'pulse 1s ease-in-out 3';
+  }
+}, 3000);
+
 // Adicionar animação de pulse para destacar seções
 const style = document.createElement('style');
 style.textContent = `

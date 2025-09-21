@@ -64,22 +64,6 @@
           </div>
         </div>
 
-        <!-- Agente NEO FlowOff -->
-        <div class="agent-section">
-          <div class="agent-card neon">
-            <h2>🤖 Agente NEO FlowOff</h2>
-            <p>Converse com nosso agente inteligente para tirar dúvidas, solicitar orçamentos e conhecer nossos serviços.</p>
-            <div class="agent-iframe-container">
-              <iframe 
-                src="https://agent-neo-flowoff.vercel.app/embed" 
-                width="100%" 
-                height="600" 
-                frameborder="0"
-                style="border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-              </iframe>
-            </div>
-          </div>
-        </div>
 
         <div class="grid">
           <!-- mocks/prints -->
@@ -261,9 +245,32 @@
     <footer class="footer">
       <p class="footer-text">Agência de Marketing na blockchain | Desenvolvimento de sistemas, WebApp's e IAs</p>
     </footer>
+
+    <!-- Widget de Atendimento Flutuante -->
+    <div id="agent-widget" class="agent-widget">
+      <div class="agent-widget-toggle" id="agent-widget-toggle">
+        <img src="public/neo_ico.png" alt="NEO" class="agent-widget-icon">
+        <span class="agent-widget-text">Atendimento</span>
+      </div>
+      <div class="agent-widget-popup" id="agent-widget-popup">
+        <div class="agent-widget-header">
+          <h4>🤖 Agente NEO FlowOff</h4>
+          <button class="agent-widget-close" id="agent-widget-close">×</button>
+        </div>
+        <div class="agent-widget-iframe-container">
+          <iframe 
+            src="https://agent-neo-flowoff.vercel.app/embed" 
+            width="100%" 
+            height="500" 
+            frameborder="0"
+            style="border: none; border-radius: 10px;">
+          </iframe>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <script src="app.js?v=1.3.0" type="module"></script>
+  <script src="app.js?v=1.3.1" type="module"></script>
   <script>
     // Force CSS reload
     const link = document.querySelector('link[href*="styles.css"]');
