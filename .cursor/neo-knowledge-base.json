@@ -1,0 +1,196 @@
+{
+  "protocolo": "NΞØ",
+  "versao": "1.2.0",
+  "data_criacao": "2025-01-20",
+  "node_id": "neo-flowoff-pwa",
+  "conhecimento": {
+    "estrutura_projeto": {
+      "tipo": "PWA (Progressive Web App)",
+      "framework": "Vanilla JS + CSS + HTML",
+      "arquitetura": "SPA com router hashless",
+      "deploy": "Netlify",
+    "deploy_badge": "https://api.netlify.com/api/v1/badges/720bef8f-9a14-4807-ae2f-b41fbdb6cd44/deploy-status",
+    "deploy_url": "https://app.netlify.com/projects/flowoff",
+      "pasta_raiz": "/Users/nettomello/CODIGOS/neo-flowoff-pwa/",
+      "arquivos_principais": {
+        "html": "index.html",
+        "css": "styles.css", 
+        "js": "app.js",
+        "sw": "sw.js",
+        "manifest": "manifest.webmanifest"
+      }
+    },
+    "design_system": {
+      "cores": {
+        "bg_principal": "#0a0a0f",
+        "panel": "#0f0f16", 
+        "texto": "#e6e6f0",
+        "muted": "#9aa0aa",
+        "neon": "#ff2fb3",
+        "violeta": "#7a2cff",
+        "azul": "#00d0ff"
+      },
+      "glassmorphism": {
+        "backdrop_filter": "saturate(1.2) blur(12px)",
+        "webkit_backdrop_filter": "saturate(1.2) blur(12px)",
+        "gradiente": "linear-gradient(180deg, rgba(16,16,24,.65), rgba(8,8,12,.35))"
+      },
+      "tipografia": {
+        "fonte_principal": "-apple-system, BlinkMacSystemFont, Inter, system-ui, Segoe UI, Roboto, Ubuntu",
+        "footer_font_size": "10px",
+        "letter_spacing": "0.1px"
+      }
+    },
+    "layout_estrutura": {
+      "header": {
+        "classe": "topbar blur",
+        "glassmorphism": true,
+        "z_index": 30,
+        "posicao": "fixed top"
+      },
+      "main_content": {
+        "secoes": ["home", "projects", "start", "ecosystem"],
+        "router": "hashless",
+        "grid_cards": "2x2"
+      },
+      "tabbar": {
+        "classe": "tabbar blur",
+        "posicao": "fixed bottom",
+        "z_index": 40,
+        "botoes": ["Home", "Projetos", "Iniciar", "Ecossistema"]
+      },
+      "footer": {
+        "classe": "footer",
+        "posicao": "fixed bottom",
+        "z_index": 35,
+        "fonte": "10px",
+        "texto": "Agência de Marketing na blockchain | Desenvolvimento de sistemas, WebApp's e IAs"
+      }
+    },
+    "cards_home": {
+      "webapp": {
+        "logo": "public/logos/geometrico.png",
+        "titulo": "WebApp",
+        "descricao": "Desenvolvimento de aplicações web modernas e responsivas",
+        "css_class": "thumb-1",
+        "background_size": "cover"
+      },
+      "dashboards": {
+        "titulo": "Dashboards Gamificados", 
+        "descricao": "Transforme relatórios frios em experiências interativas com níveis, pontos e recompensas",
+        "css_class": "thumb-2",
+        "preview_gamificacao": true
+      },
+      "neo_flowoff": {
+        "logo": "public/card-logo.png",
+        "titulo": "NEØ.FLOWOFF",
+        "descricao": "Laboratório de marketing, blockchain e sistemas digitais",
+        "css_class": "thumb-5",
+        "background_size": "contain",
+        "centralizacao": true
+      },
+      "contato": {
+        "logo": "public/logos/pink_metalic.png",
+        "titulo": "Entre em contato",
+        "descricao": "Entre em contato para entender mais sobre como seu negócio pode avançar no digital. Fale com MELLØ™",
+        "css_class": "thumb-6",
+        "tamanho_icon": "80%",
+        "object_fit": "contain"
+      }
+    },
+    "secao_flowoff": {
+      "posicao": "abaixo_do_card_principal",
+      "titulo": "FlowOFF",
+      "conteudo": "FlowOFF é agência que já fez gestão de redes sociais comum, um solução que muitas empresas buscam mas não sabem que uma nova estratégia já está sendo usada e que poucos sabem ou possuem abordagem visionária de estratégias e tecnologias que fazem todo o diferencial para o rompimento das barreiras que levam aos resultados reais. Hoje oferecemos consultoria com apresentação de novas táticas e estratégias, com soluções de gestão de dados, e tecnologias que podem ser desenvolvidas para cada tipo de organização, atendendo as particularidades de cada empresa.",
+      "css_class": "flowoff-section"
+    },
+    "projetos_movidos": {
+      "poston": {
+        "origem": "home",
+        "destino": "projetos",
+        "titulo": "POSTØN",
+        "descricao": "Gestão inteligente de redes sociais com IA e automações"
+      },
+      "pro_ia": {
+        "origem": "home", 
+        "destino": "projetos",
+        "titulo": "PRO.IA",
+        "descricao": "Treinamento para transformar IA em faturamento real"
+      }
+    },
+    "sistema_cache": {
+      "problema": "Cache no celular após deploy impede visualização de atualizações",
+      "solucao_implementada": {
+        "cache_busting": {
+          "manifest_version": "1.2.0",
+          "query_strings": "?v=1.2.0",
+          "arquivos_afetados": ["styles.css", "app.js"]
+        },
+        "service_worker": {
+          "cache_version": "neo-flowoff-v1.2.0",
+          "skipWaiting": true,
+          "clients_claim": true,
+          "logs_debug": true
+        }
+      },
+      "proximos_deploys": {
+        "passos": [
+          "1. Incrementar versão no manifest.webmanifest",
+          "2. Atualizar query strings no index.html", 
+          "3. Atualizar CACHE no sw.js",
+          "4. Deploy instantâneo no celular"
+        ]
+      }
+    },
+    "compatibilidade": {
+      "glassmorphism": {
+        "safari": "Requer -webkit-backdrop-filter",
+        "chrome_firefox": "backdrop-filter padrão",
+        "fallback": "gradiente de fundo"
+      },
+      "pwa": {
+        "manifest": "manifest.webmanifest",
+        "service_worker": "sw.js",
+        "icons": "public/icons/",
+        "install_prompt": "implementado"
+      }
+    },
+    "regras_importantes": {
+      "estrutura_protegida": "NUNCA modificar pastas ou renomear arquivos sem autorização de Mellø",
+      "protocolo_neo": "Sempre responder em português, objetivo e funcional",
+      "arquitetura": "Manter estrutura trancada por arquitetura NEØ",
+      "modificacoes": "Apenas expandir conteúdo DENTRO dos documentos existentes"
+    },
+    "assets_logos": {
+      "pasta": "public/logos/",
+      "arquivos": [
+        "geometrico.png",
+        "pink_metalic.png", 
+        "card-logo.png",
+        "holografic.png",
+        "metalica.png",
+        "NEO_LAST.png",
+        "flowoff logo.png",
+        "3EE314B5-4813-459F-9387-FB0204802306.png"
+      ]
+    },
+    "debugging": {
+      "console_logs": "Service Worker com logs para debug",
+      "cache_clearing": "Deletar caches antigos automaticamente",
+      "network_first": "CSS e JS sempre da rede primeiro",
+      "fallback": "Cache como fallback para assets"
+    },
+    "performance": {
+      "lazy_loading": "Implementado",
+      "offline_support": "Service Worker ativo",
+      "caching_strategy": "Network first para CSS/JS, Cache first para assets",
+      "compression": "Assets otimizados"
+    }
+  },
+  "proximas_versoes": {
+    "incremento_versao": "Sempre atualizar manifest, query strings e CACHE",
+    "manutencao": "Manter consistência visual e funcional",
+    "expansao": "Adicionar funcionalidades dentro da estrutura existente",
+    "otimizacao": "Melhorar performance e UX"
+  }
+}
