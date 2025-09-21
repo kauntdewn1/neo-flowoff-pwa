@@ -43,6 +43,8 @@ body{
   position:fixed; top:0; left:0; right:0; z-index:30;
   display:flex; flex-direction:column; padding: env(safe-area-inset-top) 16px 8px;
   border-bottom:1px solid rgba(255,255,255,.06);
+  backdrop-filter: saturate(1.2) blur(12px);
+  background: linear-gradient(180deg, rgba(16,16,24,.65), rgba(8,8,12,.35));
 }
 .status-spacer{height: calc(env(safe-area-inset-top))}
 .large-title{
@@ -130,7 +132,7 @@ main{
 .thumb-4{background-image:linear-gradient(135deg, rgba(0,208,255,.3), transparent), url('public/logos/proia.png'); background-size:cover; opacity:.9}
 
 /* Card 5: NEØ.FLOWOFF */
-.thumb-5{background-image:linear-gradient(135deg, rgba(255,47,179,.3), transparent), url('public/flowoff logo.png'); background-size:cover; opacity:.9}
+.thumb-5{background-image:linear-gradient(135deg, rgba(255,47,179,.3), transparent), url('public/card-logo.png'); background-size:cover; opacity:.9}
 
 /* Card 6: Contato MELLØ */
 .thumb-6{
