@@ -1,6 +1,6 @@
 {
   "protocolo": "NΞØ",
-  "versao": "1.2.0",
+  "versao": "1.3.0",
   "data_criacao": "2025-01-20",
   "node_id": "neo-flowoff-pwa",
   "conhecimento": {
@@ -186,6 +186,66 @@
       "offline_support": "Service Worker ativo",
       "caching_strategy": "Network first para CSS/JS, Cache first para assets",
       "compression": "Assets otimizados"
+    },
+    "agente_neo_integracao": {
+      "versao": "1.3.0",
+      "data_implementacao": "2025-01-20",
+      "funcionalidades": {
+        "iframe_embed": {
+          "url": "https://agent-neo-flowoff.vercel.app/embed",
+          "posicao": "Seção dedicada na home",
+          "responsivo": true,
+          "altura_desktop": "600px",
+          "altura_mobile": "400px-500px"
+        },
+        "api_client": {
+          "base_url": "https://agent-neo-flowoff.vercel.app/api",
+          "endpoints": {
+            "chat": "POST /api/chat",
+            "leads": "GET /api/leads", 
+            "health": "GET /api/health"
+          },
+          "session_management": "Automático com ID único",
+          "error_handling": "Implementado com fallbacks"
+        },
+        "modal_interativo": {
+          "posicao": "Overlay modal",
+          "funcionalidades": [
+            "Chat em tempo real",
+            "Indicador de digitação",
+            "Histórico de mensagens",
+            "Ações do agente",
+            "Visualização de leads"
+          ],
+          "ux": "iOS-like com glassmorphism"
+        },
+        "botao_acesso_rapido": {
+          "posicao": "Tabbar (último botão)",
+          "estilo": "Circular com gradiente neon-azul",
+          "icone": "🤖",
+          "animacoes": "Hover, active, shimmer effect"
+        }
+      },
+      "estilos_css": {
+        "agent_section": "Card com glassmorphism e gradientes",
+        "agent_modal": "Modal responsivo com backdrop blur",
+        "agent_btn": "Botão circular com animações",
+        "agent_messages": "Chat bubbles com scroll personalizado",
+        "responsividade": "Mobile-first com breakpoints"
+      },
+      "javascript_features": {
+        "neo_agent_client": "Classe para comunicação com API",
+        "modal_functionality": "Abertura, fechamento, interação",
+        "message_handling": "Envio, recebimento, formatação",
+        "error_handling": "Try-catch com feedback visual",
+        "session_management": "ID único por sessão"
+      },
+      "integracao_endpoints": {
+        "chat": "Envio de mensagens com sessionId",
+        "leads": "Listagem de leads capturados",
+        "health": "Verificação de status do agente",
+        "embed": "Iframe para interface visual"
+      }
     }
   },
   "proximas_versoes": {

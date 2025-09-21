@@ -1,4 +1,4 @@
-const CACHE = 'neo-flowoff-v1.2.0';
+const CACHE = 'neo-flowoff-v1.3.0';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js',
   './manifest.webmanifest', './public/icon-192.png', './public/icon-512.png', './public/maskable-512.png',

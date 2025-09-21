@@ -14,7 +14,7 @@
   <link rel="apple-touch-icon" href="public/icons/icon-192x192.webp">
   <link rel="manifest" href="manifest.webmanifest">
   <title>NEØ.FLOWOFF</title>
-  <link rel="stylesheet" href="styles.css?v=1.2.0">
+  <link rel="stylesheet" href="styles.css?v=1.3.0">
 </head>
 <body>
   <!-- App Shell -->
@@ -61,6 +61,23 @@
           <div class="flowoff-card neon">
             <h2>FlowOFF</h2>
             <p>FlowOFF é agência que já fez gestão de redes sociais comum, um solução que muitas empresas buscam mas não sabem que uma nova estratégia já está sendo usada e que poucos sabem ou possuem abordagem visionária de estratégias e tecnologias que fazem todo o diferencial para o rompimento das barreiras que levam aos resultados reais. Hoje oferecemos consultoria com apresentação de novas táticas e estratégias, com soluções de gestão de dados, e tecnologias que podem ser desenvolvidas para cada tipo de organização, atendendo as particularidades de cada empresa.</p>
+          </div>
+        </div>
+
+        <!-- Agente NEO FlowOff -->
+        <div class="agent-section">
+          <div class="agent-card neon">
+            <h2>🤖 Agente NEO FlowOff</h2>
+            <p>Converse com nosso agente inteligente para tirar dúvidas, solicitar orçamentos e conhecer nossos serviços.</p>
+            <div class="agent-iframe-container">
+              <iframe 
+                src="https://agent-neo-flowoff.vercel.app/embed" 
+                width="100%" 
+                height="600" 
+                frameborder="0"
+                style="border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+              </iframe>
+            </div>
           </div>
         </div>
 
@@ -206,6 +223,27 @@
         </form>
       </dialog>
 
+      <!-- Modal do Agente NEO -->
+      <dialog id="agent-modal" class="sheet agent-modal">
+        <div class="sheet-body">
+          <div class="agent-modal-header">
+            <h3>🤖 Agente NEO FlowOff</h3>
+            <button class="agent-close" data-close="agent-modal">×</button>
+          </div>
+          <div class="agent-chat-container">
+            <div id="agent-messages" class="agent-messages"></div>
+            <div class="agent-input-container">
+              <input type="text" id="agent-input" placeholder="Digite sua mensagem..." autocomplete="off">
+              <button id="agent-send" class="agent-send-btn">Enviar</button>
+            </div>
+          </div>
+          <div class="agent-actions">
+            <button class="btn ghost small" id="agent-clear">Limpar</button>
+            <button class="btn ghost small" id="agent-leads">Ver Leads</button>
+          </div>
+        </div>
+      </dialog>
+
       <!-- Offline banner -->
       <div id="offline" class="offline">Sem conexão. Funcionalidades limitadas.</div>
     </main>
@@ -216,6 +254,7 @@
       <button data-route="projects">Projetos</button>
       <button data-route="start">Iniciar</button>
       <button data-route="ecosystem">Ecossistema</button>
+      <button id="agent-quick-access" class="agent-btn">🤖</button>
     </nav>
 
     <!-- Footer iOS-like -->
@@ -224,7 +263,7 @@
     </footer>
   </div>
 
-  <script src="app.js?v=1.2.0" type="module"></script>
+  <script src="app.js?v=1.3.0" type="module"></script>
   <script>
     // Force CSS reload
     const link = document.querySelector('link[href*="styles.css"]');
