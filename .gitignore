@@ -82,3 +82,9 @@ jspm_packages/
 .Trashes
 ehthumbs.db
 Thumbs.db
+# SSL Certificates and Keys
+*.key
+*.crt
+*.pem
+*.p12
+*.pfx
