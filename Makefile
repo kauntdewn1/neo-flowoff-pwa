@@ -33,6 +33,7 @@ build: ## Build da PWA (otimiza assets)
 	@cp app.js dist/
 	@cp manifest.webmanifest dist/
 	@cp sw.js dist/
+	@cp p5-background.js dist/
 	@# Copia diretório public
 	@cp -r public dist/
 	@# Otimiza HTML (remove comentários e espaços desnecessários)
