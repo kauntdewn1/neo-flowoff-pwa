@@ -14,7 +14,7 @@
   <link rel="apple-touch-icon" href="public/icons/icon-192x192.webp">
   <link rel="manifest" href="manifest.webmanifest">
   <title>NEØ.FLOWOFF</title>
-  <link rel="stylesheet" href="styles.css?v=1.4.1">
+  <link rel="stylesheet" href="styles.css?v=1.4.2">
 </head>
 <body>
   <!-- App Shell -->
@@ -26,8 +26,17 @@
     </div>
 
     <!-- Topbar com grande título iOS-like -->
-    <header class="topbar blur">
+    <header class="topbar blur" id="main-header">
       <div class="status-spacer"></div>
+      <div class="header-content">
+        <div class="header-title">
+          <h1 class="large-title">Agência de Marketing</h1>
+          <h2 class="large-subtitle">na blockchain</h2>
+        </div>
+        <div class="header-logo">
+          <img src="public/flowoff logo.png" alt="FlowOFF" class="header-logo-img">
+        </div>
+      </div>
       <div class="compact-title"></div>
     </header>
 
@@ -317,9 +326,9 @@
 
   <!-- p5.js para efeitos visuais -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
-  <script src="p5-background.js?v=1.4.1"></script>
+  <script src="p5-background.js?v=1.4.2"></script>
   
-  <script src="app.js?v=1.4.1" type="module"></script>
+  <script src="app.js?v=1.4.2" type="module"></script>
   <script>
     // Force CSS reload
     const link = document.querySelector('link[href*="styles.css"]');
@@ -421,6 +430,33 @@
       localStorage.removeItem('pwa-dismissed');
       console.log('Estado PWA limpo');
     };
+
+    // Efeito de blur no header durante scroll
+    const header = document.getElementById('main-header');
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    function updateHeader() {
+      const scrollY = window.scrollY;
+      
+      if (scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      
+      lastScrollY = scrollY;
+      ticking = false;
+    }
+
+    function requestTick() {
+      if (!ticking) {
+        requestAnimationFrame(updateHeader);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', requestTick, { passive: true });
   </script>
 </body>
 </html>
