@@ -4,57 +4,156 @@
 <meta charset="utf-8">
 <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#0a0a0f">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="cache-control" content="no-cache">
 
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="apple-touch-icon" href="public/icon-192.png">
+<link rel="apple-touch-icon" href="public/icons/icon-192x192.webp">
 <link rel="manifest" href="manifest.webmanifest">
 <title>NEØ.FLOWOFF</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=1.4.1">
 </head>
 <body>
 
 <div id="app">
 
 
+<div class="floating-logo">
+<img src="public/flowoff logo.png" alt="NEØ.FLOWOFF" class="logo-img">
+</div>
+
+
 <header class="topbar blur">
 <div class="status-spacer"></div>
-<div class="large-title" data-title="NEØ.FLOWOFF">NEØ.FLOWOFF</div>
-<div class="compact-title">NEØ.FLOWOFF</div>
+<div class="compact-title"></div>
 </header>
+
+
+<div id="pwa-install-banner" class="pwa-banner">
+<div class="pwa-content">
+<div class="pwa-icon">📱</div>
+<div class="pwa-text">
+<strong>Instale o app</strong>
+<span>Adicione à tela inicial para acesso rápido</span>
+</div>
+<button id="pwa-install-btn" class="pwa-btn">Instalar</button>
+<button id="pwa-dismiss" class="pwa-dismiss">×</button>
+</div>
+</div>
 
 
 <main id="router">
 
 <section class="route active" id="home">
 <div class="hero-card neon">
-<h1>NEØ.FLOWOFF</h1>
-<b>NEØ.FLOWOFF</b>laboratório de marketing, blockchain e sistemas digitais.</p>
+<h1>Agência de Marketing na blockchain</h1>
+<p>Marketing com tecnologias e soluções | Desenvolvemos sistemas, WebApp's e Tokens</p>
 <div class="cta-row">
-<button class="btn primary" data-open="lead">Iniciar projeto</button>
-<a class="btn ghost" href="https://wa.me/5551999999999" target="_blank" rel="noopener">WhatsApp</a>
+<a class="btn primary" href="https://wa.me/+5562983231110" target="_blank" rel="noopener">Iniciar projeto</a>
 </div>
 </div>
+
+
+<div class="flowoff-section">
+<div class="flowoff-card neon">
+<div class="flowoff-header">
+<div class="flowoff-logo">
+<img src="public/flowoff logo.png" alt="FlowOFF" class="flowoff-logo-img">
+</div>
+<div class="flowoff-title">
+<h2>FlowOFF</h2>
+<span class="flowoff-subtitle">Agência de Marketing Blockchain</span>
+</div>
+</div>
+
+<div class="flowoff-content">
+<p class="flowoff-description">
+FlowOFF é agência que já fez gestão de redes sociais comum, uma solução que muitas empresas buscam mas não sabem que uma nova estratégia já está sendo usada e que poucos sabem ou possuem abordagem visionária de estratégias e tecnologias que fazem todo o diferencial para o rompimento das barreiras que levam aos resultados reais.
+</p>
+
+<div class="flowoff-features">
+<div class="feature-item">
+<div class="feature-icon">🎯</div>
+<div class="feature-text">
+<h4>Consultoria Estratégica</h4>
+<p>Novas táticas e estratégias personalizadas</p>
+</div>
+</div>
+
+<div class="feature-item">
+<div class="feature-icon">📊</div>
+<div class="feature-text">
+<h4>Gestão de Dados</h4>
+<p>Soluções inteligentes para cada organização</p>
+</div>
+</div>
+
+<div class="feature-item">
+<div class="feature-icon">🚀</div>
+<div class="feature-text">
+<h4>Tecnologias Avançadas</h4>
+<p>Desenvolvimento sob medida para seu negócio</p>
+</div>
+</div>
+</div>
+
+<div class="flowoff-cta">
+<a href="https://wa.me/+5562983231110" target="_blank" rel="noopener" class="btn primary flowoff-btn">
+<span>Falar com MELLØ™</span>
+<div class="btn-shimmer"></div>
+</a>
+</div>
+</div>
+</div>
+</div>
+
 
 <div class="grid">
 
 <article class="card glow">
 <div class="thumb thumb-1"></div>
-<h3>WebApp • Dash Gamificado</h3>
-<p>Arquitetura escalável, autenticação e tokens de recompensa.</p>
+<h3>WebApp</h3>
+<p>Desenvolvimento de aplicações web modernas e responsivas.</p>
 </article>
 
 <article class="card glow">
-<div class="thumb thumb-2"></div>
-<h3>POSTØN</h3>
-<p>Gestão inteligente de redes sociais com IA e automações.</p>
+<div class="thumb thumb-2">
+<div class="gamification-preview">
+<div class="xp-bar">
+<div class="xp-fill"></div>
+<span class="xp-text">Level 12</span>
+</div>
+<div class="badges-row">
+<div class="badge-icon">🏆</div>
+<div class="badge-icon">⭐</div>
+<div class="badge-icon">🎯</div>
+</div>
+<div class="leaderboard-mini">
+<div class="leader-item">1. Ana Silva</div>
+<div class="leader-item">2. João Santos</div>
+<div class="leader-item">3. Maria Costa</div>
+</div>
+</div>
+</div>
+<h3>Dashboards Gamificados</h3>
+<p>Transforme relatórios frios em experiências interativas com níveis, pontos e recompensas.</p>
 </article>
 
 <article class="card glow">
-<div class="thumb thumb-3"></div>
-<h3>PRO.IA</h3>
-<p>Treinamento para transformar IA em faturamento real.</p>
+<div class="thumb thumb-5"></div>
+<h3>NEØ.FLOWOFF</h3>
+<p>Laboratório de marketing, blockchain e sistemas digitais.</p>
+</article>
+
+<article class="card glow">
+<div class="thumb thumb-6">
+<img src="public/logos/pink_metalic.png" alt="Contato MELLØ" class="contact-icon">
+</div>
+<h3>Entre em contato</h3>
+<p>Entre em contato para entender mais sobre como seu negócio pode avançar no digital. Fale com MELLØ™</p>
 </article>
 </div>
 </section>
@@ -81,6 +180,20 @@
 <div>
 <h4>Integração cripto</h4>
 <p>Wallet, pagamentos, tokens. Sem teatrinho.</p>
+</div>
+<button class="chip">ver</button>
+</div>
+<div class="list-item">
+<div>
+<h4>POSTØN</h4>
+<p>Gestão inteligente de redes sociais com IA e automações.</p>
+</div>
+<button class="chip">ver</button>
+</div>
+<div class="list-item">
+<div>
+<h4>PRO.IA</h4>
+<p>Treinamento para transformar IA em faturamento real.</p>
 </div>
 <button class="chip">ver</button>
 </div>
@@ -120,6 +233,10 @@
 <div><b>NEØ Protocol</b><span>Camada tecnológica</span></div>
 </div>
 <div class="badge glass">
+<img alt="POSTØN" src="public/icon-512x512.png">
+<div><b>POSTØN</b><span>Gestão de redes sociais</span></div>
+</div>
+<div class="badge glass">
 <img alt="NEØ.FLOWOFF" src="public/flowoff logo.png">
 <div><b>NEØ.FLOWOFF</b><span>Assinatura criativa</span></div>
 </div>
@@ -137,6 +254,27 @@
 </dialog>
 
 
+<dialog id="agent-modal" class="sheet agent-modal">
+<div class="sheet-body">
+<div class="agent-modal-header">
+<h3>🤖 Agente NEO FlowOff</h3>
+<button class="agent-close" data-close="agent-modal">×</button>
+</div>
+<div class="agent-chat-container">
+<div id="agent-messages" class="agent-messages"></div>
+<div class="agent-input-container">
+<input type="text" id="agent-input" placeholder="Digite sua mensagem..." autocomplete="off">
+<button id="agent-send" class="agent-send-btn">Enviar</button>
+</div>
+</div>
+<div class="agent-actions">
+<button class="btn ghost small" id="agent-clear">Limpar</button>
+<button class="btn ghost small" id="agent-leads">Ver Leads</button>
+</div>
+</div>
+</dialog>
+
+
 <div id="offline" class="offline">Sem conexão. Funcionalidades limitadas.</div>
 </main>
 
@@ -147,8 +285,142 @@
 <button data-route="start">Iniciar</button>
 <button data-route="ecosystem">Ecossistema</button>
 </nav>
+
+
+<footer class="footer">
+<p class="footer-text">Agência de Marketing na blockchain | Desenvolvimento de sistemas, WebApp's e IAs</p>
+</footer>
+
+
+<div id="agent-widget" class="agent-widget">
+<div class="agent-widget-toggle" id="agent-widget-toggle">
+<img src="public/neo_ico.png" alt="NEO" class="agent-widget-icon">
+<span class="agent-widget-text">Atendimento</span>
+</div>
+<div class="agent-widget-popup" id="agent-widget-popup">
+<div class="agent-widget-header">
+<h4>🤖 Agente NEO FlowOff</h4>
+<button class="agent-widget-close" id="agent-widget-close">×</button>
+</div>
+<div class="agent-widget-iframe-container">
+<iframe
+src="https://agent-neo-flowoff.vercel.app/embed"
+width="100%"
+height="500"
+frameborder="0"
+style="border: none; border-radius: 10px;">
+</iframe>
+</div>
+</div>
+</div>
 </div>
 
-<script src="app.js" type="module"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+<script src="p5-background.js?v=1.4.1"></script>
+
+<script src="app.js?v=1.4.1" type="module"></script>
+<script>
+// Force CSS reload
+const link = document.querySelector('link[href*="styles.css"]');
+if (link) {
+link.href = link.href.split('?')[0] + '?v=' + Date.now();
+}
+
+// PWA Install Banner
+let deferredPrompt;
+let bannerShown = false;
+const pwaBanner = document.getElementById('pwa-install-banner');
+const installBtn = document.getElementById('pwa-install-btn');
+const dismissBtn = document.getElementById('pwa-dismiss');
+
+// Verificar se já foi instalado ou dispensado
+if (localStorage.getItem('pwa-dismissed') === 'true' || window.matchMedia('(display-mode: standalone)').matches) {
+pwaBanner.style.display = 'none';
+}
+
+// Escutar evento beforeinstallprompt
+window.addEventListener('beforeinstallprompt', (e) => {
+console.log('PWA install prompt disponível');
+e.preventDefault();
+deferredPrompt = e;
+
+// Mostrar banner apenas se não foi dispensado
+if (localStorage.getItem('pwa-dismissed') !== 'true') {
+pwaBanner.style.display = 'block';
+pwaBanner.classList.add('show');
+bannerShown = true;
+console.log('Banner PWA exibido');
+}
+});
+
+// Botão instalar
+installBtn.addEventListener('click', async () => {
+if (deferredPrompt) {
+console.log('Tentando instalar PWA...');
+try {
+deferredPrompt.prompt();
+const { outcome } = await deferredPrompt.userChoice;
+console.log('Resultado da instalação:', outcome);
+
+if (outcome === 'accepted') {
+pwaBanner.style.display = 'none';
+pwaBanner.classList.remove('show');
+bannerShown = false;
+console.log('PWA instalado com sucesso');
+}
+deferredPrompt = null;
+} catch (error) {
+console.error('Erro ao instalar PWA:', error);
+}
+}
+});
+
+// Botão dispensar
+dismissBtn.addEventListener('click', () => {
+pwaBanner.style.display = 'none';
+pwaBanner.classList.remove('show');
+bannerShown = false;
+localStorage.setItem('pwa-dismissed', 'true');
+console.log('Banner PWA dispensado');
+});
+
+// Auto-hide após 15 segundos (aumentado)
+setTimeout(() => {
+if (bannerShown && pwaBanner.style.display !== 'none') {
+console.log('Auto-hiding PWA banner');
+pwaBanner.style.opacity = '0';
+setTimeout(() => {
+pwaBanner.style.display = 'none';
+pwaBanner.classList.remove('show');
+bannerShown = false;
+}, 300);
+}
+}, 15000);
+
+// Detectar se PWA foi instalado
+window.addEventListener('appinstalled', () => {
+console.log('PWA foi instalado');
+pwaBanner.style.display = 'none';
+pwaBanner.classList.remove('show');
+bannerShown = false;
+});
+
+// Função para testar o banner manualmente (debug)
+window.testPWAInstall = () => {
+if (pwaBanner) {
+pwaBanner.style.display = 'block';
+pwaBanner.classList.add('show');
+bannerShown = true;
+console.log('Banner PWA exibido manualmente');
+}
+};
+
+// Função para limpar o estado do banner (debug)
+window.clearPWAState = () => {
+localStorage.removeItem('pwa-dismissed');
+console.log('Estado PWA limpo');
+};
+</script>
 </body>
 </html>
