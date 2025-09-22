@@ -346,8 +346,25 @@ main{
   backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,.1);
   padding:12px 16px; transform:translateY(-100%); transition:all .3s ease;
   display:none;
+  opacity: 0;
 }
-.pwa-banner.show{transform:translateY(0); display:block}
+.pwa-banner.show{
+  transform:translateY(0); 
+  display:block;
+  opacity: 1;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 .pwa-content{
   display:flex; align-items:center; gap:12px; max-width:400px; margin:0 auto;
 }
@@ -752,4 +769,76 @@ main{
 
 .agent-widget-toggle:hover::before {
   left: 100%;
+}
+
+/* === P5.JS BACKGROUND INTEGRATION === */
+#app {
+  position: relative;
+  z-index: 1;
+}
+
+/* Canvas p5.js como fundo */
+canvas {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  opacity: 0.6; /* Opacidade aumentada para estrelas */
+  mix-blend-mode: screen;
+  filter: none; /* Sem blur para estrelas nítidas */
+}
+
+/* Melhorar contraste dos elementos sobre o fundo animado */
+.hero-card,
+.card,
+.flowoff-section .flowoff-card {
+  backdrop-filter: saturate(1.3) blur(16px);
+  background: linear-gradient(180deg, rgba(15,15,22,.85), rgba(8,8,12,.75));
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+/* Efeito de profundidade nos cards */
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(0,0,0,.4);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Melhorar legibilidade do texto */
+.hero-card h1,
+.hero-card p,
+.card h3,
+.card p {
+  text-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+
+/* Efeito de interação com partículas */
+.hero-card:hover,
+.card:hover {
+  backdrop-filter: saturate(1.4) blur(20px);
+  transition: backdrop-filter 0.3s ease;
+}
+
+/* Performance: reduzir efeitos em mobile */
+@media (max-width: 768px) {
+  canvas {
+    opacity: 0.5; /* Opacidade adequada para estrelas em mobile */
+    filter: none;
+  }
+  
+  .hero-card,
+  .card,
+  .flowoff-section .flowoff-card {
+    backdrop-filter: saturate(1.2) blur(12px);
+  }
+}
+
+/* Desabilitar efeitos em dispositivos de baixa performance */
+@media (prefers-reduced-motion: reduce) {
+  canvas {
+    display: none;
+  }
 }
