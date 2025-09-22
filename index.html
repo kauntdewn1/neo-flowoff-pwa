@@ -14,7 +14,7 @@
   <link rel="apple-touch-icon" href="public/icons/icon-192x192.webp">
   <link rel="manifest" href="manifest.webmanifest">
   <title>NEØ.FLOWOFF</title>
-  <link rel="stylesheet" href="styles.css?v=1.4.2">
+  <link rel="stylesheet" href="styles.css?v=1.4.3">
 </head>
 <body>
   <!-- App Shell -->
@@ -283,6 +283,59 @@
         </div>
       </dialog>
 
+      <!-- Rota Blog -->
+      <div class="route" id="blog">
+        <div class="hero-card neon">
+          <h1 class="large-title">Blog FlowOFF</h1>
+          <p class="hero-subtitle">Estratégias de Marketing Blockchain e Crescimento Digital</p>
+        </div>
+        
+        <div class="blog-preview">
+          <div class="blog-stats">
+            <div class="stat">
+              <span class="stat-number">50+</span>
+              <span class="stat-label">Artigos</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">10K+</span>
+              <span class="stat-label">Leitores</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">95%</span>
+              <span class="stat-label">Satisfação</span>
+            </div>
+          </div>
+          
+          <div class="blog-articles-preview">
+            <h3>Artigos Recentes</h3>
+            <div class="articles-grid">
+              <div class="article-preview">
+                <h4>Marketing Blockchain: Estratégias para 2024</h4>
+                <p>Descubra as melhores estratégias de marketing para empresas blockchain em 2024.</p>
+                <span class="article-meta">8 min • Marketing</span>
+              </div>
+              <div class="article-preview">
+                <h4>Como Implementar PWA com Service Workers</h4>
+                <p>Guia completo para implementar Progressive Web Apps com Service Workers.</p>
+                <span class="article-meta">12 min • Tecnologia</span>
+              </div>
+              <div class="article-preview">
+                <h4>Estratégias de Crescimento para Startups Blockchain</h4>
+                <p>Como startups blockchain podem acelerar seu crescimento com estratégias digitais.</p>
+                <span class="article-meta">10 min • Estratégia</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="blog-cta">
+            <a href="/blog" class="btn primary">
+              <span>Ver Todos os Artigos</span>
+              <div class="btn-shimmer"></div>
+            </a>
+          </div>
+        </div>
+      </div>
+
       <!-- Offline banner -->
       <div id="offline" class="offline">Sem conexão. Funcionalidades limitadas.</div>
     </main>
@@ -293,6 +346,7 @@
       <button data-route="projects">Projetos</button>
       <button data-route="start">Iniciar</button>
       <button data-route="ecosystem">Ecossistema</button>
+      <button data-route="blog">Blog</button>
     </nav>
 
     <!-- Footer iOS-like -->
@@ -326,9 +380,9 @@
 
   <!-- p5.js para efeitos visuais -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
-  <script src="p5-background.js?v=1.4.2"></script>
+  <script src="p5-background.js?v=1.4.3"></script>
   
-  <script src="app.js?v=1.4.2" type="module"></script>
+  <script src="app.js?v=1.4.3" type="module"></script>
   <script>
     // Force CSS reload
     const link = document.querySelector('link[href*="styles.css"]');
