@@ -393,25 +393,46 @@
     const installBtn = document.getElementById('pwa-install-btn');
     const dismissBtn = document.getElementById('pwa-dismiss');
 
+    // Debug: Log inicial
+    console.log('🔍 PWA Banner Debug:');
+    console.log('- Banner element:', pwaBanner);
+    console.log('- Install button:', installBtn);
+    console.log('- Dismiss button:', dismissBtn);
+    console.log('- PWA dismissed:', localStorage.getItem('pwa-dismissed'));
+    console.log('- Standalone mode:', window.matchMedia('(display-mode: standalone)').matches);
+
     // Verificar se já foi instalado ou dispensado
     if (localStorage.getItem('pwa-dismissed') === 'true' || window.matchMedia('(display-mode: standalone)').matches) {
+      console.log('🚫 Banner ocultado: já foi dispensado ou está em modo standalone');
       pwaBanner.style.display = 'none';
     }
 
     // Escutar evento beforeinstallprompt
     window.addEventListener('beforeinstallprompt', (e) => {
-      console.log('PWA install prompt disponível');
+      console.log('📱 PWA install prompt disponível');
       e.preventDefault();
       deferredPrompt = e;
       
       // Mostrar banner apenas se não foi dispensado
       if (localStorage.getItem('pwa-dismissed') !== 'true') {
+        console.log('✅ Exibindo banner PWA');
         pwaBanner.style.display = 'block';
         pwaBanner.classList.add('show');
         bannerShown = true;
-        console.log('Banner PWA exibido');
+      } else {
+        console.log('🚫 Banner não exibido: já foi dispensado');
       }
     });
+
+    // Fallback: Mostrar banner após 3 segundos se não foi dispensado (para teste)
+    setTimeout(() => {
+      if (!bannerShown && localStorage.getItem('pwa-dismissed') !== 'true' && !window.matchMedia('(display-mode: standalone)').matches) {
+        console.log('⏰ Fallback: Exibindo banner após timeout');
+        pwaBanner.style.display = 'block';
+        pwaBanner.classList.add('show');
+        bannerShown = true;
+      }
+    }, 3000);
 
     // Botão instalar
     installBtn.addEventListener('click', async () => {
