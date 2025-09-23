@@ -21,23 +21,6 @@ body{
 
 .blur{backdrop-filter:saturate(1.2) blur(12px); background:linear-gradient(180deg, rgba(16,16,24,.65), rgba(8,8,12,.35)); -webkit-backdrop-filter:saturate(1.2) blur(12px);}
 
-/* Logo flutuante */
-.floating-logo{
-  position:fixed; top:20px; right:20px; z-index:60;
-  animation: float 3s ease-in-out infinite;
-}
-.logo-img{
-  width:60px; height:60px; border-radius:12px;
-  filter: drop-shadow(0 8px 20px rgba(255,47,179,.4));
-  transition: transform .3s ease;
-}
-.logo-img:hover{
-  transform: scale(1.1);
-}
-@keyframes float{
-  0%, 100%{transform: translateY(0px)}
-  50%{transform: translateY(-8px)}
-}
 
 .topbar{
   position:fixed; top:0; left:0; right:0; z-index:30;

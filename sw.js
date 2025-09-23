@@ -13,7 +13,18 @@ const ASSETS = [
 
 self.addEventListener('install', e=>{
   console.log('SW: Installing new version...');
-  e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));
+  e.waitUntil(
+    caches.open(CACHE).then(cache => {
+      return Promise.allSettled(
+        ASSETS.map(asset => 
+          cache.add(asset).catch(err => {
+            console.warn(`SW: Failed to cache ${asset}:`, err);
+            return null;
+          })
+        )
+      );
+    })
+  );
   self.skipWaiting(); // Força atualização imediata
 });
 
