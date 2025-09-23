@@ -4,7 +4,7 @@
 const axios = require('axios');
 
 // URL base da Netlify (substitua pela sua URL)
-const BASE_URL = 'https://neo-flowoff-pwa.netlify.app'; // Substitua pela sua URL
+const BASE_URL = 'https://neo-flowoff.netlify.app'; // URL correta do site
 const API_ENDPOINT = '/api/invertexto';
 
 // Cores para console
