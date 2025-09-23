@@ -363,8 +363,9 @@ function detectDesktop() {
 }
 
     // Executar detecção quando a página carregar
-    if (!detectDesktop()) {
-      // Force CSS reload
+    detectDesktop();
+    
+    // Force CSS reload
 const link = document.querySelector('link[href*="styles.css"]');
 if (link) {
   link.href = link.href.split('?')[0] + '?v=' + Date.now();
@@ -512,7 +513,6 @@ ticking = true;
 }
 
     window.addEventListener('scroll', requestTick, { passive: true });
-    }
   </script>
 </body>
 </html>
