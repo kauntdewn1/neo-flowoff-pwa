@@ -1,4 +1,4 @@
-const CACHE = 'neo-flowoff-v1.4.6';
+const CACHE = 'neo-flowoff-v1.4.6-final';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js', './p5-background.js',
   './blog.html', './blog-styles.css', './blog.js', './data/blog-articles.json',
