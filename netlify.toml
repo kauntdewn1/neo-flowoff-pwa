@@ -52,11 +52,8 @@
   status = 200
   conditions = {Role = ["admin"], Country = ["US"]}
 
-# Redirects para SPA
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Redirects para SPA (apenas para rotas que não são arquivos estáticos)
+# Removido redirect duplicado que estava causando problemas com arquivos estáticos
 
 # Configurações de deploy
 [context.production]
