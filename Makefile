@@ -34,6 +34,17 @@ build: ## Build da PWA (otimiza assets)
 	@cp manifest.webmanifest dist/
 	@cp sw.js dist/
 	@cp p5-background.js dist/
+	@# Copia arquivos CSS e JS adicionais
+	@cp glass-morphism-bottom-bar.css dist/ 2>/dev/null || true
+	@cp glass-morphism-bottom-bar.js dist/ 2>/dev/null || true
+	@cp invertexto-simple.js dist/ 2>/dev/null || true
+	@cp webp-support.js dist/ 2>/dev/null || true
+	@cp test-glass-morphism.js dist/ 2>/dev/null || true
+	@cp test-update-system.js dist/ 2>/dev/null || true
+	@cp blog.html dist/ 2>/dev/null || true
+	@cp blog-styles.css dist/ 2>/dev/null || true
+	@cp blog.js dist/ 2>/dev/null || true
+	@cp desktop.html dist/ 2>/dev/null || true
 	@# Copia diretório public
 	@cp -r public dist/
 	@# Otimiza HTML (remove comentários e espaços desnecessários)
