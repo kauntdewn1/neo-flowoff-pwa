@@ -1575,14 +1575,7 @@ canvas {
   color: #f59e0b;
 }
 
-/* Campos com validação */
-.form input:valid {
-  border-color: #4ade80;
-}
-
-.form input:invalid {
-  border-color: #ef4444;
-}
+/* Campos com validação - apenas mensagens de texto */
 
 /* Loading spinner para validação */
 .validation-loading {
