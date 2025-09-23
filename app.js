@@ -101,7 +101,6 @@ class NEOAgentClient {
       throw error;
     }
   }
-*/
 
   async checkHealth() {
     try {
