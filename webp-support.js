@@ -19,11 +19,42 @@ class WebPSupport {
   updateImages() {
     const images = document.querySelectorAll('img[src*=".png"]');
     
+    // Lista de arquivos que têm versão WebP disponível
+    const webpAvailable = [
+      'public/card.png',
+      'public/flowoff logo.png',
+      'public/icon-512.png',
+      'public/poston.png',
+      'public/poston_home.png',
+      'public/logos/card-logo.png',
+      'public/logos/flowoff logo.png',
+      'public/logos/proia.png',
+      'public/logos/NEO_LAST.png',
+      'public/logos/POSTON.png',
+      'public/logos/geometrico.png',
+      'public/logos/holografic.png',
+      'public/logos/metalica.png',
+      'public/logos/pink_metalic.png',
+      'public/icons/icon-48x48.png',
+      'public/icons/icon-72x72.png',
+      'public/icons/icon-96x96.png',
+      'public/icons/icon-128x128.png',
+      'public/icons/icon-144x144.png',
+      'public/icons/icon-152x152.png',
+      'public/icons/icon-192x192.png',
+      'public/icons/icon-256x256.png',
+      'public/icons/icon-384x384.png',
+      'public/icons/icon-512x512.png'
+    ];
+    
     images.forEach(img => {
       const pngSrc = img.src;
       const webpSrc = pngSrc.replace('.png', '.webp');
       
-      if (this.supportsWebP) {
+      // Só tentar converter se o arquivo WebP existe
+      const hasWebP = webpAvailable.some(file => pngSrc.includes(file));
+      
+      if (this.supportsWebP && hasWebP) {
         // Criar nova imagem WebP
         const webpImg = new Image();
         webpImg.onload = () => {
