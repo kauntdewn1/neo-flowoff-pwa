@@ -634,6 +634,22 @@ main{
   100%{transform:translateX(100%)}
 }
 
+/* Barra de progresso do ecossistema */
+.ecosystem-progress {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-label {
+  font-size: 10px;
+  color: var(--neon);
+  font-weight: 600;
+  text-align: center;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
 @keyframes badgeFloat{
   0%, 100%{transform:translateY(0px)}
   50%{transform:translateY(-2px)}
