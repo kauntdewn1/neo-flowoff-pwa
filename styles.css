@@ -674,6 +674,9 @@ main{
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .gpt-card {
