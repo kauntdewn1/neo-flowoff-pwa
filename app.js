@@ -1,6 +1,26 @@
-// Registro do SW
+// Registro do Service Worker
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+  window.addEventListener('load', async () => {
+    try {
+      const registration = await navigator.serviceWorker.register('./sw.js');
+      console.log('✅ Service Worker registrado com sucesso:', registration.scope);
+      
+      // Verificar se há atualizações
+      registration.addEventListener('updatefound', () => {
+        console.log('🔄 Nova versão do Service Worker encontrada');
+        const newWorker = registration.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            console.log('📱 Nova versão disponível! Recarregue para atualizar.');
+          }
+        });
+      });
+    } catch (error) {
+      console.error('❌ Erro ao registrar Service Worker:', error);
+    }
+  });
+} else {
+  console.log('⚠️ Service Worker não suportado neste navegador');
 }
 
 // Router super simples (hashless)
