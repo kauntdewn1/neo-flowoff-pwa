@@ -257,6 +257,91 @@ main{
   transform: scale(1.05);
 }
 
+/* FlowOFF Style™ - Service Stack */
+.service-stack {
+  background: linear-gradient(135deg, #1c1d2b, #111218);
+  border-radius: 16px;
+  padding: 2rem;
+  color: #fff;
+  text-align: center;
+}
+
+.service-stack h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.section-sub {
+  color: #aaa;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.service-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.service-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: rgba(255,255,255,0.05);
+  padding: 1rem;
+  border-radius: 12px;
+  transition: background 0.3s;
+}
+
+.service-item:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.service-item .icon {
+  font-size: 2rem;
+}
+
+.service-item h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.service-item p {
+  margin: 0.3rem 0 0;
+  font-size: 0.95rem;
+  color: #bbb;
+}
+
+.cta-row {
+  margin-top: 2rem;
+}
+
+.btn-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(90deg, #ff00cc, #3333ff);
+  padding: 1rem 2rem;
+  color: #fff;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.btn-contact:hover {
+  transform: scale(1.05);
+}
+
+.btn-contact .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  border: 2px solid white;
+}
+
 /* Card 1: WebApp */
 .thumb-1{background-image:linear-gradient(135deg, rgba(0,208,255,.3), transparent), url('public/logos/geometrico.png'); background-size:cover; opacity:.9}
 
