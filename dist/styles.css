@@ -769,6 +769,134 @@ main{
   transform: translate(2px, -2px);
 }
 
+/* Novos elementos GPTs */
+.gpt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.gpt-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-pro {
+  background: linear-gradient(135deg, #ff2fb3, #ff6b35);
+  color: white;
+}
+
+.badge-popular {
+  background: linear-gradient(135deg, #00d0ff, #0099cc);
+  color: white;
+}
+
+.badge-beta {
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  color: #000;
+}
+
+.gpt-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.feature-tag {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.feature-tag svg {
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+/* CTA GPTs */
+.gpt-cta {
+  margin-top: 40px;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, rgba(255, 47, 179, 0.1), rgba(0, 208, 255, 0.1));
+  border: 1px solid rgba(255, 47, 179, 0.2);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.gpt-cta-content h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.gpt-cta-content h3 svg {
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.gpt-cta-content p {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.gpt-cta-btn {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--neon), var(--vio));
+  color: white;
+  text-decoration: none;
+  padding: 16px 32px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gpt-cta-btn span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gpt-cta-btn svg {
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.gpt-cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(255, 47, 179, 0.4);
+}
+
 @media (min-width: 768px) {
   .gpts-grid {
     grid-template-columns: repeat(2, 1fr);
