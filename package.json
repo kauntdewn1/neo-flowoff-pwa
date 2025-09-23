@@ -12,6 +12,8 @@
     "test-security": "npm run test-safe && echo '---' && npm run test-blocked",
     "test-invertexto": "node test-invertexto.js",
     "test-invertexto-quick": "node test-invertexto.js --quick",
+    "test-invertexto-netlify": "node test-invertexto-netlify.js",
+    "test-invertexto-netlify-quick": "node test-invertexto-netlify.js --quick",
     "test-all": "npm run test-security && echo '---' && npm run test-invertexto"
   },
   "dependencies": {

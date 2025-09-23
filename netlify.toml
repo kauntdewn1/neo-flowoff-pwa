@@ -67,6 +67,23 @@
   command = "make build"
   publish = "dist"
 
-# Configurações de função (se necessário no futuro)
+# Configurações de função para APIs
 [functions]
   directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Configurações específicas para APIs
+[[redirects]]
+  from = "/api/invertexto"
+  to = "/.netlify/functions/invertexto"
+  status = 200
+
+[[redirects]]
+  from = "/api/localMistral"
+  to = "/.netlify/functions/localMistral"
+  status = 200
+
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
+  status = 200
