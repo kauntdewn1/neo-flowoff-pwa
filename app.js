@@ -31,22 +31,57 @@ window.addEventListener('online', ()=>setOffline(false));
 window.addEventListener('offline', ()=>setOffline(true));
 setOffline(!navigator.onLine);
 
-// Lead form (mock; substitua pelo seu endpoint)
+// Lead form - Redireciona para WhatsApp
 const leadForm = document.getElementById('lead-form');
 if (leadForm){
   leadForm.addEventListener('submit', async (e)=>{
     e.preventDefault();
     const data = Object.fromEntries(new FormData(leadForm));
     const status = document.getElementById('lead-status');
-    status.textContent = 'Enviando...';
+    
+    status.textContent = 'Redirecionando para WhatsApp...';
+    
     try{
-      // fetch('https://seu-endpoint/lead', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)})
-      await new Promise(r=>setTimeout(r,800)); // demo
-      status.textContent = 'Recebido. Te chamo no Whats.';
+      // Formatar dados para WhatsApp
+      const projectTypes = {
+        'site': 'Site / WebApp',
+        'saas': 'SAAS / BAAS', 
+        'poston': 'POSTØN',
+        'proia': 'PRO.IA'
+      };
+      
+      const projectType = projectTypes[data.type] || data.type;
+      
+      // Mensagem formatada para WhatsApp
+      const message = `🚀 *NOVO LEAD - FlowOFF*
+
+👤 *Nome:* ${data.name}
+📧 *Email:* ${data.email}
+📱 *WhatsApp:* ${data.whats}
+🎯 *Tipo de Projeto:* ${projectType}
+
+💬 *Mensagem:* Olá MELLØ! Gostaria de iniciar um projeto com a FlowOFF.`
+
+      // Codificar mensagem para URL
+      const encodedMessage = encodeURIComponent(message);
+      
+      // Número do WhatsApp (substitua pelo seu número)
+      const whatsappNumber = '5562983231110'; // Número do MELLØ
+      
+      // URL do WhatsApp
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+      
+      // Redirecionar para WhatsApp
+      window.open(whatsappUrl, '_blank');
+      
+      // Feedback visual
+      status.textContent = 'Redirecionado para WhatsApp!';
       leadForm.reset();
       navigator.vibrate?.(10);
+      
     }catch(err){
-      status.textContent = 'Falha ao enviar. Tente novamente.';
+      status.textContent = 'Erro ao redirecionar. Tente novamente.';
+      console.error('Erro no formulário:', err);
     }
   });
 }
