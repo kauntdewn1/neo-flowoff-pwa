@@ -158,7 +158,8 @@ window.testLocalOllama = async (message) => {
   }
 };
 
-// Verificar status do agente ao carregar a página
+// TEMPORARIAMENTE DESABILITADO - Verificação de status do agente
+/*
 window.addEventListener('load', async () => {
   try {
     const health = await window.neoAgent.checkHealth();
@@ -167,9 +168,11 @@ window.addEventListener('load', async () => {
     console.warn('Agente NEO FlowOff não disponível:', error.message);
   }
 });
+*/
 
 
-// Funcionalidade do modal do agente
+// TEMPORARIAMENTE DESABILITADO - Funcionalidade do modal do agente
+/*
 const agentModal = document.getElementById('agent-modal');
 const agentInput = document.getElementById('agent-input');
 const agentSend = document.getElementById('agent-send');
@@ -177,7 +180,10 @@ const agentMessages = document.getElementById('agent-messages');
 const agentClear = document.getElementById('agent-clear');
 const agentLeads = document.getElementById('agent-leads');
 const agentClose = document.querySelector('.agent-close');
+*/
 
+// TEMPORARIAMENTE DESABILITADO - Funções do agente
+/*
 // Função para adicionar mensagem no chat
 function addMessage(content, type = 'agent') {
   const messageDiv = document.createElement('div');
@@ -367,3 +373,4 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+*/
