@@ -117,7 +117,7 @@ body{
 
 main{
   padding-top: 120px; /* header aumentado */
-  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  padding-bottom: calc(120px + env(safe-area-inset-bottom)); /* espaço para glass morphism bottom bar */
 }
 
 .route{display:none; padding:16px 14px 24px;}
@@ -1038,6 +1038,31 @@ main{
 #app {
   position: relative;
   z-index: 1;
+}
+
+/* === GLASS MORPHISM OVERLAY === */
+.glass-morphism-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    rgba(10, 10, 16, 0.3) 20%,
+    rgba(10, 10, 16, 0.6) 60%,
+    rgba(10, 10, 16, 0.8) 100%
+  );
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glass-morphism-overlay.active {
+  opacity: 1;
 }
 
 /* Canvas p5.js como fundo */

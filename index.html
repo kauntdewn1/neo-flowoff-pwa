@@ -321,6 +321,9 @@
       <div id="offline" class="offline">Sem conexão. Funcionalidades limitadas.</div>
     </main>
 
+    <!-- Glass Morphism Overlay -->
+    <div class="glass-morphism-overlay" id="glass-overlay"></div>
+
     <!-- Glass Morphism Bottom Bar -->
     <nav class="glass-morphism-tabbar">
       <div class="glass-nav-item active" data-route="home">
@@ -586,6 +589,39 @@
     }
 
     window.addEventListener('scroll', requestTick, { passive: true });
+
+    // === GLASS MORPHISM OVERLAY CONTROL ===
+    const glassOverlay = document.getElementById('glass-overlay');
+    let overlayTicking = false;
+
+    function updateGlassOverlay() {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // Calcular se deve mostrar o overlay
+      const shouldShowOverlay = scrollY > 100 && (scrollY + windowHeight) < (documentHeight - 50);
+      
+      if (shouldShowOverlay) {
+        glassOverlay.classList.add('active');
+      } else {
+        glassOverlay.classList.remove('active');
+      }
+      
+      overlayTicking = false;
+    }
+
+    function requestOverlayTick() {
+      if (!overlayTicking) {
+        requestAnimationFrame(updateGlassOverlay);
+        overlayTicking = true;
+      }
+    }
+
+    window.addEventListener('scroll', requestOverlayTick, { passive: true });
+    
+    // Atualizar na carga inicial
+    updateGlassOverlay();
   </script>
 </body>
 </html>
