@@ -220,11 +220,11 @@
       <section class="route" id="start">
         <div class="section-title">Iniciar Projeto</div>
         <form id="lead-form" class="card form glow">
-          <label>Nome<input name="name" required></label>
-          <label>Email<input type="email" name="email" required></label>
-          <label>WhatsApp<input name="whats" placeholder="+55 (00) 00000-0000" required></label>
+          <label>Nome<input name="name" autocomplete="name" required></label>
+          <label>Email<input type="email" name="email" autocomplete="email" required></label>
+          <label>WhatsApp<input name="whats" placeholder="+55 (00) 00000-0000" autocomplete="tel" required></label>
           <label>Tipo de projeto
-            <select name="type" required>
+            <select name="type" autocomplete="off" required>
               <option value="site">Site / WebApp</option>
               <option value="saas">SAAS / BAAS</option>
               <option value="poston">POSTØN</option>
