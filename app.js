@@ -52,6 +52,8 @@ if (leadForm){
 }
 
 // NEO Agent API Client
+// TEMPORARIAMENTE DESABILITADO - Agente NEO
+/*
 class NEOAgentClient {
   constructor() {
     this.baseUrl = 'https://agent-neo-flowoff.vercel.app/api';
@@ -99,6 +101,7 @@ class NEOAgentClient {
       throw error;
     }
   }
+*/
 
   async checkHealth() {
     try {
@@ -113,7 +116,10 @@ class NEOAgentClient {
     }
   }
 }
+*/
 
+// TEMPORARIAMENTE DESABILITADO - Inicialização do agente
+/*
 // Inicializar cliente do agente
 window.neoAgent = new NEOAgentClient();
 
@@ -129,6 +135,7 @@ window.sendToAgent = async (message) => {
     return null;
   }
 };
+*/
 
 // Função para testar proxy Ollama local
 window.testLocalOllama = async (message) => {
