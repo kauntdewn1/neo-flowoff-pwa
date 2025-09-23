@@ -73,8 +73,13 @@ function testResponsiveness() {
   const tabbar = document.querySelector('.glass-morphism-tabbar');
   if (tabbar) {
     const styles = window.getComputedStyle(tabbar);
-    console.log('✅ Grid mobile:', styles.gridTemplateColumns.includes('repeat(4'));
-    console.log('✅ Padding mobile:', styles.padding.includes('env(safe-area-inset-bottom)'));
+    const gridColumns = styles.gridTemplateColumns;
+    const padding = styles.padding;
+    
+    console.log('✅ Grid columns:', gridColumns);
+    console.log('✅ Grid 4 colunas:', gridColumns.split(' ').length === 4);
+    console.log('✅ Padding mobile:', padding.includes('env(safe-area-inset-bottom)'));
+    console.log('✅ Backdrop-filter mobile:', styles.backdropFilter !== 'none');
   }
 }
 
@@ -93,8 +98,10 @@ function testNavigation() {
       item.click();
       setTimeout(() => {
         const isActive = item.classList.contains('active');
+        const sectionActive = document.getElementById(route).classList.contains('active');
         console.log(`✅ Rota "${route}" ativa após clique:`, isActive);
-      }, 100);
+        console.log(`✅ Seção "${route}" ativa após clique:`, sectionActive);
+      }, 200);
     }
   });
 }

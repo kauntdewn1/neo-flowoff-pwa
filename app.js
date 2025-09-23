@@ -34,6 +34,9 @@ function go(route){
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
+// Tornar função go() disponível globalmente para testes
+window.go = go;
+
 buttons.forEach(b => b.addEventListener('click', () => go(b.dataset.route)));
 go('home');
 
