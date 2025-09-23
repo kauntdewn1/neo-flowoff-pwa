@@ -4,9 +4,29 @@
     {
       "src": "index.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "local-server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "pages/api/invertexto.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/api/invertexto",
+      "dest": "/pages/api/invertexto.js"
+    },
+    {
+      "src": "/api/localMistral",
+      "dest": "/local-server.js"
+    },
+    {
+      "src": "/api/health",
+      "dest": "/local-server.js"
+    },
     {
       "src": "/(.*)",
       "dest": "/index.html"

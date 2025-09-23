@@ -1,0 +1,14 @@
+# EXEMPLO DE CONFIGURAÇÃO - COPIE PARA .env
+
+# API Invertexto - Token de autenticação
+# Obtenha seu token em: https://invertexto.com/api
+INVERTEXTO_API_TOKEN=seu_token_real_aqui
+
+# Outras configurações
+PORT=3000
+NODE_ENV=development
+
+# INSTRUÇÕES:
+# 1. Copie este arquivo para .env
+# 2. Substitua 'seu_token_real_aqui' pelo seu token real
+# 3. Reinicie o servidor (npm run dev)
