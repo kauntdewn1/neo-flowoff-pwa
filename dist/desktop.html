@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Você encontrou a FlowOFF</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(1200px 800px at 70% -10%, #1a1030 0%, #0a0a0f 50%, #07070b 100%);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, Inter, system-ui, Segoe UI, Roboto, Ubuntu;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      max-width: 600px;
+      padding: 2rem;
+      animation: fadeIn 1.2s ease-out;
+      position: relative;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1.5rem;
+      border-radius: 16px;
+      filter: drop-shadow(0 8px 24px rgba(255, 47, 179, 0.4));
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #ff2fb3, #7a2cff, #00d0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #aaa;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .description {
+      color: #888;
+      margin: 1rem 0;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .qr-section {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+    }
+
+    .qr-section p {
+      color: #ccc;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .qr-code {
+      width: 180px;
+      height: 180px;
+      border-radius: 12px;
+      margin: 0 auto;
+      background: white;
+      padding: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .continue-btn {
+      margin-top: 1.5rem;
+      background: linear-gradient(135deg, #ff2fb3, #7a2cff);
+      border: none;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(255, 47, 179, 0.3);
+    }
+
+    .continue-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255, 47, 179, 0.4);
+    }
+
+    .tags {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .tags p {
+      margin-bottom: 1rem;
+      color: #888;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      margin: 0.3rem;
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .tag:hover {
+      background: rgba(255, 47, 179, 0.1);
+      border-color: rgba(255, 47, 179, 0.3);
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 8s linear infinite;
+    }
+
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+    .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+    .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+    .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+    .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+    .particle:nth-child(7) { left: 70%; animation-delay: 6s; }
+    .particle:nth-child(8) { left: 80%; animation-delay: 7s; }
+    .particle:nth-child(9) { left: 90%; animation-delay: 8s; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0); }
+      10% { transform: translateY(90vh) scale(1); }
+      90% { transform: translateY(10vh) scale(1); }
+      100% { transform: translateY(0vh) scale(0); }
+    }
+
+    .countdown {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .countdown.hidden {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 1rem;
+        max-width: 90vw;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .qr-code {
+        width: 150px;
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Partículas de fundo -->
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <div class="hero">
+    <img class="logo" src="public/flowoff logo.png" alt="FlowOFF Logo">
+
+    <h1>Você acessou a camada errada do sistema 😎</h1>
+
+    <p class="subtitle">Essa interface foi criada pra rodar direto no seu celular.</p>
+    
+    <p class="description">Mobile-first, fluida, rápida, com toques, animações e interações que não cabem aqui.</p>
+
+    <div class="qr-section">
+      <p>Escaneie esse QR Code e veja como deveria ser 👇</p>
+      <div class="qr-code">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://neo-flowoff.netlify.app" alt="QR Code para celular" style="width: 100%; height: 100%;">
+      </div>
+    </div>
+
+    <button class="continue-btn" onclick="window.location.href='index.html'">
+      Acessar versão desktop mesmo assim
+    </button>
+
+    <div class="countdown" id="countdown">
+      Redirecionando automaticamente em <span id="timer">5</span> segundos...
+    </div>
+
+    <div class="tags">
+      <p>Essa é a FlowOFF:</p>
+      <span class="tag">WebApps interativos</span>
+      <span class="tag">Dashboards gamificados</span>
+      <span class="tag">Pagamentos descentralizados</span>
+      <span class="tag">IA integrada</span>
+      <span class="tag">Tokenização de experiências</span>
+      <span class="tag">FlowPay</span>
+    </div>
+  </div>
+
+  <script>
+    // Countdown automático
+    let countdown = 5;
+    const timerElement = document.getElementById('timer');
+    const countdownElement = document.getElementById('countdown');
+    
+    const countdownInterval = setInterval(() => {
+      countdown--;
+      timerElement.textContent = countdown;
+      
+      if (countdown <= 0) {
+        clearInterval(countdownInterval);
+        countdownElement.classList.add('hidden');
+        // Redirecionar para mobile após 5 segundos
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1000);
+      }
+    }, 1000);
+
+    // Cancelar countdown se o usuário interagir
+    document.addEventListener('click', () => {
+      clearInterval(countdownInterval);
+      countdownElement.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', () => {
+      clearInterval(countdownInterval);
+      countdownElement.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>

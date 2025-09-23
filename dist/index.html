@@ -335,10 +335,35 @@ style="border: none; border-radius: 10px;">
 
 <script src="app.js?v=1.4.3" type="module"></script>
 <script>
+// === DETECÇÃO DE DESKTOP ===
+function detectDesktop() {
+  // Verificar se é desktop baseado em várias características
+  const isDesktop = window.innerWidth >= 1024 && 
+                   window.innerHeight >= 768 && 
+                   !navigator.userAgent.match(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i) &&
+                   !('ontouchstart' in window) &&
+                   window.matchMedia('(pointer: fine)').matches;
+  
+  if (isDesktop) {
+    // Verificar se já está na página desktop
+    if (!window.location.pathname.includes('desktop.html')) {
+      window.location.href = 'desktop.html';
+      return true;
+    }
+  }
+  return false;
+}
+
+// Executar detecção quando a página carregar
+if (detectDesktop()) {
+  // Se redirecionou para desktop, não executar o resto do script
+  return;
+}
+
 // Force CSS reload
 const link = document.querySelector('link[href*="styles.css"]');
 if (link) {
-link.href = link.href.split('?')[0] + '?v=' + Date.now();
+  link.href = link.href.split('?')[0] + '?v=' + Date.now();
 }
 
     // PWA Install Banner
