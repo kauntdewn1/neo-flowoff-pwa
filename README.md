@@ -1,55 +1,92 @@
-# NEØ.FLOWOFF PWA
+# ⚡ NEØ.FLOWOFF — PWA Interface
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/720bef8f-9a14-4807-ae2f-b41fbdb6cd44/deploy-status)](https://app.netlify.com/projects/flowoff)
+<https://app.netlify.com/projects/flowoff>
 
-**🌐 Domínio Oficial:** [flowoff.xyz](https://flowoff.xyz)
+**🌐 Acesse em produção:** [flowoff.xyz](https://flowoff.xyz)
 
-## Agência de Marketing na blockchain
+> **A Nova Interface da Revolução Digital Descentralizada.**  
+> Uma Progressive Web App projetada para performance, presença e posicionamento no universo blockchain.
 
-PWA desenvolvido com tecnologias modernas para apresentação da agência NEØ.FLOWOFF.
+---
 
-### Tecnologias
+## 🚀 Sobre o Projeto
 
-- **PWA**: Progressive Web App instalável
-- **Vanilla JS**: JavaScript puro com router hashless
-- **CSS**: Design system com glassmorphism
-- **Service Worker**: Cache inteligente e offline support
-- **Deploy**: Netlify com sistema anti-cache
+**NEØ.FLOWOFF** é a vitrine viva da agência FlowOFF:  
+uma **PWA minimalista, brutalmente rápida** e com design emocional, criada para representar uma agência de marketing que já opera no futuro.
 
-### Funcionalidades
+Desenvolvida sem frameworks pesados. Sem dependências desnecessárias. Só **código direto ao ponto** — como toda marca com visão 2050 merece.
 
-- ✅ Layout responsivo iOS-like
-- ✅ Glassmorphism na header
-- ✅ Cards interativos com logos 3D
-- ✅ Sistema de navegação sem hash
-- ✅ Cache busting para deploys instantâneos
-- ✅ Footer com fonte pequena
-- ✅ PWA instalável
+---
 
-### Estrutura
+## 🧠 Stack Tecnológica
+
+| Camada | Tecnologia | Finalidade |
+|--------|------------|------------|
+| 🖥️ UI | `Vanilla JS` + `CSS` | Router leve e design 100% custom |
+| 🧊 Design | `Glassmorphism` | Estética emocional, camadas e profundidade |
+| 🛜 Offline | `Service Worker` | Cache controlado + suporte offline |
+| 📲 App | `Webmanifest` | Instalação como app nativo (PWA) |
+| 🚀 Deploy | `Netlify` | Pipeline com cache busting e deploy instantâneo |
+
+---
+
+## ✨ Funcionalidades
+
+- ✅ Navegação sem hash (#)  
+- ✅ Header com **glassmorphism suave**  
+- ✅ Cards animados com logos em 3D  
+- ✅ Layout mobile-first, com vibe iOS  
+- ✅ Cache busting real-time para novos deploys  
+- ✅ App instalável com experiência nativa  
+- ✅ Footer minimal com tipografia reduzida  
+
+---
+
+## 📁 Estrutura do Projeto
 
 ```text
-├── index.html          # Página principal
-├── styles.css          # Design system
-├── app.js             # Router e funcionalidades
-├── sw.js              # Service Worker
-├── manifest.webmanifest # PWA manifest
-└── public/            # Assets e logos
-```
+.
+├── index.html              # Entrada principal
+├── styles.css              # Design System & UI
+├── app.js                  # Router e scripts dinâmicos
+├── sw.js                   # Service Worker customizado
+├── manifest.webmanifest    # Configuração PWA
+└── public/                 # Assets (imagens, ícones, logos)
+````
 
-### Deploy
+---
 
-O projeto é automaticamente deployado no Netlify. O badge acima mostra o status atual do deploy.
+## ⚙️ Deploy Automatizado
 
-### Cache Busting
+> Cada push no repositório dispara um novo build via Netlify com cache invalidado.
 
-Sistema implementado para evitar problemas de cache:
+**Cache Busting Estratégico**:
 
-- Versão no manifest
-- Query strings nos assets
-- Service Worker otimizado
-- Atualizações instantâneas
+* Versões explícitas no `manifest`
+* Query strings forçadas nos assets
+* Service Worker controlado por timestamp
+* Deploy sem delay: o que você vê é o que já subiu
 
-### Protocolo NΞØ
+---
 
-Este projeto segue o Protocolo NΞØ para desenvolvimento consistente e eficiente.
+## 🧬 Protocolo NΞØ
+
+Este projeto segue a arquitetura e os princípios do **Protocolo NΞØ™**:
+
+* Desenvolvimento **sem gordura técnica**
+* Design que **comunica sensações**, não só pixels
+* Código que **não trava** e **não mente**
+
+> Porque um site não é só um site. É o **primeiro contato com o seu ecossistema**.
+
+---
+
+## 🧠 Quer usar essa arquitetura na sua marca?
+
+> A NEØ.FLOWOFF desenvolve interfaces ultra-velozes, tokenizáveis, prontas para o mundo on-chain.
+
+Entre em contato direto pelo botão "Falar com MELLØ™" no site — ou nos invoque via protocolo.
+
+---
+
+
