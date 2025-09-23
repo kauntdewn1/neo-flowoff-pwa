@@ -29,7 +29,13 @@ const buttons = document.querySelectorAll('.glass-nav-item');
 const sections = [...document.querySelectorAll('.route')];
 
 function go(route){
-  routes.forEach(r => document.getElementById(r).classList.toggle('active', r===route));
+  console.log(`🔄 Navegando para rota: ${route}`);
+  routes.forEach(r => {
+    const element = document.getElementById(r);
+    const isActive = r === route;
+    element.classList.toggle('active', isActive);
+    console.log(`  ${r}: ${isActive ? 'ATIVA' : 'inativa'}`);
+  });
   buttons.forEach(b => b.classList.toggle('active', b.dataset.route===route));
   window.scrollTo({top:0, behavior:'smooth'});
 }
@@ -38,7 +44,9 @@ function go(route){
 window.go = go;
 
 buttons.forEach(b => b.addEventListener('click', () => go(b.dataset.route)));
+console.log('🚀 Inicializando rota HOME...');
 go('home');
+console.log('✅ Rota HOME definida');
 
 // Sheet modal
 document.querySelectorAll('[data-open]').forEach(el=>{

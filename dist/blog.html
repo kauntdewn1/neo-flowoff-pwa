@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Blog | FlowOFF - Marketing Blockchain e Estratégias Digitais</title>
+    <meta name="description" content="Blog especializado em marketing digital, blockchain e estratégias de crescimento para empresas inovadoras. Cases, tutoriais e insights do mercado.">
+    <meta name="keywords" content="marketing blockchain, estratégias digitais, crescimento empresarial, consultoria marketing, tecnologia blockchain, PWA, desenvolvimento web">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="FlowOFF">
+    <link rel="canonical" href="https://neo-flowoff.netlify.app/blog">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Blog FlowOFF - Marketing Blockchain e Estratégias Digitais">
+    <meta property="og:description" content="Blog especializado em marketing digital, blockchain e estratégias de crescimento para empresas inovadoras.">
+    <meta property="og:image" content="https://neo-flowoff.netlify.app/public/flowoff logo.png">
+    <meta property="og:url" content="https://neo-flowoff.netlify.app/blog">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="FlowOFF">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blog FlowOFF - Marketing Blockchain e Estratégias Digitais">
+    <meta name="twitter:description" content="Blog especializado em marketing digital, blockchain e estratégias de crescimento para empresas inovadoras.">
+    <meta name="twitter:image" content="https://neo-flowoff.netlify.app/public/flowoff logo.png">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#ff2fb3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css?v=1.4.2">
+    <link rel="stylesheet" href="blog-styles.css?v=1.4.2">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Blog FlowOFF",
+        "description": "Blog especializado em marketing digital, blockchain e estratégias de crescimento para empresas inovadoras",
+        "url": "https://neo-flowoff.netlify.app/blog",
+        "publisher": {
+            "@type": "Organization",
+            "name": "FlowOFF",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://neo-flowoff.netlify.app/public/flowoff logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://neo-flowoff.netlify.app/blog"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- App Shell -->
+    <div id="app">
+        <!-- Header oculto para SEO -->
+        <header class="blog-header" style="display: none;">
+            <h1>Blog FlowOFF - Marketing Blockchain e Estratégias Digitais</h1>
+            <p>Conteúdo especializado em marketing digital, blockchain e crescimento empresarial</p>
+        </header>
+        
+        <!-- Navegação principal -->
+        <nav class="blog-nav">
+            <div class="nav-container">
+                <a href="/" class="nav-logo">
+                    <img src="public/flowoff logo.png" alt="FlowOFF" class="logo-img">
+                    <span class="logo-text">FlowOFF</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/" class="nav-link">Início</a>
+                    <a href="/blog" class="nav-link active">Blog</a>
+                    <a href="https://wa.me/+5562983231110" class="nav-cta" target="_blank" rel="noopener">
+                        <img src="public/mello.webp" alt="MELLØ" class="mello-photo">
+                        Falar com MELLØ™
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Conteúdo principal do blog -->
+        <main class="blog-main">
+            <!-- Hero Section -->
+            <section class="blog-hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">Blog FlowOFF</h1>
+                    <p class="hero-subtitle">Estratégias de Marketing Blockchain e Crescimento Digital</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Artigos</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">10K+</span>
+                            <span class="stat-label">Leitores</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">95%</span>
+                            <span class="stat-label">Satisfação</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Filtros e busca -->
+            <section class="blog-filters">
+                <div class="filters-container">
+                    <div class="search-box">
+                        <input type="text" id="blog-search" placeholder="Buscar artigos..." class="search-input">
+                        <button class="search-btn">🔍</button>
+                    </div>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-category="all">Todos</button>
+                        <button class="filter-tab" data-category="marketing">Marketing</button>
+                        <button class="filter-tab" data-category="blockchain">Blockchain</button>
+                        <button class="filter-tab" data-category="tecnologia">Tecnologia</button>
+                        <button class="filter-tab" data-category="estrategia">Estratégia</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Lista de artigos -->
+            <section class="blog-articles" id="articles-container">
+                <!-- Artigos serão carregados dinamicamente -->
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Carregando artigos...</p>
+                </div>
+            </section>
+            
+            <!-- Paginação -->
+            <section class="blog-pagination" id="pagination-container">
+                <!-- Paginação será gerada dinamicamente -->
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="blog-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>FlowOFF</h3>
+                    <p>Agência de Marketing Blockchain</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Blog</h4>
+                    <ul>
+                        <li><a href="/blog/categoria/marketing">Marketing</a></li>
+                        <li><a href="/blog/categoria/blockchain">Blockchain</a></li>
+                        <li><a href="/blog/categoria/tecnologia">Tecnologia</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p>WhatsApp: +55 62 98323-1110</p>
+                    <p>Email: contato@flowoff.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FlowOFF. Todos os direitos reservados.</p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="blog.js?v=1.4.2"></script>
+    <script>
+        // Inicializar blog quando DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof BlogSEO !== 'undefined') {
+                new BlogSEO();
+            }
+        });
+
+        // Registro do Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', async () => {
+                try {
+                    const registration = await navigator.serviceWorker.register('./sw.js');
+                    console.log('✅ Service Worker registrado no blog:', registration.scope);
+                } catch (error) {
+                    console.error('❌ Erro ao registrar Service Worker no blog:', error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

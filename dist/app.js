@@ -1,21 +1,52 @@
-// Registro do SW
+// Registro do Service Worker
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+  window.addEventListener('load', async () => {
+    try {
+      const registration = await navigator.serviceWorker.register('./sw.js');
+      console.log('✅ Service Worker registrado com sucesso:', registration.scope);
+      
+      // Verificar se há atualizações
+      registration.addEventListener('updatefound', () => {
+        console.log('🔄 Nova versão do Service Worker encontrada');
+        const newWorker = registration.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            console.log('📱 Nova versão disponível! Recarregue para atualizar.');
+          }
+        });
+      });
+    } catch (error) {
+      console.error('❌ Erro ao registrar Service Worker:', error);
+    }
+  });
+} else {
+  console.log('⚠️ Service Worker não suportado neste navegador');
 }
 
-// Router super simples (hashless)
-const routes = ['home','projects','start','ecosystem','blog'];
-const buttons = document.querySelectorAll('.tabbar button');
+// Router super simples (hashless) - Compatível com Glass Morphism Bottom Bar
+const routes = ['home','projects','start','ecosystem'];
+const buttons = document.querySelectorAll('.glass-nav-item');
 const sections = [...document.querySelectorAll('.route')];
 
 function go(route){
-  routes.forEach(r => document.getElementById(r).classList.toggle('active', r===route));
+  console.log(`🔄 Navegando para rota: ${route}`);
+  routes.forEach(r => {
+    const element = document.getElementById(r);
+    const isActive = r === route;
+    element.classList.toggle('active', isActive);
+    console.log(`  ${r}: ${isActive ? 'ATIVA' : 'inativa'}`);
+  });
   buttons.forEach(b => b.classList.toggle('active', b.dataset.route===route));
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
+// Tornar função go() disponível globalmente para testes
+window.go = go;
+
 buttons.forEach(b => b.addEventListener('click', () => go(b.dataset.route)));
+console.log('🚀 Inicializando rota HOME...');
 go('home');
+console.log('✅ Rota HOME definida');
 
 // Sheet modal
 document.querySelectorAll('[data-open]').forEach(el=>{
@@ -315,7 +346,10 @@ if (agentClose) {
     agentModal.close();
   });
 }
+*/
 
+// TEMPORARIAMENTE DESABILITADO - Resto do código do agente
+/*
 // Fechar modal clicando fora
 if (agentModal) {
   agentModal.addEventListener('click', (e) => {
