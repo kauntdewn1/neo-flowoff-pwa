@@ -191,6 +191,10 @@ main{
   margin: 0;
 }
 
+.project-modal {
+  display: none;
+}
+
 .project-modal[open] {
   display: flex;
 }

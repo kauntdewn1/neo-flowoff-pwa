@@ -794,6 +794,17 @@
         });
       });
 
+      // Garantir que todos os modais estejam fechados ao carregar
+      document.addEventListener('DOMContentLoaded', function() {
+        const modals = document.querySelectorAll('.project-modal');
+        modals.forEach(modal => {
+          if (modal.open) {
+            modal.close();
+          }
+        });
+        document.body.style.overflow = '';
+      });
+
       // Fechar modal com ESC
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
