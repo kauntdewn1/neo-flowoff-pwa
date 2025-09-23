@@ -140,38 +140,16 @@ main{
 .hero-card h1{margin:2px 0 6px; font-size:28px}
 .hero-card p{margin:0 0 14px; color:var(--muted)}
 
-/* Footer do Protocolo */
-.protocol-footer {
-  position: relative;
-  padding: 12px 16px;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
-  z-index: 1;
-  clear: both;
-}
-
-.protocol-footer-content {
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.protocol-footer-content span {
-  font-size: 12px;
+/* Protocol text simples */
+.protocol-text {
+  font-size: 10px;
   color: var(--muted);
-  font-weight: 500;
+  text-align: center;
+  margin-top: 20px;
+  padding: 8px 0;
+  opacity: 0.6;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* === MODAIS DOS PROJETOS === */
@@ -673,8 +651,8 @@ main{
 }
 
 .gpts-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
   list-style: none;
   margin: 0;
@@ -683,13 +661,13 @@ main{
 
 .gpt-card {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
   padding: 20px;
   border-radius: 16px;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  gap: 16px;
 }
 
 .gpt-card:hover {
@@ -707,6 +685,7 @@ main{
   background: linear-gradient(135deg, var(--neon), var(--blue));
   border-radius: 12px;
   color: white;
+  margin-bottom: 8px;
 }
 
 .gpt-icon svg {
@@ -716,6 +695,9 @@ main{
 .gpt-content {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .gpt-content h4 {
@@ -754,6 +736,8 @@ main{
   font-weight: 600;
   transition: all 0.3s ease;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  margin-top: auto;
+  justify-content: center;
 }
 
 .gpt-btn:hover {
