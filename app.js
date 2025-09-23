@@ -4,7 +4,7 @@ if ('serviceWorker' in navigator) {
 }
 
 // Router super simples (hashless)
-const routes = ['home','projects','start','ecosystem','blog'];
+const routes = ['home','projects','start','ecosystem'];
 const buttons = document.querySelectorAll('.tabbar button');
 const sections = [...document.querySelectorAll('.route')];
 

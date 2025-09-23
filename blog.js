@@ -223,8 +223,14 @@ class BlogSEO {
             day: 'numeric'
         });
         
+        const imageHTML = article.image ? 
+            `<div class="post-image">
+                <img src="${article.image}" alt="${article.title}" itemprop="image" loading="lazy">
+            </div>` : '';
+        
         return `
             <article class="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
+                ${imageHTML}
                 <header class="post-header">
                     <h2 class="post-title" itemprop="headline">${article.title}</h2>
                     <div class="post-meta">
