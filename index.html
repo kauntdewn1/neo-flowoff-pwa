@@ -18,6 +18,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <title>NEØ.FLOWOFF</title>
   <link rel="stylesheet" href="styles.css?v=1.4.3">
+  <link rel="stylesheet" href="glass-morphism-bottom-bar.css?v=1.0.0">
 </head>
 <body>
   <!-- App Shell -->
@@ -320,12 +321,31 @@
       <div id="offline" class="offline">Sem conexão. Funcionalidades limitadas.</div>
     </main>
 
-    <!-- Tab bar iOS-like -->
-    <nav class="tabbar blur">
-      <button data-route="home" class="active">Home</button>
-      <button data-route="projects">Projetos</button>
-      <button data-route="start">Iniciar</button>
-      <button data-route="ecosystem">Ecossistema</button>
+    <!-- Glass Morphism Bottom Bar -->
+    <nav class="glass-morphism-tabbar">
+      <div class="glass-nav-item active" data-route="home">
+        <div class="glass-nav-icon">🏠</div>
+        <div class="glass-nav-label">Home</div>
+        <div class="glass-nav-indicator"></div>
+      </div>
+      
+      <div class="glass-nav-item" data-route="projects">
+        <div class="glass-nav-icon">📁</div>
+        <div class="glass-nav-label">Projetos</div>
+        <div class="glass-nav-indicator"></div>
+      </div>
+      
+      <div class="glass-nav-item start-button" data-route="start">
+        <div class="glass-nav-icon">🚀</div>
+        <div class="glass-nav-label">Iniciar</div>
+        <div class="glass-nav-indicator"></div>
+      </div>
+      
+      <div class="glass-nav-item" data-route="ecosystem">
+        <div class="glass-nav-icon">🌐</div>
+        <div class="glass-nav-label">Ecossistema</div>
+        <div class="glass-nav-indicator"></div>
+      </div>
     </nav>
 
     <!-- Footer iOS-like -->
@@ -370,6 +390,7 @@
 <script src="webp-support.js?v=1.0.0"></script>
 
 <script src="app.js?v=1.4.3" type="module"></script>
+<script src="test-glass-morphism.js?v=1.0.0"></script>
   <script>
     // === DETECÇÃO DE DESKTOP ===
     function detectDesktop() {

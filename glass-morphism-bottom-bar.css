@@ -1,0 +1,277 @@
+/* === GLASS MORPHISM BOTTOM BAR - NEO.FLOWOFF === */
+/* CSS complementar para o glass morphism bottom bar */
+
+:root {
+  --neon: #ff2fb3; /* rosa */
+  --vio: #7a2cff;  /* roxo */
+  --blue: #00d0ff; /* azul ciano */
+  --glass-bg: rgba(10, 10, 16, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* === GLASS MORPHISM BOTTOM BAR === */
+.glass-morphism-tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  
+  /* Glass morphism effect */
+  background: linear-gradient(180deg, 
+    rgba(10, 10, 16, 0.95), 
+    rgba(8, 8, 12, 0.98)
+  );
+  backdrop-filter: saturate(1.3) blur(20px);
+  -webkit-backdrop-filter: saturate(1.3) blur(20px);
+  
+  border-top: 1px solid var(--glass-border);
+  box-shadow: 
+    0 -8px 32px var(--glass-shadow),
+    0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* === NAVIGATION ITEMS === */
+.glass-nav-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 8px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.glass-nav-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 47, 179, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.glass-nav-item.active {
+  background: linear-gradient(135deg, 
+    rgba(255, 47, 179, 0.15), 
+    rgba(0, 208, 255, 0.1)
+  );
+  border-color: rgba(255, 47, 179, 0.3);
+  box-shadow: 0 6px 18px rgba(255, 47, 179, 0.22);
+}
+
+/* === SPECIAL START BUTTON === */
+.glass-nav-item.start-button {
+  background: linear-gradient(135deg, 
+    rgba(255, 47, 179, 0.2), 
+    rgba(0, 208, 255, 0.15)
+  );
+  border: 2px solid rgba(255, 47, 179, 0.4);
+  box-shadow: 0 8px 25px rgba(255, 47, 179, 0.3);
+  transform: translateY(-4px);
+}
+
+.glass-nav-item.start-button:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 47, 179, 0.3), 
+    rgba(0, 208, 255, 0.2)
+  );
+  border-color: rgba(255, 47, 179, 0.6);
+  box-shadow: 0 12px 35px rgba(255, 47, 179, 0.4);
+  transform: translateY(-6px);
+}
+
+/* === ICONS === */
+.glass-nav-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.glass-nav-item.active .glass-nav-icon {
+  filter: drop-shadow(0 4px 8px rgba(255, 47, 179, 0.4));
+}
+
+.glass-nav-item.start-button .glass-nav-icon {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 4px 8px rgba(255, 47, 179, 0.5));
+}
+
+/* === LABELS === */
+.glass-nav-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(230, 230, 240, 0.8);
+  text-align: center;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.glass-nav-item.active .glass-nav-label {
+  color: var(--neon);
+  text-shadow: 0 2px 4px rgba(255, 47, 179, 0.3);
+}
+
+.glass-nav-item.start-button .glass-nav-label {
+  color: var(--neon);
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(255, 47, 179, 0.4);
+}
+
+/* === INDICATOR === */
+.glass-nav-indicator {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--neon), var(--blue));
+  border-radius: 2px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 47, 179, 0.4);
+}
+
+.glass-nav-item.active .glass-nav-indicator {
+  opacity: 1;
+  animation: indicatorGlow 2s ease-in-out infinite;
+}
+
+@keyframes indicatorGlow {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(255, 47, 179, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 12px rgba(255, 47, 179, 0.6);
+  }
+}
+
+/* === SHIMMER EFFECT === */
+.glass-nav-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.glass-nav-item:hover::before {
+  left: 100%;
+}
+
+/* === MOBILE OPTIMIZATION === */
+/* Otimizado apenas para mobile - desktop redireciona para desktop.html */
+
+.glass-morphism-tabbar {
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  gap: 6px;
+}
+
+.glass-nav-item {
+  padding: 10px 6px;
+}
+
+.glass-nav-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.glass-nav-item.start-button .glass-nav-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.glass-nav-label {
+  font-size: 10px;
+}
+
+/* Otimização para telas muito pequenas */
+@media (max-width: 360px) {
+  .glass-morphism-tabbar {
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+    gap: 4px;
+  }
+  
+  .glass-nav-item {
+    padding: 8px 4px;
+  }
+  
+  .glass-nav-icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .glass-nav-item.start-button .glass-nav-icon {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .glass-nav-label {
+    font-size: 9px;
+  }
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+  .glass-nav-item,
+  .glass-nav-icon,
+  .glass-nav-label,
+  .glass-nav-indicator {
+    transition: none;
+  }
+  
+  .glass-nav-item::before {
+    display: none;
+  }
+  
+  @keyframes indicatorGlow {
+    0%, 100% {
+      box-shadow: 0 2px 8px rgba(255, 47, 179, 0.4);
+    }
+  }
+}
+
+/* === DARK MODE SUPPORT === */
+@media (prefers-color-scheme: dark) {
+  .glass-morphism-tabbar {
+    background: linear-gradient(180deg, 
+      rgba(5, 5, 8, 0.98), 
+      rgba(2, 2, 4, 0.99)
+    );
+  }
+}
+
+/* === HIGH CONTRAST MODE === */
+@media (prefers-contrast: high) {
+  .glass-nav-item {
+    border-width: 2px;
+  }
+  
+  .glass-nav-item.active {
+    border-color: var(--neon);
+  }
+  
+  .glass-nav-label {
+    font-weight: 700;
+  }
+}

@@ -23,9 +23,9 @@ if ('serviceWorker' in navigator) {
   console.log('⚠️ Service Worker não suportado neste navegador');
 }
 
-// Router super simples (hashless)
+// Router super simples (hashless) - Compatível com Glass Morphism Bottom Bar
 const routes = ['home','projects','start','ecosystem'];
-const buttons = document.querySelectorAll('.tabbar button');
+const buttons = document.querySelectorAll('.glass-nav-item');
 const sections = [...document.querySelectorAll('.route')];
 
 function go(route){
