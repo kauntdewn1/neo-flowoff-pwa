@@ -654,6 +654,122 @@ main{
   opacity: 0.8;
 }
 
+/* === SEÇÃO GPTs MELLØ === */
+.gpts-section {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-subtitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--neon);
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.gpts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.gpt-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.gpt-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.gpt-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--neon), var(--blue));
+  border-radius: 12px;
+  color: white;
+}
+
+.gpt-icon svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.gpt-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.gpt-content h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 8px 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.gpt-content p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.gpt-author {
+  font-size: 12px;
+  color: var(--neon);
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.gpt-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, var(--neon), var(--blue));
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.gpt-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.gpt-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.gpt-btn:hover svg {
+  transform: translate(2px, -2px);
+}
+
+@media (min-width: 768px) {
+  .gpts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @keyframes badgeFloat{
   0%, 100%{transform:translateY(0px)}
   50%{transform:translateY(-2px)}
