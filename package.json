@@ -1,6 +1,6 @@
 {
   "name": "neo-flowoff-pwa",
-  "version": "1.3.4",
+  "version": "1.4.5",
   "description": "PWA da NEO FlowOff com proxy Ollama local",
   "main": "local-server.js",
   "scripts": {
