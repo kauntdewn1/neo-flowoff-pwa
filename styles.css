@@ -117,7 +117,7 @@ body{
 
 main{
   padding-top: 120px; /* header aumentado */
-  padding-bottom: calc(180px + env(safe-area-inset-bottom)); /* espaço para glass morphism bottom bar + footer */
+  padding-bottom: calc(200px + env(safe-area-inset-bottom)); /* espaço para glass morphism bottom bar + footer */
 }
 
 .route{display:none; padding:16px 14px 24px;}
@@ -143,10 +143,10 @@ main{
 /* Footer do Protocolo */
 .protocol-footer {
   position: fixed;
-  bottom: 0;
+  bottom: 80px; /* Posicionado acima do bottom bar */
   left: 0;
   right: 0;
-  z-index: 200;
+  z-index: 100; /* Abaixo do bottom bar (101) */
   padding: 12px 16px;
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(20px);
