@@ -44,7 +44,7 @@ body{
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   padding: 12px 0;
 }
@@ -76,7 +76,6 @@ body{
 
 .header-logo {
   flex-shrink: 0;
-  margin-left: 16px;
 }
 
 .header-logo-img {
@@ -1258,14 +1257,11 @@ canvas {
   
   /* Header responsivo */
   .header-content {
-    flex-direction: column;
-    gap: 8px;
-    text-align: center;
+    justify-content: center;
   }
   
   .header-logo {
     margin-left: 0;
-    order: -1;
   }
   
   .large-title {
