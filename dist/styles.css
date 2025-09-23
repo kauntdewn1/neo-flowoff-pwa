@@ -291,6 +291,24 @@ main{
   border-color: rgba(255,255,255,.18);
 }
 
+/* Card clicável */
+.clickable-card {
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.clickable-card:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 16px 48px rgba(0,0,0,.2), 0 6px 16px rgba(0,0,0,.15);
+  backdrop-filter: blur(28px) saturate(1.4);
+  border-color: rgba(255,255,255,.25);
+}
+
+.clickable-card:active {
+  transform: translateY(-1px) scale(1.01);
+  transition: all 0.1s ease;
+}
+
 /* Card 1: WebApp */
 .thumb-1{background-image:linear-gradient(135deg, rgba(0,208,255,.3), transparent), url('public/logos/geometrico.png'); background-size:cover; opacity:.9}
 
