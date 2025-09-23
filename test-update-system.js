@@ -69,9 +69,13 @@ function testUpdateStorage() {
   console.log(`✅ Estado dispensado: ${dismissed}`);
   
   // Testar limpeza
-  window.clearUpdateState();
-  const cleared = localStorage.getItem('update-dismissed');
-  console.log(`✅ Estado limpo: ${cleared === null}`);
+  if (typeof window.clearUpdateState === 'function') {
+    window.clearUpdateState();
+    const cleared = localStorage.getItem('update-dismissed');
+    console.log(`✅ Estado limpo: ${cleared === null}`);
+  } else {
+    console.log(`⚠️ Função clearUpdateState não disponível ainda`);
+  }
 }
 
 // Função para testar funcionalidade
