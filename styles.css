@@ -227,12 +227,29 @@ main{
   grid-template-columns: repeat(2, minmax(0,1fr));
 }
 .card{
-  background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-  border:1px solid rgba(255,255,255,.08);
-  border-radius: var(--radius); padding:12px 12px 14px; box-shadow: var(--shadow);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  border: 0.5px solid rgba(255,255,255,.12);
+  border-radius: 16px; 
+  padding: 16px 16px 18px; 
+  box-shadow: 0 8px 32px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.08);
+  backdrop-filter: blur(20px) saturate(1.2);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.card h3{margin:8px 0 6px; font-size:16px}
-.card p{margin:0; color:var(--muted); font-size:13px}
+.card h3{
+  margin: 12px 0 8px; 
+  font-size: 16px; 
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.card p{
+  margin: 0; 
+  color: var(--muted); 
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
 
 .glow{position:relative}
 .glow::before{
@@ -242,7 +259,16 @@ main{
   opacity:.6; filter: blur(14px); z-index:-1;
 }
 
-.thumb{height:90px; border-radius:10px; background:#14141f; border:1px solid rgba(255,255,255,.06); position:relative; overflow:hidden}
+.thumb{
+  height: 90px; 
+  border-radius: 12px; 
+  background: rgba(20,20,31,.8); 
+  border: 0.5px solid rgba(255,255,255,.08); 
+  position: relative; 
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
 /* Imagens dos cards */
 .card-image {
@@ -257,89 +283,12 @@ main{
   transform: scale(1.05);
 }
 
-/* FlowOFF Style™ - Service Stack */
-.service-stack {
-  background: linear-gradient(135deg, #1c1d2b, #111218);
-  border-radius: 16px;
-  padding: 2rem;
-  color: #fff;
-  text-align: center;
-}
-
-.service-stack h2 {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.section-sub {
-  color: #aaa;
-  font-size: 1rem;
-  margin-bottom: 2rem;
-}
-
-.service-items {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.service-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  background: rgba(255,255,255,0.05);
-  padding: 1rem;
-  border-radius: 12px;
-  transition: background 0.3s;
-}
-
-.service-item:hover {
-  background: rgba(255,255,255,0.1);
-}
-
-.service-item .icon {
-  font-size: 2rem;
-}
-
-.service-item h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  color: #fff;
-}
-
-.service-item p {
-  margin: 0.3rem 0 0;
-  font-size: 0.95rem;
-  color: #bbb;
-}
-
-.cta-row {
-  margin-top: 2rem;
-}
-
-.btn-contact {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  background: linear-gradient(90deg, #ff00cc, #3333ff);
-  padding: 1rem 2rem;
-  color: #fff;
-  border-radius: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: transform 0.2s ease;
-}
-
-.btn-contact:hover {
-  transform: scale(1.05);
-}
-
-.btn-contact .avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 100%;
-  border: 2px solid white;
+/* Hover effect mais iOS-like */
+.card:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0,0,0,.15), 0 4px 12px rgba(0,0,0,.1);
+  backdrop-filter: blur(24px) saturate(1.3);
+  border-color: rgba(255,255,255,.18);
 }
 
 /* Card 1: WebApp */
