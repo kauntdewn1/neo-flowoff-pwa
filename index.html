@@ -180,23 +180,23 @@
       <!-- PROJETOS -->
       <section class="route" id="projects">
         <div class="list">
-          <div class="list-item">
+          <div class="list-item" data-modal="site-webapp">
             <div>
-              <h4>Site/WebApp sob medida</h4>
+              <h4>Desenvolvimento de Sites e WebApp's</h4>
               <p>Performance, acessibilidade, conversão. Sem modinha.</p>
             </div>
             <button class="chip">ver</button>
           </div>
-          <div class="list-item">
+          <div class="list-item" data-modal="saas-baas">
             <div>
               <h4>SAAS / BAAS</h4>
               <p>Produtos prontos ou personalizados, com integrações.</p>
             </div>
             <button class="chip">detalhes</button>
           </div>
-          <div class="list-item">
+          <div class="list-item" data-modal="tokenizacao">
             <div>
-              <h4>Tokenização de ativos</h4>
+              <h4>🧬 Tokenização de Ativos</h4>
               <p>Do Pix à blockchain. Simples assim.</p>
             </div>
             <button class="chip">ver</button>
@@ -729,7 +729,107 @@
         });
       }
     }, 5 * 60 * 1000); // 5 minutos
+
+    // === MODAIS DOS PROJETOS ===
+    document.addEventListener('DOMContentLoaded', function() {
+      // Event listeners para abrir modais
+      document.querySelectorAll('[data-modal]').forEach(item => {
+        item.addEventListener('click', function() {
+          const modalId = this.getAttribute('data-modal');
+          const modal = document.getElementById(`modal-${modalId}`);
+          if (modal) {
+            modal.showModal();
+            document.body.style.overflow = 'hidden'; // Previne scroll do body
+          }
+        });
+      });
+
+      // Event listeners para fechar modais
+      document.querySelectorAll('[data-close]').forEach(button => {
+        button.addEventListener('click', function() {
+          const modalId = this.getAttribute('data-close');
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.close();
+            document.body.style.overflow = ''; // Restaura scroll do body
+          }
+        });
+      });
+
+      // Fechar modal clicando fora dele
+      document.querySelectorAll('.project-modal').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+          if (e.target === this) {
+            this.close();
+            document.body.style.overflow = '';
+          }
+        });
+      });
+
+      // Fechar modal com ESC
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          const openModal = document.querySelector('.project-modal[open]');
+          if (openModal) {
+            openModal.close();
+            document.body.style.overflow = '';
+          }
+        }
+      });
+    });
   </script>
+
+  <!-- Modais dos Projetos -->
+  <dialog id="modal-site-webapp" class="project-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Desenvolvimento de Sites e WebApp's</h3>
+        <button class="modal-close" data-close="modal-site-webapp">×</button>
+      </div>
+      <div class="modal-body">
+        <p>A maioria ainda vende "site bonito". A gente constrói ativos digitais com arquitetura de conversão e tecnologia que 98% do mercado nem sabe que existe.</p>
+        <p>Do código ao design, cada elemento é pensado pra escalar. Velocidade, acessibilidade, SEO e experiências que colam na mente. É inovação com função, não firula com corzinha pastel.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn primary" data-close="modal-site-webapp">Entendi</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-saas-baas" class="project-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>SAAS / BAAS</h3>
+        <button class="modal-close" data-close="modal-saas-baas">×</button>
+      </div>
+      <div class="modal-body">
+        <p>A maioria entrega software. Nós entregamos máquinas de escala, com lógica de negócio embutida, integração nativa e prontos pra rodar no mundo real.</p>
+        <p>Soluções SAAS sob medida ou white-label com automações, fluxos inteligentes e estrutura plugável.</p>
+        <p>Do MVP à plataforma robusta você escolhe o estágio, a gente entrega o motor.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn primary" data-close="modal-saas-baas">Entendi</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-tokenizacao" class="project-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>🧬 Tokenização de Ativos</h3>
+        <button class="modal-close" data-close="modal-tokenizacao">×</button>
+      </div>
+      <div class="modal-body">
+        <p>Esquece o "XP genérico" das gamificações rasas.</p>
+        <p>Com tokenização, cada ponto, moeda ou ação vira um ativo real, com rastreabilidade e valor simbólico ou financeiro.</p>
+        <p>Dá pra lançar pré-vendas validadas, criar engajamento com escassez real e estruturar um ecossistema de fidelização que vira comunidade.</p>
+        <p>Do jogo ao negócio, a tokenização é a ponte entre engajamento e faturamento. E o melhor: já fazemos isso.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn primary" data-close="modal-tokenizacao">Entendi</button>
+      </div>
+    </div>
+  </dialog>
 
   <!-- Footer Protocol -->
   <footer class="protocol-footer">
