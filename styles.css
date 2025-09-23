@@ -117,7 +117,7 @@ body{
 
 main{
   padding-top: 120px; /* header aumentado */
-  padding-bottom: calc(120px + env(safe-area-inset-bottom)); /* espaço para glass morphism bottom bar */
+  padding-bottom: calc(180px + env(safe-area-inset-bottom)); /* espaço para glass morphism bottom bar + footer */
 }
 
 .route{display:none; padding:16px 14px 24px;}
@@ -140,23 +140,39 @@ main{
 .hero-card h1{margin:2px 0 6px; font-size:28px}
 .hero-card p{margin:0 0 14px; color:var(--muted)}
 
-/* Badge do Protocolo */
-.protocol-badge {
-  margin: 12px 0 8px;
+/* Footer do Protocolo */
+.protocol-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.protocol-footer-content {
   padding: 8px 16px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  display: inline-block;
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.protocol-badge span {
+.protocol-footer-content span {
   font-size: 12px;
   color: var(--muted);
   font-weight: 500;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* Partículas decorativas */
