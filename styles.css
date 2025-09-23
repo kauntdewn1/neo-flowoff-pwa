@@ -135,6 +135,7 @@ main{
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
   animation: glowFade 10s ease-in-out infinite;
+  text-align: center;
 }
 .hero-card h1{margin:2px 0 6px; font-size:28px}
 .hero-card p{margin:0 0 14px; color:var(--muted)}
