@@ -137,6 +137,167 @@ main{
   animation: glowFade 10s ease-in-out infinite;
   text-align: center;
 }
+
+/* Hero com imagem de fundo */
+.hero-with-bg {
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.hero-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.7) 0%, rgba(75, 0, 130, 0.8) 100%);
+  backdrop-filter: blur(2px);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Títulos com efeito neon */
+.hero-title-neon {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: neonGlow 3s ease-in-out infinite alternate, neonShimmer 2s linear infinite;
+  text-shadow: 0 0 20px rgba(255, 0, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3);
+}
+
+.hero-subtitle-neon {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+/* Texto principal com efeito de brilho */
+.hero-text-neon {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.neon-text-line {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  color: #ffffff;
+  text-shadow: 
+    0 0 5px rgba(255, 0, 255, 0.8),
+    0 0 10px rgba(255, 0, 255, 0.6),
+    0 0 15px rgba(0, 255, 255, 0.4),
+    0 0 20px rgba(0, 255, 255, 0.2);
+  animation: neonPulse 2s ease-in-out infinite alternate;
+  letter-spacing: 1px;
+}
+
+/* Botão com efeito neon */
+.neon-btn {
+  background: linear-gradient(45deg, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.2));
+  border: 2px solid rgba(255, 0, 255, 0.5);
+  box-shadow: 
+    0 0 20px rgba(255, 0, 255, 0.3),
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
+  animation: neonBtnGlow 2s ease-in-out infinite alternate;
+}
+
+.neon-btn:hover {
+  background: linear-gradient(45deg, rgba(255, 0, 255, 0.3), rgba(0, 255, 255, 0.3));
+  border-color: rgba(255, 0, 255, 0.8);
+  box-shadow: 
+    0 0 30px rgba(255, 0, 255, 0.5),
+    0 0 40px rgba(0, 255, 255, 0.3),
+    inset 0 0 30px rgba(0, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Animações neon */
+@keyframes neonGlow {
+  0% {
+    background-position: 0% 50%;
+    text-shadow: 0 0 20px rgba(255, 0, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3);
+  }
+  100% {
+    background-position: 100% 50%;
+    text-shadow: 0 0 30px rgba(255, 0, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.5);
+  }
+}
+
+@keyframes neonShimmer {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+@keyframes neonPulse {
+  0% {
+    text-shadow: 
+      0 0 5px rgba(255, 0, 255, 0.8),
+      0 0 10px rgba(255, 0, 255, 0.6),
+      0 0 15px rgba(0, 255, 255, 0.4),
+      0 0 20px rgba(0, 255, 255, 0.2);
+  }
+  100% {
+    text-shadow: 
+      0 0 10px rgba(255, 0, 255, 1),
+      0 0 20px rgba(255, 0, 255, 0.8),
+      0 0 30px rgba(0, 255, 255, 0.6),
+      0 0 40px rgba(0, 255, 255, 0.4);
+  }
+}
+
+@keyframes neonBtnGlow {
+  0% {
+    box-shadow: 
+      0 0 20px rgba(255, 0, 255, 0.3),
+      inset 0 0 20px rgba(0, 255, 255, 0.1);
+  }
+  100% {
+    box-shadow: 
+      0 0 30px rgba(255, 0, 255, 0.5),
+      0 0 40px rgba(0, 255, 255, 0.3),
+      inset 0 0 30px rgba(0, 255, 255, 0.2);
+  }
+}
 .hero-card h1{margin:2px 0 6px; font-size:28px}
 .hero-card p{margin:0 0 14px; color:var(--muted)}
 

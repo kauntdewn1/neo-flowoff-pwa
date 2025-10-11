@@ -77,7 +77,12 @@
     <main id="router">
       <!-- HOME / HERO-PORTFÓLIO -->
       <section class="route active" id="home">
-        <div class="hero-card neon">
+        <div class="hero-card neon hero-with-bg">
+          <!-- Imagem de fundo -->
+          <div class="hero-bg-image">
+            <img src="public/images/capa_neo_flowoff_webapp.png" alt="NEØ FlowOFF Background" class="hero-bg-img">
+            <div class="hero-bg-overlay"></div>
+          </div>
           
           <!-- Partículas decorativas -->
           <div class="particles-container">
@@ -87,12 +92,19 @@
           </div>
 
           <!-- Conteúdo -->
-          <h1>NEØ FLOWOFF</h1>
-          <p>sɪsᴛᴇᴍᴀs, ɪᴀs ᴇ ᴡᴇʙᴀᴘᴘs</p>
-          <p>Do branding ao backend, da copy ao token, somos a ponte entre sua visão e o digital real.</p>
+          <div class="hero-content">
+            <h1 class="hero-title-neon">NEØ FLOWOFF</h1>
+            <p class="hero-subtitle-neon">sɪsᴛᴇᴍᴀs, ɪᴀs ᴇ ᴡᴇʙᴀᴘᴘs</p>
+            
+            <!-- Texto com efeito de brilho -->
+            <div class="hero-text-neon">
+              <p class="neon-text-line">DO BRANDING AO BACKEND, DA COPY AO TOKEN,</p>
+              <p class="neon-text-line">SOMOS A PONTE ENTRE SUA NECESSIDADE E O DIGITAL REAL.</p>
+            </div>
 
-          <div class="cta-row">
-            <a class="btn primary" href="https://wa.me/+5562983231110" target="_blank" rel="noopener">Iniciar projeto</a>
+            <div class="cta-row">
+              <a class="btn primary neon-btn" href="https://wa.me/+5562983231110" target="_blank" rel="noopener">Iniciar projeto</a>
+            </div>
           </div>
         </div>
 
@@ -477,7 +489,7 @@
                 <div class="xp-fill" style="width: 100%;"></div>
                 <span class="xp-text">100%</span>
               </div>
-              <div class="progress-label">Em desenvolvimento</div>
+              <div class="progress-label">Solicite agora</div>
             </div>
             <a href="https://flowpaycash.netlify.app/" target="_blank" rel="noopener" class="badge-link">Acessar</a>
           </div>
@@ -489,7 +501,7 @@
                 <div class="xp-fill" style="width: 12%;"></div>
                 <span class="xp-text">12%</span>
               </div>
-              <div class="progress-label">Quase pronto</div>
+              <div class="progress-label">Em desenvolvimento</div>
             </div>
           </div>
           <div class="badge glass">
@@ -500,7 +512,7 @@
                 <div class="xp-fill" style="width: 78%;"></div>
                 <span class="xp-text">78%</span>
               </div>
-              <div class="progress-label">Em desenvolvimento</div>
+              <div class="progress-label">Em testes</div>
             </div>
           </div>
           <div class="badge glass">
@@ -511,7 +523,7 @@
                 <div class="xp-fill" style="width: 90%;"></div>
                 <span class="xp-text">90%</span>
               </div>
-              <div class="progress-label">Em desenvolvimento</div>
+              <div class="progress-label">Lançamento em breve</div>
             </div>
           </div>
         </div>

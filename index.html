@@ -77,7 +77,12 @@
     <main id="router">
       <!-- HOME / HERO-PORTFÓLIO -->
       <section class="route active" id="home">
-        <div class="hero-card neon">
+        <div class="hero-card neon hero-with-bg">
+          <!-- Imagem de fundo -->
+          <div class="hero-bg-image">
+            <img src="public/images/capa_neo_flowoff_webapp.png" alt="NEØ FlowOFF Background" class="hero-bg-img">
+            <div class="hero-bg-overlay"></div>
+          </div>
           
           <!-- Partículas decorativas -->
           <div class="particles-container">
@@ -87,12 +92,19 @@
           </div>
 
           <!-- Conteúdo -->
-          <h1>NEØ FLOWOFF</h1>
-          <p>sɪsᴛᴇᴍᴀs, ɪᴀs ᴇ ᴡᴇʙᴀᴘᴘs</p>
-          <p>Do branding ao backend, da copy ao token, somos a ponte entre sua visão e o digital real.</p>
+          <div class="hero-content">
+            <h1 class="hero-title-neon">NEØ FLOWOFF</h1>
+            <p class="hero-subtitle-neon">sɪsᴛᴇᴍᴀs, ɪᴀs ᴇ ᴡᴇʙᴀᴘᴘs</p>
+            
+            <!-- Texto com efeito de brilho -->
+            <div class="hero-text-neon">
+              <p class="neon-text-line">DO BRANDING AO BACKEND, DA COPY AO TOKEN,</p>
+              <p class="neon-text-line">SOMOS A PONTE ENTRE SUA NECESSIDADE E O DIGITAL REAL.</p>
+            </div>
 
-          <div class="cta-row">
-            <a class="btn primary" href="https://wa.me/+5562983231110" target="_blank" rel="noopener">Iniciar projeto</a>
+            <div class="cta-row">
+              <a class="btn primary neon-btn" href="https://wa.me/+5562983231110" target="_blank" rel="noopener">Iniciar projeto</a>
+            </div>
           </div>
         </div>
 
@@ -203,7 +215,7 @@
         </div>
         
         <!-- Protocol text -->
-        <div class="protocol-text">↳ DESENVOLVIDO POR NODES NΞØ PROTOCOL</div>
+        <div class="protocol-text">↳ Desenvolvido por NΞØ PROTOCOL</div>
       </section>
 
       <!-- PROJETOS -->
@@ -421,7 +433,7 @@
         </section>
         
         <!-- Protocol text -->
-        <div class="protocol-text">↳ DESENVOLVIDO POR NODES NΞØ PROTOCOL</div>
+        <div class="protocol-text">↳ Desenvolvido por NΞØ PROTOCOL</div>
       </section>
 
       <!-- CAPTAÇÃO (form) -->
