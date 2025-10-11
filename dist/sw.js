@@ -1,3 +1,8 @@
+// 🚨 PROTEÇÃO CONTRA REMOÇÃO ACIDENTAL 🚨
+// NÃO REMOVER OU MODIFICAR FUNCIONALIDADES EXISTENTES
+// MANTENHA TODAS AS FUNÇÕES DO SERVICE WORKER INTACTAS
+// APENAS ADICIONAR NOVAS FUNCIONALIDADES QUANDO SOLICITADO
+
 const CACHE = 'neo-flowoff-v1.5.1-images';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js', './p5-background.js',
