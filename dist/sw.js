@@ -1,4 +1,4 @@
-const CACHE = 'neo-flowoff-v1.4.9-stable';
+const CACHE = 'neo-flowoff-v1.5.0-final';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js', './p5-background.js',
   './blog.html', './blog-styles.css', './blog.js', './data/blog-articles.json',
@@ -76,7 +76,7 @@ self.addEventListener('fetch', e=>{
     );
   } else {
     e.respondWith(
-      caches.match(req).then(cached => cached || fetch(req).then(res=>{
+      fetch(req).then(res => {
         // Só cachear se for uma resposta válida
         if (res.status === 200 && res.type === 'basic') {
           const copy = res.clone();
@@ -85,7 +85,14 @@ self.addEventListener('fetch', e=>{
           });
         }
         return res;
-      }).catch(()=> caches.match('./index.html')))
+      }).catch(() => {
+        // Fallback para cache se a rede falhar
+        return caches.match(req).then(cached => {
+          if (cached) return cached;
+          // Se não houver cache, retornar resposta básica
+          return new Response('Resource not available', { status: 404 });
+        });
+      })
     );
   }
 });
