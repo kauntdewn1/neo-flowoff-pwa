@@ -1,10 +1,10 @@
-const CACHE = 'neo-flowoff-v1.5.0-final';
+const CACHE = 'neo-flowoff-v1.5.1-images';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js', './p5-background.js',
   './blog.html', './blog-styles.css', './blog.js', './data/blog-articles.json',
   './manifest.webmanifest', './public/icon-192.png', './public/icon-512.png', './public/maskable-512.png',
   './public/flowoff logo.png', './public/FLOWPAY.png', './public/neo_ico.png', './public/icon-512.png',
-  './public/poston.png', './public/logos/proia.png',
+  './public/logos/POSTON.png', './public/logos/proia.png', './public/logos/card-logo.png',
   './public/icons/icon-48x48.webp', './public/icons/icon-72x72.webp', './public/icons/icon-96x96.webp',
   './public/icons/icon-128x128.webp', './public/icons/icon-144x144.webp', './public/icons/icon-152x152.webp',
   './public/icons/icon-192x192.webp', './public/icons/icon-256x256.webp', './public/icons/icon-384x384.webp',
@@ -75,8 +75,13 @@ self.addEventListener('fetch', e=>{
       }).catch(() => caches.match(req))
     );
   } else {
+    // Para imagens, usar estratégia mais robusta
     e.respondWith(
-      fetch(req).then(res => {
+      fetch(req, {
+        // Configurações para evitar NS_BINDING_ABORTED
+        signal: AbortSignal.timeout(10000), // Timeout de 10s
+        cache: 'no-cache'
+      }).then(res => {
         // Só cachear se for uma resposta válida
         if (res.status === 200 && res.type === 'basic') {
           const copy = res.clone();
@@ -85,7 +90,8 @@ self.addEventListener('fetch', e=>{
           });
         }
         return res;
-      }).catch(() => {
+      }).catch(err => {
+        console.warn('SW: Fetch failed for', req.url, err);
         // Fallback para cache se a rede falhar
         return caches.match(req).then(cached => {
           if (cached) return cached;
