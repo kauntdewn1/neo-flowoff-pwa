@@ -233,7 +233,7 @@
     
     <p class="description">Mobile-first, fluida, rápida, com toques, animações e interações que não cabem aqui.</p>
     
-    <p class="description">📱 <strong>Experimente a experiência completa:</strong> Escaneie o QR Code abaixo para acessar via mobile e ver toda a magia da FlowOFF!</p>
+    <p class="description">📱 <strong>Para ter a experiência completa:</strong> Escaneie o QR Code abaixo ou acesse via mobile!</p>
 
     <div class="qr-section">
       <p>📱 <strong>Escaneie esse QR Code e veja como deveria ser:</strong></p>
@@ -245,10 +245,6 @@
         <code style="background: rgba(255,255,255,0.1); padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.8rem;">flowoff.xyz</code>
       </p>
     </div>
-
-    <button class="continue-btn" onclick="window.location.href='index.html'">
-      🖥️ Acessar versão desktop mesmo assim
-    </button>
 
     <div class="countdown" id="countdown">
       Redirecionando automaticamente em <span id="timer">5</span> segundos...
@@ -266,16 +262,30 @@
   </div>
 
   <script>
-    // === PREVENÇÃO DE LOOPS ===
+    // === DETECÇÃO DE DESKTOP E PREVENÇÃO DE LOOPS ===
+    function isDesktop() {
+      return window.innerWidth >= 1024 && 
+             window.innerHeight >= 768 && 
+             !navigator.userAgent.match(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i) &&
+             !('ontouchstart' in window) &&
+             window.matchMedia('(pointer: fine)').matches;
+    }
+
     const lastIndexVisit = localStorage.getItem('last-index-visit');
     const now = Date.now();
     
-    // Se visitou index.html recentemente (menos de 10 segundos), não redirecionar
-    if (lastIndexVisit && (now - parseInt(lastIndexVisit)) < 10000) {
-      console.log('🚫 Prevenindo loop: visitou index.html recentemente');
+    // Se é desktop, NUNCA redirecionar para index.html
+    if (isDesktop()) {
+      console.log('🖥️ Usuário em desktop detectado - cancelando countdown');
       document.getElementById('countdown').style.display = 'none';
+      
+      // Marcar que está em desktop para prevenir redirecionamentos futuros
+      localStorage.setItem('desktop-mode', 'true');
+      localStorage.setItem('desktop-visit-time', now.toString());
+      
+      // Em desktop, apenas mostrar QR Code e aguardar
     } else {
-      // Countdown automático apenas se não há risco de loop
+      // Countdown automático apenas para mobile
       let countdown = 5;
       const timerElement = document.getElementById('timer');
       const countdownElement = document.getElementById('countdown');
@@ -312,6 +322,9 @@
     window.clearLoopPrevention = () => {
       localStorage.removeItem('last-desktop-visit');
       localStorage.removeItem('last-index-visit');
+      localStorage.removeItem('desktop-mode');
+      localStorage.removeItem('desktop-visit-time');
+      localStorage.removeItem('force-desktop');
       console.log('🔄 Estado de prevenção de loops limpo');
     };
 
