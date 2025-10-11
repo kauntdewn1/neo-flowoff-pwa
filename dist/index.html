@@ -1,1134 +1,1135 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#0a0a0f">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<meta name="cache-control" content="no-cache">
-
-
-<meta name="description" content="GPTs MELLØ: [Pai] do Marketing v.2050 para análise completa de marketing digital e Designer v.2050 para design generativo com aplicação de logo. IA treinada em campo real.">
-<meta name="keywords" content="GPT, IA, marketing digital, design generativo, análise de persona, SWOT, roadmap de campanhas, MELLØ, FlowOFF">
-
-
-<script type="application/ld+json">
-{
-"@context": "https://schema.org",
-"@type": "SoftwareApplication",
-"name": "GPTs MELLØ",
-"description": "GPTs especializados em marketing digital e design generativo",
-"applicationCategory": "BusinessApplication",
-"operatingSystem": "Web",
-"offers": {
-"@type": "Offer",
-"price": "0",
-"priceCurrency": "BRL"
-},
-"author": {
-"@type": "Person",
-"name": "MELLØ",
-"url": "https://wa.me/+5562983231110"
-}
-}
-</script>
-
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' data:; frame-src 'self' https://agent-neo-flowoff.vercel.app;">
-
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="apple-touch-icon" href="public/icons/icon-192x192.webp">
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="manifest" href="manifest.webmanifest">
-<title>NEØ.FLOWOFF</title>
-<link rel="stylesheet" href="styles.css?v=1.5.2">
-<link rel="stylesheet" href="glass-morphism-bottom-bar.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="cache-control" content="no-cache">
+  
+  <!-- Meta descriptions específicas para GPTs -->
+  <meta name="description" content="GPTs MELLØ: [Pai] do Marketing v.2050 para análise completa de marketing digital e Designer v.2050 para design generativo com aplicação de logo. IA treinada em campo real.">
+  <meta name="keywords" content="GPT, IA, marketing digital, design generativo, análise de persona, SWOT, roadmap de campanhas, MELLØ, FlowOFF">
+  
+  <!-- Schema markup para GPTs -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "GPTs MELLØ",
+    "description": "GPTs especializados em marketing digital e design generativo",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BRL"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "MELLØ",
+      "url": "https://wa.me/+5562983231110"
+    }
+  }
+  </script>
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' data:; frame-src 'self' https://agent-neo-flowoff.vercel.app;">
+  <!-- iOS PWA -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="public/icons/icon-192x192.webp">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>NEØ.FLOWOFF</title>
+  <link rel="stylesheet" href="styles.css?v=1.5.2">
+  <link rel="stylesheet" href="glass-morphism-bottom-bar.css">
 </head>
 <body>
-
-<div id="app">
-
-
-
-<header class="topbar blur" id="main-header">
-<div class="header-content">
-<div class="header-logo">
-<img src="public/flowoff logo.png" alt="FlowOFF" class="header-logo-img">
-</div>
-</div>
-</header>
-
-
-<div id="pwa-install-banner" class="pwa-banner">
-<div class="pwa-content">
-<div class="pwa-icon">📱</div>
-<div class="pwa-text">
-<strong>Instale o app</strong>
-<span>Adicione à tela inicial para acesso rápido</span>
-</div>
-<button id="pwa-install-btn" class="pwa-btn">Instalar</button>
-<button id="pwa-dismiss" class="pwa-dismiss">×</button>
-</div>
-</div>
-
-
-<main id="router">
-
-<section class="route active" id="home">
-<div class="hero-card neon">
-
-
-<div class="particles-container">
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-</div>
-
-
-<h1>NEØ FLOWOFF</h1>
-<p>sɪsᴛᴇᴍᴀs, ɪᴀs ᴇ ᴡᴇʙᴀᴘᴘs</p>
-<p>Do branding ao backend, da copy ao token, somos a ponte entre sua visão e o digital real.</p>
-
-<div class="cta-row">
-<a class="btn primary" href="https://wa.me/+5562983231110" target="_blank" rel="noopener">Iniciar projeto</a>
-</div>
-</div>
-
-
-<div class="flowoff-section">
-<div class="flowoff-card neon">
-<div class="flowoff-header">
-<div class="flowoff-logo">
-<img src="public/flowoff logo.png" alt="FlowOFF" class="flowoff-logo-img">
-</div>
-<div class="flowoff-title">
-<h2>Transformamos estratégia em tecnologia.</h2>
-<span class="flowoff-subtitle">E tecnologia em resultado.</span>
-</div>
-</div>
-
-<div class="flowoff-content">
-<p class="flowoff-description">
-FlowOFF é agência que já fez gestão de redes sociais comum, uma solução que muitas empresas buscam mas não sabem que uma nova estratégia já está sendo usada e que poucos sabem ou possuem abordagem visionária de estratégias e tecnologias que fazem todo o diferencial para o rompimento das barreiras que levam aos resultados reais.
-</p>
-
-<div class="flowoff-features">
-<div class="feature-item">
-<div class="feature-icon">🎯</div>
-<div class="feature-text">
-<h4>Consultoria Estratégica</h4>
-<p>Reposicionamento, diferenciação e estratégias que realmente escalam.</p>
-</div>
-</div>
-
-<div class="feature-item">
-<div class="feature-icon">📊</div>
-<div class="feature-text">
-<h4>Gestão Inteligente de Dados</h4>
-<p>Dashboards, insights, automações e decisões guiadas por IA.</p>
-</div>
-</div>
-
-<div class="feature-item">
-<div class="feature-icon">🚀</div>
-<div class="feature-text">
-<h4>Tecnologias Sob Medida</h4>
-<p>WebApps, sistemas, integrações e tokenização — direto pro futuro.</p>
-</div>
-</div>
-</div>
-
-<div class="flowoff-cta">
-<a href="https://wa.me/+5562983231110" target="_blank" rel="noopener" class="btn primary flowoff-btn">
-<img src="public/mello.webp" alt="MELLØ" class="mello-photo">
-<span>Falar com a FLOW</span>
-<div class="btn-shimmer"></div>
-</a>
-</div>
-</div>
-</div>
-</div>
-
-
-<div class="grid">
-
-<article class="card glow">
-<div class="thumb thumb-1">
-<img src="public/cards/taaft.com-image-generator-by-taaft-1758617772.png" alt="WebApp" class="card-image">
-</div>
-<h3>WebApp</h3>
-<p>Desenvolvimento de aplicações web modernas e responsivas.</p>
-</article>
-
-<article class="card glow">
-<div class="thumb thumb-2">
-<div class="gamification-preview">
-<div class="xp-bar">
-<div class="xp-fill"></div>
-<span class="xp-text">Level 12</span>
-</div>
-<div class="badges-row">
-<div class="badge-icon">🏆</div>
-<div class="badge-icon">⭐</div>
-<div class="badge-icon">🎯</div>
-</div>
-<div class="leaderboard-mini">
-<div class="leader-item">1. Ana Silva</div>
-<div class="leader-item">2. João Santos</div>
-<div class="leader-item">3. Maria Costa</div>
-</div>
-</div>
-</div>
-<h3>Dashboards Gamificados</h3>
-<p>Transforme relatórios frios em experiências interativas com níveis, pontos e recompensas.</p>
-</article>
-
-<article class="card glow">
-<div class="thumb thumb-5">
-<img src="public/cards/taaft.com-image-generator-by-taaft-1758617756.png" alt="NEØ.FLOWOFF" class="card-image">
-</div>
-<h3>NEØ.FLOWOFF</h3>
-<p>Laboratório de marketing, blockchain e sistemas digitais.</p>
-</article>
-
-<article class="card glow clickable-card" onclick="go('start')">
-<div class="thumb thumb-6">
-<img src="public/cards/taaft.com-image-generator-by-taaft-1758617737.png" alt="Entre em contato" class="card-image">
-</div>
-<h3>Entre em contato</h3>
-<p>Entre em contato para entender mais sobre como seu negócio pode avançar no digital. Fale com MELLØ™</p>
-</article>
-</div>
-
-
-<div class="protocol-text">↳ DESENVOLVIDO POR NODES NΞØ PROTOCOL</div>
-</section>
-
-
-<section class="route" id="projects">
-<div class="list">
-<div class="list-item" data-modal="site-webapp">
-<div>
-<h4>Sites e WebApp's</h4>
-<p>Performance, acessibilidade, conversão. SEO Avançado e Mobile First.</p>
-</div>
-<button class="chip">ver</button>
-</div>
-<div class="list-item" data-modal="saas-baas">
-<div>
-<h4>SAAS / BAAS</h4>
-<p>Área do cliente, sistema de gestão ou uma nova solução.</p>
-</div>
-<button class="chip">ver</button>
-</div>
-<div class="list-item" data-modal="tokenizacao">
-<div>
-<h4>Tokenização de Ativos</h4>
-<p>Sua empresa com sua propria cripto.</p>
-</div>
-<button class="chip">ver</button>
-</div>
-<div class="list-item" data-modal="agentes-ia">
-<div>
-<h4>Agentes IA e Chatbots</h4>
-<p>IA para seu negócio, ou que facilite seu dia a dia.</p>
-</div>
-<button class="chip">ver</button>
-</div>
-</div>
-
-
-<section id="gpts-mello" class="gpts-section" aria-labelledby="gpts-title">
-<div class="section-subtitle" id="gpts-title">Experimente GPTs treinados para te ajudar com seu marketing e criatividade.</div>
-
-<ul class="gpts-grid" role="list">
-
-<li>
-<article class="gpt-card glass" aria-labelledby="gpt-pai-title" itemscope itemtype="https://schema.org/SoftwareApplication">
-<div class="gpt-header">
-<div class="gpt-icon" aria-hidden="true">
-<svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-<path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-<path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-<path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-</svg>
-</div>
-<div class="gpt-badges">
-<span class="badge badge-pro">PRO</span>
-<span class="badge badge-popular">Popular</span>
-</div>
-</div>
-
-<div class="gpt-content">
-<h4 id="gpt-pai-title" itemprop="name">[ Pai ] do Marketing v.2050</h4>
-<p itemprop="description">Substitua sua social media com uma IA que entende tudo sobre marketing digital. Faz análise de Persona, SWOT, análise de concorrência, análise de mercado, análise de funil de vendas e cria roadmaps de campanhas comerciais com sugestões de artes para desenvolver com nosso GPT Designer.</p>
-
-<div class="gpt-features">
-<div class="feature-tag">
-<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M3 3v18h18"/>
-<path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
-</svg>
-Análise de Persona
-</div>
-<div class="feature-tag">
-<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<circle cx="12" cy="12" r="10"/>
-<path d="M8 12l2 2 4-4"/>
-</svg>
-SWOT Completo
-</div>
-<div class="feature-tag">
-<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M3 3v18h18"/>
-<path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
-</svg>
-Roadmap de Campanhas
-</div>
-<div class="feature-tag">
-<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-<circle cx="8.5" cy="8.5" r="1.5"/>
-<path d="M21 15L16 10L5 21"/>
-</svg>
-Sugestões de Arte
-</div>
-</div>
-
-<div class="gpt-author" itemprop="author">Por MELLØ</div>
-</div>
-
-<a
-href="https://chatgpt.com/g/g-68537da11ef081919947baedc3f00ad4-pai-do-marketing-v-2050?model=gpt-4o"
-class="gpt-btn"
-target="_blank"
-rel="noopener noreferrer"
-aria-label="Testar GPT [ Pai ] do Marketing v.2050 - Análise completa de marketing digital"
-itemprop="url"
->
-<span>Testar agora</span>
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M7 7H17V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</a>
-</article>
-</li>
-
-
-<li>
-<article class="gpt-card glass" aria-labelledby="gpt-designer-title" itemscope itemtype="https://schema.org/SoftwareApplication">
-<div class="gpt-header">
-<div class="gpt-icon" aria-hidden="true">
-<svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-<rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
-<circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="2"/>
-<path d="M21 15L16 10L5 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</div>
-<div class="gpt-badges">
-<span class="badge badge-pro">PRO</span>
-<span class="badge badge-beta">Beta</span>
-</div>
-</div>
-
-<div class="gpt-content">
-<h4 id="gpt-designer-title" itemprop="name">Designer v.2050 — [ MELLØ ] ™ PRO</h4>
-<p itemprop="description">Direção de arte generativa com peso editorial. Envie a logo de sua empresa ou negócio e peça para o designer aplicar pictoricamente. Capas, posts e key visuals com textura emocional e presença gráfica.</p>
-
-<div class="gpt-features">
-<div class="feature-tag">
-<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-<circle cx="8.5" cy="8.5" r="1.5"/>
-<path d="M21 15L16 10L5 21"/>
-</svg>
-Aplicação de Logo
-</div>
-<div class="feature-tag">
-<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-<line x1="8" y1="21" x2="16" y2="21"/>
-<line x1="12" y1="17" x2="12" y2="21"/>
-</svg>
-Posts Sociais
-</div>
-<div class="feature-tag">
-<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-<polyline points="14,2 14,8 20,8"/>
-<line x1="16" y1="13" x2="8" y2="13"/>
-<line x1="16" y1="17" x2="8" y2="17"/>
-<polyline points="10,9 9,9 8,9"/>
-</svg>
-Capas Editoriais
-</div>
-<div class="feature-tag">
-<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<circle cx="12" cy="12" r="10"/>
-<path d="M8 12l2 2 4-4"/>
-</svg>
-Key Visuals
-</div>
-</div>
-
-<div class="gpt-author" itemprop="author">Por MELLØ</div>
-</div>
-
-<a
-href="https://chatgpt.com/g/g-6854ff9169948191aad36d7f6ae02e8d-designer-v-2050-mello-tm-pro"
-class="gpt-btn"
-target="_blank"
-rel="noopener noreferrer"
-aria-label="Testar GPT Designer v.2050 MELLØ PRO - Design generativo com aplicação de logo"
-itemprop="url"
->
-<span>Testar agora</span>
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M7 7H17V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</a>
-</article>
-</li>
-</ul>
-
-
-<div class="gpt-cta">
-<div class="gpt-cta-content">
-<h3>
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M12 2L2 7L12 12L22 7L12 2Z"/>
-<path d="M2 17L12 22L22 17"/>
-<path d="M2 12L12 17L22 12"/>
-</svg>
-Quer seu GPT personalizado?
-</h3>
-<p>Criamos GPTs sob medida para seu negócio, treinados com seus dados e estratégias específicas.</p>
-<a href="https://wa.me/+5562983231110" class="btn primary gpt-cta-btn" target="_blank" rel="noopener">
-<span>
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-</svg>
-Falar com MELLØ
-</span>
-<div class="btn-shimmer"></div>
-</a>
-</div>
-</div>
-</section>
-
-
-<div class="protocol-text">↳ DESENVOLVIDO POR NODES NΞØ PROTOCOL</div>
-</section>
-
-
-<section class="route" id="start">
-
-
-<div class="mello-profile card glow">
-<div class="mello-image">
-<img src="public/mello.webp" alt="MELLØ" class="mello-photo-large">
-</div>
-<div class="mello-info">
-<h3>MELLØ™</h3>
-<div class="mello-description">
-<p><strong>Agente IPFS na WEB3</strong></p>
-<p>DEV, Gestor de dados e prompts</p>
-<p>Expert em Marketing Digital e Blockchain</p>
-<p>Agencia FlowOFF® & FLOWPay®</p>
-<div class="mello-divider">-</div>
-</div>
-</div>
-</div>
-
-<form id="lead-form" class="card form glow">
-<label>Nome<input name="name" color="gray" placeholder="Seu nome" autocomplete="name" required></label>
-<label>Email<input type="email" color="gray" placeholder="seuemail@exemplo.com" name="email" autocomplete="email" required></label>
-<label>WhatsApp<input name="whats" color="gray" placeholder="+55 (00) 00000-0000" autocomplete="whatsapp" required></label>
-<label>Serviço que procura
-<select name="type" autocomplete="off" required>
-<option color="gray" value="" disabled selected>Selecione uma opção</option>
-<option value="site">Site / WebApp</option>
-<option value="saas">SAAS / BAAS</option>
-<option value="cripto">Tokenização / Cripto</option>
-<option value="poston">POSTØN</option>
-<option value="proia">PRO.IA</option>
-</select>
-</label>
-<button class="btn primary" type="submit">Enviar</button>
-<p class="muted center" id="lead-status"></p>
-</form>
-
-
-<div class="protocol-text">↳ DESENVOLVIDO POR NODES NΞØ PROTOCOL</div>
-</section>
-
-
-<section class="route" id="ecosystem">
-<div class="badges">
-<div class="badge glass">
-<img alt="FlowPay" src="public/FLOWPAY.png">
-<div><b>FlowPay</b><span>Pagamentos integrados</span></div>
-<div class="ecosystem-progress">
-<div class="xp-bar">
-<div class="xp-fill" style="width: 85%;"></div>
-<span class="xp-text">85%</span>
-</div>
-<div class="progress-label">Em desenvolvimento</div>
-</div>
-</div>
-<div class="badge glass">
-<img alt="NEØ Protocol" src="public/neo_ico.png">
-<div><b>NEØ Protocol</b><span>Camada tecnológica</span></div>
-<div class="ecosystem-progress">
-<div class="xp-bar">
-<div class="xp-fill" style="width: 92%;"></div>
-<span class="xp-text">92%</span>
-</div>
-<div class="progress-label">Quase pronto</div>
-</div>
-</div>
-<div class="badge glass">
-<img alt="POSTØN" src="public/logos/POSTON.png">
-<div><b>POSTØN</b><span>Gestão de redes sociais</span></div>
-<div class="ecosystem-progress">
-<div class="xp-bar">
-<div class="xp-fill" style="width: 78%;"></div>
-<span class="xp-text">78%</span>
-</div>
-<div class="progress-label">Em desenvolvimento</div>
-</div>
-</div>
-<div class="badge glass">
-<img alt="PRO.IA" src="public/logos/proia.png">
-<div><b>PRO.IA</b><span>Treinamento IA</span></div>
-<div class="ecosystem-progress">
-<div class="xp-bar">
-<div class="xp-fill" style="width: 65%;"></div>
-<span class="xp-text">65%</span>
-</div>
-<div class="progress-label">Em desenvolvimento</div>
-</div>
-</div>
-</div>
-
-
-<div class="protocol-text">↳ DESENVOLVIDO POR NODES NΞØ PROTOCOL</div>
-</section>
-
-
-
-<dialog id="lead" class="sheet">
-<form method="dialog" class="sheet-body">
-<h3>Falar direto comigo</h3>
-<p>Respondo rápido. Sem burocracia.</p>
-<a class="btn primary block" href="https://wa.me/5551999999999" target="_blank" rel="noopener">WhatsApp</a>
-<button class="btn ghost block">Fechar</button>
-</form>
-</dialog>
-
-
-<!--
-<dialog id="agent-modal" class="sheet agent-modal">
-<div class="sheet-body">
-<div class="agent-modal-header">
-<h3>🤖 Agente NEO FlowOff</h3>
-<button class="agent-close" data-close="agent-modal">×</button>
-</div>
-<div class="agent-chat-container">
-<div id="agent-messages" class="agent-messages"></div>
-<div class="agent-input-container">
-<input type="text" id="agent-input" placeholder="Digite sua mensagem..." autocomplete="off">
-<button id="agent-send" class="agent-send-btn">Enviar</button>
-</div>
-</div>
-<div class="agent-actions">
-<button class="btn ghost small" id="agent-clear">Limpar</button>
-<button class="btn ghost small" id="agent-leads">Ver Leads</button>
-</div>
-</div>
-</dialog>
--->
-
-
-
-<div id="offline" class="offline">Sem conexão. Funcionalidades limitadas.</div>
-</main>
-
-
-<div class="glass-morphism-overlay" id="glass-overlay"></div>
-
-
-<div id="update-banner" class="update-banner">
-<div class="update-content">
-<div class="update-icon">🔄</div>
-<div class="update-text">
-<strong>Nova versão disponível!</strong>
-<span>Atualize para ter acesso às últimas funcionalidades</span>
-</div>
-<button id="update-btn" class="update-btn">Atualizar</button>
-<button id="update-dismiss" class="update-dismiss">×</button>
-</div>
-</div>
-
-
-<nav class="glass-morphism-tabbar">
-<div class="glass-nav-item active" data-route="home">
-<div class="glass-nav-icon">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</div>
-<div class="glass-nav-label">Home</div>
-<div class="glass-nav-indicator"></div>
-</div>
-
-<div class="glass-nav-item" data-route="projects">
-<div class="glass-nav-icon">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M22 19C22 19.5304 21.7893 20.0391 21.4142 20.4142C21.0391 20.7893 20.5304 21 20 21H4C3.46957 21 2.96086 20.7893 2.58579 20.4142C2.21071 20.0391 2 19.5304 2 19V5C2 4.46957 2.21071 3.96086 2.58579 3.58579C2.96086 3.21071 3.46957 3 4 3H20C20.5304 3 21.0391 3.21071 21.4142 3.58579C21.7893 3.96086 22 4.46957 22 5V19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M8 7H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M8 11H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M8 15H12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</div>
-<div class="glass-nav-label">Projetos</div>
-<div class="glass-nav-indicator"></div>
-</div>
-
-<div class="glass-nav-item start-button" data-route="start">
-<div class="glass-nav-icon">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</div>
-<div class="glass-nav-label">Iniciar</div>
-<div class="glass-nav-indicator"></div>
-</div>
-
-<div class="glass-nav-item" data-route="ecosystem">
-<div class="glass-nav-icon">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-<path d="M2 12H22" stroke="currentColor" stroke-width="2"/>
-<path d="M12 2C14.5013 4.73835 15.9228 8.29203 15.9331 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8.06688 12C8.07725 8.29203 9.49872 4.73835 12 2Z" stroke="currentColor" stroke-width="2"/>
-</svg>
-</div>
-<div class="glass-nav-label">Ecossistema</div>
-<div class="glass-nav-indicator"></div>
-</div>
-</nav>
-
-
-<footer class="footer">
-<p class="footer-text">Agência de Marketing na blockchain | Desenvolvimento de sistemas, WebApp's e IAs</p>
-</footer>
-
-
-<!--
-<div id="agent-widget" class="agent-widget">
-<div class="agent-widget-toggle" id="agent-widget-toggle">
-<img src="public/neo_ico.png" alt="NEO" class="agent-widget-icon">
-<span class="agent-widget-text">Atendimento</span>
-</div>
-<div class="agent-widget-popup" id="agent-widget-popup">
-<div class="agent-widget-header">
-<h4>🤖 Agente NEO FlowOff</h4>
-<button class="agent-widget-close" id="agent-widget-close">×</button>
-</div>
-<div class="agent-widget-iframe-container">
-<iframe
-src="https://agent-neo-flowoff.vercel.app/embed"
-width="100%"
-height="500"
-frameborder="0"
-style="border: none; border-radius: 10px;">
-</iframe>
-</div>
-</div>
-</div>
--->
-</div>
-
-
+  <!-- App Shell -->
+  <div id="app">
+
+
+    <!-- Header simplificado com glass morphism -->
+    <header class="topbar blur" id="main-header">
+      <div class="header-content">
+        <div class="header-logo">
+          <img src="public/flowoff logo.png" alt="FlowOFF" class="header-logo-img">
+        </div>
+      </div>
+    </header>
+
+    <!-- Banner de instalação PWA -->
+    <div id="pwa-install-banner" class="pwa-banner">
+      <div class="pwa-content">
+        <div class="pwa-icon">📱</div>
+        <div class="pwa-text">
+          <strong>Instale o app</strong>
+          <span>Adicione à tela inicial para acesso rápido</span>
+        </div>
+        <button id="pwa-install-btn" class="pwa-btn">Instalar</button>
+        <button id="pwa-dismiss" class="pwa-dismiss">×</button>
+      </div>
+    </div>
+
+    <!-- Conteúdo com áreas "rotas" -->
+    <main id="router">
+      <!-- HOME / HERO-PORTFÓLIO -->
+      <section class="route active" id="home">
+        <div class="hero-card neon">
+          
+          <!-- Partículas decorativas -->
+          <div class="particles-container">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+          </div>
+
+          <!-- Conteúdo -->
+          <h1>NEØ FLOWOFF</h1>
+          <p>sɪsᴛᴇᴍᴀs, ɪᴀs ᴇ ᴡᴇʙᴀᴘᴘs</p>
+          <p>Do branding ao backend, da copy ao token, somos a ponte entre sua visão e o digital real.</p>
+
+          <div class="cta-row">
+            <a class="btn primary" href="https://wa.me/+5562983231110" target="_blank" rel="noopener">Iniciar projeto</a>
+          </div>
+        </div>
+
+        <!-- Seção FlowOFF Moderna -->
+        <div class="flowoff-section">
+          <div class="flowoff-card neon">
+            <div class="flowoff-header">
+              <div class="flowoff-logo">
+                <img src="public/flowoff logo.png" alt="FlowOFF" class="flowoff-logo-img">
+              </div>
+              <div class="flowoff-title">
+                <h2>Transformamos estratégia em tecnologia.</h2>
+                <span class="flowoff-subtitle">E tecnologia em resultado.</span>
+              </div>
+            </div>
+            
+            <div class="flowoff-content">
+              <p class="flowoff-description">
+                FlowOFF é agência que já fez gestão de redes sociais comum, uma solução que muitas empresas buscam mas não sabem que uma nova estratégia já está sendo usada e que poucos sabem ou possuem abordagem visionária de estratégias e tecnologias que fazem todo o diferencial para o rompimento das barreiras que levam aos resultados reais.
+              </p>
+              
+              <div class="flowoff-features">
+                <div class="feature-item">
+                  <div class="feature-icon">🎯</div>
+                  <div class="feature-text">
+                    <h4>Consultoria Estratégica</h4>
+                    <p>Reposicionamento, diferenciação e estratégias que realmente escalam.</p>
+                  </div>
+                </div>
+                
+                <div class="feature-item">
+                  <div class="feature-icon">📊</div>
+                  <div class="feature-text">
+                    <h4>Gestão Inteligente de Dados</h4>
+                    <p>Dashboards, insights, automações e decisões guiadas por IA.</p>
+                  </div>
+                </div>
+                
+                <div class="feature-item">
+                  <div class="feature-icon">🚀</div>
+                  <div class="feature-text">
+                    <h4>Tecnologias Sob Medida</h4>
+                    <p>WebApps, sistemas, integrações e tokenização — direto pro futuro.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="flowoff-cta">
+                <a href="https://wa.me/+5562983231110" target="_blank" rel="noopener" class="btn primary flowoff-btn">
+                  <img src="public/mello.webp" alt="MELLØ" class="mello-photo">
+                  <span>Falar com a FLOW</span>
+                  <div class="btn-shimmer"></div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="grid">
+          <!-- mocks/prints -->
+          <article class="card glow">
+            <div class="thumb thumb-1">
+              <img src="public/cards/taaft.com-image-generator-by-taaft-1758617772.png" alt="WebApp" class="card-image">
+            </div>
+            <h3>WebApp</h3>
+            <p>Desenvolvimento de aplicações web modernas e responsivas.</p>
+          </article>
+
+          <article class="card glow">
+            <div class="thumb thumb-2">
+              <div class="gamification-preview">
+                <div class="xp-bar">
+                  <div class="xp-fill"></div>
+                  <span class="xp-text">Level 12</span>
+                </div>
+                <div class="badges-row">
+                  <div class="badge-icon">🏆</div>
+                  <div class="badge-icon">⭐</div>
+                  <div class="badge-icon">🎯</div>
+                </div>
+                <div class="leaderboard-mini">
+                  <div class="leader-item">1. Ana Silva</div>
+                  <div class="leader-item">2. João Santos</div>
+                  <div class="leader-item">3. Maria Costa</div>
+                </div>
+              </div>
+            </div>
+            <h3>Dashboards Gamificados</h3>
+            <p>Transforme relatórios frios em experiências interativas com níveis, pontos e recompensas.</p>
+          </article>
+
+          <article class="card glow">
+            <div class="thumb thumb-5">
+              <img src="public/cards/taaft.com-image-generator-by-taaft-1758617756.png" alt="NEØ.FLOWOFF" class="card-image">
+            </div>
+            <h3>NEØ.FLOWOFF</h3>
+            <p>Laboratório de marketing, blockchain e sistemas digitais.</p>
+          </article>
+
+          <article class="card glow clickable-card" onclick="go('start')">
+            <div class="thumb thumb-6">
+              <img src="public/cards/taaft.com-image-generator-by-taaft-1758617737.png" alt="Entre em contato" class="card-image">
+            </div>
+            <h3>Entre em contato</h3>
+            <p>Entre em contato para entender mais sobre como seu negócio pode avançar no digital. Fale com MELLØ™</p>
+          </article>
+        </div>
+        
+        <!-- Protocol text -->
+        <div class="protocol-text">↳ DESENVOLVIDO POR NODES NΞØ PROTOCOL</div>
+      </section>
+
+      <!-- PROJETOS -->
+      <section class="route" id="projects">
+        <div class="list">
+          <div class="list-item" data-modal="site-webapp">
+            <div>
+              <h4>Sites e WebApp's</h4>
+              <p>Performance, acessibilidade, conversão. SEO Avançado e Mobile First.</p>
+            </div>
+            <button class="chip">ver</button>
+          </div>
+          <div class="list-item" data-modal="saas-baas">
+            <div>
+              <h4>SAAS / BAAS</h4>
+              <p>Área do cliente, sistema de gestão ou uma nova solução.</p>
+            </div>
+            <button class="chip">ver</button>
+          </div>
+          <div class="list-item" data-modal="tokenizacao">
+            <div>
+              <h4>Tokenização de Ativos</h4>
+              <p>Sua empresa com sua propria cripto.</p>
+            </div>
+            <button class="chip">ver</button>
+          </div>
+          <div class="list-item" data-modal="agentes-ia">
+            <div>
+              <h4>Agentes IA e Chatbots</h4>
+              <p>IA para seu negócio, ou que facilite seu dia a dia.</p>
+            </div>
+            <button class="chip">ver</button>
+          </div>
+        </div>
+
+        <!-- GPTs MELLØ -->
+        <section id="gpts-mello" class="gpts-section" aria-labelledby="gpts-title">
+          <div class="section-subtitle" id="gpts-title">Experimente GPTs treinados para te ajudar com seu marketing e criatividade.</div>
+
+          <ul class="gpts-grid" role="list">
+            <!-- Card 1 - Pai do Marketing -->
+            <li>
+              <article class="gpt-card glass" aria-labelledby="gpt-pai-title" itemscope itemtype="https://schema.org/SoftwareApplication">
+                <div class="gpt-header">
+                  <div class="gpt-icon" aria-hidden="true">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                      <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                      <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="gpt-badges">
+                    <span class="badge badge-pro">PRO</span>
+                    <span class="badge badge-popular">Popular</span>
+                  </div>
+                </div>
+
+                <div class="gpt-content">
+                  <h4 id="gpt-pai-title" itemprop="name">[ Pai ] do Marketing v.2050</h4>
+                  <p itemprop="description">Substitua sua social media com uma IA que entende tudo sobre marketing digital. Faz análise de Persona, SWOT, análise de concorrência, análise de mercado, análise de funil de vendas e cria roadmaps de campanhas comerciais com sugestões de artes para desenvolver com nosso GPT Designer.</p>
+                  
+                  <div class="gpt-features">
+                    <div class="feature-tag">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3v18h18"/>
+                        <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                      </svg>
+                      Análise de Persona
+                    </div>
+                    <div class="feature-tag">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M8 12l2 2 4-4"/>
+                      </svg>
+                      SWOT Completo
+                    </div>
+                    <div class="feature-tag">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3v18h18"/>
+                        <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                      </svg>
+                      Roadmap de Campanhas
+                    </div>
+                    <div class="feature-tag">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <path d="M21 15L16 10L5 21"/>
+                      </svg>
+                      Sugestões de Arte
+                    </div>
+                  </div>
+                  
+                  <div class="gpt-author" itemprop="author">Por MELLØ</div>
+                </div>
+
+                <a
+                  href="https://chatgpt.com/g/g-68537da11ef081919947baedc3f00ad4-pai-do-marketing-v-2050?model=gpt-4o"
+                  class="gpt-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Testar GPT [ Pai ] do Marketing v.2050 - Análise completa de marketing digital"
+                  itemprop="url"
+                >
+                  <span>Testar agora</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7 7H17V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </article>
+            </li>
+
+            <!-- Card 2 - Designer -->
+            <li>
+              <article class="gpt-card glass" aria-labelledby="gpt-designer-title" itemscope itemtype="https://schema.org/SoftwareApplication">
+                <div class="gpt-header">
+                  <div class="gpt-icon" aria-hidden="true">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                      <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="2"/>
+                      <path d="M21 15L16 10L5 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="gpt-badges">
+                    <span class="badge badge-pro">PRO</span>
+                    <span class="badge badge-beta">Beta</span>
+                  </div>
+                </div>
+
+                <div class="gpt-content">
+                  <h4 id="gpt-designer-title" itemprop="name">Designer v.2050 — [ MELLØ ] ™ PRO</h4>
+                  <p itemprop="description">Direção de arte generativa com peso editorial. Envie a logo de sua empresa ou negócio e peça para o designer aplicar pictoricamente. Capas, posts e key visuals com textura emocional e presença gráfica.</p>
+                  
+                  <div class="gpt-features">
+                    <div class="feature-tag">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <path d="M21 15L16 10L5 21"/>
+                      </svg>
+                      Aplicação de Logo
+                    </div>
+                    <div class="feature-tag">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                        <line x1="8" y1="21" x2="16" y2="21"/>
+                        <line x1="12" y1="17" x2="12" y2="21"/>
+                      </svg>
+                      Posts Sociais
+                    </div>
+                    <div class="feature-tag">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10,9 9,9 8,9"/>
+                      </svg>
+                      Capas Editoriais
+                    </div>
+                    <div class="feature-tag">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M8 12l2 2 4-4"/>
+                      </svg>
+                      Key Visuals
+                    </div>
+                  </div>
+                  
+                  <div class="gpt-author" itemprop="author">Por MELLØ</div>
+                </div>
+
+                <a
+                  href="https://chatgpt.com/g/g-6854ff9169948191aad36d7f6ae02e8d-designer-v-2050-mello-tm-pro"
+                  class="gpt-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Testar GPT Designer v.2050 MELLØ PRO - Design generativo com aplicação de logo"
+                  itemprop="url"
+                >
+                  <span>Testar agora</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7 7H17V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </article>
+            </li>
+          </ul>
+
+          <!-- CTA mais forte -->
+          <div class="gpt-cta">
+            <div class="gpt-cta-content">
+              <h3>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                  <path d="M2 17L12 22L22 17"/>
+                  <path d="M2 12L12 17L22 12"/>
+                </svg>
+                Quer seu GPT personalizado?
+              </h3>
+              <p>Criamos GPTs sob medida para seu negócio, treinados com seus dados e estratégias específicas.</p>
+              <a href="https://wa.me/+5562983231110" class="btn primary gpt-cta-btn" target="_blank" rel="noopener">
+                <span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                  </svg>
+                  Falar com MELLØ
+                </span>
+                <div class="btn-shimmer"></div>
+              </a>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Protocol text -->
+        <div class="protocol-text">↳ DESENVOLVIDO POR NODES NΞØ PROTOCOL</div>
+      </section>
+
+      <!-- CAPTAÇÃO (form) -->
+      <section class="route" id="start">
+        
+        <!-- MELLØ Profile -->
+        <div class="mello-profile card glow">
+          <div class="mello-image">
+            <img src="public/mello.webp" alt="MELLØ" class="mello-photo-large">
+          </div>
+          <div class="mello-info">
+            <h3>MELLØ™</h3>
+            <div class="mello-description">
+              <p><strong>Agente IPFS na WEB3</strong></p>
+              <p>DEV, Gestor de dados e prompts</p>
+              <p>Expert em Marketing Digital e Blockchain</p>
+              <p>Agencia FlowOFF® & FLOWPay®</p>
+              <div class="mello-divider">-</div>
+            </div>
+          </div>
+        </div>
+        
+        <form id="lead-form" class="card form glow">
+          <label>Nome<input name="name" color="gray" placeholder="Seu nome" autocomplete="name" required></label>
+          <label>Email<input type="email" color="gray" placeholder="seuemail@exemplo.com" name="email" autocomplete="email" required></label>
+          <label>WhatsApp<input name="whats" color="gray" placeholder="+55 (00) 00000-0000" autocomplete="whatsapp" required></label>
+          <label>Serviço que procura
+            <select name="type" autocomplete="off" required>
+              <option color="gray" value="" disabled selected>Selecione uma opção</option>
+              <option value="site">Site / WebApp</option>
+              <option value="saas">SAAS / BAAS</option>
+              <option value="cripto">Tokenização / Cripto</option>
+              <option value="poston">POSTØN</option>
+              <option value="proia">PRO.IA</option>
+            </select>
+          </label>
+          <button class="btn primary" type="submit">Enviar</button>
+          <p class="muted center" id="lead-status"></p>
+        </form>
+        
+        <!-- Protocol text -->
+        <div class="protocol-text">↳ DESENVOLVIDO POR NODES NΞØ PROTOCOL</div>
+      </section>
+
+      <!-- ECOSSISTEMA (selos finais) -->
+      <section class="route" id="ecosystem">
+        <div class="badges">
+          <div class="badge glass">
+            <img alt="FlowPay" src="public/FLOWPAY.png">
+            <div><b>FlowPay</b><span>Pagamentos integrados</span></div>
+            <div class="ecosystem-progress">
+              <div class="xp-bar">
+                <div class="xp-fill" style="width: 100%;"></div>
+                <span class="xp-text">100%</span>
+              </div>
+              <div class="progress-label">Em desenvolvimento</div>
+            </div>
+            <a href="https://flowpaycash.netlify.app/" target="_blank" rel="noopener" class="badge-link">🔗 Acessar FlowPay</a>
+          </div>
+          <div class="badge glass">
+            <img alt="NEØ Protocol" src="public/neo_ico.png">
+            <div><b>NEØ Protocol</b><span>Camada tecnológica</span></div>
+            <div class="ecosystem-progress">
+              <div class="xp-bar">
+                <div class="xp-fill" style="width: 12%;"></div>
+                <span class="xp-text">12%</span>
+              </div>
+              <div class="progress-label">Quase pronto</div>
+            </div>
+          </div>
+          <div class="badge glass">
+            <img alt="POSTØN" src="public/logos/POSTON.png">
+            <div><b>POSTØN</b><span>Gestão de redes sociais</span></div>
+            <div class="ecosystem-progress">
+              <div class="xp-bar">
+                <div class="xp-fill" style="width: 78%;"></div>
+                <span class="xp-text">78%</span>
+              </div>
+              <div class="progress-label">Em desenvolvimento</div>
+            </div>
+          </div>
+          <div class="badge glass">
+            <img alt="PRO.IA" src="public/logos/proia.png">
+            <div><b>PRO.IA</b><span>Treinamento IA</span></div>
+            <div class="ecosystem-progress">
+              <div class="xp-bar">
+                <div class="xp-fill" style="width: 90%;"></div>
+                <span class="xp-text">90%</span>
+              </div>
+              <div class="progress-label">Em desenvolvimento</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Protocol text -->
+        <div class="protocol-text">↳ DESENVOLVIDO POR NODES NΞØ PROTOCOL</div>
+      </section>
+
+
+      <!-- Modal lead rápido -->
+      <dialog id="lead" class="sheet">
+        <form method="dialog" class="sheet-body">
+          <h3>Falar direto comigo</h3>
+          <p>Respondo rápido. Sem burocracia.</p>
+          <a class="btn primary block" href="https://wa.me/5551999999999" target="_blank" rel="noopener">WhatsApp</a>
+          <button class="btn ghost block">Fechar</button>
+        </form>
+      </dialog>
+
+      <!-- Modal do Agente NEO - TEMPORARIAMENTE DESABILITADO -->
+      <!--
+      <dialog id="agent-modal" class="sheet agent-modal">
+        <div class="sheet-body">
+          <div class="agent-modal-header">
+            <h3>🤖 Agente NEO FlowOff</h3>
+            <button class="agent-close" data-close="agent-modal">×</button>
+          </div>
+          <div class="agent-chat-container">
+            <div id="agent-messages" class="agent-messages"></div>
+            <div class="agent-input-container">
+              <input type="text" id="agent-input" placeholder="Digite sua mensagem..." autocomplete="off">
+              <button id="agent-send" class="agent-send-btn">Enviar</button>
+            </div>
+          </div>
+          <div class="agent-actions">
+            <button class="btn ghost small" id="agent-clear">Limpar</button>
+            <button class="btn ghost small" id="agent-leads">Ver Leads</button>
+          </div>
+        </div>
+      </dialog>
+      -->
+
+
+      <!-- Offline banner -->
+      <div id="offline" class="offline">Sem conexão. Funcionalidades limitadas.</div>
+    </main>
+
+    <!-- Glass Morphism Overlay -->
+    <div class="glass-morphism-overlay" id="glass-overlay"></div>
+
+    <!-- Update Notification Banner -->
+    <div id="update-banner" class="update-banner">
+      <div class="update-content">
+        <div class="update-icon">🔄</div>
+        <div class="update-text">
+          <strong>Nova versão disponível!</strong>
+          <span>Atualize para ter acesso às últimas funcionalidades</span>
+        </div>
+        <button id="update-btn" class="update-btn">Atualizar</button>
+        <button id="update-dismiss" class="update-dismiss">×</button>
+      </div>
+    </div>
+
+    <!-- Glass Morphism Bottom Bar -->
+    <nav class="glass-morphism-tabbar">
+      <div class="glass-nav-item active" data-route="home">
+        <div class="glass-nav-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="glass-nav-label">Home</div>
+        <div class="glass-nav-indicator"></div>
+      </div>
+      
+      <div class="glass-nav-item" data-route="projects">
+        <div class="glass-nav-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 19C22 19.5304 21.7893 20.0391 21.4142 20.4142C21.0391 20.7893 20.5304 21 20 21H4C3.46957 21 2.96086 20.7893 2.58579 20.4142C2.21071 20.0391 2 19.5304 2 19V5C2 4.46957 2.21071 3.96086 2.58579 3.58579C2.96086 3.21071 3.46957 3 4 3H20C20.5304 3 21.0391 3.21071 21.4142 3.58579C21.7893 3.96086 22 4.46957 22 5V19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 7H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 11H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 15H12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="glass-nav-label">Projetos</div>
+        <div class="glass-nav-indicator"></div>
+      </div>
+      
+      <div class="glass-nav-item start-button" data-route="start">
+        <div class="glass-nav-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="glass-nav-label">Iniciar</div>
+        <div class="glass-nav-indicator"></div>
+      </div>
+      
+      <div class="glass-nav-item" data-route="ecosystem">
+        <div class="glass-nav-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            <path d="M2 12H22" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2C14.5013 4.73835 15.9228 8.29203 15.9331 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8.06688 12C8.07725 8.29203 9.49872 4.73835 12 2Z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="glass-nav-label">Ecossistema</div>
+        <div class="glass-nav-indicator"></div>
+      </div>
+    </nav>
+
+    <!-- Footer iOS-like -->
+    <footer class="footer">
+      <p class="footer-text">Agência de Marketing na blockchain | Desenvolvimento de sistemas, WebApp's e IAs</p>
+    </footer>
+
+    <!-- Widget de Atendimento Flutuante - TEMPORARIAMENTE DESABILITADO -->
+    <!-- 
+    <div id="agent-widget" class="agent-widget">
+      <div class="agent-widget-toggle" id="agent-widget-toggle">
+        <img src="public/neo_ico.png" alt="NEO" class="agent-widget-icon">
+        <span class="agent-widget-text">Atendimento</span>
+      </div>
+      <div class="agent-widget-popup" id="agent-widget-popup">
+        <div class="agent-widget-header">
+          <h4>🤖 Agente NEO FlowOff</h4>
+          <button class="agent-widget-close" id="agent-widget-close">×</button>
+        </div>
+        <div class="agent-widget-iframe-container">
+          <iframe 
+            src="https://agent-neo-flowoff.vercel.app/embed" 
+            width="100%" 
+            height="500" 
+            frameborder="0"
+            style="border: none; border-radius: 10px;">
+          </iframe>
+        </div>
+      </div>
+    </div>
+    -->
+  </div>
+
+  <!-- p5.js para efeitos visuais -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
 <script src="p5-background.js?v=1.4.6"></script>
 
-
+<!-- Integração API Invertexto Simplificada -->
 <script src="invertexto-simple.js?v=1.0.0"></script>
 
-
+<!-- Suporte WebP com Fallback -->
 <script src="webp-support.js?v=1.0.0"></script>
 
 <script src="app.js?v=1.4.8" type="module"></script>
-<script>
-// === DETECÇÃO DE DESKTOP COM PREVENÇÃO DE LOOPS ===
-function detectDesktop() {
-// Verificar se usuário forçou modo desktop
-const forceDesktop = localStorage.getItem('force-desktop');
-if (forceDesktop === 'true') {
-console.log('🖥️ Modo desktop forçado pelo usuário');
-return false; // Não redirecionar
-}
+  <script>
+    // === DETECÇÃO DE DESKTOP COM PREVENÇÃO DE LOOPS ===
+    function detectDesktop() {
+      // Verificar se usuário forçou modo desktop
+      const forceDesktop = localStorage.getItem('force-desktop');
+      if (forceDesktop === 'true') {
+        console.log('🖥️ Modo desktop forçado pelo usuário');
+        return false; // Não redirecionar
+      }
 
-// Verificar se é desktop baseado em várias características
-const isDesktop = window.innerWidth >= 1024 &&
-window.innerHeight >= 768 &&
-!navigator.userAgent.match(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i) &&
-!('ontouchstart' in window) &&
-window.matchMedia('(pointer: fine)').matches;
+      // Verificar se é desktop baseado em várias características
+      const isDesktop = window.innerWidth >= 1024 && 
+                       window.innerHeight >= 768 && 
+                       !navigator.userAgent.match(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i) &&
+                       !('ontouchstart' in window) &&
+                       window.matchMedia('(pointer: fine)').matches;
+      
+      if (isDesktop) {
+        // Verificar se já está na página desktop
+        if (!window.location.pathname.includes('desktop.html')) {
+          // Prevenir loop: verificar se não veio do desktop.html recentemente
+          const lastDesktopVisit = localStorage.getItem('last-desktop-visit');
+          const now = Date.now();
+          
+          if (!lastDesktopVisit || (now - parseInt(lastDesktopVisit)) > 10000) { // 10 segundos
+            console.log('🖥️ Redirecionando para desktop.html');
+            localStorage.setItem('last-desktop-visit', now.toString());
+            window.location.href = 'desktop.html';
+            return true;
+          } else {
+            console.log('🚫 Prevenindo loop: visitou desktop.html recentemente');
+            return false;
+          }
+        }
+      }
+      return false;
+    }
 
-if (isDesktop) {
-// Verificar se já está na página desktop
-if (!window.location.pathname.includes('desktop.html')) {
-// Prevenir loop: verificar se não veio do desktop.html recentemente
-const lastDesktopVisit = localStorage.getItem('last-desktop-visit');
-const now = Date.now();
+    // Executar detecção quando a página carregar
+    detectDesktop();
+    
+    // Force CSS reload
+    const link = document.querySelector('link[href*="styles.css"]');
+    if (link) {
+      link.href = link.href.split('?')[0] + '?v=' + Date.now();
+    }
 
-if (!lastDesktopVisit || (now - parseInt(lastDesktopVisit)) > 10000) { // 10 segundos
-console.log('🖥️ Redirecionando para desktop.html');
-localStorage.setItem('last-desktop-visit', now.toString());
-window.location.href = 'desktop.html';
-return true;
-} else {
-console.log('🚫 Prevenindo loop: visitou desktop.html recentemente');
-return false;
-}
-}
-}
-return false;
-}
+    // PWA Install Banner
+    var deferredPrompt;
+    var pwaBannerShown = false;
+    const pwaBanner = document.getElementById('pwa-install-banner');
+    const installBtn = document.getElementById('pwa-install-btn');
+    const dismissBtn = document.getElementById('pwa-dismiss');
 
-// Executar detecção quando a página carregar
-detectDesktop();
+    // Debug: Log inicial
+    console.log('🔍 PWA Banner Debug:');
+    console.log('- Banner element:', pwaBanner);
+    console.log('- Install button:', installBtn);
+    console.log('- Dismiss button:', dismissBtn);
+    console.log('- PWA dismissed:', localStorage.getItem('pwa-dismissed'));
+    console.log('- Standalone mode:', window.matchMedia('(display-mode: standalone)').matches);
 
-// Force CSS reload
-const link = document.querySelector('link[href*="styles.css"]');
-if (link) {
-link.href = link.href.split('?')[0] + '?v=' + Date.now();
-}
+    // Verificar se já foi instalado ou dispensado
+    if (localStorage.getItem('pwa-dismissed') === 'true' || window.matchMedia('(display-mode: standalone)').matches) {
+      console.log('🚫 Banner ocultado: já foi dispensado ou está em modo standalone');
+      pwaBanner.style.display = 'none';
+    }
 
-// PWA Install Banner
-var deferredPrompt;
-var pwaBannerShown = false;
-const pwaBanner = document.getElementById('pwa-install-banner');
-const installBtn = document.getElementById('pwa-install-btn');
-const dismissBtn = document.getElementById('pwa-dismiss');
+    // Escutar evento beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('📱 PWA install prompt disponível');
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // Mostrar banner apenas se não foi dispensado
+      if (localStorage.getItem('pwa-dismissed') !== 'true') {
+        console.log('✅ Exibindo banner PWA');
+        pwaBanner.style.display = 'block';
+        pwaBanner.classList.add('show');
+        pwaBannerShown = true;
+      } else {
+        console.log('🚫 Banner não exibido: já foi dispensado');
+      }
+    });
 
-// Debug: Log inicial
-console.log('🔍 PWA Banner Debug:');
-console.log('- Banner element:', pwaBanner);
-console.log('- Install button:', installBtn);
-console.log('- Dismiss button:', dismissBtn);
-console.log('- PWA dismissed:', localStorage.getItem('pwa-dismissed'));
-console.log('- Standalone mode:', window.matchMedia('(display-mode: standalone)').matches);
+    // Fallback: Mostrar banner após 3 segundos se não foi dispensado (para teste)
+    setTimeout(() => {
+      if (!pwaBannerShown && localStorage.getItem('pwa-dismissed') !== 'true' && !window.matchMedia('(display-mode: standalone)').matches) {
+        console.log('⏰ Fallback: Exibindo banner após timeout');
+        pwaBanner.style.display = 'block';
+        pwaBanner.classList.add('show');
+        pwaBannerShown = true;
+      }
+    }, 3000);
 
-// Verificar se já foi instalado ou dispensado
-if (localStorage.getItem('pwa-dismissed') === 'true' || window.matchMedia('(display-mode: standalone)').matches) {
-console.log('🚫 Banner ocultado: já foi dispensado ou está em modo standalone');
-pwaBanner.style.display = 'none';
-}
+    // Botão instalar
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        console.log('Tentando instalar PWA...');
+        try {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log('Resultado da instalação:', outcome);
+          
+          if (outcome === 'accepted') {
+            pwaBanner.style.display = 'none';
+            pwaBanner.classList.remove('show');
+            pwaBannerShown = false;
+            console.log('PWA instalado com sucesso');
+          }
+          deferredPrompt = null;
+        } catch (error) {
+          console.error('Erro ao instalar PWA:', error);
+        }
+      }
+    });
 
-// Escutar evento beforeinstallprompt
-window.addEventListener('beforeinstallprompt', (e) => {
-console.log('📱 PWA install prompt disponível');
-e.preventDefault();
-deferredPrompt = e;
+    // Botão dispensar
+    dismissBtn.addEventListener('click', () => {
+      pwaBanner.style.display = 'none';
+      pwaBanner.classList.remove('show');
+      bannerShown = false;
+      localStorage.setItem('pwa-dismissed', 'true');
+      console.log('Banner PWA dispensado');
+    });
 
-// Mostrar banner apenas se não foi dispensado
-if (localStorage.getItem('pwa-dismissed') !== 'true') {
-console.log('✅ Exibindo banner PWA');
-pwaBanner.style.display = 'block';
-pwaBanner.classList.add('show');
-pwaBannerShown = true;
-} else {
-console.log('🚫 Banner não exibido: já foi dispensado');
-}
-});
+    // Auto-hide após 15 segundos (aumentado)
+    setTimeout(() => {
+      if (pwaBannerShown && pwaBanner.style.display !== 'none') {
+        console.log('Auto-hiding PWA banner');
+        pwaBanner.style.opacity = '0';
+        setTimeout(() => {
+          pwaBanner.style.display = 'none';
+          pwaBanner.classList.remove('show');
+          pwaBannerShown = false;
+        }, 300);
+      }
+    }, 15000);
 
-// Fallback: Mostrar banner após 3 segundos se não foi dispensado (para teste)
-setTimeout(() => {
-if (!pwaBannerShown && localStorage.getItem('pwa-dismissed') !== 'true' && !window.matchMedia('(display-mode: standalone)').matches) {
-console.log('⏰ Fallback: Exibindo banner após timeout');
-pwaBanner.style.display = 'block';
-pwaBanner.classList.add('show');
-pwaBannerShown = true;
-}
-}, 3000);
+    // Detectar se PWA foi instalado
+    window.addEventListener('appinstalled', () => {
+      console.log('PWA foi instalado');
+      pwaBanner.style.display = 'none';
+      pwaBanner.classList.remove('show');
+      bannerShown = false;
+    });
 
-// Botão instalar
-installBtn.addEventListener('click', async () => {
-if (deferredPrompt) {
-console.log('Tentando instalar PWA...');
-try {
-deferredPrompt.prompt();
-const { outcome } = await deferredPrompt.userChoice;
-console.log('Resultado da instalação:', outcome);
+    // Função para testar o banner manualmente (debug)
+    window.testPWAInstall = () => {
+      if (pwaBanner) {
+        pwaBanner.style.display = 'block';
+        pwaBanner.classList.add('show');
+        pwaBannerShown = true;
+        console.log('Banner PWA exibido manualmente');
+      }
+    };
 
-if (outcome === 'accepted') {
-pwaBanner.style.display = 'none';
-pwaBanner.classList.remove('show');
-pwaBannerShown = false;
-console.log('PWA instalado com sucesso');
-}
-deferredPrompt = null;
-} catch (error) {
-console.error('Erro ao instalar PWA:', error);
-}
-}
-});
+    // Função para limpar o estado do banner (debug)
+    window.clearPWAState = () => {
+      localStorage.removeItem('pwa-dismissed');
+      console.log('Estado PWA limpo');
+    };
 
-// Botão dispensar
-dismissBtn.addEventListener('click', () => {
-pwaBanner.style.display = 'none';
-pwaBanner.classList.remove('show');
-bannerShown = false;
-localStorage.setItem('pwa-dismissed', 'true');
-console.log('Banner PWA dispensado');
-});
+    // Efeito de blur no header durante scroll
+    const header = document.getElementById('main-header');
+    let lastScrollY = window.scrollY;
+    let ticking = false;
 
-// Auto-hide após 15 segundos (aumentado)
-setTimeout(() => {
-if (pwaBannerShown && pwaBanner.style.display !== 'none') {
-console.log('Auto-hiding PWA banner');
-pwaBanner.style.opacity = '0';
-setTimeout(() => {
-pwaBanner.style.display = 'none';
-pwaBanner.classList.remove('show');
-pwaBannerShown = false;
-}, 300);
-}
-}, 15000);
+    function updateHeader() {
+      const scrollY = window.scrollY;
+      
+      if (scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      
+      lastScrollY = scrollY;
+      ticking = false;
+    }
 
-// Detectar se PWA foi instalado
-window.addEventListener('appinstalled', () => {
-console.log('PWA foi instalado');
-pwaBanner.style.display = 'none';
-pwaBanner.classList.remove('show');
-bannerShown = false;
-});
+    function requestTick() {
+      if (!ticking) {
+        requestAnimationFrame(updateHeader);
+        ticking = true;
+      }
+    }
 
-// Função para testar o banner manualmente (debug)
-window.testPWAInstall = () => {
-if (pwaBanner) {
-pwaBanner.style.display = 'block';
-pwaBanner.classList.add('show');
-pwaBannerShown = true;
-console.log('Banner PWA exibido manualmente');
-}
-};
+    window.addEventListener('scroll', requestTick, { passive: true });
 
-// Função para limpar o estado do banner (debug)
-window.clearPWAState = () => {
-localStorage.removeItem('pwa-dismissed');
-console.log('Estado PWA limpo');
-};
+    // === GLASS MORPHISM OVERLAY CONTROL ===
+    const glassOverlay = document.getElementById('glass-overlay');
+    let overlayTicking = false;
 
-// Efeito de blur no header durante scroll
-const header = document.getElementById('main-header');
-let lastScrollY = window.scrollY;
-let ticking = false;
+    function updateGlassOverlay() {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // Calcular se deve mostrar o overlay
+      const shouldShowOverlay = scrollY > 100 && (scrollY + windowHeight) < (documentHeight - 50);
+      
+      if (shouldShowOverlay) {
+        glassOverlay.classList.add('active');
+      } else {
+        glassOverlay.classList.remove('active');
+      }
+      
+      overlayTicking = false;
+    }
 
-function updateHeader() {
-const scrollY = window.scrollY;
+    function requestOverlayTick() {
+      if (!overlayTicking) {
+        requestAnimationFrame(updateGlassOverlay);
+        overlayTicking = true;
+      }
+    }
 
-if (scrollY > 50) {
-header.classList.add('scrolled');
-} else {
-header.classList.remove('scrolled');
-}
+    window.addEventListener('scroll', requestOverlayTick, { passive: true });
+    
+    // Atualizar na carga inicial
+    updateGlassOverlay();
 
-lastScrollY = scrollY;
-ticking = false;
-}
+    // === UPDATE DETECTION SYSTEM ===
+    const updateBanner = document.getElementById('update-banner');
+    const updateBtn = document.getElementById('update-btn');
+    const updateDismiss = document.getElementById('update-dismiss');
+    
+    let updateAvailable = false;
+    let updateWorker = null;
+    let bannerShown = false;
 
-function requestTick() {
-if (!ticking) {
-requestAnimationFrame(updateHeader);
-ticking = true;
-}
-}
+    // Verificar se já foi dispensado
+    if (localStorage.getItem('update-dismissed') === 'true') {
+      console.log('🚫 Banner de atualização ocultado: já foi dispensado');
+      updateBanner.style.display = 'none';
+    }
 
-window.addEventListener('scroll', requestTick, { passive: true });
+    // Detectar atualizações do Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        console.log('🔄 Service Worker atualizado');
+        showUpdateBanner();
+      });
 
-// === GLASS MORPHISM OVERLAY CONTROL ===
-const glassOverlay = document.getElementById('glass-overlay');
-let overlayTicking = false;
+      // Verificar se há uma nova versão disponível
+      navigator.serviceWorker.getRegistration().then(registration => {
+        if (registration) {
+          registration.addEventListener('updatefound', () => {
+            console.log('📱 Nova versão do Service Worker encontrada');
+            const newWorker = registration.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                console.log('✅ Nova versão instalada! Mostrando banner de atualização.');
+                showUpdateBanner();
+              }
+            });
+          });
+        }
+      });
+    }
 
-function updateGlassOverlay() {
-const scrollY = window.scrollY;
-const windowHeight = window.innerHeight;
-const documentHeight = document.documentElement.scrollHeight;
+    // Função para mostrar banner de atualização
+    function showUpdateBanner() {
+      if (bannerShown || localStorage.getItem('update-dismissed') === 'true') {
+        return;
+      }
+      
+      console.log('🔄 Exibindo banner de atualização');
+      updateBanner.style.display = 'block';
+      updateBanner.classList.add('show');
+      bannerShown = true;
+      
+      // Vibração se disponível
+      navigator.vibrate?.(100);
+    }
 
-// Calcular se deve mostrar o overlay
-const shouldShowOverlay = scrollY > 100 && (scrollY + windowHeight) < (documentHeight - 50);
+    // Botão atualizar
+    updateBtn.addEventListener('click', () => {
+      console.log('🔄 Usuário solicitou atualização');
+      
+      // Recarregar a página para aplicar atualizações
+      window.location.reload();
+    });
 
-if (shouldShowOverlay) {
-glassOverlay.classList.add('active');
-} else {
-glassOverlay.classList.remove('active');
-}
+    // Botão dispensar
+    updateDismiss.addEventListener('click', () => {
+      updateBanner.style.display = 'none';
+      updateBanner.classList.remove('show');
+      bannerShown = false;
+      localStorage.setItem('update-dismissed', 'true');
+      console.log('🚫 Banner de atualização dispensado');
+    });
 
-overlayTicking = false;
-}
+    // Auto-hide após 10 segundos
+    setTimeout(() => {
+      if (bannerShown && updateBanner.style.display !== 'none') {
+        console.log('⏰ Auto-hiding update banner');
+        updateBanner.style.opacity = '0';
+        setTimeout(() => {
+          updateBanner.style.display = 'none';
+          updateBanner.classList.remove('show');
+          pwaBannerShown = false;
+        }, 300);
+      }
+    }, 10000);
 
-function requestOverlayTick() {
-if (!overlayTicking) {
-requestAnimationFrame(updateGlassOverlay);
-overlayTicking = true;
-}
-}
+    // Função para testar o banner manualmente (debug)
+    window.testUpdateBanner = () => {
+      if (updateBanner) {
+        updateBanner.style.display = 'block';
+        updateBanner.classList.add('show');
+        pwaBannerShown = true;
+        console.log('🔄 Banner de atualização exibido manualmente');
+      }
+    };
 
-window.addEventListener('scroll', requestOverlayTick, { passive: true });
+    // Função para limpar o estado do banner (debug)
+    window.clearUpdateState = () => {
+      localStorage.removeItem('update-dismissed');
+      console.log('🔄 Estado de atualização limpo');
+    };
 
-// Atualizar na carga inicial
-updateGlassOverlay();
+    // Verificar atualizações periodicamente (a cada 5 minutos)
+    setInterval(() => {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistration().then(registration => {
+          if (registration) {
+            registration.update();
+          }
+        });
+      }
+    }, 5 * 60 * 1000); // 5 minutos
 
-// === UPDATE DETECTION SYSTEM ===
-const updateBanner = document.getElementById('update-banner');
-const updateBtn = document.getElementById('update-btn');
-const updateDismiss = document.getElementById('update-dismiss');
+    // === MODAIS DOS PROJETOS ===
+    document.addEventListener('DOMContentLoaded', function() {
+      // Event listeners para abrir modais
+      document.querySelectorAll('[data-modal]').forEach(item => {
+        item.addEventListener('click', function() {
+          const modalId = this.getAttribute('data-modal');
+          const modal = document.getElementById(`modal-${modalId}`);
+          if (modal) {
+            modal.showModal();
+            document.body.style.overflow = 'hidden'; // Previne scroll do body
+          }
+        });
+      });
 
-let updateAvailable = false;
-let updateWorker = null;
-let bannerShown = false;
+      // Event listeners para fechar modais
+      document.querySelectorAll('[data-close]').forEach(button => {
+        button.addEventListener('click', function() {
+          const modalId = this.getAttribute('data-close');
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.close();
+            document.body.style.overflow = ''; // Restaura scroll do body
+          }
+        });
+      });
 
-// Verificar se já foi dispensado
-if (localStorage.getItem('update-dismissed') === 'true') {
-console.log('🚫 Banner de atualização ocultado: já foi dispensado');
-updateBanner.style.display = 'none';
-}
+      // Fechar modal clicando fora dele
+      document.querySelectorAll('.project-modal').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+          if (e.target === this) {
+            this.close();
+            document.body.style.overflow = '';
+          }
+        });
+      });
 
-// Detectar atualizações do Service Worker
-if ('serviceWorker' in navigator) {
-navigator.serviceWorker.addEventListener('controllerchange', () => {
-console.log('🔄 Service Worker atualizado');
-showUpdateBanner();
-});
+      // Garantir que todos os modais estejam fechados ao carregar
+      document.addEventListener('DOMContentLoaded', function() {
+        const modals = document.querySelectorAll('.project-modal');
+        modals.forEach(modal => {
+          if (modal.open) {
+            modal.close();
+          }
+        });
+        document.body.style.overflow = '';
+      });
 
-// Verificar se há uma nova versão disponível
-navigator.serviceWorker.getRegistration().then(registration => {
-if (registration) {
-registration.addEventListener('updatefound', () => {
-console.log('📱 Nova versão do Service Worker encontrada');
-const newWorker = registration.installing;
-newWorker.addEventListener('statechange', () => {
-if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-console.log('✅ Nova versão instalada! Mostrando banner de atualização.');
-showUpdateBanner();
-}
-});
-});
-}
-});
-}
+      // Fechar modal com ESC
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          const openModal = document.querySelector('.project-modal[open]');
+          if (openModal) {
+            openModal.close();
+            document.body.style.overflow = '';
+          }
+        }
+      });
+    });
+  </script>
 
-// Função para mostrar banner de atualização
-function showUpdateBanner() {
-if (bannerShown || localStorage.getItem('update-dismissed') === 'true') {
-return;
-}
+  <!-- Modais dos Projetos -->
+  <dialog id="modal-site-webapp" class="project-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Desenvolvimento de Sites e WebApp's</h3>
+        <button class="modal-close" data-close="modal-site-webapp">×</button>
+      </div>
+      <div class="modal-body">
+        <p>A maioria ainda vende "site bonito". A gente constrói ativos digitais com arquitetura de conversão e tecnologia que 98% do mercado nem sabe que existe.</p>
+        <p>Do código ao design, cada elemento é pensado pra escalar. Velocidade, acessibilidade, SEO e experiências que colam na mente. É inovação com função, não firula com corzinha pastel.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn primary" data-close="modal-site-webapp">Entendi</button>
+      </div>
+    </div>
+  </dialog>
 
-console.log('🔄 Exibindo banner de atualização');
-updateBanner.style.display = 'block';
-updateBanner.classList.add('show');
-bannerShown = true;
+  <dialog id="modal-saas-baas" class="project-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>SAAS / BAAS</h3>
+        <button class="modal-close" data-close="modal-saas-baas">×</button>
+      </div>
+      <div class="modal-body">
+        <p>A maioria entrega software. Nós entregamos máquinas de escala, com lógica de negócio embutida, integração nativa e prontos pra rodar no mundo real.</p>
+        <p>Soluções SAAS sob medida ou white-label com automações, fluxos inteligentes e estrutura plugável.</p>
+        <p>Do MVP à plataforma robusta você escolhe o estágio, a gente entrega o motor.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn primary" data-close="modal-saas-baas">Entendi</button>
+      </div>
+    </div>
+  </dialog>
 
-// Vibração se disponível
-navigator.vibrate?.(100);
-}
+  <dialog id="modal-tokenizacao" class="project-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>🧬 Tokenização de Ativos</h3>
+        <button class="modal-close" data-close="modal-tokenizacao">×</button>
+      </div>
+      <div class="modal-body">
+        <p>Esquece o "XP genérico" das gamificações rasas.</p>
+        <p>Com tokenização, cada ponto, moeda ou ação vira um ativo real, com rastreabilidade e valor simbólico ou financeiro.</p>
+        <p>Dá pra lançar pré-vendas validadas, criar engajamento com escassez real e estruturar um ecossistema de fidelização que vira comunidade.</p>
+        <p>Do jogo ao negócio, a tokenização é a ponte entre engajamento e faturamento. E o melhor: já fazemos isso.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn primary" data-close="modal-tokenizacao">Entendi</button>
+      </div>
+    </div>
+  </dialog>
 
-// Botão atualizar
-updateBtn.addEventListener('click', () => {
-console.log('🔄 Usuário solicitou atualização');
-
-// Recarregar a página para aplicar atualizações
-window.location.reload();
-});
-
-// Botão dispensar
-updateDismiss.addEventListener('click', () => {
-updateBanner.style.display = 'none';
-updateBanner.classList.remove('show');
-bannerShown = false;
-localStorage.setItem('update-dismissed', 'true');
-console.log('🚫 Banner de atualização dispensado');
-});
-
-// Auto-hide após 10 segundos
-setTimeout(() => {
-if (bannerShown && updateBanner.style.display !== 'none') {
-console.log('⏰ Auto-hiding update banner');
-updateBanner.style.opacity = '0';
-setTimeout(() => {
-updateBanner.style.display = 'none';
-updateBanner.classList.remove('show');
-pwaBannerShown = false;
-}, 300);
-}
-}, 10000);
-
-// Função para testar o banner manualmente (debug)
-window.testUpdateBanner = () => {
-if (updateBanner) {
-updateBanner.style.display = 'block';
-updateBanner.classList.add('show');
-pwaBannerShown = true;
-console.log('🔄 Banner de atualização exibido manualmente');
-}
-};
-
-// Função para limpar o estado do banner (debug)
-window.clearUpdateState = () => {
-localStorage.removeItem('update-dismissed');
-console.log('🔄 Estado de atualização limpo');
-};
-
-// Verificar atualizações periodicamente (a cada 5 minutos)
-setInterval(() => {
-if ('serviceWorker' in navigator) {
-navigator.serviceWorker.getRegistration().then(registration => {
-if (registration) {
-registration.update();
-}
-});
-}
-}, 5 * 60 * 1000); // 5 minutos
-
-// === MODAIS DOS PROJETOS ===
-document.addEventListener('DOMContentLoaded', function() {
-// Event listeners para abrir modais
-document.querySelectorAll('[data-modal]').forEach(item => {
-item.addEventListener('click', function() {
-const modalId = this.getAttribute('data-modal');
-const modal = document.getElementById(`modal-${modalId}`);
-if (modal) {
-modal.showModal();
-document.body.style.overflow = 'hidden'; // Previne scroll do body
-}
-});
-});
-
-// Event listeners para fechar modais
-document.querySelectorAll('[data-close]').forEach(button => {
-button.addEventListener('click', function() {
-const modalId = this.getAttribute('data-close');
-const modal = document.getElementById(modalId);
-if (modal) {
-modal.close();
-document.body.style.overflow = ''; // Restaura scroll do body
-}
-});
-});
-
-// Fechar modal clicando fora dele
-document.querySelectorAll('.project-modal').forEach(modal => {
-modal.addEventListener('click', function(e) {
-if (e.target === this) {
-this.close();
-document.body.style.overflow = '';
-}
-});
-});
-
-// Garantir que todos os modais estejam fechados ao carregar
-document.addEventListener('DOMContentLoaded', function() {
-const modals = document.querySelectorAll('.project-modal');
-modals.forEach(modal => {
-if (modal.open) {
-modal.close();
-}
-});
-document.body.style.overflow = '';
-});
-
-// Fechar modal com ESC
-document.addEventListener('keydown', function(e) {
-if (e.key === 'Escape') {
-const openModal = document.querySelector('.project-modal[open]');
-if (openModal) {
-openModal.close();
-document.body.style.overflow = '';
-}
-}
-});
-});
-</script>
-
-
-<dialog id="modal-site-webapp" class="project-modal">
-<div class="modal-content">
-<div class="modal-header">
-<h3>Desenvolvimento de Sites e WebApp's</h3>
-<button class="modal-close" data-close="modal-site-webapp">×</button>
-</div>
-<div class="modal-body">
-<p>A maioria ainda vende "site bonito". A gente constrói ativos digitais com arquitetura de conversão e tecnologia que 98% do mercado nem sabe que existe.</p>
-<p>Do código ao design, cada elemento é pensado pra escalar. Velocidade, acessibilidade, SEO e experiências que colam na mente. É inovação com função, não firula com corzinha pastel.</p>
-</div>
-<div class="modal-footer">
-<button class="btn primary" data-close="modal-site-webapp">Entendi</button>
-</div>
-</div>
-</dialog>
-
-<dialog id="modal-saas-baas" class="project-modal">
-<div class="modal-content">
-<div class="modal-header">
-<h3>SAAS / BAAS</h3>
-<button class="modal-close" data-close="modal-saas-baas">×</button>
-</div>
-<div class="modal-body">
-<p>A maioria entrega software. Nós entregamos máquinas de escala, com lógica de negócio embutida, integração nativa e prontos pra rodar no mundo real.</p>
-<p>Soluções SAAS sob medida ou white-label com automações, fluxos inteligentes e estrutura plugável.</p>
-<p>Do MVP à plataforma robusta você escolhe o estágio, a gente entrega o motor.</p>
-</div>
-<div class="modal-footer">
-<button class="btn primary" data-close="modal-saas-baas">Entendi</button>
-</div>
-</div>
-</dialog>
-
-<dialog id="modal-tokenizacao" class="project-modal">
-<div class="modal-content">
-<div class="modal-header">
-<h3>🧬 Tokenização de Ativos</h3>
-<button class="modal-close" data-close="modal-tokenizacao">×</button>
-</div>
-<div class="modal-body">
-<p>Esquece o "XP genérico" das gamificações rasas.</p>
-<p>Com tokenização, cada ponto, moeda ou ação vira um ativo real, com rastreabilidade e valor simbólico ou financeiro.</p>
-<p>Dá pra lançar pré-vendas validadas, criar engajamento com escassez real e estruturar um ecossistema de fidelização que vira comunidade.</p>
-<p>Do jogo ao negócio, a tokenização é a ponte entre engajamento e faturamento. E o melhor: já fazemos isso.</p>
-</div>
-<div class="modal-footer">
-<button class="btn primary" data-close="modal-tokenizacao">Entendi</button>
-</div>
-</div>
-</dialog>
-
-<dialog id="modal-agentes-ia" class="project-modal">
-<div class="modal-content">
-<div class="modal-header">
-<h3>Agentes IA e Chatbots</h3>
-<button class="modal-close" data-close="modal-agentes-ia">×</button>
-</div>
-<div class="modal-body">
-<p>Chatbot virou commodity. A diferença está no nível de inteligência e integração.</p>
-<p>Criamos Agentes de IA que entendem contexto, aprendem com o usuário e agem com base em dados reais do seu negócio — do WhatsApp ao CRM.</p>
-<p>Atendimento, vendas, onboarding, suporte, nutrição... tudo fluindo 24/7 sem parecer robô engessado.</p>
-<p>É como ter 10 colaboradores que não dormem — programados pra escalar.</p>
-</div>
-<div class="modal-footer">
-<button class="btn primary" data-close="modal-agentes-ia">Entendi</button>
-</div>
-</div>
-</dialog>
+  <dialog id="modal-agentes-ia" class="project-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Agentes IA e Chatbots</h3>
+        <button class="modal-close" data-close="modal-agentes-ia">×</button>
+      </div>
+      <div class="modal-body">
+        <p>Chatbot virou commodity. A diferença está no nível de inteligência e integração.</p>
+        <p>Criamos Agentes de IA que entendem contexto, aprendem com o usuário e agem com base em dados reais do seu negócio — do WhatsApp ao CRM.</p>
+        <p>Atendimento, vendas, onboarding, suporte, nutrição... tudo fluindo 24/7 sem parecer robô engessado.</p>
+        <p>É como ter 10 colaboradores que não dormem — programados pra escalar.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn primary" data-close="modal-agentes-ia">Entendi</button>
+      </div>
+    </div>
+  </dialog>
 </body>
 </html>
