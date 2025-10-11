@@ -178,27 +178,7 @@ main{
   text-align: center;
 }
 
-/* Títulos com efeito neon */
-.hero-title-neon {
-  font-size: 2.5rem;
-  font-weight: 900;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: neonGlow 3s ease-in-out infinite alternate, neonShimmer 2s linear infinite;
-  text-shadow: 0 0 20px rgba(255, 0, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3);
-}
-
-.hero-subtitle-neon {
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 300;
-  letter-spacing: 2px;
-}
+/* Títulos removidos - apenas texto principal com efeito neon */
 
 /* Texto principal com efeito de brilho */
 .hero-text-neon {
@@ -245,28 +225,7 @@ main{
 }
 
 /* Animações neon */
-@keyframes neonGlow {
-  0% {
-    background-position: 0% 50%;
-    text-shadow: 0 0 20px rgba(255, 0, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3);
-  }
-  100% {
-    background-position: 100% 50%;
-    text-shadow: 0 0 30px rgba(255, 0, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.5);
-  }
-}
-
-@keyframes neonShimmer {
-  0% {
-    filter: brightness(1);
-  }
-  50% {
-    filter: brightness(1.2);
-  }
-  100% {
-    filter: brightness(1);
-  }
-}
+/* Animações neonGlow e neonShimmer removidas - não mais necessárias */
 
 @keyframes neonPulse {
   0% {
