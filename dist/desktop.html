@@ -260,35 +260,54 @@
   </div>
 
   <script>
-    // Countdown automático
-    let countdown = 5;
-    const timerElement = document.getElementById('timer');
-    const countdownElement = document.getElementById('countdown');
+    // === PREVENÇÃO DE LOOPS ===
+    const lastIndexVisit = localStorage.getItem('last-index-visit');
+    const now = Date.now();
     
-    const countdownInterval = setInterval(() => {
-      countdown--;
-      timerElement.textContent = countdown;
+    // Se visitou index.html recentemente (menos de 10 segundos), não redirecionar
+    if (lastIndexVisit && (now - parseInt(lastIndexVisit)) < 10000) {
+      console.log('🚫 Prevenindo loop: visitou index.html recentemente');
+      document.getElementById('countdown').style.display = 'none';
+    } else {
+      // Countdown automático apenas se não há risco de loop
+      let countdown = 5;
+      const timerElement = document.getElementById('timer');
+      const countdownElement = document.getElementById('countdown');
       
-      if (countdown <= 0) {
+      const countdownInterval = setInterval(() => {
+        countdown--;
+        timerElement.textContent = countdown;
+        
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+          countdownElement.classList.add('hidden');
+          // Marcar visita antes de redirecionar
+          localStorage.setItem('last-index-visit', now.toString());
+          // Redirecionar para mobile após 5 segundos
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1000);
+        }
+      }, 1000);
+
+      // Cancelar countdown se o usuário interagir
+      document.addEventListener('click', () => {
         clearInterval(countdownInterval);
         countdownElement.classList.add('hidden');
-        // Redirecionar para mobile após 5 segundos
-        setTimeout(() => {
-          window.location.href = 'index.html';
-        }, 1000);
-      }
-    }, 1000);
+      });
 
-    // Cancelar countdown se o usuário interagir
-    document.addEventListener('click', () => {
-      clearInterval(countdownInterval);
-      countdownElement.classList.add('hidden');
-    });
+      document.addEventListener('keydown', () => {
+        clearInterval(countdownInterval);
+        countdownElement.classList.add('hidden');
+      });
+    }
 
-    document.addEventListener('keydown', () => {
-      clearInterval(countdownInterval);
-      countdownElement.classList.add('hidden');
-    });
+    // Função para limpar estado de prevenção de loops (debug)
+    window.clearLoopPrevention = () => {
+      localStorage.removeItem('last-desktop-visit');
+      localStorage.removeItem('last-index-visit');
+      console.log('🔄 Estado de prevenção de loops limpo');
+    };
 
     // Registro do Service Worker
     if ('serviceWorker' in navigator) {

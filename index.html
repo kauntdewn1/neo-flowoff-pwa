@@ -670,7 +670,7 @@
   <script src="test-glass-morphism.js"></script>
   <script src="test-update-system.js"></script>
   <script>
-    // === DETECÇÃO DE DESKTOP ===
+    // === DETECÇÃO DE DESKTOP COM PREVENÇÃO DE LOOPS ===
     function detectDesktop() {
       // Verificar se é desktop baseado em várias características
       const isDesktop = window.innerWidth >= 1024 && 
@@ -682,8 +682,19 @@
       if (isDesktop) {
         // Verificar se já está na página desktop
         if (!window.location.pathname.includes('desktop.html')) {
-          window.location.href = 'desktop.html';
-          return true;
+          // Prevenir loop: verificar se não veio do desktop.html recentemente
+          const lastDesktopVisit = localStorage.getItem('last-desktop-visit');
+          const now = Date.now();
+          
+          if (!lastDesktopVisit || (now - parseInt(lastDesktopVisit)) > 10000) { // 10 segundos
+            console.log('🖥️ Redirecionando para desktop.html');
+            localStorage.setItem('last-desktop-visit', now.toString());
+            window.location.href = 'desktop.html';
+            return true;
+          } else {
+            console.log('🚫 Prevenindo loop: visitou desktop.html recentemente');
+            return false;
+          }
         }
       }
       return false;

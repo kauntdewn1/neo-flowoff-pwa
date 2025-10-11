@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // MIME types
 const mimeTypes = {
@@ -74,4 +74,17 @@ server.listen(PORT, () => {
   console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
   console.log(`📁 Servindo arquivos de: ${__dirname}`);
   console.log(`🔄 Cache desabilitado para desenvolvimento`);
+});
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.log(`❌ Porta ${PORT} já está em uso!`);
+    console.log(`💡 Soluções:`);
+    console.log(`   1. Pare o processo: kill -9 $(lsof -ti:${PORT})`);
+    console.log(`   2. Use outra porta: PORT=3001 make dev`);
+    console.log(`   3. Use servidor alternativo: make dev-python`);
+  } else {
+    console.error('❌ Erro no servidor:', err.message);
+  }
+  process.exit(1);
 });

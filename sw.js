@@ -1,4 +1,4 @@
-const CACHE = 'neo-flowoff-v1.4.6-final';
+const CACHE = 'neo-flowoff-v1.4.7-fixed';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js', './p5-background.js',
   './blog.html', './blog-styles.css', './blog.js', './data/blog-articles.json',
@@ -38,20 +38,48 @@ self.addEventListener('activate', e=>{
 
 self.addEventListener('fetch', e=>{
   const req = e.request;
+  const url = new URL(req.url);
+  
+  // Filtrar requisições problemáticas
+  if (
+    url.protocol === 'chrome-extension:' ||
+    url.protocol === 'moz-extension:' ||
+    url.protocol === 'safari-extension:' ||
+    req.method === 'POST' ||
+    req.method === 'PUT' ||
+    req.method === 'DELETE' ||
+    url.hostname.includes('metamask') ||
+    url.hostname.includes('tronlink') ||
+    url.hostname.includes('bybit')
+  ) {
+    // Não interceptar essas requisições
+    return;
+  }
+  
   // Para CSS e JS, sempre buscar da rede primeiro
   if (req.url.includes('.css') || req.url.includes('.js')) {
     e.respondWith(
       fetch(req).then(res => {
-        const copy = res.clone();
-        caches.open(CACHE).then(c => c.put(req, copy));
+        // Só cachear se for uma resposta válida
+        if (res.status === 200 && res.type === 'basic') {
+          const copy = res.clone();
+          caches.open(CACHE).then(c => c.put(req, copy)).catch(err => {
+            console.warn('SW: Failed to cache response:', err);
+          });
+        }
         return res;
       }).catch(() => caches.match(req))
     );
   } else {
     e.respondWith(
       caches.match(req).then(cached => cached || fetch(req).then(res=>{
-        const copy = res.clone();
-        caches.open(CACHE).then(c=>c.put(req, copy));
+        // Só cachear se for uma resposta válida
+        if (res.status === 200 && res.type === 'basic') {
+          const copy = res.clone();
+          caches.open(CACHE).then(c=>c.put(req, copy)).catch(err => {
+            console.warn('SW: Failed to cache response:', err);
+          });
+        }
         return res;
       }).catch(()=> caches.match('./index.html')))
     );

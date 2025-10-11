@@ -67,10 +67,15 @@ deploy-preview: build ## Deploy preview para Netlify
 dev: ## Servidor local para desenvolvimento (recomendado)
 	@echo "🚀 Iniciando servidor Node.js..."
 	@command -v node >/dev/null 2>&1 && node server.js || \
-	(command -v python3 >/dev/null 2>&1 && python3 -m http.server 3000) || \
-	(command -v python >/dev/null 2>&1 && python -m SimpleHTTPServer 3000) || \
-	(command -v npx >/dev/null 2>&1 && npx serve . -p 3000) || \
+	(command -v python3 >/dev/null 2>&1 && python3 -m http.server $(PORT)) || \
+	(command -v python >/dev/null 2>&1 && python -m SimpleHTTPServer $(PORT)) || \
+	(command -v npx >/dev/null 2>&1 && npx serve . -p $(PORT)) || \
 	(echo "❌ Nenhum servidor HTTP encontrado. Instale node, python ou npx" && exit 1)
+
+dev-alt: ## Servidor em porta alternativa (ex: make dev-alt PORT=3001)
+	@echo "🚀 Iniciando servidor Node.js na porta $(PORT)..."
+	@command -v node >/dev/null 2>&1 && PORT=$(PORT) node server.js || \
+	(echo "❌ Node.js não encontrado" && exit 1)
 
 dev-python: ## Servidor Python (alternativo)
 	@echo "🐍 Iniciando servidor Python..."
