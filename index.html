@@ -667,11 +667,16 @@
 <script src="webp-support.js?v=1.0.0"></script>
 
 <script src="app.js?v=1.4.8" type="module"></script>
-  <script src="test-glass-morphism.js"></script>
-  <script src="test-update-system.js"></script>
   <script>
     // === DETECÇÃO DE DESKTOP COM PREVENÇÃO DE LOOPS ===
     function detectDesktop() {
+      // Verificar se usuário forçou modo desktop
+      const forceDesktop = localStorage.getItem('force-desktop');
+      if (forceDesktop === 'true') {
+        console.log('🖥️ Modo desktop forçado pelo usuário');
+        return false; // Não redirecionar
+      }
+
       // Verificar se é desktop baseado em várias características
       const isDesktop = window.innerWidth >= 1024 && 
                        window.innerHeight >= 768 && 
