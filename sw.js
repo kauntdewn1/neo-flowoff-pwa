@@ -1,4 +1,4 @@
-const CACHE = 'neo-flowoff-v1.4.8-clean';
+const CACHE = 'neo-flowoff-v1.4.9-stable';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js', './p5-background.js',
   './blog.html', './blog-styles.css', './blog.js', './data/blog-articles.json',
@@ -50,7 +50,11 @@ self.addEventListener('fetch', e=>{
     req.method === 'DELETE' ||
     url.hostname.includes('metamask') ||
     url.hostname.includes('tronlink') ||
-    url.hostname.includes('bybit')
+    url.hostname.includes('bybit') ||
+    url.pathname.includes('taaft.com-image-generator') ||
+    url.pathname.includes('.backup') ||
+    url.pathname.includes('installHook.js') ||
+    url.pathname.includes('lockdown-install.js')
   ) {
     // Não interceptar essas requisições
     return;

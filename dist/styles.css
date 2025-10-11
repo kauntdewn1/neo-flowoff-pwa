@@ -1157,23 +1157,8 @@ main{
   opacity: 0.8;
 }
 
-/* Grande título recolhe ao rolar */
-@supports (animation-timeline: scroll()){
-  .large-title{
-    animation: clampTitle linear both;
-    animation-timeline: scroll(root);
-    animation-range: 0 200px;
-  }
-  @keyframes clampTitle{
-    to{opacity:0; transform: translateY(-8px)}
-  }
-  .compact-title{
-    animation: growTitle linear both;
-    animation-timeline: scroll(root);
-    animation-range: 40px 220px;
-  }
-  @keyframes growTitle{from{opacity:0} to{opacity:1}}
-}
+/* Grande título recolhe ao rolar - removido por incompatibilidade */
+/* As propriedades animation-timeline e animation-range não são suportadas amplamente */
 
 @media (min-width: 880px){
   .grid{grid-template-columns: repeat(5, minmax(0,1fr))}
