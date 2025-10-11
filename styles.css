@@ -627,23 +627,25 @@ main{
 
 .badge-link {
   display: inline-block;
-  margin-top: 0.5rem;
-  padding: 0.3rem 0.8rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
+  margin-top: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
   color: #fff;
   text-decoration: none;
-  font-size: 0.8rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  font-size: 0.7rem;
+  font-weight: 400;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  opacity: 0.8;
 }
 
 .badge-link:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  opacity: 1;
+  transform: translateY(-0.5px);
 }
 
 .progress-label {
