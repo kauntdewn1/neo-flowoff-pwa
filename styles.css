@@ -288,20 +288,24 @@ main{
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   max-width: 500px;
-  width: 100%;
+  width: calc(100vw - 40px);
   max-height: 80vh;
   overflow-y: auto;
   animation: modalSlideIn 0.3s ease-out;
+  margin: auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 @keyframes modalSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-20px) scale(0.95);
+    transform: translateY(-50%) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(-50%) scale(1);
   }
 }
 
@@ -1099,6 +1103,52 @@ main{
 
 /* Grande título recolhe ao rolar - removido por incompatibilidade */
 /* As propriedades animation-timeline e animation-range não são suportadas amplamente */
+
+/* === MODAIS MOBILE === */
+@media (max-width: 768px) {
+  .project-modal {
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    width: calc(100vw - 20px);
+    max-width: 90vw;
+    max-height: 85vh;
+    margin: 0;
+    position: static;
+    top: auto;
+    transform: none;
+  }
+  
+  .modal-header {
+    padding: 16px 16px 0;
+  }
+  
+  .modal-header h3 {
+    font-size: 16px;
+  }
+  
+  .modal-body {
+    padding: 16px;
+  }
+  
+  .modal-body p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .modal-footer {
+    padding: 0 16px 16px;
+  }
+  
+  .modal-footer .btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+  }
+}
 
 @media (min-width: 880px){
   .grid{grid-template-columns: repeat(5, minmax(0,1fr))}
