@@ -172,23 +172,19 @@ main{
 
 /* Títulos removidos - mantendo apenas texto principal com efeito neon */
 
-/* Texto principal simples */
-.hero-text {
+/* Texto principal simples - sem card */
+.hero-text-simple {
   margin: 2rem 0;
-  padding: 1.5rem;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
 }
 
-.hero-text p {
+.hero-text-simple p {
   font-size: 0.9rem;
   font-weight: 600;
   margin: 0.5rem 0;
   color: #ffffff;
   letter-spacing: 1px;
   text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Botão simples - efeitos neon removidos */
