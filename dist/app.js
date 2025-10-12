@@ -43,6 +43,52 @@ function go(route){
 // Tornar função go() disponível globalmente para testes
 window.go = go;
 
+// Menu hambúrguer
+document.addEventListener('DOMContentLoaded', () => {
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuOverlay = document.getElementById('menu-overlay');
+  const menuClose = document.getElementById('menu-close');
+  const menuItems = document.querySelectorAll('.menu-item[data-route]');
+
+  // Abrir menu
+  menuToggle.addEventListener('click', () => {
+    menuToggle.classList.add('active');
+    menuOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+
+  // Fechar menu
+  const closeMenu = () => {
+    menuToggle.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  menuClose.addEventListener('click', closeMenu);
+  menuOverlay.addEventListener('click', (e) => {
+    if (e.target === menuOverlay) closeMenu();
+  });
+
+  // Navegação do menu
+  menuItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      const route = item.dataset.route;
+      if (route && typeof go === 'function') {
+        go(route);
+        closeMenu();
+      }
+    });
+  });
+
+  // Fechar menu com ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
+      closeMenu();
+    }
+  });
+});
+
 buttons.forEach(b => b.addEventListener('click', () => go(b.dataset.route)));
 console.log('🚀 Inicializando rota HOME...');
 go('home');
