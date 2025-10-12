@@ -43,6 +43,81 @@ function go(route){
 // Tornar função go() disponível globalmente para testes
 window.go = go;
 
+// Função de debug para testar o menu hambúrguer
+window.debugMenuHamburger = () => {
+  console.log('🔍 Debug Menu Hambúrguer');
+  
+  const menuToggle = document.getElementById('menu-toggle');
+  if (!menuToggle) {
+    console.error('❌ menu-toggle não encontrado');
+    return;
+  }
+  
+  const styles = window.getComputedStyle(menuToggle);
+  const rect = menuToggle.getBoundingClientRect();
+  
+  console.log('📊 Propriedades do menu-toggle:', {
+    zIndex: styles.zIndex,
+    position: styles.position,
+    pointerEvents: styles.pointerEvents,
+    display: styles.display,
+    visibility: styles.visibility,
+    opacity: styles.opacity,
+    rect: `${rect.width}x${rect.height} at (${rect.left}, ${rect.top})`,
+    clickable: rect.width > 0 && rect.height > 0
+  });
+  
+  // Verificar elementos sobrepostos
+  const elementsAtPoint = document.elementsFromPoint(rect.left + rect.width/2, rect.top + rect.height/2);
+  console.log('🎯 Elementos no ponto do botão:', elementsAtPoint.map(el => ({
+    tag: el.tagName,
+    id: el.id,
+    className: el.className,
+    zIndex: window.getComputedStyle(el).zIndex
+  })));
+  
+  // Verificar se banner PWA está interferindo
+  const pwaBanner = document.getElementById('pwa-install-banner');
+  if (pwaBanner) {
+    const pwaStyles = window.getComputedStyle(pwaBanner);
+    console.log('📱 Banner PWA:', {
+      display: pwaStyles.display,
+      visibility: pwaStyles.visibility,
+      opacity: pwaStyles.opacity,
+      transform: pwaStyles.transform,
+      zIndex: pwaStyles.zIndex
+    });
+    
+    if (pwaStyles.display !== 'none') {
+      console.warn('⚠️ Banner PWA pode estar interferindo!');
+    }
+  }
+  
+  // Simular clique
+  console.log('🖱️ Simulando clique...');
+  menuToggle.click();
+};
+
+// Função para ocultar banner PWA temporariamente
+window.hidePWABanner = () => {
+  const pwaBanner = document.getElementById('pwa-install-banner');
+  if (pwaBanner) {
+    pwaBanner.style.display = 'none';
+    pwaBanner.classList.remove('show');
+    console.log('✅ Banner PWA ocultado temporariamente');
+  }
+};
+
+// Função para mostrar banner PWA novamente
+window.showPWABanner = () => {
+  const pwaBanner = document.getElementById('pwa-install-banner');
+  if (pwaBanner) {
+    pwaBanner.style.display = 'block';
+    pwaBanner.classList.add('show');
+    console.log('✅ Banner PWA exibido novamente');
+  }
+};
+
 // Menu hambúrguer
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🍔 Inicializando menu hambúrguer...');
@@ -58,15 +133,57 @@ document.addEventListener('DOMContentLoaded', () => {
     menuItems: menuItems.length
   });
 
+  // Debug: Verificar propriedades do menu-toggle
+  if (menuToggle) {
+    const styles = window.getComputedStyle(menuToggle);
+    const rect = menuToggle.getBoundingClientRect();
+    console.log('🍔 Menu-toggle debug:', {
+      zIndex: styles.zIndex,
+      position: styles.position,
+      pointerEvents: styles.pointerEvents,
+      display: styles.display,
+      visibility: styles.visibility,
+      opacity: styles.opacity,
+      rect: `${rect.width}x${rect.height} at (${rect.left}, ${rect.top})`,
+      clickable: rect.width > 0 && rect.height > 0
+    });
+    
+    // Verificar elementos pais
+    let parent = menuToggle.parentElement;
+    while (parent && parent !== document.body) {
+      const parentStyles = window.getComputedStyle(parent);
+      if (parentStyles.pointerEvents === 'none') {
+        console.warn('⚠️ Elemento pai tem pointer-events: none', parent);
+      }
+      parent = parent.parentElement;
+    }
+  }
+
   // Abrir menu
   if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-      console.log('🍔 Menu toggle clicado!');
+    menuToggle.addEventListener('click', (e) => {
+      console.log('🍔 Menu toggle clicado!', e);
+      e.preventDefault();
+      e.stopPropagation();
       menuToggle.classList.add('active');
       menuOverlay.classList.add('active');
       document.body.style.overflow = 'hidden';
       console.log('🍔 Menu aberto');
     });
+    
+    // Adicionar listeners de debug
+    menuToggle.addEventListener('mousedown', (e) => {
+      console.log('🖱️ Mouse down no menu-toggle', e);
+    });
+    
+    menuToggle.addEventListener('mouseup', (e) => {
+      console.log('🖱️ Mouse up no menu-toggle', e);
+    });
+    
+    menuToggle.addEventListener('touchstart', (e) => {
+      console.log('👆 Touch start no menu-toggle', e);
+    });
+    
   } else {
     console.error('❌ menu-toggle não encontrado!');
   }
