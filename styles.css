@@ -310,13 +310,15 @@ main{
   z-index: 2;
   padding: 2rem;
   text-align: center;
+  margin-top: 4rem;
 }
 
 /* Títulos removidos - mantendo apenas texto principal com efeito neon */
 
 /* Texto principal simples - sem card */
 .hero-text-simple {
-  margin: 2rem 0;
+  margin: 0;
+  padding-top: 1rem;
 }
 
 .hero-text-simple p {
