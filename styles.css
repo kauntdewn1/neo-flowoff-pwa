@@ -335,7 +335,7 @@ main{
   overflow: hidden;
 }
 
-/* Animação shimmer com gradiente diagonal */
+/* Animação de brilho suave com controle de opacidade */
 .hero-text-simple p::before {
   content: '';
   position: absolute;
@@ -344,26 +344,34 @@ main{
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    110deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.3) 40%,
-    rgba(255, 255, 255, 0.9) 50%,
-    rgba(255, 255, 255, 0.3) 60%,
-    transparent 80%
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 60%,
+    transparent 100%
   );
   background-size: 200% 100%;
-  animation: shimmer 2.5s ease-in-out infinite;
-  mix-blend-mode: screen;
+  animation: shine-smooth 3s ease-in-out infinite;
+  mix-blend-mode: overlay;
   pointer-events: none;
   z-index: 1;
 }
 
-@keyframes shimmer {
-  0% {
+@keyframes shine-smooth {
+  0%, 100% {
     background-position: -200% 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
   }
   100% {
     background-position: 200% 0;
+    opacity: 0;
   }
 }
 
