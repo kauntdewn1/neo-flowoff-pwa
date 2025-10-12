@@ -335,7 +335,7 @@ main{
   overflow: hidden;
 }
 
-/* Animação de brilho radial pulsante */
+/* Animação shimmer com gradiente diagonal */
 .hero-text-simple p::before {
   content: '';
   position: absolute;
@@ -343,27 +343,27 @@ main{
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255, 255, 255, 0.9) 0%,
-    rgba(255, 255, 255, 0.4) 40%,
-    transparent 70%
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.3) 40%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(255, 255, 255, 0.3) 60%,
+    transparent 80%
   );
-  animation: glow-pulse 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  background-size: 200% 100%;
+  animation: shimmer 2.5s ease-in-out infinite;
   mix-blend-mode: screen;
   pointer-events: none;
-  filter: blur(10px);
   z-index: 1;
 }
 
-@keyframes glow-pulse {
-  0%, 100% {
-    opacity: 0;
-    transform: scale(0.8);
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
   }
-  50% {
-    opacity: 1;
-    transform: scale(1.2);
+  100% {
+    background-position: 200% 0;
   }
 }
 
