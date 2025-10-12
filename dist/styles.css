@@ -271,13 +271,14 @@ main{
   position: relative;
   overflow: hidden;
   border-radius: var(--radius); 
-  padding: 3rem; 
+  padding: 4rem; 
   box-shadow: var(--shadow);
   backdrop-filter: blur(16px);
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
   animation: glowFade 10s ease-in-out infinite;
   text-align: center;
+  min-height: 60vh;
 }
 
 /* Hero com imagem de fundo */
@@ -308,9 +309,9 @@ main{
 .hero-content {
   position: relative;
   z-index: 2;
-  padding: 2rem;
+  padding: 3rem;
   text-align: center;
-  margin-top: 4rem;
+  margin-top: 2rem;
 }
 
 /* Títulos removidos - mantendo apenas texto principal com efeito neon */
