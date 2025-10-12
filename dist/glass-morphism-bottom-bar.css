@@ -286,16 +286,4 @@
 }
 
 /* === HIGH CONTRAST MODE === */
-@media (prefers-contrast: high) {
-  .glass-nav-item {
-    border-width: 2px;
-  }
-  
-  .glass-nav-item.active {
-    border-color: var(--neon);
-  }
-  
-  .glass-nav-label {
-    font-weight: 700;
-  }
-}
+/* Removido prefers-contrast por incompatibilidade com alguns navegadores */
