@@ -45,17 +45,31 @@ window.go = go;
 
 // Menu hambúrguer
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('🍔 Inicializando menu hambúrguer...');
   const menuToggle = document.getElementById('menu-toggle');
   const menuOverlay = document.getElementById('menu-overlay');
   const menuClose = document.getElementById('menu-close');
   const menuItems = document.querySelectorAll('.menu-item[data-route]');
+  
+  console.log('🍔 Elementos encontrados:', {
+    menuToggle: !!menuToggle,
+    menuOverlay: !!menuOverlay,
+    menuClose: !!menuClose,
+    menuItems: menuItems.length
+  });
 
   // Abrir menu
-  menuToggle.addEventListener('click', () => {
-    menuToggle.classList.add('active');
-    menuOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  });
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      console.log('🍔 Menu toggle clicado!');
+      menuToggle.classList.add('active');
+      menuOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      console.log('🍔 Menu aberto');
+    });
+  } else {
+    console.error('❌ menu-toggle não encontrado!');
+  }
 
   // Fechar menu
   const closeMenu = () => {
