@@ -308,9 +308,9 @@ main{
 .hero-content {
   position: relative;
   z-index: 2;
-  padding: 2rem;
+  padding: 0rem;
   text-align: center;
-  margin-top: 4rem;
+  margin-top: 2rem;
 }
 
 /* Títulos removidos - mantendo apenas texto principal com efeito neon */
