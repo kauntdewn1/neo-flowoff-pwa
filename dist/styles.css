@@ -1,15 +1,3 @@
-/* 
-🚨 PROTEÇÃO CONTRA REMOÇÃO ACIDENTAL 🚨
-NÃO REMOVER OU MODIFICAR ESTILOS EXISTENTES:
-- Hero section com imagem de fundo
-- Efeitos neon e animações
-- Seção de projetos
-- Cards e elementos visuais
-- Navegação e rotas
-APENAS ADICIONAR NOVOS ESTILOS QUANDO SOLICITADO
-MANTENHA TODOS OS ESTILOS ATUAIS INTACTOS
-*/
-
 :root{
   --bg:#0a0a0f;
   --panel:#0f0f16;
@@ -173,15 +161,7 @@ main{
   object-position: center;
 }
 
-.hero-bg-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(138, 43, 226, 0.7) 0%, rgba(75, 0, 130, 0.8) 100%);
-  backdrop-filter: blur(2px);
-}
+/* Overlay removido para design mais limpo */
 
 .hero-content {
   position: relative;
@@ -190,72 +170,10 @@ main{
   text-align: center;
 }
 
-/* Seção de Projetos */
-.projects-section {
-  margin: 2rem 1rem;
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-}
+/* Títulos removidos - mantendo apenas texto principal com efeito neon */
 
-.section-title {
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  color: #ffffff;
-  text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.project-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 1.5rem;
-  text-align: center;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-}
-
-.project-card:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 0, 255, 0.3);
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(255, 0, 255, 0.2);
-}
-
-.project-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  display: block;
-}
-
-.project-card h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #ffffff;
-}
-
-.project-card p {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.4;
-}
-
-/* Títulos removidos - apenas texto principal com efeito neon */
-
-/* Texto principal com efeito de brilho */
-.hero-text-neon {
+/* Texto principal simples */
+.hero-text {
   margin: 2rem 0;
   padding: 1.5rem;
   background: rgba(0, 0, 0, 0.3);
@@ -264,73 +182,18 @@ main{
   backdrop-filter: blur(10px);
 }
 
-.neon-text-line {
+.hero-text p {
   font-size: 0.9rem;
   font-weight: 600;
   margin: 0.5rem 0;
   color: #ffffff;
-  text-shadow: 
-    0 0 5px rgba(255, 0, 255, 0.8),
-    0 0 10px rgba(255, 0, 255, 0.6),
-    0 0 15px rgba(0, 255, 255, 0.4),
-    0 0 20px rgba(0, 255, 255, 0.2);
-  animation: neonPulse 2s ease-in-out infinite alternate;
   letter-spacing: 1px;
+  text-align: center;
 }
 
-/* Botão com efeito neon */
-.neon-btn {
-  background: linear-gradient(45deg, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.2));
-  border: 2px solid rgba(255, 0, 255, 0.5);
-  box-shadow: 
-    0 0 20px rgba(255, 0, 255, 0.3),
-    inset 0 0 20px rgba(0, 255, 255, 0.1);
-  animation: neonBtnGlow 2s ease-in-out infinite alternate;
-}
+/* Botão simples - efeitos neon removidos */
 
-.neon-btn:hover {
-  background: linear-gradient(45deg, rgba(255, 0, 255, 0.3), rgba(0, 255, 255, 0.3));
-  border-color: rgba(255, 0, 255, 0.8);
-  box-shadow: 
-    0 0 30px rgba(255, 0, 255, 0.5),
-    0 0 40px rgba(0, 255, 255, 0.3),
-    inset 0 0 30px rgba(0, 255, 255, 0.2);
-  transform: translateY(-2px);
-}
-
-/* Animações neon */
-/* Animações neonGlow e neonShimmer removidas - não mais necessárias */
-
-@keyframes neonPulse {
-  0% {
-    text-shadow: 
-      0 0 5px rgba(255, 0, 255, 0.8),
-      0 0 10px rgba(255, 0, 255, 0.6),
-      0 0 15px rgba(0, 255, 255, 0.4),
-      0 0 20px rgba(0, 255, 255, 0.2);
-  }
-  100% {
-    text-shadow: 
-      0 0 10px rgba(255, 0, 255, 1),
-      0 0 20px rgba(255, 0, 255, 0.8),
-      0 0 30px rgba(0, 255, 255, 0.6),
-      0 0 40px rgba(0, 255, 255, 0.4);
-  }
-}
-
-@keyframes neonBtnGlow {
-  0% {
-    box-shadow: 
-      0 0 20px rgba(255, 0, 255, 0.3),
-      inset 0 0 20px rgba(0, 255, 255, 0.1);
-  }
-  100% {
-    box-shadow: 
-      0 0 30px rgba(255, 0, 255, 0.5),
-      0 0 40px rgba(0, 255, 255, 0.3),
-      inset 0 0 30px rgba(0, 255, 255, 0.2);
-  }
-}
+/* Animações neon removidas para design mais limpo */
 .hero-card h1{margin:2px 0 6px; font-size:28px}
 .hero-card p{margin:0 0 14px; color:var(--muted)}
 
