@@ -210,7 +210,7 @@ main{
     rgba(255, 105, 180, 0.15) 75%,
     transparent 100%
   );
-  animation: soft-glow-sweep 4s ease-in-out infinite;
+  animation: soft-glow-sweep 30s ease-in-out infinite;
   mix-blend-mode: screen;
   pointer-events: none;
   filter: blur(8px);
