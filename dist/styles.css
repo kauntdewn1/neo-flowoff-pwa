@@ -335,42 +335,43 @@ main{
   overflow: hidden;
 }
 
-/* Animação de brilho suave com controle de opacidade */
+/* Efeito neon/glow cyberpunk com toque rosa/pink */
 .hero-text-simple p::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
+  left: -100%;
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    120deg,
+    90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0) 40%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 105, 180, 0.15) 25%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 105, 180, 0.15) 75%,
     transparent 100%
   );
-  background-size: 200% 100%;
-  animation: shine-smooth 3s ease-in-out infinite;
-  mix-blend-mode: overlay;
+  animation: soft-glow-sweep 4s ease-in-out infinite;
+  mix-blend-mode: screen;
   pointer-events: none;
+  filter: blur(8px);
   z-index: 1;
 }
 
-@keyframes shine-smooth {
-  0%, 100% {
-    background-position: -200% 0;
+@keyframes soft-glow-sweep {
+  0% {
+    left: -100%;
     opacity: 0;
   }
   10% {
     opacity: 1;
   }
-  90% {
+  50% {
+    left: 100%;
     opacity: 1;
   }
   100% {
-    background-position: 200% 0;
+    left: 100%;
     opacity: 0;
   }
 }
