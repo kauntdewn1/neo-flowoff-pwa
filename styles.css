@@ -1291,7 +1291,7 @@ main{
 }
 
 .agent-messages::-webkit-scrollbar-thumb:hover {
-  background: var(--blue);
+  background: #007bff;
 }
 
 /* Widget de Atendimento Flutuante */
