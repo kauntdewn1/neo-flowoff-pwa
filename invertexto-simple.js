@@ -330,7 +330,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const formValidator = new SimpleFormValidator(validator);
     
     console.log('✅ Validação simplificada inicializada!');
-    console.log('🧪 Teste: validator.validarCPF("12345678901")');
   }, 1000);
 });
 
