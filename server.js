@@ -26,6 +26,21 @@ const server = http.createServer((req, res) => {
   // Remove query parameters for file serving
   const cleanPath = pathname.split('?')[0];
   
+  // API endpoints
+  if (cleanPath === '/api/health') {
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.writeHead(200);
+    res.end(JSON.stringify({
+      status: 'ok',
+      timestamp: new Date().toISOString(),
+      apis: {
+        invertexto: process.env.INVERTEXTO_API_TOKEN && process.env.INVERTEXTO_API_TOKEN !== 'seu_token_real_aqui' ? "✅ Configurado" : "⚠️ Token não configurado"
+      }
+    }));
+    return;
+  }
+  
   // Serve index.html for root
   if (cleanPath === '/') {
     pathname = '/index.html';

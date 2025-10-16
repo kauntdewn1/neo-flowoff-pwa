@@ -796,7 +796,7 @@ console.error('Erro ao instalar PWA:', error);
 dismissBtn.addEventListener('click', () => {
 pwaBanner.style.display = 'none';
 pwaBanner.classList.remove('show');
-bannerShown = false;
+pwaBannerShown = false;
 localStorage.setItem('pwa-dismissed', 'true');
 console.log('Banner PWA dispensado');
 });
@@ -819,7 +819,7 @@ window.addEventListener('appinstalled', () => {
 console.log('PWA foi instalado');
 pwaBanner.style.display = 'none';
 pwaBanner.classList.remove('show');
-bannerShown = false;
+pwaBannerShown = false;
 });
 
 // Função para testar o banner manualmente (debug)
