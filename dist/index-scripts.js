@@ -1,17 +1,34 @@
 // index-scripts.js - Scripts específicos do index.html
 
-// Detecção de Desktop
+// === DETECÇÃO DE DESKTOP COM PREVENÇÃO DE LOOPS ===
 function detectDesktop() {
-  if (window.innerWidth >= 1024) {
-    const lastDesktopVisit = localStorage.getItem('last-desktop-visit');
-    const now = Date.now();
-    
-    if (!lastDesktopVisit || (now - parseInt(lastDesktopVisit)) > 10000) { // 10 segundos
-      localStorage.setItem('last-desktop-visit', now.toString());
-      window.location.href = 'desktop.html';
-      return true;
-    } else {
-      return false;
+  // Verificar se usuário forçou modo desktop
+  const forceDesktop = localStorage.getItem('force-desktop');
+  if (forceDesktop === 'true') {
+    return false; // Não redirecionar
+  }
+
+  // Verificar se é desktop baseado em várias características
+  const isDesktop = window.innerWidth >= 1024 && 
+                   window.innerHeight >= 768 && 
+                   !navigator.userAgent.match(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i) &&
+                   !('ontouchstart' in window) &&
+                   window.matchMedia('(pointer: fine)').matches;
+  
+  if (isDesktop) {
+    // Verificar se já está na página desktop
+    if (!window.location.pathname.includes('desktop.html')) {
+      // Prevenir loop: verificar se não veio do desktop.html recentemente
+      const lastDesktopVisit = localStorage.getItem('last-desktop-visit');
+      const now = Date.now();
+      
+      if (!lastDesktopVisit || (now - parseInt(lastDesktopVisit)) > 10000) { // 10 segundos
+        localStorage.setItem('last-desktop-visit', now.toString());
+        window.location.href = 'desktop.html';
+        return true;
+      } else {
+        return false;
+      }
     }
   }
   return false;
@@ -51,7 +68,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
   }
 });
 
-// Fallback: Mostrar banner após 3 segundos se não foi dispensado (para teste)
+// Fallback: Mostrar banner após 3 segundos se não foi dispensado
 setTimeout(() => {
   if (!pwaBannerShown && localStorage.getItem('pwa-dismissed') !== 'true' && !window.matchMedia('(display-mode: standalone)').matches) {
     pwaBanner.style.display = 'block';
@@ -74,7 +91,7 @@ installBtn.addEventListener('click', async () => {
       }
       deferredPrompt = null;
     } catch (error) {
-      // Erro na instalação
+      console.error('Erro ao instalar PWA:', error);
     }
   }
 });
@@ -145,7 +162,40 @@ function requestTick() {
   }
 }
 
-window.addEventListener('scroll', requestTick);
+window.addEventListener('scroll', requestTick, { passive: true });
+
+// === GLASS MORPHISM OVERLAY CONTROL ===
+const glassOverlay = document.getElementById('glass-overlay');
+let overlayTicking = false;
+
+function updateGlassOverlay() {
+  const scrollY = window.scrollY;
+  const windowHeight = window.innerHeight;
+  const documentHeight = document.documentElement.scrollHeight;
+  
+  // Calcular se deve mostrar o overlay
+  const shouldShowOverlay = scrollY > 100 && (scrollY + windowHeight) < (documentHeight - 50);
+  
+  if (shouldShowOverlay) {
+    glassOverlay.classList.add('active');
+  } else {
+    glassOverlay.classList.remove('active');
+  }
+  
+  overlayTicking = false;
+}
+
+function requestOverlayTick() {
+  if (!overlayTicking) {
+    requestAnimationFrame(updateGlassOverlay);
+    overlayTicking = true;
+  }
+}
+
+window.addEventListener('scroll', requestOverlayTick, { passive: true });
+
+// Atualizar na carga inicial
+updateGlassOverlay();
 
 // === UPDATE DETECTION SYSTEM ===
 const updateBanner = document.getElementById('update-banner');
@@ -198,13 +248,11 @@ function showUpdateBanner() {
 
 // Botão atualizar
 updateBtn.addEventListener('click', () => {
-  if (updateWorker) {
-    updateWorker.postMessage({ action: 'skipWaiting' });
-  }
+  // Recarregar a página para aplicar atualizações
   window.location.reload();
 });
 
-// Botão dispensar atualização
+// Botão dispensar
 updateDismiss.addEventListener('click', () => {
   updateBanner.style.display = 'none';
   updateBanner.classList.remove('show');
@@ -219,62 +267,91 @@ setTimeout(() => {
     setTimeout(() => {
       updateBanner.style.display = 'none';
       updateBanner.classList.remove('show');
-      bannerShown = false;
+      pwaBannerShown = false;
     }, 300);
   }
 }, 10000);
 
-// === PERFORMANCE MONITORING ===
-if ('PerformanceObserver' in window) {
-  const observer = new PerformanceObserver((list) => {
-    for (const entry of list.getEntries()) {
-      if (entry.entryType === 'largest-contentful-paint') {
-        // LCP monitoring
+// Função para testar o banner manualmente (debug)
+window.testUpdateBanner = () => {
+  if (updateBanner) {
+    updateBanner.style.display = 'block';
+    updateBanner.classList.add('show');
+    pwaBannerShown = true;
+  }
+};
+
+// Função para limpar o estado do banner (debug)
+window.clearUpdateState = () => {
+  localStorage.removeItem('update-dismissed');
+};
+
+// Verificar atualizações periodicamente (a cada 5 minutos)
+setInterval(() => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistration().then(registration => {
+      if (registration) {
+        registration.update();
+      }
+    });
+  }
+}, 5 * 60 * 1000); // 5 minutos
+
+// === MODAIS DOS PROJETOS ===
+document.addEventListener('DOMContentLoaded', function() {
+  // Event listeners para abrir modais
+  document.querySelectorAll('[data-modal]').forEach(item => {
+    item.addEventListener('click', function() {
+      const modalId = this.getAttribute('data-modal');
+      const modal = document.getElementById(`modal-${modalId}`);
+      if (modal) {
+        modal.showModal();
+        document.body.style.overflow = 'hidden'; // Previne scroll do body
+      }
+    });
+  });
+
+  // Event listeners para fechar modais
+  document.querySelectorAll('[data-close]').forEach(button => {
+    button.addEventListener('click', function() {
+      const modalId = this.getAttribute('data-close');
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.close();
+        document.body.style.overflow = ''; // Restaura scroll do body
+      }
+    });
+  });
+
+  // Fechar modal clicando fora dele
+  document.querySelectorAll('.project-modal').forEach(modal => {
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.close();
+        document.body.style.overflow = '';
+      }
+    });
+  });
+
+  // Garantir que todos os modais estejam fechados ao carregar
+  document.addEventListener('DOMContentLoaded', function() {
+    const modals = document.querySelectorAll('.project-modal');
+    modals.forEach(modal => {
+      if (modal.open) {
+        modal.close();
+      }
+    });
+    document.body.style.overflow = '';
+  });
+
+  // Fechar modal com ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const openModal = document.querySelector('.project-modal[open]');
+      if (openModal) {
+        openModal.close();
+        document.body.style.overflow = '';
       }
     }
   });
-  
-  observer.observe({ entryTypes: ['largest-contentful-paint'] });
-}
-
-// === ACCESSIBILITY ENHANCEMENTS ===
-// Melhorar navegação por teclado
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Tab') {
-    document.body.classList.add('keyboard-navigation');
-  }
 });
-
-document.addEventListener('mousedown', () => {
-  document.body.classList.remove('keyboard-navigation');
-});
-
-// === ANALYTICS ===
-// Função para enviar eventos de analytics
-function trackEvent(category, action, label) {
-  // Implementar tracking de eventos
-  if (typeof gtag !== 'undefined') {
-    gtag('event', action, {
-      event_category: category,
-      event_label: label
-    });
-  }
-}
-
-// Track PWA install
-window.addEventListener('appinstalled', () => {
-  trackEvent('PWA', 'install', 'app_installed');
-});
-
-// Track banner interactions
-installBtn.addEventListener('click', () => {
-  trackEvent('PWA', 'banner_install_click', 'install_button');
-});
-
-dismissBtn.addEventListener('click', () => {
-  trackEvent('PWA', 'banner_dismiss', 'dismiss_button');
-});
-
-// Exportar funções para uso global
-window.detectDesktop = detectDesktop;
-window.trackEvent = trackEvent;
