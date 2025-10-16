@@ -3,24 +3,20 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
     try {
       const registration = await navigator.serviceWorker.register('./sw.js');
-      console.log('✅ Service Worker registrado com sucesso:', registration.scope);
       
       // Verificar se há atualizações
       registration.addEventListener('updatefound', () => {
-        console.log('🔄 Nova versão do Service Worker encontrada');
         const newWorker = registration.installing;
         newWorker.addEventListener('statechange', () => {
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-            console.log('📱 Nova versão disponível! Recarregue para atualizar.');
+            // Nova versão disponível
           }
         });
       });
     } catch (error) {
-      console.error('❌ Erro ao registrar Service Worker:', error);
+      // Erro ao registrar Service Worker
     }
   });
-} else {
-  console.log('⚠️ Service Worker não suportado neste navegador');
 }
 
 // Router super simples (hashless) - Compatível com Glass Morphism Bottom Bar
@@ -29,12 +25,10 @@ const buttons = document.querySelectorAll('.glass-nav-item');
 const sections = [...document.querySelectorAll('.route')];
 
 function go(route){
-  console.log(`🔄 Navegando para rota: ${route}`);
   routes.forEach(r => {
     const element = document.getElementById(r);
     const isActive = r === route;
     element.classList.toggle('active', isActive);
-    console.log(`  ${r}: ${isActive ? 'ATIVA' : 'inativa'}`);
   });
   buttons.forEach(b => b.classList.toggle('active', b.dataset.route===route));
   window.scrollTo({top:0, behavior:'smooth'});
@@ -45,9 +39,7 @@ window.go = go;
 
 
 buttons.forEach(b => b.addEventListener('click', () => go(b.dataset.route)));
-console.log('🚀 Inicializando rota HOME...');
 go('home');
-console.log('✅ Rota HOME definida');
 
 // Sheet modal
 document.querySelectorAll('[data-open]').forEach(el=>{

@@ -248,9 +248,15 @@ function windowResized() {
 // Pausar animação quando não visível (performance)
 document.addEventListener('visibilitychange', function() {
   if(document.hidden) {
-    noLoop();
+    // Pausar animação quando página não está visível
+    if (typeof noLoop === 'function') {
+      noLoop();
+    }
   } else {
-    loop();
+    // Retomar animação quando página volta a ficar visível
+    if (typeof loop === 'function') {
+      loop();
+    }
   }
 });
 

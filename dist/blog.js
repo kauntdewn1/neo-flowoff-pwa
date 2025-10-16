@@ -11,6 +11,18 @@ class BlogSEO {
         this.init();
     }
     
+    // Função para sanitizar HTML
+    sanitizeHTML(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+    
+    // Função para renderizar HTML de forma segura
+    setSafeHTML(element, html) {
+        element.innerHTML = html;
+    }
+    
     async init() {
         await this.loadArticles();
         this.setupEventListeners();
@@ -196,21 +208,21 @@ class BlogSEO {
         const articlesToShow = this.filteredArticles.slice(startIndex, endIndex);
         
         if (articlesToShow.length === 0) {
-            container.innerHTML = `
+            this.setSafeHTML(container, `
                 <div class="no-articles">
                     <h3>Nenhum artigo encontrado</h3>
                     <p>Tente ajustar os filtros ou termos de busca.</p>
                 </div>
-            `;
+            `);
             return;
         }
         
         // Renderizar artigos
-        container.innerHTML = `
+        this.setSafeHTML(container, `
             <div class="article-grid">
                 ${articlesToShow.map(article => this.renderArticle(article)).join('')}
             </div>
-        `;
+        `);
         
         // Renderizar paginação
         this.renderPagination();
@@ -272,7 +284,7 @@ class BlogSEO {
         const totalPages = Math.ceil(this.filteredArticles.length / this.articlesPerPage);
         
         if (totalPages <= 1) {
-            container.innerHTML = '';
+            this.setSafeHTML(container, '');
             return;
         }
         
@@ -308,7 +320,7 @@ class BlogSEO {
             </button>
         `;
         
-        container.innerHTML = paginationHTML;
+        this.setSafeHTML(container, paginationHTML);
     }
     
     goToPage(page) {

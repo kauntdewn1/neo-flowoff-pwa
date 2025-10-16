@@ -34,6 +34,7 @@ build: ## Build da PWA (otimiza assets)
 	@cp manifest.webmanifest dist/
 	@cp sw.js dist/
 	@cp p5-background.js dist/
+	@cp favicon.ico dist/
 	@# Copia arquivos CSS e JS adicionais
 	@cp glass-morphism-bottom-bar.css dist/ 2>/dev/null || true
 	@cp glass-morphism-bottom-bar.js dist/ 2>/dev/null || true

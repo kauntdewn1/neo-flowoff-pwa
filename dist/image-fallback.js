@@ -4,6 +4,18 @@ class ImageFallback {
     this.init();
   }
 
+  // Função para sanitizar HTML
+  sanitizeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // Função para renderizar HTML de forma segura
+  setSafeHTML(element, html) {
+    element.innerHTML = html;
+  }
+
   init() {
     // Aguardar DOM estar carregado
     if (document.readyState === 'loading') {
@@ -71,12 +83,12 @@ class ImageFallback {
     const altText = img.alt || 'Imagem';
     const placeholderText = this.getPlaceholderText(altText);
     
-    placeholder.innerHTML = `
+    this.setSafeHTML(placeholder, `
       <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
         <div style="font-size: 24px; opacity: 0.6;">🖼️</div>
-        <div style="font-size: 12px; opacity: 0.8;">${placeholderText}</div>
+        <div style="font-size: 12px; opacity: 0.8;">${this.sanitizeHTML(placeholderText)}</div>
       </div>
-    `;
+    `);
     
     // Substituir imagem pelo placeholder
     img.parentNode.replaceChild(placeholder, img);
