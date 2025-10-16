@@ -2,6 +2,7 @@
   "name": "neo-flowoff-pwa",
   "version": "1.4.6",
   "description": "PWA da NEØ.FLOWOFF",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
