@@ -27,9 +27,11 @@ build: ## Build da PWA (otimiza assets)
 	@test -f sw.js || (echo "❌ sw.js não encontrado" && exit 1)
 	@# Cria diretório dist se não existir
 	@mkdir -p dist
+	@# Build CSS modularizado
+	@./build-css.sh
 	@# Copia arquivos principais
 	@cp index.html dist/
-	@cp styles.css dist/
+	@cp css/main.css dist/styles.css
 	@cp app.js dist/
 	@cp manifest.webmanifest dist/
 	@cp sw.js dist/

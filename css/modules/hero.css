@@ -1,0 +1,131 @@
+.route#ecosystem{padding-bottom: 120px;}
+.route.active{display:block; animation:fade .25s ease}
+@keyframes fade{from{opacity:0; transform:translateY(4px)}to{opacity:1; transform:none}}
+
+.hero-card{
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius); 
+  padding: 4rem; 
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  animation: glowFade 10s ease-in-out infinite;
+  text-align: center;
+  min-height: 60vh;
+}
+
+/* Hero com imagem de fundo */
+.hero-with-bg {
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.hero-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Overlay removido para design mais limpo */
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 3rem;
+  text-align: center;
+  margin-top: 0;
+}
+
+/* Títulos removidos - mantendo apenas texto principal com efeito neon */
+
+/* Texto principal simples - sem card */
+.hero-text-simple {
+  margin: 0;
+  padding-top: 0;
+  margin-top: -1rem;
+}
+
+.hero-text-simple p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  color: #ffffff;
+  letter-spacing: 1px;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito neon/glow cyberpunk com toque rosa/pink */
+.hero-text-simple p::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 105, 180, 0.15) 25%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 105, 180, 0.15) 75%,
+    transparent 100%
+  );
+  animation: soft-glow-sweep 30s ease-in-out infinite;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  filter: blur(8px);
+  z-index: 1;
+}
+
+@keyframes soft-glow-sweep {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    left: 100%;
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+/* Botão simples - efeitos neon removidos */
+
+/* Animações neon removidas para design mais limpo */
+.hero-card h1{margin:2px 0 6px; font-size:28px}
+.hero-card p{margin:0 0 14px; color:var(--muted)}
+
+/* Protocol text simples */
+.protocol-text {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 20px;
+  padding: 8px 0;
+  opacity: 0.6;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+

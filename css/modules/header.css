@@ -1,0 +1,101 @@
+/* header.css - Estilos do cabeçalho */
+.topbar{
+  position:fixed; top:0; left:0; right:0; z-index:1002;
+  display:flex; flex-direction:column; padding: env(safe-area-inset-top) 16px 8px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  backdrop-filter: saturate(1.2) blur(12px);
+  background: linear-gradient(180deg, rgba(16,16,24,.65), rgba(8,8,12,.35));
+  -webkit-backdrop-filter: saturate(1.2) blur(12px);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Header com scroll blur */
+.topbar.scrolled {
+  backdrop-filter: saturate(1.4) blur(20px);
+  -webkit-backdrop-filter: saturate(1.4) blur(20px);
+  background: linear-gradient(180deg, rgba(16,16,24,.85), rgba(8,8,12,.75));
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 8px 32px rgba(0,0,0,.3);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 1rem;
+}
+
+.header-title {
+  flex: 1;
+}
+
+.large-title {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin: 0;
+  background: linear-gradient(135deg, var(--neon), var(--vio), var(--blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: all 0.3s ease;
+}
+
+.large-subtitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--muted);
+  margin: 4px 0 0;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.header-logo {
+  flex-shrink: 0;
+}
+
+.header-logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  filter: drop-shadow(0 4px 12px rgba(255,47,179,.4));
+  transition: all 0.3s ease;
+}
+
+.header-logo-img:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 6px 16px rgba(255,47,179,.6));
+}
+
+/* Efeito de scroll - títulos ficam menores */
+.topbar.scrolled .large-title {
+  font-size: 24px;
+  opacity: 0.9;
+}
+
+.topbar.scrolled .large-subtitle {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.topbar.scrolled .header-logo-img {
+  width: 32px;
+  height: 32px;
+}
+
+.status-spacer{height: calc(env(safe-area-inset-top))}
+.large-title{
+  font-size:34px; font-weight:700; letter-spacing:.2px; padding: 10px 4px;
+  background: linear-gradient(90deg, var(--neon), var(--vio), var(--blue));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  transition: transform .25s ease, opacity .25s ease;
+}
+.compact-title{opacity:0; transform:translateY(-8px); font-weight:600}
+
+main{
+  padding-top: 120px; /* header aumentado */
+  padding-bottom: calc(120px + env(safe-area-inset-bottom)); /* espaço para glass morphism bottom bar */
+}
+
+.route{display:none; padding:16px 14px 24px;}
