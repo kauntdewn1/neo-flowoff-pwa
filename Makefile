@@ -40,6 +40,7 @@ build: ## Build da PWA (otimiza assets)
 	@cp glass-morphism-bottom-bar.js dist/ 2>/dev/null || true
 	@cp invertexto-simple.js dist/ 2>/dev/null || true
 	@cp webp-support.js dist/ 2>/dev/null || true
+	@cp index-scripts.js dist/ 2>/dev/null || true
 	@cp blog.html dist/ 2>/dev/null || true
 	@cp blog-styles.css dist/ 2>/dev/null || true
 	@cp blog.js dist/ 2>/dev/null || true
