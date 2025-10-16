@@ -76,11 +76,6 @@
   status = 200
 
 [[redirects]]
-  from = "/api/localMistral"
-  to = "/.netlify/functions/localMistral"
-  status = 200
-
-[[redirects]]
   from = "/api/health"
   to = "/.netlify/functions/health"
   status = 200

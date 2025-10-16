@@ -66,7 +66,7 @@ self.addEventListener('fetch', e=>{
     e.respondWith(
       fetch(req).then(res => {
         // Só cachear se for uma resposta válida
-        if (res.status === 200 && res.type === 'basic') {
+        if (res.status === 200) {
           const copy = res.clone();
           caches.open(CACHE).then(c => c.put(req, copy)).catch(err => {
             console.warn('SW: Failed to cache response:', err);
@@ -79,7 +79,7 @@ self.addEventListener('fetch', e=>{
     e.respondWith(
       fetch(req).then(res => {
         // Só cachear se for uma resposta válida
-        if (res.status === 200 && res.type === 'basic') {
+        if (res.status === 200) {
           const copy = res.clone();
           caches.open(CACHE).then(c=>c.put(req, copy)).catch(err => {
             console.warn('SW: Failed to cache response:', err);

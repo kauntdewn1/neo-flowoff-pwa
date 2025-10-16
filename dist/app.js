@@ -43,65 +43,6 @@ function go(route){
 // Tornar função go() disponível globalmente para testes
 window.go = go;
 
-// Menu hambúrguer
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('🍔 Inicializando menu hambúrguer...');
-  const menuToggle = document.getElementById('menu-toggle');
-  const menuOverlay = document.getElementById('menu-overlay');
-  const menuClose = document.getElementById('menu-close');
-  const menuItems = document.querySelectorAll('.menu-item[data-route]');
-  
-  console.log('🍔 Elementos encontrados:', {
-    menuToggle: !!menuToggle,
-    menuOverlay: !!menuOverlay,
-    menuClose: !!menuClose,
-    menuItems: menuItems.length
-  });
-
-  // Abrir menu
-  if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-      console.log('🍔 Menu toggle clicado!');
-      menuToggle.classList.add('active');
-      menuOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      console.log('🍔 Menu aberto');
-    });
-  } else {
-    console.error('❌ menu-toggle não encontrado!');
-  }
-
-  // Fechar menu
-  const closeMenu = () => {
-    menuToggle.classList.remove('active');
-    menuOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  };
-
-  menuClose.addEventListener('click', closeMenu);
-  menuOverlay.addEventListener('click', (e) => {
-    if (e.target === menuOverlay) closeMenu();
-  });
-
-  // Navegação do menu
-  menuItems.forEach(item => {
-    item.addEventListener('click', (e) => {
-      e.preventDefault();
-      const route = item.dataset.route;
-      if (route && typeof go === 'function') {
-        go(route);
-        closeMenu();
-      }
-    });
-  });
-
-  // Fechar menu com ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
-      closeMenu();
-    }
-  });
-});
 
 buttons.forEach(b => b.addEventListener('click', () => go(b.dataset.route)));
 console.log('🚀 Inicializando rota HOME...');
@@ -261,28 +202,6 @@ window.sendToAgent = async (message) => {
   }
 };
 */
-
-// Função para testar proxy Ollama local
-window.testLocalOllama = async (message) => {
-  try {
-    const response = await fetch('/api/localMistral', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ input: message })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    console.log('Resposta Ollama local:', data.output);
-    return data;
-  } catch (error) {
-    console.error('Erro ao conectar com Ollama local:', error);
-    return null;
-  }
-};
 
 // TEMPORARIAMENTE DESABILITADO - Verificação de status do agente
 /*

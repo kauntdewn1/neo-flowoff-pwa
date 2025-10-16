@@ -203,28 +203,6 @@ window.sendToAgent = async (message) => {
 };
 */
 
-// Função para testar proxy Ollama local
-window.testLocalOllama = async (message) => {
-  try {
-    const response = await fetch('/api/localMistral', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ input: message })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    console.log('Resposta Ollama local:', data.output);
-    return data;
-  } catch (error) {
-    console.error('Erro ao conectar com Ollama local:', error);
-    return null;
-  }
-};
-
 // TEMPORARIAMENTE DESABILITADO - Verificação de status do agente
 /*
 window.addEventListener('load', async () => {

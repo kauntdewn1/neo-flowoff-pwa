@@ -428,7 +428,6 @@ Resposta:
   "timestamp": "2024-01-15T10:30:00.000Z",
   "service": "NEO FlowOff Local Server",
   "apis": {
-    "localMistral": "✅ Disponível",
     "invertexto": "✅ Configurado"
   }
 }

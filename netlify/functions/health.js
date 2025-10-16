@@ -24,7 +24,6 @@ exports.handler = async (event, context) => {
       timestamp: new Date().toISOString(),
       service: "NEO FlowOff Netlify Functions",
       apis: {
-        localMistral: "✅ Disponível",
         invertexto: process.env.INVERTEXTO_API_TOKEN && process.env.INVERTEXTO_API_TOKEN !== 'seu_token_real_aqui' ? "✅ Configurado" : "⚠️ Token não configurado"
       },
       environment: {

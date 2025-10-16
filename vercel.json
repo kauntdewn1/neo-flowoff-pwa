@@ -6,7 +6,7 @@
       "use": "@vercel/static"
     },
     {
-      "src": "local-server.js",
+      "src": "server.js",
       "use": "@vercel/node"
     },
     {
@@ -18,14 +18,6 @@
     {
       "src": "/api/invertexto",
       "dest": "/pages/api/invertexto.js"
-    },
-    {
-      "src": "/api/localMistral",
-      "dest": "/local-server.js"
-    },
-    {
-      "src": "/api/health",
-      "dest": "/local-server.js"
     },
     {
       "src": "/(.*)",
