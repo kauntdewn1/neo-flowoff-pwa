@@ -208,6 +208,55 @@
         height: 150px;
       }
     }
+    /* Footer iOS-like */
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 35;
+      padding: 4px 16px calc(4px + env(safe-area-inset-bottom));
+      background: linear-gradient(180deg, rgba(8,8,12,.8), rgba(4,4,8,.9));
+      backdrop-filter: saturate(1.1) blur(8px);
+      border-top: 1px solid rgba(255,255,255,.04);
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+    .footer-text {
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(112, 109, 109, 0.6);
+      text-align: center;
+      margin: 0;
+      letter-spacing: 0.1px;
+      line-height: 1.2;
+      opacity: 0.8;
+    }
+    
+    /* Contato WhatsApp */
+    .contact-section {
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .whatsapp-link {
+      display: inline-block;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    }
+    
+    .whatsapp-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+      background: linear-gradient(135deg, #128C7E, #25D366);
+    }
   </style>
 </head>
 <body>
@@ -227,11 +276,9 @@
   <div class="hero">
     <img class="logo" src="public/flowoff logo.png" alt="FlowOFF Logo">
 
-    <h1>PÁGINA DESENVOLVIDA PARA MOBILE</h1>
+    <h2>PÁGINA DESENVOLVIDA PARA MOBILE</h2>
 
     <p class="subtitle">Você está acessando uma das inovações da FlowOFF.</p>
-    
-    <p class="description">Mobile-first, fluida, rápida, com toques, animações e interações que não cabem aqui. Uma experiência única que só a FlowOFF pode oferecer.</p>
     
     <p class="description">📱 <strong>Para ter a experiência completa:</strong> Escaneie o QR Code abaixo ou acesse via mobile!</p>
 
@@ -242,7 +289,7 @@
       </div>
       <p style="margin-top: 1rem; font-size: 0.9rem; color: #888;">
         <strong>Ou acesse diretamente:</strong><br>
-        <code style="background: rgba(255,255,255,0.1); padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.8rem;">flowoff.xyz</code>
+        <br><code style="background: rgba(255,255,255,0.1); padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.8rem;">flowoff.xyz</code>
       </p>
     </div>
 
@@ -251,15 +298,22 @@
     </div>
 
     <div class="tags">
-      <p>Essa é a FlowOFF:</p>
-      <span class="tag">WebApps interativos</span>
-      <span class="tag">Dashboards gamificados</span>
-      <span class="tag">Pagamentos descentralizados</span>
-      <span class="tag">IA integrada</span>
-      <span class="tag">Tokenização de experiências</span>
-      <span class="tag">FlowPay</span>
+          
+    <p class="description">A FlowOFF cria páginas que funcionam como apps: rápidas, fluidas e cheias de interação.
+      No mobile, tudo ganha movimento, toque e imersão.</p>
     </div>
-  </div>
+
+    <!-- Contato WhatsApp -->
+    <div class="contact-section">
+      <a href="https://wa.me/+5562983231110" target="_blank" class="whatsapp-link">
+        💬 Fale conosco no WhatsApp
+      </a>
+    </div>
+
+    <!-- Footer iOS-like -->
+    <footer class="footer">
+      <p class="footer-text color-gray-light">Agência de Marketing na blockchain | Desenvolvimento de sistemas, WebApp's e IAs</p>
+    </footer>
 
   <script>
     // === DETECÇÃO DE DESKTOP E PREVENÇÃO DE LOOPS ===
