@@ -24,8 +24,8 @@ const mimeTypes = {
 };
 
 const server = http.createServer((req, res) => {
-  const parsedUrl = url.parse(req.url);
-  let pathname = parsedUrl.pathname;
+  const parsedUrl = url.parse(req.url, true);
+  let pathname = decodeURIComponent(parsedUrl.pathname);
   
   // Remove query parameters for file serving
   const cleanPath = pathname.split('?')[0];
@@ -54,12 +54,6 @@ const server = http.createServer((req, res) => {
   const ext = path.extname(filePath).toLowerCase();
   const mimeType = mimeTypes[ext] || 'text/plain';
   
-  // Headers para evitar cache
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
-  res.setHeader('Pragma', 'no-cache');
-  res.setHeader('Expires', '0');
-  res.setHeader('Content-Type', mimeType);
-  
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -71,18 +65,28 @@ const server = http.createServer((req, res) => {
         // File not found, serve index.html for SPA routing
         fs.readFile(path.join(__dirname, 'index.html'), (err, data) => {
           if (err) {
-            res.writeHead(404);
+            res.writeHead(404, { 'Content-Type': 'text/html' });
             res.end('File not found');
           } else {
-            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.writeHead(200, { 
+              'Content-Type': 'text/html',
+              'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+              'Pragma': 'no-cache',
+              'Expires': '0'
+            });
             res.end(data);
           }
         });
       } else {
-        res.writeHead(500);
+        res.writeHead(500, { 'Content-Type': 'text/html' });
         res.end('Server error');
       }
     } else {
+      // Headers para evitar cache apenas para arquivos estáticos
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+      res.setHeader('Content-Type', mimeType);
       res.writeHead(200);
       res.end(data);
     }
