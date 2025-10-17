@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://neo-flowoff.netlify.app/sitemap.xml
+
+# Permitir acesso a recursos importantes
+Allow: /public/
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /icons/
+
+# Bloquear arquivos desnecessários para SEO
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /*.log
+Disallow: /api/
+Disallow: /netlify/
+Disallow: /pages/
+
+# Permitir acesso a arquivos específicos importantes
+Allow: /manifest.webmanifest
+Allow: /sw.js
+Allow: /favicon.ico
+
+# Crawl-delay para evitar sobrecarga
+Crawl-delay: 1
