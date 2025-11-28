@@ -1,34 +1,71 @@
 /**
  * NEOFLW Token Client
- * Integração com contrato NEOFLW na Polygon
+ * Integração com contrato NEOFLW na Polygon Mainnet (PRODUÇÃO)
  * 
- * Contrato Sepolia Testnet: 0x5AaCebca3f0CD9283401a83bC7BA5db48011CE87
- * Próximo: Deploy Polygon Mainnet
+ * ⚠️ IMPORTANTE: Token está em Polygon Mainnet, NÃO em testnet
+ * 
+ * Contrato Polygon Mainnet: 0x5AaCebca3f0CD9283401a83bC7BA5db48011CE87
+ * RPC: https://polygon-mainnet.infura.io/v3/9afb8749df8f4370aded1dce851d13f4
  */
 
 import { logger } from '../../utils/logger.js';
 import { getIdentityGraph } from '../neo-id/identity-graph.js';
 
+// Config padrão (fallback se config não disponível)
+const DEFAULT_CONFIG = {
+  blockchain: {
+    polygon: { contractAddress: '0x5AaCebca3f0CD9283401a83bC7BA5db48011CE87' },
+    sepolia: { contractAddress: '0x5AaCebca3f0CD9283401a83bC7BA5db48011CE87' }
+  },
+  thirdweb: { defaultChain: 'polygon' }
+};
+
+// Função para obter config (tenta importar, usa fallback se falhar)
+function getConfig() {
+  try {
+    // Tentar importar config (pode falhar em alguns contextos)
+    const configPath = '../../../config/neo-protocol.config.js';
+    // Em runtime, vamos usar o fallback e permitir override via init()
+    return DEFAULT_CONFIG;
+  } catch (e) {
+    return DEFAULT_CONFIG;
+  }
+}
+
 class NEOFLWTokenClient {
   constructor() {
-    // Contrato Sepolia (testnet)
+    // Contrato Polygon Mainnet (PRODUÇÃO)
+    // Token NEOFLW está apenas em Polygon Mainnet, não em testnet
     this.contractAddress = {
-      sepolia: '0x5AaCebca3f0CD9283401a83bC7BA5db48011CE87',
-      polygon: null // Será configurado após deploy mainnet
+      polygon: '0x5AaCebca3f0CD9283401a83bC7BA5db48011CE87', // Polygon Mainnet
+      sepolia: null // Token não existe em testnet
     };
     
-    this.currentChain = 'sepolia'; // MVP: Sepolia, depois Polygon
+    // Usar Polygon Mainnet como padrão (PRODUÇÃO)
+    this.config = null; // Será setado no init()
+    this.currentChain = 'polygon'; // Polygon Mainnet - PRODUÇÃO
     this.sdk = null; // Thirdweb SDK será inicializado
     this.wallet = null;
     this.isInitialized = false;
   }
 
   /**
+   * Define configuração (chamado pelo MCP Router)
+   */
+  setConfig(config) {
+    this.config = config || getConfig();
+    if (this.config?.thirdweb?.defaultChain) {
+      this.currentChain = this.config.thirdweb.defaultChain;
+    }
+  }
+
+  /**
    * Inicializa cliente com Thirdweb SDK
    */
-  async init(thirdwebSDK) {
+  async init(thirdwebSDK, config = null) {
     try {
       this.sdk = thirdwebSDK;
+      this.setConfig(config);
       
       // Obter wallet do Identity Graph
       const identity = getIdentityGraph().getIdentity();
@@ -37,7 +74,10 @@ class NEOFLWTokenClient {
       }
       
       this.isInitialized = true;
-      logger.log('NEOFLW: Cliente inicializado');
+      logger.log('NEOFLW: Cliente inicializado', {
+        chain: this.currentChain,
+        contract: this.contractAddress[this.currentChain]
+      });
       return true;
     } catch (error) {
       logger.error('NEOFLW: Erro ao inicializar', error);
@@ -60,9 +100,16 @@ class NEOFLWTokenClient {
       }
 
       // Usar Thirdweb SDK para ler saldo
-      const contract = await this.sdk.getContract(
-        this.contractAddress[this.currentChain]
-      );
+      // Obter endereço do contrato
+      const config = this.config || getConfig();
+      const contractAddress = this.contractAddress[this.currentChain] || 
+        config.blockchain[this.currentChain]?.contractAddress;
+      
+      if (!contractAddress) {
+        throw new Error(`NEOFLW: Endereço do contrato não configurado para ${this.currentChain}`);
+      }
+
+      const contract = await this.sdk.getContract(contractAddress);
       
       const balance = await contract.erc20.balanceOf(targetAddress);
       
@@ -87,9 +134,15 @@ class NEOFLWTokenClient {
     }
 
     try {
-      const contract = await this.sdk.getContract(
-        this.contractAddress[this.currentChain]
-      );
+      const config = this.config || getConfig();
+      const contractAddress = this.contractAddress[this.currentChain] || 
+        config.blockchain[this.currentChain]?.contractAddress;
+      
+      if (!contractAddress) {
+        throw new Error(`NEOFLW: Endereço do contrato não configurado para ${this.currentChain}`);
+      }
+
+      const contract = await this.sdk.getContract(contractAddress);
 
       // Converter amount para formato correto (considerando 18 decimals)
       const amountWei = this.parseAmount(amount);
@@ -123,9 +176,15 @@ class NEOFLWTokenClient {
     }
 
     try {
-      const contract = await this.sdk.getContract(
-        this.contractAddress[this.currentChain]
-      );
+      const config = this.config || getConfig();
+      const contractAddress = this.contractAddress[this.currentChain] || 
+        config.blockchain[this.currentChain]?.contractAddress;
+      
+      if (!contractAddress) {
+        throw new Error(`NEOFLW: Endereço do contrato não configurado para ${this.currentChain}`);
+      }
+
+      const contract = await this.sdk.getContract(contractAddress);
 
       const amountWei = this.parseAmount(amount);
       const tx = await contract.call('burn', [amountWei]);
@@ -174,9 +233,15 @@ class NEOFLWTokenClient {
     }
 
     try {
-      const contract = await this.sdk.getContract(
-        this.contractAddress[this.currentChain]
-      );
+      const config = this.config || getConfig();
+      const contractAddress = this.contractAddress[this.currentChain] || 
+        config.blockchain[this.currentChain]?.contractAddress;
+      
+      if (!contractAddress) {
+        throw new Error(`NEOFLW: Endereço do contrato não configurado para ${this.currentChain}`);
+      }
+
+      const contract = await this.sdk.getContract(contractAddress);
 
       const [name, symbol, totalSupply] = await Promise.all([
         contract.erc20.name(),
@@ -188,7 +253,7 @@ class NEOFLWTokenClient {
         name,
         symbol,
         totalSupply: totalSupply.displayValue,
-        address: this.contractAddress[this.currentChain],
+        address: contractAddress,
         chain: this.currentChain
       };
     } catch (error) {

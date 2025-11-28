@@ -8,7 +8,17 @@ INVERTEXTO_API_TOKEN=seu_token_real_aqui
 PORT=3000
 NODE_ENV=development
 
+# Protocolo NΞØ - Thirdweb
+# Obtenha seu Client ID em: https://thirdweb.com/dashboard
+THIRDWEB_CLIENT_ID=seu_client_id_aqui
+THIRDWEB_SECRET_KEY=seu_secret_key_aqui
+
+# Blockchain - Polygon Mainnet
+POLYGON_RPC_URL=https://polygon-rpc.com
+# Ou use um RPC privado (Infura, Alchemy, etc.)
+# POLYGON_RPC_URL=https://polygon-mainnet.infura.io/v3/SEU_KEY
+
 # INSTRUÇÕES:
 # 1. Copie este arquivo para .env
-# 2. Substitua 'seu_token_real_aqui' pelo seu token real
+# 2. Substitua os valores pelos seus tokens/chaves reais
 # 3. Reinicie o servidor (npm run dev)

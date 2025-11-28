@@ -44,7 +44,7 @@ class MCPRouter {
       // Inicializar NEOFLW Token (se SDK fornecido)
       if (config.thirdwebSDK) {
         this.modules.token = getNEOFLWClient();
-        await this.modules.token.init(config.thirdwebSDK);
+        await this.modules.token.init(config.thirdwebSDK, config);
         logger.log('MCP Router: ✅ NEOFLW Token inicializado');
       }
 

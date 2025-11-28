@@ -4,7 +4,9 @@
  */
 
 import { getMCPRouter } from './modules/index.js';
+import { getThirdwebIntegration } from './modules/thirdweb/thirdweb-integration.js';
 import { logger } from './utils/logger.js';
+import { NEO_PROTOCOL_CONFIG } from '../config/neo-protocol.config.js';
 
 // Variável global para acesso aos módulos
 window.NEOPROTOCOL = {
@@ -19,11 +21,24 @@ export async function initNEOPROTOCOL(config = {}) {
   try {
     logger.log('🧬 Inicializando Protocolo NΞØ...');
 
+    // Inicializar Thirdweb primeiro
+    let thirdwebSDK = null;
+    try {
+      const thirdweb = getThirdwebIntegration();
+      thirdwebSDK = await thirdweb.init({
+        ...NEO_PROTOCOL_CONFIG.thirdweb,
+        ...config.thirdweb
+      });
+      logger.log('✅ Thirdweb SDK inicializado');
+    } catch (error) {
+      logger.warn('Thirdweb: Inicialização falhou (continuando sem blockchain)', error);
+    }
+
     const router = getMCPRouter();
     
     // Configuração padrão
     const initConfig = {
-      thirdwebSDK: config.thirdwebSDK || null,
+      thirdwebSDK: thirdwebSDK,
       ...config
     };
 
