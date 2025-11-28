@@ -35,7 +35,7 @@ if ('serviceWorker' in navigator) {
 }
 
 // Router super simples (hashless) - Compatível com Glass Morphism Bottom Bar
-const routes = ['home','projects','start','ecosystem'];
+const routes = ['home','projects','start','protocol','ecosystem'];
 const buttons = document.querySelectorAll('.glass-nav-item');
 const sections = [...document.querySelectorAll('.route')];
 
@@ -70,59 +70,200 @@ window.addEventListener('online', ()=>setOffline(false));
 window.addEventListener('offline', ()=>setOffline(true));
 setOffline(!navigator.onLine);
 
-// Lead form - Redireciona para WhatsApp
-const leadForm = document.getElementById('lead-form');
-if (leadForm){
+// Lead form - Integrado com Protocolo NΞØ
+// Aguardar DOM e Protocolo NΞØ estarem prontos
+function setupLeadForm() {
+  const leadForm = document.getElementById('lead-form');
+  if (!leadForm) {
+    // Tentar novamente se o DOM ainda não estiver pronto
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupLeadForm);
+      return;
+    }
+    return;
+  }
+
   leadForm.addEventListener('submit', async (e)=>{
     e.preventDefault();
     const data = Object.fromEntries(new FormData(leadForm));
     const status = document.getElementById('lead-status');
     
-    status.textContent = 'Redirecionando para WhatsApp...';
+    status.textContent = '⏳ Processando com Protocolo NΞØ...';
+    status.style.color = '#3b82f6';
     
     try{
-      // Formatar dados para WhatsApp
+      // Verificar se Protocolo NΞØ está inicializado
+      if (!window.NEOPROTOCOL?.initialized) {
+        status.textContent = '⏳ Inicializando Protocolo NΞØ...';
+        // Aguardar inicialização (máximo 3 segundos)
+        let attempts = 0;
+        while (!window.NEOPROTOCOL?.initialized && attempts < 30) {
+          await new Promise(resolve => setTimeout(resolve, 100));
+          attempts++;
+        }
+        
+        if (!window.NEOPROTOCOL?.initialized) {
+          throw new Error('Protocolo NΞØ não inicializado');
+        }
+      }
+
+      const router = window.NEOPROTOCOL.router;
+      
+      // 1. Criar/Atualizar identidade no Identity Graph
+      status.textContent = '📝 Registrando identidade...';
+      const identity = router.getModule('identity');
+      await identity.setIdentity({
+        name: data.name,
+        email: data.email,
+        whatsapp: data.whats,
+        leadOrigin: 'website_form',
+        agent: 'flowoff_website'
+      });
+      
+      // 2. Processar ação via MCP Router (ativa gamificação automaticamente)
+      status.textContent = '🎮 Processando ação...';
+      const actionResult = await router.route('action.process', {
+        type: 'lead_activation',
+        data: {
+          origin: 'website_form',
+          name: data.name,
+          email: data.email,
+          whatsapp: data.whats,
+          serviceType: data.type
+        }
+      });
+      
+      // 3. Obter progresso atualizado
+      const gamification = router.getModule('gamification');
+      const progress = gamification.getProgress();
+      const identityData = identity.getIdentity();
+      
+      // 4. Formatar dados para WhatsApp (incluindo progresso)
       const projectTypes = {
         'site': 'Site / WebApp',
         'saas': 'SAAS / BAAS', 
         'poston': 'POSTØN',
-        'proia': 'PRO.IA'
+        'proia': 'PRO.IA',
+        'cripto': 'Tokenização / Cripto'
       };
       
       const projectType = projectTypes[data.type] || data.type;
       
-      // Mensagem formatada para WhatsApp
-      const message = `🚀 *NOVO LEAD - FlowOFF*
+      // Mensagem formatada para WhatsApp (com dados do Protocolo NΞØ)
+      let message = `🚀 *NOVO LEAD - FlowOFF*
 
 👤 *Nome:* ${data.name}
 📧 *Email:* ${data.email}
 📱 *WhatsApp:* ${data.whats}
 🎯 *Tipo de Projeto:* ${projectType}
 
-💬 *Mensagem:* Olá MELLØ! Gostaria de iniciar um projeto com a FlowOFF.`
+💬 *Mensagem:* Olá MELLØ! Gostaria de iniciar um projeto com a FlowOFF.`;
+
+      // Adicionar dados do Protocolo NΞØ se disponível
+      if (identityData) {
+        message += `\n\n🧬 *Protocolo NΞØ:*
+📊 Nível: ${identityData.level}
+⭐ XP: ${identityData.xp}
+🏅 Badges: ${identityData.badges.length}
+💰 Pontos: ${progress.points || 0}`;
+        
+        if (identityData.badges.length > 0) {
+          const badgesList = identityData.badges.map(b => b.icon + ' ' + b.name).join(', ');
+          message += `\n🎯 Badges: ${badgesList}`;
+        }
+      }
 
       // Codificar mensagem para URL
       const encodedMessage = encodeURIComponent(message);
       
-      // Número do WhatsApp (substitua pelo seu número)
+      // Número do WhatsApp
       const whatsappNumber = '5562983231110'; // Número do MELLØ
       
       // URL do WhatsApp
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
       
+      // Feedback sobre recompensas ganhas
+      let rewardMessage = '✅ Lead registrado!';
+      if (actionResult?.reward) {
+        const rewards = actionResult.reward;
+        if (rewards.xp > 0 || rewards.points > 0 || rewards.badge) {
+          rewardMessage = '🎁 Recompensas ganhas: ';
+          const rewardsList = [];
+          if (rewards.xp > 0) rewardsList.push(`${rewards.xp} XP`);
+          if (rewards.points > 0) rewardsList.push(`${rewards.points} pontos`);
+          if (rewards.badge) {
+            const badgeIcon = gamification.getBadgeIcon(rewards.badge);
+            rewardsList.push(`Badge ${badgeIcon}`);
+          }
+          rewardMessage += rewardsList.join(', ');
+        }
+      } else if (actionResult) {
+        // Se a quest já foi completada antes, mostrar progresso atual
+        rewardMessage = '✅ Lead registrado!';
+      }
+      
+      status.textContent = rewardMessage + ' Redirecionando para WhatsApp...';
+      status.style.color = '#4ade80';
+      
       // Redirecionar para WhatsApp
       window.open(whatsappUrl, '_blank');
       
-      // Feedback visual
-      status.textContent = 'Redirecionado para WhatsApp!';
-      leadForm.reset();
-      navigator.vibrate?.(10);
+      // Feedback visual final
+      setTimeout(() => {
+        status.textContent = '✅ Redirecionado para WhatsApp!';
+        leadForm.reset();
+        navigator.vibrate?.(10);
+      }, 500);
       
     }catch(err){
-      status.textContent = 'Erro ao redirecionar. Tente novamente.';
       logger.error('Erro no formulário:', err);
+      
+      // Fallback: tentar redirecionar mesmo sem Protocolo NΞØ
+      try {
+        const projectTypes = {
+          'site': 'Site / WebApp',
+          'saas': 'SAAS / BAAS', 
+          'poston': 'POSTØN',
+          'proia': 'PRO.IA',
+          'cripto': 'Tokenização / Cripto'
+        };
+        
+        const projectType = projectTypes[data.type] || data.type;
+        const message = `🚀 *NOVO LEAD - FlowOFF*\n\n👤 *Nome:* ${data.name}\n📧 *Email:* ${data.email}\n📱 *WhatsApp:* ${data.whats}\n🎯 *Tipo de Projeto:* ${projectType}\n\n💬 *Mensagem:* Olá MELLØ! Gostaria de iniciar um projeto com a FlowOFF.`;
+        const whatsappUrl = `https://wa.me/5562983231110?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+        status.textContent = '⚠️ Protocolo NΞØ indisponível, mas redirecionado para WhatsApp!';
+        status.style.color = '#f59e0b';
+        leadForm.reset();
+      } catch (fallbackErr) {
+        status.textContent = '❌ Erro ao processar. Tente novamente.';
+        status.style.color = '#ef4444';
+        logger.error('Erro no fallback:', fallbackErr);
+      }
     }
   });
+}
+
+// Inicializar quando DOM e Protocolo NΞØ estiverem prontos
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    // Aguardar Protocolo NΞØ estar pronto
+    if (window.NEOPROTOCOL?.initialized) {
+      setupLeadForm();
+    } else {
+      window.addEventListener('neoprotocol:ready', setupLeadForm, { once: true });
+      // Fallback: tentar após 2 segundos mesmo sem evento
+      setTimeout(setupLeadForm, 2000);
+    }
+  });
+} else {
+  // DOM já carregado
+  if (window.NEOPROTOCOL?.initialized) {
+    setupLeadForm();
+  } else {
+    window.addEventListener('neoprotocol:ready', setupLeadForm, { once: true });
+    setTimeout(setupLeadForm, 2000);
+  }
 }
 
 // NEO Agent API Client

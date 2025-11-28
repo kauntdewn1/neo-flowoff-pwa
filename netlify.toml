@@ -1,0 +1,126 @@
+[build]
+  # Comando de build (usando Makefile)
+  command = "make build"
+  
+  # Diretório de publicação
+  publish = "dist"
+  
+  # Diretório base
+  base = "."
+
+[build.environment]
+  # Versão do Node.js (se necessário)
+  NODE_VERSION = "18"
+
+# Headers de segurança e performance (produção)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Segurança
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Performance (cache agressivo apenas em produção)
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Headers para Deploy Previews (cache desabilitado para facilitar testes)
+# Nota: Headers específicos por contexto devem ser configurados via plugins ou build hooks
+# Por padrão, os headers acima se aplicam a todos os contextos
+
+# Headers específicos para Service Worker
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Service-Worker-Allowed = "/"
+
+# Headers para manifest
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+    Cache-Control = "public, max-age=86400"
+
+# Headers para ícones
+[[headers]]
+  for = "/public/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Headers para sitemap.xml
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml"
+    Cache-Control = "public, max-age=86400"
+
+# Headers para robots.txt
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain"
+    Cache-Control = "public, max-age=86400"
+
+# Redirects para SPA (Single Page Application)
+# Redireciona todas as rotas para index.html, exceto arquivos estáticos
+# O Netlify automaticamente ignora arquivos estáticos (CSS, JS, imagens, etc)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Configurações de deploy por contexto
+[context.production]
+  command = "make build"
+  publish = "dist"
+  # Variáveis de ambiente específicas para produção
+  [context.production.environment]
+    NODE_ENV = "production"
+
+[context.deploy-preview]
+  command = "make build"
+  publish = "dist"
+  # Headers específicos para previews (desabilitar cache agressivo)
+  [context.deploy-preview.environment]
+    NODE_ENV = "development"
+    NETLIFY_DEPLOY_PREVIEW = "true"
+
+[context.branch-deploy]
+  command = "make build"
+  publish = "dist"
+  # Configurações para branch deploys
+  [context.branch-deploy.environment]
+    NODE_ENV = "development"
+    NETLIFY_BRANCH_DEPLOY = "true"
+
+# Configuração específica para branch staging (se existir)
+[context.staging]
+  command = "make build"
+  publish = "dist"
+  [context.staging.environment]
+    NODE_ENV = "staging"
+
+# Configuração para branches de feature (feature/*)
+[context."feature/*"]
+  command = "make build"
+  publish = "dist"
+  [context."feature/*".environment]
+    NODE_ENV = "development"
+
+# Configurações de função para APIs
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Configurações específicas para APIs
+[[redirects]]
+  from = "/api/invertexto"
+  to = "/.netlify/functions/invertexto"
+  status = 200
+
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
+  status = 200

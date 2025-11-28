@@ -91,8 +91,8 @@ await identity.init();
 
 // Criar/atualizar identidade
 await identity.setIdentity({
-  name: 'MELLØ',
-  email: 'mello@flowoff.xyz',
+  name: 'Seu Nome',
+  email: 'neoprotocol.eth@ethermail.io',
   wallet: '0x...'
 });
 

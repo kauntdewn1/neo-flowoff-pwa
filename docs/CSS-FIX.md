@@ -8,13 +8,17 @@
 - **Impacto**: Cache antigo bloqueando CSS novo
 
 ### 2. **Servidor não servindo CSS compilado**
+
 - **Problema**: HTML pede `styles.css`, mas o CSS real está em `css/main.css`
+
 - **Solução**: Servidor agora mapeia `styles.css` → `css/main.css` automaticamente
 
 ### 3. **Service Worker cacheando CSS em desenvolvimento**
+
 - **Solução**: CSS e JS agora bypassam cache em desenvolvimento (localhost)
 
 ### 4. **Versão do CSS no HTML**
+
 - **Atualizado**: `v1.5.3` → `v1.5.4`
 
 ---

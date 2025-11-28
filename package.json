@@ -12,7 +12,8 @@
     "test-invertexto-quick": "node test-invertexto.js --quick",
     "test-invertexto-netlify": "node test-invertexto-netlify.js",
     "test-invertexto-netlify-quick": "node test-invertexto-netlify.js --quick",
-    "test-invertexto-tokens": "node scripts/test-invertexto-tokens.js"
+    "test-invertexto-tokens": "node scripts/test-invertexto-tokens.js",
+    "test-identity": "node scripts/test-identity-flow.js"
   },
   "dependencies": {
     "axios": "^1.6.0",

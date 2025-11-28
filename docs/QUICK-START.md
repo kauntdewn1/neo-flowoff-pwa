@@ -40,9 +40,9 @@ const identity = router.getModule('identity');
 
 // Criar identidade
 await identity.setIdentity({
-  name: 'MELLØ',
-  email: 'mello@flowoff.xyz',
-  whatsapp: '+5562983231110'
+  name: 'Seu Nome',
+  email: 'neoprotocol.eth@ethermail.io',
+  whatsapp: '+5511999999999'
 });
 ```
 

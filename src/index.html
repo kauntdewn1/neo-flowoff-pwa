@@ -45,6 +45,7 @@
   <title>NEØ.FLOWOFF</title>
   <link rel="stylesheet" href="styles.css?v=1.5.4">
   <link rel="stylesheet" href="glass-morphism-bottom-bar.css">
+  <link rel="stylesheet" href="/css/neo-protocol-ui.css?v=1.0.0">
 </head>
 <body>
   <!-- App Shell -->
@@ -466,6 +467,66 @@
         <div class="protocol-text">↳ Desenvolvido por NΞØ PROTOCOL</div>
       </section>
 
+      <!-- PROTOCOLO NΞØ -->
+      <section class="route" id="protocol">
+        <!-- Hero -->
+        <div class="neo-hero card glow">
+          <div class="neo-hero-content">
+            <div class="neo-hero-icon">🧬</div>
+            <h1>Protocolo NΞØ</h1>
+            <p>Sua identidade, progresso e economia no ecossistema FlowOFF</p>
+            <div class="neo-status-indicator" id="neo-status">
+              <span class="neo-status-dot"></span>
+              <span>Conectado</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ações Rápidas -->
+        <div class="neo-quick-actions">
+          <button class="btn primary" onclick="window.neoUI?.createDemoIdentity()">
+            🎮 Criar Identidade Demo
+          </button>
+          <button class="btn ghost" onclick="go('start')">
+            📝 Preencher Formulário
+          </button>
+          <button class="btn ghost" onclick="window.neoUI?.refresh()">
+            🔄 Atualizar
+          </button>
+        </div>
+
+        <!-- Grid de componentes -->
+        <div class="neo-grid">
+          <!-- Perfil -->
+          <div id="neo-profile-card" class="neo-profile-card card glow">
+            <div class="neo-loading">Carregando perfil...</div>
+          </div>
+
+          <!-- Badges -->
+          <div id="neo-badges-card" class="neo-badges-card card glow">
+            <div class="neo-loading">Carregando badges...</div>
+          </div>
+
+          <!-- Quests -->
+          <div id="neo-quests-card" class="neo-quests-card card glow">
+            <div class="neo-loading">Carregando quests...</div>
+          </div>
+
+          <!-- Saldo NEOFLW -->
+          <div id="neo-token-card" class="neo-token-card card glow">
+            <div class="neo-loading">Carregando saldo...</div>
+          </div>
+
+          <!-- Histórico -->
+          <div id="neo-history-card" class="neo-history-card card glow">
+            <div class="neo-loading">Carregando histórico...</div>
+          </div>
+        </div>
+
+        <!-- Protocol text -->
+        <div class="protocol-text">↳ Desenvolvido por NΞØ PROTOCOL</div>
+      </section>
+
       <!-- ECOSSISTEMA (selos finais) -->
       <section class="route" id="ecosystem">
         <div class="badges">
@@ -613,6 +674,19 @@
         <div class="glass-nav-indicator"></div>
       </div>
       
+      <div class="glass-nav-item" data-route="protocol">
+        <div class="glass-nav-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="glass-nav-label">Protocol</div>
+        <div class="glass-nav-indicator"></div>
+      </div>
+      
       <div class="glass-nav-item" data-route="ecosystem">
         <div class="glass-nav-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -669,6 +743,9 @@
 
 <!-- Protocolo NΞØ - Inicialização automática -->
 <script src="neo-protocol-init.js?v=1.0.0" type="module"></script>
+
+<!-- Protocolo NΞØ - UI Components -->
+<script src="neo-protocol-ui.js?v=1.0.0" type="module"></script>
 
 <script src="app.js?v=1.4.8" type="module"></script>
 <script src="index-scripts.js?v=1.0.0"></script>

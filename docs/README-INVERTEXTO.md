@@ -7,6 +7,7 @@ A integração com a API Invertexto foi implementada com sucesso! Agora você te
 ## 🔧 **Como Configurar**
 
 ### **1. Obter Token da API**
+
 1. Acesse: https://invertexto.com/api
 2. Crie sua conta e obtenha seu token
 3. Copie o arquivo `env-example.txt` para `.env`
@@ -21,11 +22,13 @@ nano .env
 ```
 
 ### **2. Instalar Dependências**
+
 ```bash
 npm install
 ```
 
 ### **3. Iniciar Servidor**
+
 ```bash
 # Desenvolvimento
 npm run dev
@@ -37,16 +40,19 @@ npm start
 ## 🧪 **Como Testar**
 
 ### **Teste Rápido**
+
 ```bash
 npm run test-invertexto-quick
 ```
 
 ### **Teste Completo**
+
 ```bash
 npm run test-invertexto
 ```
 
 ### **Teste Manual**
+
 ```bash
 # Teste CEP
 curl -X POST http://localhost:3000/api/invertexto \
@@ -64,7 +70,7 @@ curl -X POST http://localhost:3000/api/invertexto \
 | Endpoint | Descrição | Exemplo |
 |----------|-----------|---------|
 | `barcode` | Códigos de barras | `{"text":"123456789012"}` |
-| `qrcode` | QR Codes | `{"text":"https://neo.flowoff.com"}` |
+| `qrcode` | QR Codes | `{"text":"https://flowoff.xyz"}` |
 | `geoip` | Localização por IP | `{"ip":"8.8.8.8"}` |
 | `currency` | Conversão de moedas | `{"from":"USD","to":"BRL","amount":100}` |
 | `faker` | Dados falsos | `{"locale":"pt_BR","type":"name"}` |
@@ -77,6 +83,7 @@ curl -X POST http://localhost:3000/api/invertexto \
 ## 🎯 **Exemplos Práticos**
 
 ### **Validação de Lead**
+
 ```javascript
 async function validarLead(dadosLead) {
   const response = await fetch('/api/invertexto', {
@@ -94,6 +101,7 @@ async function validarLead(dadosLead) {
 ```
 
 ### **Gerar QR Code WhatsApp**
+
 ```javascript
 async function gerarQRWhatsApp(numero, mensagem) {
   const linkWhatsApp = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
@@ -113,6 +121,7 @@ async function gerarQRWhatsApp(numero, mensagem) {
 ```
 
 ### **Consultar Dados de Empresa**
+
 ```javascript
 async function consultarEmpresa(cnpj) {
   const response = await fetch('/api/invertexto', {
@@ -132,11 +141,13 @@ async function consultarEmpresa(cnpj) {
 ## 📈 **Monitoramento**
 
 ### **Health Check**
+
 ```bash
 curl http://localhost:3000/api/health
 ```
 
 Resposta esperada:
+
 ```json
 {
   "status": "ok",
@@ -151,6 +162,7 @@ Resposta esperada:
 ## 🚨 **Troubleshooting**
 
 ### **Erro: Token não configurado**
+
 ```bash
 # Verificar arquivo .env
 cat .env | grep INVERTEXTO_API_TOKEN
@@ -160,6 +172,7 @@ cp env-example.txt .env
 ```
 
 ### **Erro: Servidor não responde**
+
 ```bash
 # Verificar se está rodando
 curl http://localhost:3000/api/health
@@ -169,6 +182,7 @@ npm run dev
 ```
 
 ### **Erro: Timeout**
+
 ```bash
 # Verificar conectividade
 ping invertexto.com
