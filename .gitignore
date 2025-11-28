@@ -88,3 +88,6 @@ Thumbs.db
 *.pem
 *.p12
 *.pfx
+
+# Local Netlify folder
+.netlify

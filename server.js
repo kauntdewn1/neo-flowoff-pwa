@@ -50,6 +50,21 @@ const server = http.createServer((req, res) => {
     pathname = '/index.html';
   }
   
+  // Mapeamento especial: styles.css -> css/main.css (CSS compilado)
+  if (cleanPath === '/styles.css' || cleanPath === 'styles.css') {
+    const cssPath = path.join(__dirname, 'css', 'main.css');
+    if (fs.existsSync(cssPath)) {
+      const data = fs.readFileSync(cssPath);
+      res.setHeader('Content-Type', 'text/css');
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+      res.writeHead(200);
+      res.end(data);
+      return;
+    }
+  }
+  
   // Determina o caminho do arquivo: primeiro tenta src/, depois public/, depois raiz
   let filePath = path.join(__dirname, 'src', cleanPath);
   let fileExists = fs.existsSync(filePath);

@@ -1,4 +1,4 @@
-const CACHE = 'neo-flowoff-v1.5.1-clean';
+const CACHE = 'neo-flowoff-v1.5.4-clean';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js', './p5-background.js',
   './blog.html', './blog-styles.css', './blog.js', './data/blog-articles.json',
@@ -69,7 +69,13 @@ self.addEventListener('fetch', e=>{
     return;
   }
   
-  // Para CSS e JS, sempre buscar da rede primeiro
+  // Para CSS e JS em desenvolvimento, sempre buscar da rede (bypass cache)
+  if (isDev && (req.url.includes('.css') || req.url.includes('.js'))) {
+    e.respondWith(fetch(req));
+    return;
+  }
+  
+  // Para CSS e JS em produção, sempre buscar da rede primeiro
   if (req.url.includes('.css') || req.url.includes('.js')) {
     e.respondWith(
       fetch(req).then(res => {
