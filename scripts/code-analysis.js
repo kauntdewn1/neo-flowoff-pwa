@@ -30,8 +30,8 @@ const colors = {
 
 // Configurações específicas para PWA
 const CONFIG = {
-  srcDir: '.',
-  publicDir: './public',
+  srcDir: path.join(__dirname, '..', 'src'),
+  publicDir: path.join(__dirname, '..', 'public'),
   excludeDirs: ['node_modules', 'dist', '.git', 'coverage', '.cursor'],
   fileExtensions: ['.html', '.css', '.js', '.json', '.png', '.svg', '.webmanifest'],
   maxFileSize: 1000, // linhas
@@ -416,12 +416,13 @@ class PWACodeAnalyzer {
   // Verificar arquivos PWA essenciais
   checkPWAFiles() {
     CONFIG.pwaFiles.forEach(file => {
-      if (!fs.existsSync(file)) {
+      const filePath = path.join(CONFIG.srcDir, file);
+      if (!fs.existsSync(filePath)) {
         this.stats.files.pwa.missing.push(file);
         this.stats.issues.pwa.push({
           file: file,
           issue: 'Arquivo PWA essencial ausente',
-          suggestion: `Crie o arquivo ${file}`
+          suggestion: `Crie o arquivo ${file} em src/`
         });
       }
     });

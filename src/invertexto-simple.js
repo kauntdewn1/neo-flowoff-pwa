@@ -1,4 +1,12 @@
 // invertexto-simple.js - Versão simplificada da integração
+// Logger condicional (apenas em desenvolvimento)
+const isDev = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+const logger = {
+  log: (...args) => isDev && console.log(...args),
+  warn: (...args) => isDev && console.warn(...args),
+  error: (...args) => console.error(...args)
+};
+
 class SimpleValidator {
   constructor() {
     this.isAvailable = false;
@@ -10,9 +18,9 @@ class SimpleValidator {
       const response = await fetch('/api/health');
       const data = await response.json();
       this.isAvailable = data.apis?.invertexto?.includes('✅');
-      console.log('🔍 API Invertexto disponível:', this.isAvailable);
+      logger.log('🔍 API Invertexto disponível:', this.isAvailable);
     } catch (error) {
-      console.log('⚠️ API Invertexto não disponível:', error.message);
+      logger.log('⚠️ API Invertexto não disponível:', error.message);
       this.isAvailable = false;
     }
   }
@@ -236,7 +244,7 @@ class SimpleFormValidator {
         statusElement.style.color = '#ef4444';
       }
     } catch (error) {
-      console.error('Erro ao processar formulário:', error);
+      logger.error('Erro ao processar formulário:', error);
       statusElement.textContent = '❌ Erro ao processar dados. Tente novamente.';
       statusElement.style.color = '#ef4444';
     }
@@ -319,7 +327,7 @@ class SimpleFormValidator {
 
 // Inicializar quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🚀 Inicializando validação simplificada...');
+  logger.log('🚀 Inicializando validação simplificada...');
   
   // Criar instância do validador
   const validator = new SimpleValidator();
@@ -329,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar validador de formulário
     const formValidator = new SimpleFormValidator(validator);
     
-    console.log('✅ Validação simplificada inicializada!');
+    logger.log('✅ Validação simplificada inicializada!');
   }, 1000);
 });
 

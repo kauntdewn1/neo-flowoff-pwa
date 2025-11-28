@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0f">
   <title>Glass Morphism Bottom Bar - NEO.FLOWOFF</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="glass-morphism-bottom-bar.css">
   <style>
     body {
@@ -237,7 +240,11 @@
         
         // Simular navegação
         const route = item.dataset.route;
-        console.log(`Navegando para: ${route}`);
+        // Log apenas em desenvolvimento
+        const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        if (isDev) {
+          console.log(`Navegando para: ${route}`);
+        }
         
         // Aqui você pode integrar com sua função go() existente
         // go(route);
@@ -246,6 +253,21 @@
     
     // Simular seleção inicial
     document.querySelector('[data-route="home"]').classList.add('active');
+    
+    // Registrar Service Worker (apenas para exemplo completo)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', async () => {
+        try {
+          await navigator.serviceWorker.register('./sw.js');
+        } catch (error) {
+          // Silencioso em produção
+          const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+          if (isDev) {
+            console.warn('Service Worker não registrado:', error);
+          }
+        }
+      });
+    }
   </script>
 </body>
 </html>

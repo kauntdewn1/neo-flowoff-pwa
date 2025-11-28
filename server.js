@@ -50,7 +50,32 @@ const server = http.createServer((req, res) => {
     pathname = '/index.html';
   }
   
-  const filePath = path.join(__dirname, cleanPath);
+  // Determina o caminho do arquivo: primeiro tenta src/, depois public/, depois raiz
+  let filePath = path.join(__dirname, 'src', cleanPath);
+  let fileExists = fs.existsSync(filePath);
+  
+  if (!fileExists && cleanPath.startsWith('/public/')) {
+    // Se começa com /public/, tenta diretamente em public/
+    filePath = path.join(__dirname, cleanPath.substring(1));
+    fileExists = fs.existsSync(filePath);
+  } else if (!fileExists && !cleanPath.startsWith('/api/') && !cleanPath.startsWith('/css/')) {
+    // Tenta em public/ se não encontrou em src/
+    const publicPath = path.join(__dirname, 'public', cleanPath);
+    if (fs.existsSync(publicPath)) {
+      filePath = publicPath;
+      fileExists = true;
+    }
+  }
+  
+  // Se ainda não encontrou e não é um caminho especial, tenta na raiz
+  if (!fileExists && !cleanPath.startsWith('/api/') && !cleanPath.startsWith('/css/') && !cleanPath.startsWith('/public/')) {
+    const rootPath = path.join(__dirname, cleanPath);
+    if (fs.existsSync(rootPath)) {
+      filePath = rootPath;
+      fileExists = true;
+    }
+  }
+  
   const ext = path.extname(filePath).toLowerCase();
   const mimeType = mimeTypes[ext] || 'text/plain';
   
@@ -59,12 +84,14 @@ const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      if (err.code === 'ENOENT') {
+  // Verificar se é diretório antes de tentar ler
+  fs.stat(filePath, (statErr, stats) => {
+    if (statErr) {
+      if (statErr.code === 'ENOENT') {
         // File not found, serve index.html for SPA routing
-        fs.readFile(path.join(__dirname, 'index.html'), (err, data) => {
+        fs.readFile(path.join(__dirname, 'src', 'index.html'), (err, data) => {
           if (err) {
+            console.error('❌ Erro ao ler index.html:', err.message);
             res.writeHead(404, { 'Content-Type': 'text/html' });
             res.end('File not found');
           } else {
@@ -78,23 +105,56 @@ const server = http.createServer((req, res) => {
           }
         });
       } else {
+        console.error('❌ Erro ao acessar arquivo:', filePath, statErr.message);
         res.writeHead(500, { 'Content-Type': 'text/html' });
-        res.end('Server error');
+        res.end(`Server error: ${statErr.message}`);
       }
-    } else {
-      // Headers para evitar cache apenas para arquivos estáticos
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
-      res.setHeader('Pragma', 'no-cache');
-      res.setHeader('Expires', '0');
-      res.setHeader('Content-Type', mimeType);
-      res.writeHead(200);
-      res.end(data);
+      return;
     }
+
+    // Se for diretório, redirecionar para index.html
+    if (stats.isDirectory()) {
+      fs.readFile(path.join(__dirname, 'src', 'index.html'), (err, data) => {
+        if (err) {
+          console.error('❌ Erro ao ler index.html:', err.message);
+          res.writeHead(404, { 'Content-Type': 'text/html' });
+          res.end('File not found');
+        } else {
+          res.writeHead(200, { 
+            'Content-Type': 'text/html',
+            'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          });
+          res.end(data);
+        }
+      });
+      return;
+    }
+
+    // Ler arquivo
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        console.error('❌ Erro ao ler arquivo:', filePath, err.message);
+        res.writeHead(500, { 'Content-Type': 'text/html' });
+        res.end(`Server error: ${err.message}`);
+      } else {
+        // Headers para evitar cache apenas para arquivos estáticos
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '0');
+        res.setHeader('Content-Type', mimeType);
+        res.writeHead(200);
+        res.end(data);
+      }
+    });
   });
 });
 
 server.listen(PORT, () => {
-  // Servidor rodando
+  console.log(`✅ Servidor rodando em http://localhost:${PORT}`);
+  console.log(`📁 Diretório: ${__dirname}`);
+  console.log(`🚀 PWA pronta para uso!`);
 });
 
 server.on('error', (err) => {

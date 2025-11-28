@@ -1,4 +1,12 @@
 // invertexto-integration.js - Integração da API Invertexto com o site NEO.FLOWOFF
+// Logger condicional (apenas em desenvolvimento)
+const isDev = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+const logger = {
+  log: (...args) => isDev && console.log(...args),
+  warn: (...args) => isDev && console.warn(...args),
+  error: (...args) => console.error(...args)
+};
+
 class InvertextoAPI {
   constructor() {
     this.baseUrl = 'https://neo-flowoff.netlify.app/api/invertexto';
@@ -12,9 +20,9 @@ class InvertextoAPI {
       const response = await fetch(`${this.baseUrl.replace('/api/invertexto', '/api/health')}`);
       const data = await response.json();
       this.isAvailable = data.apis?.invertexto?.includes('✅');
-      console.log('🔍 API Invertexto disponível:', this.isAvailable);
+      logger.log('🔍 API Invertexto disponível:', this.isAvailable);
     } catch (error) {
-      console.log('⚠️ API Invertexto não disponível:', error.message);
+      logger.log('⚠️ API Invertexto não disponível:', error.message);
       this.isAvailable = false;
     }
   }
@@ -22,7 +30,7 @@ class InvertextoAPI {
   // Fazer requisição para a API
   async makeRequest(endpoint, params = {}) {
     if (!this.isAvailable) {
-      console.log('⚠️ API Invertexto não disponível');
+      logger.log('⚠️ API Invertexto não disponível');
       return { success: false, error: 'API não disponível' };
     }
 
@@ -38,7 +46,7 @@ class InvertextoAPI {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('❌ Erro na API Invertexto:', error);
+      logger.error('❌ Erro na API Invertexto:', error);
       return { success: false, error: error.message };
     }
   }
@@ -217,7 +225,7 @@ class FormValidator {
         statusElement.style.color = '#ef4444';
       }
     } catch (error) {
-      console.error('Erro ao processar formulário:', error);
+      logger.error('Erro ao processar formulário:', error);
       statusElement.textContent = '❌ Erro ao processar dados. Tente novamente.';
       statusElement.style.color = '#ef4444';
     }
@@ -300,7 +308,7 @@ class FormValidator {
           mensagem += `\n📱 QR Code gerado automaticamente!`;
         }
       } catch (error) {
-        console.log('Não foi possível gerar QR Code:', error);
+        logger.log('Não foi possível gerar QR Code:', error);
       }
     }
 
@@ -431,7 +439,7 @@ class InvertextoFeatures {
   }
 
   async runTests() {
-    console.log('🧪 Executando testes da API Invertexto...');
+    logger.log('🧪 Executando testes da API Invertexto...');
     
     const tests = [
       { name: 'Validação CPF', test: () => this.api.validarCPF('12345678901') },
@@ -443,9 +451,9 @@ class InvertextoFeatures {
     for (const test of tests) {
       try {
         const result = await test.test();
-        console.log(`✅ ${test.name}:`, result);
+        logger.log(`✅ ${test.name}:`, result);
       } catch (error) {
-        console.log(`❌ ${test.name}:`, error.message);
+        logger.log(`❌ ${test.name}:`, error.message);
       }
     }
   }
@@ -453,7 +461,7 @@ class InvertextoFeatures {
 
 // Inicializar quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🚀 Inicializando integração com API Invertexto...');
+  logger.log('🚀 Inicializando integração com API Invertexto...');
   
   // Criar instância da API
   const api = new InvertextoAPI();
@@ -466,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar funcionalidades extras
     const features = new InvertextoFeatures(api);
     
-    console.log('✅ Integração com API Invertexto inicializada!');
+    logger.log('✅ Integração com API Invertexto inicializada!');
   }, 2000);
 });
 

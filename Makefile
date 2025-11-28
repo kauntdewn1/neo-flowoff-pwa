@@ -15,38 +15,38 @@ help: ## Mostra comandos disponíveis
 
 analyze: ## Executa análise de código PWA
 	@echo "🔍 Executando análise de código PWA..."
-	@node code-analysis.js
+	@node scripts/code-analysis.js
 
 build: ## Build da PWA (otimiza assets)
 	@echo "🔨 Building PWA..."
 	@# Valida estrutura mínima
-	@test -f index.html || (echo "❌ index.html não encontrado" && exit 1)
-	@test -f styles.css || (echo "❌ styles.css não encontrado" && exit 1)
-	@test -f app.js || (echo "❌ app.js não encontrado" && exit 1)
-	@test -f manifest.webmanifest || (echo "❌ manifest.webmanifest não encontrado" && exit 1)
-	@test -f sw.js || (echo "❌ sw.js não encontrado" && exit 1)
+	@test -f src/index.html || (echo "❌ src/index.html não encontrado" && exit 1)
+	@test -f src/styles.css || (echo "❌ src/styles.css não encontrado" && exit 1)
+	@test -f src/app.js || (echo "❌ src/app.js não encontrado" && exit 1)
+	@test -f src/manifest.webmanifest || (echo "❌ src/manifest.webmanifest não encontrado" && exit 1)
+	@test -f src/sw.js || (echo "❌ src/sw.js não encontrado" && exit 1)
 	@# Cria diretório dist se não existir
 	@mkdir -p dist
 	@# Build CSS modularizado
-	@./build-css.sh
+	@./scripts/build-css.sh
 	@# Copia arquivos principais
-	@cp index.html dist/
+	@cp src/index.html dist/
 	@cp css/main.css dist/styles.css
-	@cp app.js dist/
-	@cp manifest.webmanifest dist/
-	@cp sw.js dist/
-	@cp p5-background.js dist/
-	@cp favicon.ico dist/
+	@cp src/app.js dist/
+	@cp src/manifest.webmanifest dist/
+	@cp src/sw.js dist/
+	@cp src/p5-background.js dist/
+	@cp src/favicon.ico dist/
 	@# Copia arquivos CSS e JS adicionais
-	@cp glass-morphism-bottom-bar.css dist/ 2>/dev/null || true
-	@cp glass-morphism-bottom-bar.js dist/ 2>/dev/null || true
-	@cp invertexto-simple.js dist/ 2>/dev/null || true
-	@cp webp-support.js dist/ 2>/dev/null || true
-	@cp index-scripts.js dist/ 2>/dev/null || true
-	@cp blog.html dist/ 2>/dev/null || true
-	@cp blog-styles.css dist/ 2>/dev/null || true
-	@cp blog.js dist/ 2>/dev/null || true
-	@cp desktop.html dist/ 2>/dev/null || true
+	@cp src/glass-morphism-bottom-bar.css dist/ 2>/dev/null || true
+	@cp src/glass-morphism-bottom-bar.js dist/ 2>/dev/null || true
+	@cp src/invertexto-simple.js dist/ 2>/dev/null || true
+	@cp src/webp-support.js dist/ 2>/dev/null || true
+	@cp src/index-scripts.js dist/ 2>/dev/null || true
+	@cp src/blog.html dist/ 2>/dev/null || true
+	@cp src/blog-styles.css dist/ 2>/dev/null || true
+	@cp src/blog.js dist/ 2>/dev/null || true
+	@cp src/desktop.html dist/ 2>/dev/null || true
 	@# Copia diretório public
 	@cp -r public dist/
 	@# Otimiza HTML (remove comentários e espaços desnecessários)
@@ -68,6 +68,12 @@ deploy-preview: build ## Deploy preview para Netlify
 
 dev: ## Servidor local para desenvolvimento (recomendado)
 	@echo "🚀 Iniciando servidor Node.js..."
+	@# Verificar e limpar processos antigos na porta padrão
+	@if lsof -ti:3000 >/dev/null 2>&1; then \
+		echo "⚠️ Porta 3000 ocupada. Limpando processos antigos..."; \
+		lsof -ti:3000 | xargs kill -9 2>/dev/null || true; \
+		sleep 1; \
+	fi
 	@command -v node >/dev/null 2>&1 && node server.js || \
 	(command -v python3 >/dev/null 2>&1 && python3 -m http.server $(PORT)) || \
 	(command -v python >/dev/null 2>&1 && python -m SimpleHTTPServer $(PORT)) || \
@@ -75,9 +81,31 @@ dev: ## Servidor local para desenvolvimento (recomendado)
 	(echo "❌ Nenhum servidor HTTP encontrado. Instale node, python ou npx" && exit 1)
 
 dev-alt: ## Servidor em porta alternativa (ex: make dev-alt PORT=3001)
+	@if [ -z "$(PORT)" ]; then \
+		echo "❌ Especifique a porta: make dev-alt PORT=3001"; \
+		exit 1; \
+	fi
+	@# Verificar e limpar processos na porta especificada
+	@if lsof -ti:$(PORT) >/dev/null 2>&1; then \
+		echo "⚠️ Porta $(PORT) ocupada. Limpando processos antigos..."; \
+		lsof -ti:$(PORT) | xargs kill -9 2>/dev/null || true; \
+		sleep 1; \
+	fi
 	@echo "🚀 Iniciando servidor Node.js na porta $(PORT)..."
 	@command -v node >/dev/null 2>&1 && PORT=$(PORT) node server.js || \
 	(echo "❌ Node.js não encontrado" && exit 1)
+
+dev-auto: ## Encontra porta livre automaticamente e inicia servidor
+	@echo "🔍 Procurando porta livre..."
+	@PORT=3000; \
+	for i in 3000 3001 3002 3003 3004 3005; do \
+		if ! lsof -ti:$$i >/dev/null 2>&1; then \
+			PORT=$$i; \
+			break; \
+		fi; \
+	done; \
+	echo "✅ Usando porta $$PORT"; \
+	PORT=$$PORT node server.js
 
 dev-python: ## Servidor Python (alternativo)
 	@echo "🐍 Iniciando servidor Python..."
@@ -103,6 +131,16 @@ clean: ## Limpa arquivos de build
 	@rm -rf dist/
 	@echo "✅ Limpeza concluída!"
 
+clean-ports: ## Limpa processos Node.js nas portas 3000-3005
+	@echo "🧹 Limpando processos nas portas 3000-3005..."
+	@for port in 3000 3001 3002 3003 3004 3005; do \
+		if lsof -ti:$$port >/dev/null 2>&1; then \
+			echo "  🗑️ Limpando porta $$port..."; \
+			lsof -ti:$$port | xargs kill -9 2>/dev/null || true; \
+		fi; \
+	done
+	@echo "✅ Portas limpas!"
+
 install: ## Instala dependências (Netlify CLI)
 	@echo "📦 Instalando dependências..."
 	@command -v netlify >/dev/null 2>&1 || npm install -g netlify-cli
@@ -111,11 +149,11 @@ install: ## Instala dependências (Netlify CLI)
 # Comandos de validação
 validate: ## Valida estrutura da PWA
 	@echo "🔍 Validando estrutura PWA..."
-	@echo "  ✓ index.html: $(shell test -f index.html && echo 'OK' || echo 'FALTANDO')"
-	@echo "  ✓ styles.css: $(shell test -f styles.css && echo 'OK' || echo 'FALTANDO')"
-	@echo "  ✓ app.js: $(shell test -f app.js && echo 'OK' || echo 'FALTANDO')"
-	@echo "  ✓ manifest.webmanifest: $(shell test -f manifest.webmanifest && echo 'OK' || echo 'FALTANDO')"
-	@echo "  ✓ sw.js: $(shell test -f sw.js && echo 'OK' || echo 'FALTANDO')"
+	@echo "  ✓ src/index.html: $(shell test -f src/index.html && echo 'OK' || echo 'FALTANDO')"
+	@echo "  ✓ src/styles.css: $(shell test -f src/styles.css && echo 'OK' || echo 'FALTANDO')"
+	@echo "  ✓ src/app.js: $(shell test -f src/app.js && echo 'OK' || echo 'FALTANDO')"
+	@echo "  ✓ src/manifest.webmanifest: $(shell test -f src/manifest.webmanifest && echo 'OK' || echo 'FALTANDO')"
+	@echo "  ✓ src/sw.js: $(shell test -f src/sw.js && echo 'OK' || echo 'FALTANDO')"
 	@echo "  ✓ public/: $(shell test -d public && echo 'OK' || echo 'FALTANDO')"
 	@echo "✅ Validação concluída!"
 

@@ -1,3 +1,18 @@
+// Logger utilitário (condiciona logs apenas em desenvolvimento)
+const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const logger = {
+  log: (...args) => isDev && console.log(...args),
+  warn: (...args) => isDev && console.warn(...args),
+  error: (...args) => console.error(...args) // Erros sempre logados
+};
+
+// Inicializar Protocolo NΞØ
+import('./neo-protocol-init.js').then(module => {
+  logger.log('🧬 Protocolo NΞØ carregado');
+}).catch(err => {
+  logger.warn('Protocolo NΞØ: Erro ao carregar', err);
+});
+
 // Registro do Service Worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
@@ -105,7 +120,7 @@ if (leadForm){
       
     }catch(err){
       status.textContent = 'Erro ao redirecionar. Tente novamente.';
-      console.error('Erro no formulário:', err);
+      logger.error('Erro no formulário:', err);
     }
   });
 }
@@ -143,7 +158,7 @@ class NEOAgentClient {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('Erro ao comunicar com o agente NEO:', error);
+      logger.error('Erro ao comunicar com o agente NEO:', error);
       throw error;
     }
   }
@@ -156,7 +171,7 @@ class NEOAgentClient {
       }
       return await response.json();
     } catch (error) {
-      console.error('Erro ao buscar leads:', error);
+      logger.error('Erro ao buscar leads:', error);
       throw error;
     }
   }
@@ -169,7 +184,7 @@ class NEOAgentClient {
       }
       return await response.json();
     } catch (error) {
-      console.error('Erro ao verificar status do agente:', error);
+      logger.error('Erro ao verificar status do agente:', error);
       throw error;
     }
   }
@@ -185,11 +200,11 @@ window.neoAgent = new NEOAgentClient();
 window.sendToAgent = async (message) => {
   try {
     const response = await window.neoAgent.sendMessage(message);
-    console.log('Resposta do agente:', response.response);
-    console.log('Ações disponíveis:', response.actions);
+    logger.log('Resposta do agente:', response.response);
+    logger.log('Ações disponíveis:', response.actions);
     return response;
   } catch (error) {
-    console.error('Erro ao enviar mensagem:', error);
+    logger.error('Erro ao enviar mensagem:', error);
     return null;
   }
 };
@@ -200,9 +215,9 @@ window.sendToAgent = async (message) => {
 window.addEventListener('load', async () => {
   try {
     const health = await window.neoAgent.checkHealth();
-    console.log('Agente NEO FlowOff:', health.status);
+    logger.log('Agente NEO FlowOff:', health.status);
   } catch (error) {
-    console.warn('Agente NEO FlowOff não disponível:', error.message);
+    logger.warn('Agente NEO FlowOff não disponível:', error.message);
   }
 });
 */
@@ -271,7 +286,7 @@ async function sendMessage() {
     
     // Mostrar erro
     addMessage('❌ Erro ao conectar com o agente. Tente novamente.', 'system');
-    console.error('Erro ao enviar mensagem:', error);
+    logger.error('Erro ao enviar mensagem:', error);
   }
 }
 
@@ -307,7 +322,7 @@ if (agentLeads) {
       }
     } catch (error) {
       addMessage('❌ Erro ao buscar leads.', 'system');
-      console.error('Erro ao buscar leads:', error);
+      logger.error('Erro ao buscar leads:', error);
     }
   });
 }

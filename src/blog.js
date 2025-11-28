@@ -41,6 +41,7 @@ class BlogSEO {
             this.articles = await response.json();
             this.filteredArticles = [...this.articles];
         } catch (error) {
+            // Erro sempre logado (importante para debug)
             console.error('Erro ao carregar artigos:', error);
             // Fallback: artigos de exemplo
             this.articles = this.getDefaultArticles();
@@ -356,7 +357,11 @@ class BlogSEO {
     
     saveSitemap(sitemap) {
         // Em produção, isso seria salvo no servidor
-        console.log('Sitemap gerado:', sitemap);
+        // Log apenas em desenvolvimento
+        const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        if (isDev) {
+            console.log('Sitemap gerado:', sitemap);
+        }
     }
     
     updateMetaTags() {

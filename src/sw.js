@@ -11,14 +11,22 @@ const ASSETS = [
   './public/icons/icon-512x512.webp'
 ];
 
+// Logger condicional para Service Worker (apenas em desenvolvimento)
+const isDev = self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1';
+const swLogger = {
+  log: (...args) => isDev && console.log(...args),
+  warn: (...args) => isDev && console.warn(...args),
+  error: (...args) => console.error(...args) // Erros sempre logados
+};
+
 self.addEventListener('install', e=>{
-  console.log('SW: Installing new version...');
+  swLogger.log('SW: Installing new version...');
   e.waitUntil(
     caches.open(CACHE).then(cache => {
       return Promise.allSettled(
         ASSETS.map(asset => 
           cache.add(asset).catch(err => {
-            console.warn(`SW: Failed to cache ${asset}:`, err);
+            swLogger.warn(`SW: Failed to cache ${asset}:`, err);
             return null;
           })
         )
@@ -29,7 +37,7 @@ self.addEventListener('install', e=>{
 });
 
 self.addEventListener('activate', e=>{
-  console.log('SW: Activating new version...');
+  swLogger.log('SW: Activating new version...');
   e.waitUntil(
     caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))
   );
@@ -69,7 +77,7 @@ self.addEventListener('fetch', e=>{
         if (res.status === 200) {
           const copy = res.clone();
           caches.open(CACHE).then(c => c.put(req, copy)).catch(err => {
-            console.warn('SW: Failed to cache response:', err);
+            swLogger.warn('SW: Failed to cache response:', err);
           });
         }
         return res;
@@ -82,7 +90,7 @@ self.addEventListener('fetch', e=>{
         if (res.status === 200) {
           const copy = res.clone();
           caches.open(CACHE).then(c=>c.put(req, copy)).catch(err => {
-            console.warn('SW: Failed to cache response:', err);
+            swLogger.warn('SW: Failed to cache response:', err);
           });
         }
         return res;

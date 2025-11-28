@@ -17,7 +17,8 @@
     "axios": "^1.6.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "thirdweb": "^5.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

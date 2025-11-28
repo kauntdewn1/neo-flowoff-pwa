@@ -7,7 +7,8 @@ Esta documentação apresenta a integração completa da API Invertexto com o si
 ## 🔧 **Configuração**
 
 ### 1. **Obter Token da API**
-1. Acesse: https://invertexto.com/api
+
+1. Acesse: <https://invertexto.com/api>
 2. Crie sua conta e obtenha seu token
 3. Configure no arquivo `.env`:
 
@@ -19,6 +20,7 @@ NODE_ENV=development
 ```
 
 ### 2. **Instalar Dependências**
+
 ```bash
 npm install dotenv axios
 ```
@@ -26,6 +28,7 @@ npm install dotenv axios
 ## 🌐 **Endpoints Disponíveis**
 
 ### **1. 📊 Barcode - Códigos de Barras**
+
 ```javascript
 // Gerar código de barras
 const response = await fetch('/api/invertexto', {
@@ -47,6 +50,7 @@ console.log('Código de barras:', result.data);
 ```
 
 ### **2. 📱 QR Code - QR Codes**
+
 ```javascript
 // Gerar QR Code
 const response = await fetch('/api/invertexto', {
@@ -67,6 +71,7 @@ console.log('QR Code:', result.data);
 ```
 
 ### **3. 🌍 GeoIP - Localização por IP**
+
 ```javascript
 // Consultar localização por IP
 const response = await fetch('/api/invertexto', {
@@ -85,6 +90,7 @@ console.log('Localização:', result.data);
 ```
 
 ### **4. 💱 Currency - Conversão de Moedas**
+
 ```javascript
 // Converter moedas
 const response = await fetch('/api/invertexto', {
@@ -174,6 +180,7 @@ console.log('Dados do CEP:', result.data);
 ```
 
 ### **8. 🏢 CNPJ - Consulta de CNPJ**
+
 ```javascript
 // Consultar CNPJ
 const response = await fetch('/api/invertexto', {
@@ -192,6 +199,7 @@ console.log('Dados do CNPJ:', result.data);
 ```
 
 ### **9. 🔢 Number-to-words - Números por Extenso**
+
 ```javascript
 // Converter número para extenso
 const response = await fetch('/api/invertexto', {
