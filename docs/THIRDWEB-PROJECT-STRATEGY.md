@@ -36,14 +36,16 @@ Você tem **2 projetos Thirdweb separados**:
 
 ## 🏗️ Estrutura Proposta
 
-### **Projeto Único: "Protocolo NΞØ" ou "NEØ Protocol"**
+### **Projeto Único: "NEØ Protocol"**
 
 **Contratos gerenciados:**
+
 - ✅ Token NEOFLW (`0x5AaCebca3f0CD9283401a83bC7BA5db48011CE87`)
 - ✅ Contratos FlowCloser (se houver)
 - 🔮 Futuros contratos do ecossistema
 
 **Client ID único para:**
+
 - PWA FlowOFF (atual)
 - FlowCloser (integração futura)
 - FLUXX DAO (integração futura)

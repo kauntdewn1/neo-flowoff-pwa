@@ -113,6 +113,8 @@ class NEOPROTOCOLUI {
         ? Math.min(100, (progress.xp / progress.nextLevelXP) * 100)
         : 0;
 
+      const hasWallet = user?.wallet;
+      
       container.innerHTML = `
         <div class="neo-profile-header">
           <div class="neo-avatar">
@@ -122,7 +124,12 @@ class NEOPROTOCOLUI {
           <div class="neo-profile-info">
             <h3>${user.name || 'Visitante'}</h3>
             <p>${user.email || 'Conecte-se para começar'}</p>
-            ${user.wallet ? `<p class="neo-wallet">🔗 ${user.wallet.slice(0, 6)}...${user.wallet.slice(-4)}</p>` : ''}
+            ${hasWallet ? `
+              <p class="neo-wallet-badge">
+                <span class="neo-wallet-icon">🔗</span>
+                ${user.wallet.slice(0, 6)}...${user.wallet.slice(-4)}
+              </p>
+            ` : ''}
           </div>
         </div>
         
@@ -151,6 +158,14 @@ class NEOPROTOCOLUI {
             <div class="neo-stat-label">Quests</div>
           </div>
         </div>
+        
+        ${!hasWallet ? `
+          <div class="neo-profile-actions">
+            <button class="btn primary small" onclick="window.neoUI?.connectWallet()">
+              🔗 Conectar Wallet
+            </button>
+          </div>
+        ` : ''}
       `;
     } catch (error) {
       logger.error('NEOPROTOCOL UI: Erro ao renderizar perfil', error);
@@ -314,7 +329,12 @@ class NEOPROTOCOLUI {
 
       container.innerHTML = `
         <h4>💰 NEOFLW Token</h4>
-        ${balanceHTML}
+        ${balanceHTML || `
+          <div class="neo-empty-state">
+            <div class="empty-icon">💼</div>
+            <p>Conecte sua wallet para ver seu saldo NEOFLW</p>
+          </div>
+        `}
         <div class="neo-token-actions">
           ${hasWallet ? `
             <div class="neo-points-info">
@@ -329,10 +349,10 @@ class NEOPROTOCOLUI {
             </div>
           ` : `
             <div class="neo-wallet-prompt">
-              <p>Conecte sua wallet para ver seu saldo NEOFLW</p>
-              <button class="btn primary" onclick="window.neoUI?.connectWallet()">
-                Conectar Wallet
+              <button class="btn primary block" onclick="window.neoUI?.connectWallet()">
+                🔗 Conectar Wallet
               </button>
+              <p class="neo-muted small">Conecte para ver saldo e converter pontos</p>
             </div>
           `}
         </div>
@@ -583,22 +603,55 @@ class NEOPROTOCOLUI {
     `;
 
     // Garantir que modal fique acima de tudo (header z-index: 1002, bottom bar: 101)
-    modal.style.zIndex = '99999';
+    // Usar z-index máximo possível para garantir que fique acima de qualquer elemento
+    modal.style.zIndex = '2147483647'; // Máximo z-index em JavaScript
     modal.style.position = 'fixed';
+    modal.style.top = '0';
+    modal.style.left = '0';
+    modal.style.right = '0';
+    modal.style.bottom = '0';
+    modal.style.isolation = 'isolate'; // Novo contexto de empilhamento
     
+    // Anexar diretamente ao body (não dentro de outros elementos)
     document.body.appendChild(modal);
     
     modal.showModal();
     
-    // Forçar z-index após modal ser exibido (garantir que fique acima do header)
+    // Forçar z-index máximo após modal ser exibido (garantir que fique acima do header)
     requestAnimationFrame(() => {
-      modal.style.zIndex = '99999';
+      modal.style.zIndex = '2147483647';
+      modal.style.position = 'fixed';
+      modal.style.top = '0';
+      modal.style.left = '0';
+      modal.style.right = '0';
+      modal.style.bottom = '0';
+      modal.style.isolation = 'isolate';
+      
       // Garantir que backdrop também fique acima
       const style = document.createElement('style');
+      style.id = 'neo-modal-z-index-fix';
       style.textContent = `
-        .neo-connect-modal { z-index: 99999 !important; }
-        .neo-connect-modal::backdrop { z-index: 99998 !important; }
+        .neo-connect-modal { 
+          z-index: 2147483647 !important; 
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          isolation: isolate !important;
+        }
+        .neo-connect-modal::backdrop { 
+          z-index: 2147483646 !important; 
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+        }
       `;
+      // Remover estilo anterior se existir
+      const existingStyle = document.getElementById('neo-modal-z-index-fix');
+      if (existingStyle) existingStyle.remove();
       document.head.appendChild(style);
     });
 

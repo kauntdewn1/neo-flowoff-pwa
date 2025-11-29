@@ -622,6 +622,40 @@
   min-width: 0;
 }
 
+/* Wallet badge no perfil */
+.neo-wallet-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 4px 12px;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  border-radius: 12px;
+  font-size: 12px;
+  color: #4ade80;
+}
+
+.neo-wallet-icon {
+  font-size: 14px;
+}
+
+/* Prompt de wallet no card de token */
+.neo-wallet-prompt {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.neo-wallet-prompt .btn.block {
+  margin-bottom: 12px;
+}
+
+.neo-wallet-prompt .small {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 8px;
+}
+
 /* === Melhorias nos Cards === */
 .neo-quest-item {
   cursor: pointer;
@@ -641,24 +675,30 @@
   border: none;
   padding: 0;
   margin: 0;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  max-height: 90vh;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  position: fixed !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
   color: white;
-  z-index: 99999 !important; /* Acima de tudo: header (1002), bottom bar (101) */
-  isolation: isolate; /* Criar novo contexto de empilhamento */
+  z-index: 2147483647 !important; /* Máximo z-index possível (acima de tudo, incluindo header 1002) */
+  isolation: isolate !important; /* Criar novo contexto de empilhamento */
 }
 
 .neo-connect-modal::backdrop {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6) !important;
   backdrop-filter: blur(8px);
-  z-index: 99998 !important;
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2147483646 !important; /* Um abaixo do modal */
   position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
 }
 
 /* Sheet style para iOS */
@@ -697,7 +737,8 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   position: relative;
-  z-index: 99999; /* Garantir que conteúdo fique acima */
+  z-index: 2147483647 !important; /* Máximo z-index possível */
+  isolation: isolate !important; /* Novo contexto de empilhamento */
 }
 
 .neo-connect-header {

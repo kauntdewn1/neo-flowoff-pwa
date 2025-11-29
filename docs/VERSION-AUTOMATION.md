@@ -100,6 +100,7 @@ const CACHE = 'neo-flowoff-v1.4.7-clean';
 ```
 
 ### **index.html**
+
 ```html
 <link rel="stylesheet" href="styles.css?v=1.4.7">
 <link rel="stylesheet" href="/css/neo-protocol-ui.css?v=1.4.7">
@@ -168,11 +169,13 @@ Após executar o script, verifique:
 Certifique-se de usar formato semver: `MAJOR.MINOR.PATCH`
 
 Exemplos válidos:
+
 - ✅ `1.4.7`
 - ✅ `2.0.0`
 - ✅ `1.5.12`
 
 Exemplos inválidos:
+
 - ❌ `1.4` (falta patch)
 - ❌ `v1.4.7` (não use prefixo)
 - ❌ `1.4.7-beta` (não suportado)
