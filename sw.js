@@ -1,4 +1,4 @@
-const CACHE = 'neo-flowoff-v1.5.4-sync';
+const CACHE = 'neo-flowoff-v1.5.6-sync';
 const QUEUE_NAME = 'form-submissions';
 const MAX_RETRIES = 5;
 const RETRY_DELAYS = [1000, 2000, 5000, 10000, 30000]; // Exponential backoff em ms
@@ -11,7 +11,7 @@ const ASSETS = [
   './blog.html', './blog-styles.css', './blog.js', './data/blog-articles.json',
   './manifest.webmanifest', './public/icon-192.png', './public/icon-512.png', './public/maskable-512.png',
   './public/flowoff logo.png', './public/FLOWPAY.png', './public/neo_ico.png', './public/icon-512.png',
-  './public/poston.png', './public/logos/proia.png',
+  './public/logos/pink_metalic.png', './public/logos/neowhite.png', './public/logos/proia.png',
   './public/icons/icon-48x48.webp', './public/icons/icon-72x72.webp', './public/icons/icon-96x96.webp',
   './public/icons/icon-128x128.webp', './public/icons/icon-144x144.webp', './public/icons/icon-152x152.webp',
   './public/icons/icon-192x192.webp', './public/icons/icon-256x256.webp', './public/icons/icon-384x384.webp',

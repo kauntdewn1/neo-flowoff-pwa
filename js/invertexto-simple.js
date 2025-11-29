@@ -8,12 +8,21 @@ class SimpleValidator {
   async checkAvailability() {
     try {
       const response = await fetch('/api/health');
+      if (!response.ok) {
+        this.isAvailable = false;
+        return;
+      }
       const data = await response.json();
       this.isAvailable = data.apis?.invertexto?.includes('✅');
-      window.Logger?.log('🔍 API Invertexto disponível:', this.isAvailable);
+      if (this.isAvailable) {
+        window.Logger?.log('🔍 API Invertexto disponível:', this.isAvailable);
+      }
     } catch (error) {
-      window.Logger?.log('⚠️ API Invertexto não disponível:', error.message);
+      // Silencioso em produção - API pode não estar disponível
       this.isAvailable = false;
+      if (window.Logger) {
+        window.Logger.log('⚠️ API Invertexto não disponível (modo offline)');
+      }
     }
   }
 

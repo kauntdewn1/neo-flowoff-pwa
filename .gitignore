@@ -91,3 +91,19 @@ Thumbs.db
 
 # Projetos e tarefas
 .projetos/
+
+# Build output (gerado apenas no build)
+dist/
+
+# Arquivos temporários e de sistema
+.DS_Store
+*.DS_Store
+**/.DS_Store
+
+# Scripts de desenvolvimento/teste (opcional - descomente se quiser ignorar)
+# clear-cache*.js
+# optimize*.js
+# code-analysis.js
+# extract-*.js
+# invertexto-integration.js
+# glass-morphism-example.html
