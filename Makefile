@@ -31,7 +31,7 @@ build: ## Build da PWA (otimiza assets)
 	@./build-css.sh
 	@# Copia arquivos principais
 	@cp index.html dist/
-	@cp css/main.css dist/styles.css
+	@cp styles.css dist/styles.css
 	@cp manifest.webmanifest dist/
 	@cp sw.js dist/
 	@cp favicon.ico dist/
@@ -46,8 +46,8 @@ build: ## Build da PWA (otimiza assets)
 	@cp desktop.html dist/ 2>/dev/null || true
 	@# Copia diretório public
 	@cp -r public dist/
-	@# Otimiza HTML (remove comentários e espaços desnecessários)
-	@sed 's/<!--.*-->//g; s/^[[:space:]]*//g; s/[[:space:]]*$$//g' dist/index.html > dist/index.tmp && mv dist/index.tmp dist/index.html
+	@# Otimiza HTML (remove apenas comentários, preserva atributos style)
+	@sed 's/<!--.*-->//g' dist/index.html > dist/index.tmp && mv dist/index.tmp dist/index.html
 	@echo "✅ Build concluído em ./dist/"
 
 deploy: build ## Deploy para Netlify
