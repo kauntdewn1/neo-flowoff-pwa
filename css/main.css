@@ -2301,3 +2301,85 @@ canvas {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* === SEÇÃO DE LOGOS DOS PROJETOS === */
+.projects-logos-wrapper {
+  margin: 32px 0;
+  padding: 0;
+}
+
+.projects-logos-title {
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--muted);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin: 0 0 -12px 0;
+  padding-bottom: 4px;
+  position: relative;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+.projects-logos-section {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  z-index: 0;
+}
+
+.projects-logos-section::-webkit-scrollbar {
+  display: none;
+}
+
+.projects-logos-section {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.project-logo {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+.project-logo:hover {
+  transform: translateY(-4px) scale(1.1);
+  opacity: 1;
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+  .projects-logos-section {
+    gap: 8px;
+    padding: 24px 8px;
+    justify-content: center;
+  }
+  
+  .project-logo {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-logos-section {
+    gap: 6px;
+    padding: 24px 4px;
+  }
+  
+  .project-logo {
+    width: 42px;
+    height: 42px;
+  }
+}

@@ -9,33 +9,86 @@
   <meta http-equiv="Expires" content="0">
   <meta name="cache-control" content="no-cache">
   
-  <!-- Meta descriptions específicas para GPTs -->
-  <meta name="description" content="GPTs MELLØ: [Pai] do Marketing v.2050 para análise completa de marketing digital e Designer v.2050 para design generativo com aplicação de logo. IA treinada em campo real.">
-  <meta name="keywords" content="GPT, IA, marketing digital, design generativo, análise de persona, SWOT, roadmap de campanhas, MELLØ, FlowOFF">
+  <!-- Meta descriptions -->
+  <meta name="description" content="NEØ.FLOWOFF - Agência de Marketing na blockchain. Desenvolvimento de sistemas, WebApp's, IAs e tokenização. Transformamos estratégia em tecnologia e tecnologia em resultado.">
+  <meta name="keywords" content="marketing digital, desenvolvimento web, WebApp, PWA, blockchain, tokenização, IA, chatbots, agência digital, FlowOFF, MELLØ">
+  <meta name="author" content="MELLØ - FlowOFF">
+  <link rel="canonical" href="https://flowoff.xyz">
   
-  <!-- Schema markup para GPTs -->
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://flowoff.xyz">
+  <meta property="og:title" content="NEØ.FLOWOFF - Agência de Marketing na Blockchain">
+  <meta property="og:description" content="Transformamos estratégia em tecnologia e tecnologia em resultado. Desenvolvimento de sistemas, WebApp's, IAs e tokenização.">
+  <meta property="og:image" content="https://flowoff.xyz/public/images/capa_neo_flowoff_webapp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="NEØ.FLOWOFF">
+  <meta property="og:locale" content="pt_BR">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://flowoff.xyz">
+  <meta name="twitter:title" content="NEØ.FLOWOFF - Agência de Marketing na Blockchain">
+  <meta name="twitter:description" content="Transformamos estratégia em tecnologia e tecnologia em resultado.">
+  <meta name="twitter:image" content="https://flowoff.xyz/public/images/capa_neo_flowoff_webapp.png">
+  
+  <!-- Schema.org Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "GPTs MELLØ",
-    "description": "GPTs especializados em marketing digital e design generativo",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Web",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "BRL"
-    },
-    "author": {
-      "@type": "Person",
-      "name": "MELLØ",
-      "url": "https://wa.me/+5562983231110"
-    }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://flowoff.xyz/#organization",
+        "name": "FlowOFF",
+        "alternateName": "NEØ.FLOWOFF",
+        "url": "https://flowoff.xyz",
+        "logo": "https://flowoff.xyz/public/flowoff logo.png",
+        "description": "Agência de Marketing na blockchain. Desenvolvimento de sistemas, WebApp's e IAs.",
+        "sameAs": [
+          "mailto:neoprotocol.eth@ethermail.io"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "neoprotocol.eth@ethermail.io",
+          "contactType": "Customer Service",
+          "availableLanguage": "Portuguese"
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "GPTs MELLØ",
+        "description": "GPTs especializados em marketing digital e design generativo",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "BRL"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "MELLØ",
+          "url": "mailto:neoprotocol.eth@ethermail.io"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://flowoff.xyz/#website",
+        "url": "https://flowoff.xyz",
+        "name": "NEØ.FLOWOFF",
+        "description": "Agência de Marketing na blockchain",
+        "publisher": {
+          "@id": "https://flowoff.xyz/#organization"
+        }
+      }
+    ]
   }
   </script>
-  <!-- Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' data:; frame-src 'self' https://agent-neo-flowoff.vercel.app;">
+  
+  <!-- Content Security Policy melhorado -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-hLdjHEsqmCj4bNeT5EbhTw==' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' data:; frame-src 'self'; base-uri 'self'; form-action 'self' https://wa.me; upgrade-insecure-requests;">
   <!-- iOS PWA -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -52,14 +105,28 @@
 
 
     <!-- Header simplificado com glass morphism -->
-    <header class="topbar blur" id="main-header">
+    <header class="topbar" id="main-header">
       <div class="header-content">
         <div class="header-logo">
           <img src="public/flowoff logo.png" alt="FlowOFF" class="header-logo-img">
         </div>
         
+        <!-- Menu Hambúrguer -->
+        <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
       
+      <!-- Menu de Navegação -->
+      <nav class="header-menu" id="header-menu">
+        <a href="#hero" class="menu-link">Início</a>
+        <a href="#projetos-ecossistema" class="menu-link">Projetos</a>
+        <a href="#flowoff-section" class="menu-link">FlowOFF</a>
+        <a href="#servicos" class="menu-link">Serviços</a>
+        <a href="#contato" class="menu-link">Contato</a>
+      </nav>
     </header>
 
     <!-- Banner de instalação PWA -->
@@ -79,7 +146,7 @@
     <main id="router">
       <!-- HOME / HERO-PORTFÓLIO -->
       <section class="route active" id="home">
-        <div class="hero-card neon hero-with-bg">
+        <div class="hero-card neon hero-with-bg" id="hero">
           <!-- Imagem de fundo -->
           <div class="hero-bg-image">
             <img src="public/images/capa_neo_flowoff_webapp.png" alt="NEØ FlowOFF Background" class="hero-bg-img">
@@ -102,8 +169,21 @@
           </div>
         </div>
 
+        <!-- Seção de Logos dos Projetos -->
+        <div class="projects-logos-wrapper" id="projetos-ecossistema">
+          <h3 class="projects-logos-title">PROJETOS DO ECOSSISTEMA</h3>
+          <div class="projects-logos-section">
+            <img src="public/logos/projects/fluxx.png" alt="Fluxx" class="project-logo">
+            <img src="public/logos/projects/NEEO-SMART2.png" alt="NEEO SMART" class="project-logo">
+            <img src="public/logos/projects/NEO.png" alt="NEO" class="project-logo">
+            <img src="public/logos/projects/neoflw-token.png" alt="NEO Flow Token" class="project-logo">
+            <img src="public/logos/projects/runneo.png" alt="Run NEO" class="project-logo">
+            <img src="public/logos/projects/wodxpro.png" alt="WODX Pro" class="project-logo">
+          </div>
+        </div>
+
         <!-- Seção FlowOFF Moderna -->
-        <div class="flowoff-section">
+        <div class="flowoff-section" id="flowoff-section">
           <div class="flowoff-card neon">
             <div class="flowoff-header">
               <div class="flowoff-logo">
@@ -120,32 +200,6 @@
                 FlowOFF é agência que já fez gestão de redes sociais comum, uma solução que muitas empresas buscam mas não sabem que uma nova estratégia já está sendo usada e que poucos sabem ou possuem abordagem visionária de estratégias e tecnologias que fazem todo o diferencial para o rompimento das barreiras que levam aos resultados reais.
               </p>
               
-              <div class="flowoff-features">
-                <div class="feature-item">
-                  <div class="feature-icon">🎯</div>
-                  <div class="feature-text">
-                    <h4>Consultoria Estratégica</h4>
-                    <p>Reposicionamento, diferenciação e estratégias que realmente escalam.</p>
-                  </div>
-                </div>
-                
-                <div class="feature-item">
-                  <div class="feature-icon">📊</div>
-                  <div class="feature-text">
-                    <h4>Gestão Inteligente de Dados</h4>
-                    <p>Dashboards, insights, automações e decisões guiadas por IA.</p>
-                  </div>
-                </div>
-                
-                <div class="feature-item">
-                  <div class="feature-icon">🚀</div>
-                  <div class="feature-text">
-                    <h4>Tecnologias Sob Medida</h4>
-                    <p>WebApps, sistemas, integrações e tokenização — direto pro futuro.</p>
-                  </div>
-                </div>
-              </div>
-              
               <div class="flowoff-cta">
                 <a href="https://wa.me/+5562983231110" target="_blank" rel="noopener" class="btn primary flowoff-btn">
                   <img src="public/mello.webp" alt="MELLØ" class="mello-photo">
@@ -158,12 +212,12 @@
         </div>
 
 
-        <div class="grid">
+        <div class="grid" id="servicos">
           <!-- mocks/prints -->
           <article class="card glow">
             <div class="thumb thumb-1"></div>
             <h3>WebApp</h3>
-            <p>Desenvolvimento de aplicações web modernas e responsivas.</p>
+            <p>Aplicações rápidas, seguras e escaláveis para negócios que exigem performance real.</p>
           </article>
 
           <article class="card glow">
@@ -186,19 +240,19 @@
               </div>
             </div>
             <h3>Dashboards Gamificados</h3>
-            <p>Transforme relatórios frios em experiências interativas com níveis, pontos e recompensas.</p>
+            <p>Dados transformados em ação: visão clara, interação contínua e engajamento mensurável.</p>
           </article>
 
           <article class="card glow">
             <div class="thumb thumb-5"></div>
             <h3>NEØ.FLOWOFF</h3>
-            <p>Laboratório de marketing, blockchain e sistemas digitais.</p>
+            <p>Inovação aplicada em marketing, IA e blockchain para acelerar seu ecossistema digital.</p>
           </article>
 
           <article class="card glow clickable-card" onclick="go('start')">
             <div class="thumb thumb-6"></div>
             <h3>Entre em contato</h3>
-            <p>Entre em contato para entender mais sobre como seu negócio pode avançar no digital. Fale com MELLØ™</p>
+            <p>Converse conosco para identificar oportunidades e evoluir sua operação no digital.</p>
           </article>
         </div>
         
@@ -249,7 +303,7 @@
               <article class="gpt-card glass" aria-labelledby="gpt-pai-title" itemscope itemtype="https://schema.org/SoftwareApplication">
                 <div class="gpt-header">
                   <div class="gpt-icon" aria-hidden="true">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                       <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
                       <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
                       <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -322,7 +376,7 @@
               <article class="gpt-card glass" aria-labelledby="gpt-designer-title" itemscope itemtype="https://schema.org/SoftwareApplication">
                 <div class="gpt-header">
                   <div class="gpt-icon" aria-hidden="true">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                       <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
                       <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="2"/>
                       <path d="M21 15L16 10L5 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -435,10 +489,10 @@
           <div class="mello-info">
             <h3>MELLØ™</h3>
             <div class="mello-description">
-              <p><strong>Agente IPFS na WEB3</strong></p>
-              <p>DEV, Gestor de dados e prompts</p>
+              <p><strong>Node IPFS na WEB3</strong></p>
+              <p>DEV, Gestor de dados e Prompt Engineer</p>
               <p>Expert em Marketing Digital e Blockchain</p>
-              <p>Agencia FlowOFF® & FLOWPay®</p>
+              <p>Agência FlowOFF® & FLOWPay®</p>
               <div class="mello-divider">-</div>
             </div>
           </div>
@@ -447,7 +501,7 @@
         <form id="lead-form" class="card form glow">
           <label>Nome<input name="name" color="gray" placeholder="Seu nome" autocomplete="name" required></label>
           <label>Email<input type="email" color="gray" placeholder="seuemail@exemplo.com" name="email" autocomplete="email" required></label>
-          <label>WhatsApp<input name="whats" color="gray" placeholder="+55 (00) 00000-0000" autocomplete="whatsapp" required></label>
+          <label>WhatsApp<input name="whats" type="tel" color="gray" placeholder="+55 (00) 00000-0000" autocomplete="tel" required></label>
           <label>Serviço que procura
             <select name="type" autocomplete="off" required>
               <option color="gray" value="" disabled selected>Selecione uma opção</option>
@@ -486,8 +540,8 @@
             <div><b>NEØ Protocol</b><span>Camada tecnológica</span></div>
             <div class="ecosystem-progress">
               <div class="xp-bar">
-                <div class="xp-fill" style="width: 12%;"></div>
-                <span class="xp-text">12%</span>
+                <div class="xp-fill" style="width: 65%;"></div>
+                <span class="xp-text">65%</span>
               </div>
               <div class="progress-label">Em desenvolvimento</div>
             </div>
@@ -531,28 +585,6 @@
         </form>
       </dialog>
 
-      <!-- Modal do Agente NEO - TEMPORARIAMENTE DESABILITADO -->
-      <!--
-      <dialog id="agent-modal" class="sheet agent-modal">
-        <div class="sheet-body">
-          <div class="agent-modal-header">
-            <h3>🤖 Agente NEO FlowOff</h3>
-            <button class="agent-close" data-close="agent-modal">×</button>
-          </div>
-          <div class="agent-chat-container">
-            <div id="agent-messages" class="agent-messages"></div>
-            <div class="agent-input-container">
-              <input type="text" id="agent-input" placeholder="Digite sua mensagem..." autocomplete="off">
-              <button id="agent-send" class="agent-send-btn">Enviar</button>
-            </div>
-          </div>
-          <div class="agent-actions">
-            <button class="btn ghost small" id="agent-clear">Limpar</button>
-            <button class="btn ghost small" id="agent-leads">Ver Leads</button>
-          </div>
-        </div>
-      </dialog>
-      -->
 
 
       <!-- Offline banner -->
@@ -631,44 +663,29 @@
       <p class="footer-text">Agência de Marketing na blockchain | Desenvolvimento de sistemas, WebApp's e IAs</p>
     </footer>
 
-    <!-- Widget de Atendimento Flutuante - TEMPORARIAMENTE DESABILITADO -->
-    <!-- 
-    <div id="agent-widget" class="agent-widget">
-      <div class="agent-widget-toggle" id="agent-widget-toggle">
-        <img src="public/neo_ico.png" alt="NEO" class="agent-widget-icon">
-        <span class="agent-widget-text">Atendimento</span>
-      </div>
-      <div class="agent-widget-popup" id="agent-widget-popup">
-        <div class="agent-widget-header">
-          <h4>🤖 Agente NEO FlowOff</h4>
-          <button class="agent-widget-close" id="agent-widget-close">×</button>
-        </div>
-        <div class="agent-widget-iframe-container">
-          <iframe 
-            src="https://agent-neo-flowoff.vercel.app/embed" 
-            width="100%" 
-            height="500" 
-            frameborder="0"
-            style="border: none; border-radius: 10px;">
-          </iframe>
-        </div>
-      </div>
-    </div>
-    -->
   </div>
 
-  <!-- p5.js para efeitos visuais -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
-<script src="p5-background.js?v=1.4.6"></script>
+  <!-- Logger (deve ser carregado primeiro) -->
+<script src="js/logger.js?v=1.0.0"></script>
+<!-- Offline Queue (deve ser carregado antes do form-validator) -->
+<script src="js/offline-queue.js?v=1.0.0"></script>
+
+<!-- p5.js para efeitos visuais -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js" crossorigin="anonymous"></script>
+<script src="js/p5-background.js?v=1.4.6"></script>
 
 <!-- Integração API Invertexto Simplificada -->
-<script src="invertexto-simple.js?v=1.0.0"></script>
+<script src="js/invertexto-simple.js?v=1.0.0"></script>
+
+<!-- Validação de Formulário Robusta -->
+<script src="js/form-validator.js?v=1.0.0"></script>
 
 <!-- Suporte WebP com Fallback -->
-<script src="webp-support.js?v=1.0.0"></script>
+<script src="js/webp-support.js?v=1.0.0"></script>
 
-<script src="app.js?v=1.4.8" type="module"></script>
-<script src="index-scripts.js?v=1.0.0"></script>
+<!-- App principal -->
+<script src="js/app.js?v=1.4.9" type="module"></script>
+<script src="js/index-scripts.js?v=1.0.0"></script>
 
   <!-- Modais dos Projetos -->
   <dialog id="modal-site-webapp" class="project-modal">
@@ -683,6 +700,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn primary" data-close="modal-site-webapp">Entendi</button>
+        <img src="public/neowhite.png" alt="NEO" class="modal-signature">
       </div>
     </div>
   </dialog>
@@ -700,6 +718,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn primary" data-close="modal-saas-baas">Entendi</button>
+        <img src="public/neowhite.png" alt="NEO" class="modal-signature">
       </div>
     </div>
   </dialog>
@@ -718,6 +737,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn primary" data-close="modal-tokenizacao">Entendi</button>
+        <img src="public/neowhite.png" alt="NEO" class="modal-signature">
       </div>
     </div>
   </dialog>
@@ -736,6 +756,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn primary" data-close="modal-agentes-ia">Entendi</button>
+        <img src="public/neowhite.png" alt="NEO" class="modal-signature">
       </div>
     </div>
   </dialog>

@@ -32,17 +32,14 @@ build: ## Build da PWA (otimiza assets)
 	@# Copia arquivos principais
 	@cp index.html dist/
 	@cp css/main.css dist/styles.css
-	@cp app.js dist/
 	@cp manifest.webmanifest dist/
 	@cp sw.js dist/
-	@cp p5-background.js dist/
 	@cp favicon.ico dist/
-	@# Copia arquivos CSS e JS adicionais
+	@# Copia pasta js/
+	@mkdir -p dist/js
+	@cp -r js/* dist/js/ 2>/dev/null || true
+	@# Copia arquivos CSS adicionais
 	@cp glass-morphism-bottom-bar.css dist/ 2>/dev/null || true
-	@cp glass-morphism-bottom-bar.js dist/ 2>/dev/null || true
-	@cp invertexto-simple.js dist/ 2>/dev/null || true
-	@cp webp-support.js dist/ 2>/dev/null || true
-	@cp index-scripts.js dist/ 2>/dev/null || true
 	@cp blog.html dist/ 2>/dev/null || true
 	@cp blog-styles.css dist/ 2>/dev/null || true
 	@cp blog.js dist/ 2>/dev/null || true

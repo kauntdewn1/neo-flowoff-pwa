@@ -63,21 +63,15 @@
 
 /* === SPECIAL START BUTTON === */
 .glass-nav-item.start-button {
-  background: rgba(255, 47, 179, 0.15);
-  border: 2px solid rgba(255, 47, 179, 0.4);
-  box-shadow: 
-    0 8px 25px rgba(255, 47, 179, 0.3),
-    0 0 0 1px rgba(255, 47, 179, 0.2);
-  transform: translateY(-3px);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transform: none;
 }
 
 .glass-nav-item.start-button:hover {
-  background: rgba(255, 47, 179, 0.2);
-  border-color: rgba(255, 47, 179, 0.6);
-  box-shadow: 
-    0 12px 35px rgba(255, 47, 179, 0.4),
-    0 0 0 1px rgba(255, 47, 179, 0.3);
-  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
 }
 
 /* === ICONS === */
@@ -110,15 +104,15 @@
   filter: drop-shadow(0 0 12px rgba(255, 47, 179, 0.6));
 }
 
-/* Botão especial "Iniciar" */
+/* Botão especial "Iniciar" - mesmo tamanho dos outros */
 .glass-nav-item.start-button .glass-nav-icon {
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
 }
 
 .glass-nav-item.start-button .glass-nav-icon svg {
-  color: #ffffff; /* branco */
-  filter: drop-shadow(0 0 15px rgba(255, 47, 179, 0.8));
+  color: #9aa0aa; /* cinza - igual aos outros */
+  filter: drop-shadow(0 0 8px rgba(255, 47, 179, 0.3));
 }
 
 /* Hover effect para ícones */
@@ -128,8 +122,8 @@
 }
 
 .glass-nav-item.start-button:hover .glass-nav-icon svg {
-  color: #ffffff;
-  filter: drop-shadow(0 0 18px rgba(255, 47, 179, 0.9));
+  color: #e6e6f0; /* cinza claro - igual aos outros */
+  filter: drop-shadow(0 0 10px rgba(255, 47, 179, 0.4));
 }
 
 /* === LABELS === */
@@ -149,9 +143,9 @@
 }
 
 .glass-nav-item.start-button .glass-nav-label {
-  color: var(--neon);
-  font-weight: 700;
-  text-shadow: 0 2px 4px rgba(255, 47, 179, 0.4);
+  color: rgba(230, 230, 240, 0.8); /* igual aos outros */
+  font-weight: 600; /* igual aos outros */
+  text-shadow: none;
 }
 
 /* === INDICATOR === */
@@ -221,8 +215,8 @@
 }
 
 .glass-nav-item.start-button .glass-nav-icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 
 .glass-nav-label {
@@ -246,8 +240,8 @@
   }
   
   .glass-nav-item.start-button .glass-nav-icon {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
   }
   
   .glass-nav-label {

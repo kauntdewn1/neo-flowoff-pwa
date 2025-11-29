@@ -10,9 +10,9 @@ class SimpleValidator {
       const response = await fetch('/api/health');
       const data = await response.json();
       this.isAvailable = data.apis?.invertexto?.includes('✅');
-      console.log('🔍 API Invertexto disponível:', this.isAvailable);
+      window.Logger?.log('🔍 API Invertexto disponível:', this.isAvailable);
     } catch (error) {
-      console.log('⚠️ API Invertexto não disponível:', error.message);
+      window.Logger?.log('⚠️ API Invertexto não disponível:', error.message);
       this.isAvailable = false;
     }
   }
@@ -134,26 +134,28 @@ class SimpleFormValidator {
   }
 
   addValidationFields(form) {
-    // Adicionar campo CPF (opcional)
-    const cpfField = document.createElement('label');
-    cpfField.innerHTML = `
-      CPF (opcional)<input name="cpf" color="gray" placeholder="000.000.000-00" autocomplete="off">
-      <small class="validation-message" id="cpf-validation"></small>
-    `;
+    // Verificar se campos já existem (evitar duplicação com form-validator.js)
+    const existingCep = form.querySelector('input[name="cep"]');
+    const existingCpf = form.querySelector('input[name="cpf"]');
     
-    // Inserir após o campo WhatsApp
-    const whatsappField = form.querySelector('input[name="whats"]').parentElement;
-    whatsappField.insertAdjacentElement('afterend', cpfField);
+    // Adicionar campo CPF apenas se não existir
+    if (!existingCpf) {
+      const cpfField = document.createElement('label');
+      cpfField.innerHTML = `
+        CPF (opcional)<input name="cpf" color="gray" placeholder="000.000.000-00" autocomplete="off">
+        <small class="validation-message" id="cpf-validation"></small>
+      `;
+      
+      // Inserir após o campo WhatsApp
+      const whatsappField = form.querySelector('input[name="whats"]');
+      if (whatsappField) {
+        const whatsappLabel = whatsappField.parentElement;
+        whatsappLabel.insertAdjacentElement('afterend', cpfField);
+      }
+    }
 
-    // Adicionar campo CEP (opcional)
-    const cepField = document.createElement('label');
-    cepField.innerHTML = `
-      CEP (opcional)<input name="cep" color="gray" placeholder="00000-000" autocomplete="off">
-      <small class="validation-message" id="cep-validation"></small>
-    `;
-    
-    // Inserir após o campo CPF
-    cpfField.insertAdjacentElement('afterend', cepField);
+    // NÃO adicionar campo CEP aqui - já é gerenciado por form-validator.js
+    // Isso evita duplicação
   }
 
   setupRealTimeValidation(form) {
@@ -236,7 +238,7 @@ class SimpleFormValidator {
         statusElement.style.color = '#ef4444';
       }
     } catch (error) {
-      console.error('Erro ao processar formulário:', error);
+      window.Logger?.error('Erro ao processar formulário:', error);
       statusElement.textContent = '❌ Erro ao processar dados. Tente novamente.';
       statusElement.style.color = '#ef4444';
     }
@@ -319,7 +321,7 @@ class SimpleFormValidator {
 
 // Inicializar quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🚀 Inicializando validação simplificada...');
+  window.Logger?.log('🚀 Inicializando validação simplificada...');
   
   // Criar instância do validador
   const validator = new SimpleValidator();
@@ -329,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar validador de formulário
     const formValidator = new SimpleFormValidator(validator);
     
-    console.log('✅ Validação simplificada inicializada!');
+    window.Logger?.log('✅ Validação simplificada inicializada!');
   }, 1000);
 });
 

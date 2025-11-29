@@ -3,6 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import url from 'url';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+// Carrega variáveis de ambiente
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -38,11 +42,124 @@ const server = http.createServer((req, res) => {
     res.end(JSON.stringify({
       status: 'ok',
       timestamp: new Date().toISOString(),
+      version: '1.5.4',
       apis: {
-        invertexto: process.env.INVERTEXTO_API_TOKEN && process.env.INVERTEXTO_API_TOKEN !== 'seu_token_real_aqui' ? "✅ Configurado" : "⚠️ Token não configurado"
+        invertexto: process.env.INVERTEXTO_API_TOKEN && process.env.INVERTEXTO_API_TOKEN !== 'seu_token_real_aqui' ? "✅ Configurado" : "⚠️ Token não configurado",
+        lead: "✅ Disponível",
+        cep: process.env.INVERTEXTO_API_TOKEN && process.env.INVERTEXTO_API_TOKEN !== 'seu_token_real_aqui' ? "✅ Disponível" : "⚠️ Requer token Invertexto"
+      },
+      features: {
+        backgroundSync: "✅ Ativo",
+        offlineQueue: "✅ Ativo",
+        formValidation: "✅ Ativo"
       }
     }));
     return;
+  }
+
+  // API endpoint para receber leads
+  if (cleanPath === '/api/lead' && req.method === 'POST') {
+    let body = '';
+    
+    req.on('data', chunk => {
+      body += chunk.toString();
+    });
+    
+    req.on('end', () => {
+      try {
+        const leadData = JSON.parse(body);
+        
+        // Aqui você pode salvar no banco de dados, enviar email, etc.
+        // Por enquanto, apenas logamos e retornamos sucesso
+        
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.writeHead(200);
+        res.end(JSON.stringify({
+          success: true,
+          message: 'Lead recebido com sucesso',
+          data: {
+            id: Date.now(),
+            ...leadData
+          }
+        }));
+      } catch (error) {
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.writeHead(400);
+        res.end(JSON.stringify({
+          success: false,
+          error: 'Erro ao processar lead',
+          message: error.message
+        }));
+      }
+    });
+    return;
+  }
+
+  // API endpoint para consulta de CEP
+  if (cleanPath.startsWith('/api/cep/')) {
+    const cep = cleanPath.replace('/api/cep/', '').replace(/\D/g, '');
+    
+    if (cep.length !== 8) {
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.writeHead(400);
+      res.end(JSON.stringify({
+        success: false,
+        error: 'CEP inválido',
+        message: 'CEP deve ter 8 dígitos'
+      }));
+      return;
+    }
+
+    // Tentar consultar via API Invertexto se disponível
+    const token = process.env.INVERTEXTO_API_TOKEN;
+    if (token && token !== 'seu_token_real_aqui') {
+      // Usar IIFE async para fazer a requisição
+      (async () => {
+        try {
+          const axios = (await import('axios')).default;
+          const response = await axios.get(`https://invertexto.com/api/cep/${cep}`, {
+            params: { token },
+            timeout: 10000
+          });
+          
+          res.setHeader('Content-Type', 'application/json');
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.writeHead(200);
+          res.end(JSON.stringify({
+            success: true,
+            data: response.data,
+            source: 'invertexto'
+          }));
+        } catch (error) {
+          // Se falhar, retornar erro mas não bloquear
+          res.setHeader('Content-Type', 'application/json');
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.writeHead(200);
+          res.end(JSON.stringify({
+            success: false,
+            error: 'CEP não encontrado ou serviço indisponível',
+            message: 'Você pode continuar mesmo assim',
+            cep: cep
+          }));
+        }
+      })();
+      return;
+    } else {
+      // Sem token, retornar que não está disponível mas não é erro
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.writeHead(200);
+      res.end(JSON.stringify({
+        success: false,
+        error: 'Serviço de CEP não configurado',
+        message: 'Você pode continuar mesmo assim',
+        cep: cep
+      }));
+      return;
+    }
   }
   
   // Serve index.html for root

@@ -91,7 +91,7 @@ installBtn.addEventListener('click', async () => {
       }
       deferredPrompt = null;
     } catch (error) {
-      console.error('Erro ao instalar PWA:', error);
+      window.Logger?.error('Erro ao instalar PWA:', error);
     }
   }
 });
@@ -136,6 +136,73 @@ window.testPWAInstall = () => {
 window.clearPWAState = () => {
   localStorage.removeItem('pwa-dismissed');
 };
+
+// === MENU HAMBÚRGUER ===
+const menuToggle = document.getElementById('menu-toggle');
+const headerMenu = document.getElementById('header-menu');
+const menuOverlay = document.createElement('div');
+menuOverlay.className = 'menu-overlay';
+document.body.appendChild(menuOverlay);
+
+if (menuToggle && headerMenu) {
+  // Toggle menu
+  menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    menuToggle.classList.toggle('active');
+    headerMenu.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+    document.body.style.overflow = headerMenu.classList.contains('active') ? 'hidden' : '';
+  });
+
+  // Fechar ao clicar no overlay
+  menuOverlay.addEventListener('click', () => {
+    menuToggle.classList.remove('active');
+    headerMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+
+  // Fechar ao clicar em um link
+  const menuLinks = headerMenu.querySelectorAll('.menu-link');
+  menuLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      // Se estiver na home, fazer scroll suave
+      const currentRoute = document.querySelector('.route.active');
+      if (currentRoute && currentRoute.id === 'home') {
+        const targetId = link.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          const headerHeight = document.querySelector('.topbar').offsetHeight;
+          const targetPosition = targetElement.offsetTop - headerHeight - 20;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }
+      
+      // Fechar menu após um pequeno delay
+      setTimeout(() => {
+        menuToggle.classList.remove('active');
+        headerMenu.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }, 300);
+    });
+  });
+
+  // Fechar ao pressionar ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && headerMenu.classList.contains('active')) {
+      menuToggle.classList.remove('active');
+      headerMenu.classList.remove('active');
+      menuOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+}
 
 // Efeito de blur no header durante scroll
 const header = document.getElementById('main-header');
@@ -307,6 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (modal) {
         modal.showModal();
         document.body.style.overflow = 'hidden'; // Previne scroll do body
+        document.body.classList.add('modal-open'); // Adiciona classe para escurecer fundo
       }
     });
   });
@@ -319,6 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (modal) {
         modal.close();
         document.body.style.overflow = ''; // Restaura scroll do body
+        document.body.classList.remove('modal-open'); // Remove classe para restaurar fundo
       }
     });
   });
@@ -329,6 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (e.target === this) {
         this.close();
         document.body.style.overflow = '';
+        document.body.classList.remove('modal-open'); // Remove classe para restaurar fundo
       }
     });
   });
@@ -351,6 +421,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (openModal) {
         openModal.close();
         document.body.style.overflow = '';
+        document.body.classList.remove('modal-open'); // Remove classe para restaurar fundo
       }
     }
   });
