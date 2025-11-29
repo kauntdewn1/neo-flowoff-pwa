@@ -22,7 +22,7 @@ build: ## Build da PWA (otimiza assets)
 	@# Valida estrutura mínima
 	@test -f index.html || (echo "❌ index.html não encontrado" && exit 1)
 	@test -f styles.css || (echo "❌ styles.css não encontrado" && exit 1)
-	@test -f app.js || (echo "❌ app.js não encontrado" && exit 1)
+	@test -f js/app.js || (echo "❌ js/app.js não encontrado" && exit 1)
 	@test -f manifest.webmanifest || (echo "❌ manifest.webmanifest não encontrado" && exit 1)
 	@test -f sw.js || (echo "❌ sw.js não encontrado" && exit 1)
 	@# Cria diretório dist se não existir
@@ -110,7 +110,7 @@ validate: ## Valida estrutura da PWA
 	@echo "🔍 Validando estrutura PWA..."
 	@echo "  ✓ index.html: $(shell test -f index.html && echo 'OK' || echo 'FALTANDO')"
 	@echo "  ✓ styles.css: $(shell test -f styles.css && echo 'OK' || echo 'FALTANDO')"
-	@echo "  ✓ app.js: $(shell test -f app.js && echo 'OK' || echo 'FALTANDO')"
+	@echo "  ✓ js/app.js: $(shell test -f js/app.js && echo 'OK' || echo 'FALTANDO')"
 	@echo "  ✓ manifest.webmanifest: $(shell test -f manifest.webmanifest && echo 'OK' || echo 'FALTANDO')"
 	@echo "  ✓ sw.js: $(shell test -f sw.js && echo 'OK' || echo 'FALTANDO')"
 	@echo "  ✓ public/: $(shell test -d public && echo 'OK' || echo 'FALTANDO')"
