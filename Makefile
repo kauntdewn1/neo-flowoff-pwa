@@ -19,6 +19,9 @@ analyze: ## Executa análise de código PWA
 
 build: ## Build da PWA (otimiza assets)
 	@echo "🔨 Building PWA..."
+	@# Sincronizar versões automaticamente
+	@echo "🔄 Sincronizando versões..."
+	@node scripts/update-version.js || true
 	@# Valida estrutura mínima
 	@test -f src/index.html || (echo "❌ src/index.html não encontrado" && exit 1)
 	@test -f src/styles.css || (echo "❌ src/styles.css não encontrado" && exit 1)
@@ -47,6 +50,11 @@ build: ## Build da PWA (otimiza assets)
 	@cp src/blog-styles.css dist/ 2>/dev/null || true
 	@cp src/blog.js dist/ 2>/dev/null || true
 	@cp src/desktop.html dist/ 2>/dev/null || true
+	@# Copia CSS e JS do Protocolo NΞØ
+	@mkdir -p dist/css
+	@cp src/css/neo-protocol-ui.css dist/css/ 2>/dev/null || true
+	@cp src/neo-protocol-ui.js dist/ 2>/dev/null || true
+	@cp src/neo-protocol-init.js dist/ 2>/dev/null || true
 	@# Copia diretório public
 	@cp -r public dist/
 	@# Otimiza HTML (remove comentários e espaços desnecessários)

@@ -65,9 +65,24 @@ const server = http.createServer((req, res) => {
     }
   }
   
+  // Mapeamento especial: /css/neo-protocol-ui.css -> dist/css/neo-protocol-ui.css ou src/css/neo-protocol-ui.css
+  if (cleanPath === '/css/neo-protocol-ui.css' || cleanPath === 'css/neo-protocol-ui.css') {
+    const distPath = path.join(__dirname, 'dist', 'css', 'neo-protocol-ui.css');
+    const srcPath = path.join(__dirname, 'src', 'css', 'neo-protocol-ui.css');
+    if (fs.existsSync(distPath)) {
+      filePath = distPath;
+      fileExists = true;
+    } else if (fs.existsSync(srcPath)) {
+      filePath = srcPath;
+      fileExists = true;
+    }
+  }
+  
   // Determina o caminho do arquivo: primeiro tenta src/, depois public/, depois raiz
-  let filePath = path.join(__dirname, 'src', cleanPath);
-  let fileExists = fs.existsSync(filePath);
+  if (!fileExists) {
+    filePath = path.join(__dirname, 'src', cleanPath);
+    fileExists = fs.existsSync(filePath);
+  }
   
   if (!fileExists && cleanPath.startsWith('/public/')) {
     // Se começa com /public/, tenta diretamente em public/

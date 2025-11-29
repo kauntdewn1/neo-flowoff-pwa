@@ -3,6 +3,7 @@
 ## ✅ Problemas Identificados e Corrigidos
 
 ### 1. **Service Worker com versão desatualizada**
+
 - **Antes**: `v1.5.1`
 - **Agora**: `v1.5.4`
 - **Impacto**: Cache antigo bloqueando CSS novo
