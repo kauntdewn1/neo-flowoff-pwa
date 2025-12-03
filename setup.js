@@ -12,20 +12,20 @@ import { execSync } from 'child_process';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-console.log('⚡ NEØ.FLOWOFF PWA - Setup e Inicialização\n');
+console.log('→ NEØ.FLOWOFF PWA - Setup e Inicialização\n');
 
 // 1. Verificar Node.js
-console.log('🔍 Verificando ambiente...');
+console.log('• Verificando ambiente...');
 try {
   const nodeVersion = execSync('node --version', { encoding: 'utf-8' }).trim();
   const majorVersion = parseInt(nodeVersion.replace('v', '').split('.')[0]);
   if (majorVersion < 18) {
-    console.error('❌ Node.js versão 18+ é necessário. Versão atual:', nodeVersion);
+    console.error('✗ Node.js versão 18+ é necessário. Versão atual:', nodeVersion);
     process.exit(1);
   }
   console.log(`  ✓ Node.js ${nodeVersion} (OK)`);
 } catch (error) {
-  console.error('❌ Node.js não encontrado');
+  console.error('✗ Node.js não encontrado');
   process.exit(1);
 }
 
@@ -35,7 +35,7 @@ try {
   execSync('npm install', { stdio: 'inherit', cwd: __dirname });
   console.log('  ✓ Dependências instaladas');
 } catch (error) {
-  console.error('❌ Erro ao instalar dependências');
+  console.error('✗ Erro ao instalar dependências');
   process.exit(1);
 }
 
@@ -59,7 +59,7 @@ if (!fs.existsSync(envPath)) {
 }
 
 // 4. Validar estrutura PWA
-console.log('\n🔍 Validando estrutura PWA...');
+console.log('\n• Validando estrutura PWA...');
 const requiredFiles = [
   'index.html',
   'styles.css',
@@ -77,7 +77,7 @@ requiredFiles.forEach(file => {
   if (fs.existsSync(filePath)) {
     console.log(`  ✓ ${file}`);
   } else {
-    console.log(`  ❌ ${file} (FALTANDO)`);
+    console.log(`  ✗ ${file} (FALTANDO)`);
     allOk = false;
   }
 });
@@ -87,13 +87,13 @@ requiredDirs.forEach(dir => {
   if (fs.existsSync(dirPath)) {
     console.log(`  ✓ ${dir}/`);
   } else {
-    console.log(`  ❌ ${dir}/ (FALTANDO)`);
+    console.log(`  ✗ ${dir}/ (FALTANDO)`);
     allOk = false;
   }
 });
 
 if (!allOk) {
-  console.error('\n❌ Estrutura PWA incompleta');
+  console.error('\n✗ Estrutura PWA incompleta');
   process.exit(1);
 }
 

@@ -79,7 +79,7 @@ if ('serviceWorker' in navigator) {
       // Notificar usuário sobre sincronização bem-sucedida
       const statusEl = document.getElementById('lead-status');
       if (statusEl) {
-        statusEl.textContent = '✅ Formulário sincronizado com sucesso!';
+        statusEl.textContent = '✓ Formulário sincronizado com sucesso!';
         statusEl.style.color = '#4ade80';
         setTimeout(() => {
           if (statusEl.textContent.includes('sincronizado')) {

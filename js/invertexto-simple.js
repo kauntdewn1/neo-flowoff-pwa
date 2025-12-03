@@ -13,15 +13,15 @@ class SimpleValidator {
         return;
       }
       const data = await response.json();
-      this.isAvailable = data.apis?.invertexto?.includes('✅');
+      this.isAvailable = data.apis?.invertexto?.includes('✓');
       if (this.isAvailable) {
-        window.Logger?.log('🔍 API Invertexto disponível:', this.isAvailable);
+        window.Logger?.log('• API Invertexto disponível:', this.isAvailable);
       }
     } catch (error) {
       // Silencioso em produção - API pode não estar disponível
       this.isAvailable = false;
       if (window.Logger) {
-        window.Logger.log('⚠️ API Invertexto não disponível (modo offline)');
+        window.Logger.log('⚠ API Invertexto não disponível (modo offline)');
       }
     }
   }
@@ -176,7 +176,7 @@ class SimpleFormValidator {
         if (cpf && cpf.replace(/\D/g, '').length === 11) {
           const isValid = this.validator.validarCPF(cpf);
           this.showValidation('cpf-validation', isValid, 
-            isValid ? '✅ CPF válido' : '❌ CPF inválido');
+            isValid ? '✓ CPF válido' : '✗ CPF inválido');
         }
       });
     }
@@ -189,7 +189,7 @@ class SimpleFormValidator {
         if (email && email.includes('@')) {
           const isValid = this.validator.validarEmail(email);
           this.showValidation('email-validation', isValid,
-            isValid ? '✅ Email válido' : '❌ Email inválido');
+            isValid ? '✓ Email válido' : '✗ Email inválido');
         }
       });
     }
@@ -205,7 +205,7 @@ class SimpleFormValidator {
             this.showValidation('cep-validation', true, 
               `📍 ${dadosCEP.logradouro}, ${dadosCEP.bairro}, ${dadosCEP.cidade}/${dadosCEP.uf}`);
           } else {
-            this.showValidation('cep-validation', false, '❌ CEP não encontrado');
+            this.showValidation('cep-validation', false, '✗ CEP não encontrado');
           }
         }
       });
@@ -239,16 +239,16 @@ class SimpleFormValidator {
       if (validationResults.allValid) {
         // Enviar para WhatsApp com dados validados
         await this.sendToWhatsApp(formData, validationResults);
-        statusElement.textContent = '✅ Dados validados! Redirecionando para WhatsApp...';
+        statusElement.textContent = '✓ Dados validados! Redirecionando para WhatsApp...';
         statusElement.style.color = '#4ade80';
       } else {
         // Mostrar erros
-        statusElement.textContent = '❌ ' + validationResults.errors.join(', ');
+        statusElement.textContent = '✗ ' + validationResults.errors.join(', ');
         statusElement.style.color = '#ef4444';
       }
     } catch (error) {
       window.Logger?.error('Erro ao processar formulário:', error);
-      statusElement.textContent = '❌ Erro ao processar dados. Tente novamente.';
+      statusElement.textContent = '✗ Erro ao processar dados. Tente novamente.';
       statusElement.style.color = '#ef4444';
     }
   }
@@ -301,11 +301,11 @@ class SimpleFormValidator {
     mensagem += `📋 *Dados do Lead:*\n`;
     mensagem += `👤 Nome: ${nome}\n`;
     mensagem += `📧 Email: ${email}\n`;
-    mensagem += `📱 WhatsApp: ${whatsapp}\n`;
-    mensagem += `🎯 Serviço: ${servico}\n`;
+    mensagem += `↓ WhatsApp: ${whatsapp}\n`;
+    mensagem += `◉ Serviço: ${servico}\n`;
 
     if (cpf) {
-      mensagem += `🆔 CPF: ${cpf} ${validationResults.data.cpfValid ? '✅' : '❌'}\n`;
+      mensagem += `🆔 CPF: ${cpf} ${validationResults.data.cpfValid ? '✓' : '✗'}\n`;
     }
 
     if (cep && validationResults.data.cepData) {
@@ -313,13 +313,13 @@ class SimpleFormValidator {
       mensagem += `📍 Endereço: ${cepData.logradouro}, ${cepData.bairro}, ${cepData.cidade}/${cepData.uf}\n`;
     }
 
-    mensagem += `\n🚀 *Validação Automática:*\n`;
-    mensagem += `✅ Email: ${validationResults.data.emailValid ? 'Válido' : 'Inválido'}\n`;
+    mensagem += `\n→ *Validação Automática:*\n`;
+    mensagem += `✓ Email: ${validationResults.data.emailValid ? 'Válido' : 'Inválido'}\n`;
     if (cpf) {
-      mensagem += `✅ CPF: ${validationResults.data.cpfValid ? 'Válido' : 'Inválido'}\n`;
+      mensagem += `✓ CPF: ${validationResults.data.cpfValid ? 'Válido' : 'Inválido'}\n`;
     }
     if (cep) {
-      mensagem += `✅ CEP: ${validationResults.data.cepData ? 'Encontrado' : 'Não encontrado'}\n`;
+      mensagem += `✓ CEP: ${validationResults.data.cepData ? 'Encontrado' : 'Não encontrado'}\n`;
     }
 
     // Redirecionar para WhatsApp
@@ -330,7 +330,7 @@ class SimpleFormValidator {
 
 // Inicializar quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
-  window.Logger?.log('🚀 Inicializando validação simplificada...');
+  window.Logger?.log('→ Inicializando validação simplificada...');
   
   // Criar instância do validador
   const validator = new SimpleValidator();
@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar validador de formulário
     const formValidator = new SimpleFormValidator(validator);
     
-    window.Logger?.log('✅ Validação simplificada inicializada!');
+    window.Logger?.log('✓ Validação simplificada inicializada!');
   }, 1000);
 });
 

@@ -100,7 +100,7 @@ class FormValidator {
     if (cepLimpo.length !== 8) {
       const statusEl = document.getElementById('cep-validation');
       if (statusEl) {
-        statusEl.textContent = '⚠️ CEP deve ter exatamente 8 dígitos';
+        statusEl.textContent = '⚠ CEP deve ter exatamente 8 dígitos';
         statusEl.style.color = '#f59e0b';
       }
       return true; // Não bloqueia o envio, apenas avisa
@@ -108,7 +108,7 @@ class FormValidator {
 
     const statusEl = document.getElementById('cep-validation');
     if (statusEl) {
-      statusEl.textContent = '🔍 Consultando CEP...';
+      statusEl.textContent = '• Consultando CEP...';
       statusEl.style.color = '#3b82f6';
     }
 
@@ -130,7 +130,7 @@ class FormValidator {
             if (bairro) enderecoCompleto += (enderecoCompleto ? ', ' : '') + bairro;
             if (cidade && uf) enderecoCompleto += (enderecoCompleto ? ', ' : '') + `${cidade}/${uf}`;
             
-            statusEl.textContent = enderecoCompleto ? `✅ ${enderecoCompleto}` : '✅ CEP válido';
+            statusEl.textContent = enderecoCompleto ? `✓ ${enderecoCompleto}` : '✓ CEP válido';
             statusEl.style.color = '#4ade80';
           }
           this.clearError('cep');
@@ -138,7 +138,7 @@ class FormValidator {
         } else {
           // CEP não encontrado na API
           if (statusEl) {
-            statusEl.textContent = '⚠️ CEP não encontrado. Você pode continuar mesmo assim.';
+            statusEl.textContent = '⚠ CEP não encontrado. Você pode continuar mesmo assim.';
             statusEl.style.color = '#f59e0b';
           }
           this.clearError('cep');
@@ -147,7 +147,7 @@ class FormValidator {
       } else {
         // Erro na API
         if (statusEl) {
-          statusEl.textContent = '⚠️ Erro ao consultar CEP. Você pode continuar mesmo assim.';
+          statusEl.textContent = '⚠ Erro ao consultar CEP. Você pode continuar mesmo assim.';
           statusEl.style.color = '#f59e0b';
         }
         this.clearError('cep');
@@ -156,7 +156,7 @@ class FormValidator {
     } catch (error) {
       window.Logger?.error('Erro ao consultar CEP:', error);
       if (statusEl) {
-        statusEl.textContent = '⚠️ Erro ao consultar CEP. Você pode continuar mesmo assim.';
+        statusEl.textContent = '⚠ Erro ao consultar CEP. Você pode continuar mesmo assim.';
         statusEl.style.color = '#f59e0b';
       }
       this.clearError('cep');
@@ -309,7 +309,7 @@ class FormValidator {
       input.style.borderColor = '#ef4444';
       const statusEl = document.getElementById('lead-status');
       if (statusEl) {
-        statusEl.textContent = `❌ ${message}`;
+        statusEl.textContent = `✗ ${message}`;
         statusEl.style.color = '#ef4444';
       }
     }
@@ -352,7 +352,7 @@ class FormValidator {
 
       if (!isValid) {
         const firstError = Object.values(this.errors)[0];
-        statusEl.textContent = `❌ ${firstError}`;
+        statusEl.textContent = `✗ ${firstError}`;
         statusEl.style.color = '#ef4444';
         this.isValidating = false;
         return;
@@ -360,12 +360,12 @@ class FormValidator {
 
       // Validações adicionais se validador disponível
       if (this.validator && this.validator.isAvailable) {
-        statusEl.textContent = '🔍 Validando com API...';
+        statusEl.textContent = '• Validando com API...';
         
         // Validar email com API se disponível
         const emailValid = this.validator.validarEmail(email);
         if (!emailValid) {
-          statusEl.textContent = '❌ Email inválido';
+          statusEl.textContent = '✗ Email inválido';
           statusEl.style.color = '#ef4444';
           this.isValidating = false;
           return;
@@ -383,7 +383,7 @@ class FormValidator {
       
     } catch (error) {
       window.Logger?.error('Erro ao processar formulário:', error);
-      statusEl.textContent = '❌ Erro ao processar. Tente novamente ou entre em contato diretamente.';
+      statusEl.textContent = '✗ Erro ao processar. Tente novamente ou entre em contato diretamente.';
       statusEl.style.color = '#ef4444';
     } finally {
       this.isValidating = false;
@@ -409,12 +409,12 @@ class FormValidator {
     const cep = formData.get('cep');
     const projectType = projectTypes[type] || type;
 
-    const message = `🚀 *NOVO LEAD - FlowOFF*
+    const message = `→ *NOVO LEAD - FlowOFF*
 
 👤 *Nome:* ${name}
 📧 *Email:* ${email}
-📱 *WhatsApp:* ${whats}
-🎯 *Tipo de Projeto:* ${projectType}${cep ? `\n📍 *CEP:* ${cep}` : ''}
+↓ *WhatsApp:* ${whats}
+◉ *Tipo de Projeto:* ${projectType}${cep ? `\n📍 *CEP:* ${cep}` : ''}
 
 💬 *Mensagem:* Olá MELLØ! Gostaria de iniciar um projeto com a FlowOFF.`;
 
@@ -473,7 +473,7 @@ class FormValidator {
       });
 
       if (response.ok) {
-        statusEl.textContent = '✅ Dados enviados! Redirecionando...';
+        statusEl.textContent = '✓ Dados enviados! Redirecionando...';
       } else if (response.status === 202) {
         // Enfileirado
         const data = await response.json();
@@ -487,13 +487,13 @@ class FormValidator {
     }
 
     // Sempre abrir WhatsApp
-    statusEl.textContent = '✅ Dados válidos! Redirecionando...';
+    statusEl.textContent = '✓ Dados válidos! Redirecionando...';
     statusEl.style.color = '#4ade80';
     
     setTimeout(() => {
       window.open(whatsappUrl, '_blank');
       document.getElementById('lead-form').reset();
-      statusEl.textContent = '✅ Redirecionado para WhatsApp!';
+      statusEl.textContent = '✓ Redirecionado para WhatsApp!';
       navigator.vibrate?.(10);
     }, 500);
   }

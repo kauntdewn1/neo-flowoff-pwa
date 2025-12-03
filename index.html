@@ -98,6 +98,7 @@
   <title>NEØ.FLOWOFF</title>
   <link rel="stylesheet" href="styles.css?v=1.5.3">
   <link rel="stylesheet" href="glass-morphism-bottom-bar.css">
+
 </head>
 <body>
   <!-- App Shell -->
@@ -120,7 +121,7 @@
     <!-- Banner de instalação PWA -->
     <div id="pwa-install-banner" class="pwa-banner">
       <div class="pwa-content">
-        <div class="pwa-icon">📱</div>
+        <div class="pwa-icon">↓</div>
         <div class="pwa-text">
           <strong>Instale o app</strong>
           <span>Adicione à tela inicial para acesso rápido</span>
@@ -134,45 +135,30 @@
     <main id="router">
       <!-- HOME / HERO-PORTFÓLIO -->
       <section class="route active" id="home">
-        <div class="hero-card neon hero-with-bg" id="hero">
-          <!-- Imagem de fundo -->
-          <div class="hero-bg-image">
-            <img src="public/images/capa_neo_flowoff_webapp.png" alt="NEØ FlowOFF Background" class="hero-bg-img">
-          </div>
+        
+        <!-- Bento Grid Layout -->
+        <div class="bento-container">
           
-          <!-- Partículas decorativas -->
-          <div class="particles-container">
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-          </div>
-
-          <!-- Conteúdo -->
-          <div class="hero-content">
-            <!-- Texto principal -->
-            <div class="hero-text-simple">
-              <p>DO BRANDING AO BACKEND, DA COPY AO TOKEN,</p>
-              <p>SOMOS A PONTE ENTRE SUA NECESSIDADE E O DIGITAL REAL.</p>
+          <!-- Hero Card - Grande -->
+          <div class="bento-item bento-hero">
+            <div class="hero-bg-image">
+              <img src="public/images/capa_neo_flowoff_webapp.png" alt="NEØ FlowOFF Background" class="hero-bg-img">
+            </div>
+            <div class="particles-container">
+              <div class="particle"></div>
+              <div class="particle"></div>
+              <div class="particle"></div>
+            </div>
+            <div class="hero-content">
+              <div class="hero-text-simple">
+                <p>DO BRANDING AO BACKEND, DA COPY AO TOKEN,</p>
+                <p>SOMOS A PONTE ENTRE SUA NECESSIDADE E O DIGITAL REAL.</p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Seção de Logos dos Projetos -->
-        <div class="projects-logos-wrapper" id="projetos-ecossistema">
-          <h3 class="projects-logos-title">PROJETOS DO ECOSSISTEMA</h3>
-          <div class="projects-logos-section">
-            <img src="public/logos/projects/fluxx.png" alt="Fluxx" class="project-logo">
-            <img src="public/logos/projects/NEEO-SMART2.png" alt="NEEO SMART" class="project-logo">
-            <img src="public/logos/projects/NEO.png" alt="NEO" class="project-logo">
-            <img src="public/logos/projects/neoflw-token.png" alt="NEO Flow Token" class="project-logo">
-            <img src="public/logos/projects/runneo.png" alt="Run NEO" class="project-logo">
-            <img src="public/logos/projects/wodxpro.png" alt="WODX Pro" class="project-logo">
-          </div>
-        </div>
-
-        <!-- Seção FlowOFF Moderna -->
-        <div class="flowoff-section" id="flowoff-section">
-          <div class="flowoff-card neon">
+          <!-- FlowOFF Card - Médio -->
+          <div class="bento-item bento-flowoff">
             <div class="flowoff-header">
               <div class="flowoff-logo">
                 <img src="public/flowoff logo.png" alt="FlowOFF" class="flowoff-logo-img">
@@ -182,12 +168,10 @@
                 <span class="flowoff-subtitle">E tecnologia em resultado.</span>
               </div>
             </div>
-            
             <div class="flowoff-content">
               <p class="flowoff-description">
                 FlowOFF é agência que já fez gestão de redes sociais comum, uma solução que muitas empresas buscam mas não sabem que uma nova estratégia já está sendo usada e que poucos sabem ou possuem abordagem visionária de estratégias e tecnologias que fazem todo o diferencial para o rompimento das barreiras que levam aos resultados reais.
               </p>
-              
               <div class="flowoff-cta">
                 <a href="https://wa.me/+5562983231110" target="_blank" rel="noopener" class="btn primary flowoff-btn">
                   <img src="public/mello.webp" alt="MELLØ" class="mello-photo">
@@ -197,18 +181,16 @@
               </div>
             </div>
           </div>
-        </div>
 
-
-        <div class="grid" id="servicos">
-          <!-- mocks/prints -->
-          <article class="card glow">
+          <!-- WebApp Card -->
+          <div class="bento-item bento-webapp">
             <div class="thumb thumb-1"></div>
             <h3>WebApp</h3>
             <p>Aplicações rápidas, seguras e escaláveis para negócios que exigem performance real.</p>
-          </article>
+          </div>
 
-          <article class="card glow">
+          <!-- Dashboards Card -->
+          <div class="bento-item bento-dashboard">
             <div class="thumb thumb-2">
               <div class="gamification-preview">
                 <div class="xp-bar">
@@ -216,9 +198,9 @@
                   <span class="xp-text">Level 12</span>
                 </div>
                 <div class="badges-row">
-                  <div class="badge-icon">🏆</div>
-                  <div class="badge-icon">⭐</div>
-                  <div class="badge-icon">🎯</div>
+                  <div class="badge-icon">★</div>
+                  <div class="badge-icon">✦</div>
+                  <div class="badge-icon">◉</div>
                 </div>
                 <div class="leaderboard-mini">
                   <div class="leader-item">1. Ana Silva</div>
@@ -229,19 +211,35 @@
             </div>
             <h3>Dashboards Gamificados</h3>
             <p>Dados transformados em ação: visão clara, interação contínua e engajamento mensurável.</p>
-          </article>
+          </div>
 
-          <article class="card glow">
+          <!-- Projetos Ecossistema Card -->
+          <div class="bento-item bento-projects">
+            <h3 class="projects-logos-title">PROJETOS DO ECOSSISTEMA</h3>
+            <div class="projects-logos-section">
+              <img src="public/logos/projects/fluxx.png" alt="Fluxx" class="project-logo">
+              <img src="public/logos/projects/NEEO-SMART2.png" alt="NEEO SMART" class="project-logo">
+              <img src="public/logos/projects/NEO.png" alt="NEO" class="project-logo">
+              <img src="public/logos/projects/neoflw-token.png" alt="NEO Flow Token" class="project-logo">
+              <img src="public/logos/projects/runneo.png" alt="Run NEO" class="project-logo">
+              <img src="public/logos/projects/wodxpro.png" alt="WODX Pro" class="project-logo">
+            </div>
+          </div>
+
+          <!-- NEO Card -->
+          <div class="bento-item bento-neo">
             <div class="thumb thumb-5"></div>
             <h3>NEØ.FLOWOFF</h3>
             <p>Inovação aplicada em marketing, IA e blockchain para acelerar seu ecossistema digital.</p>
-          </article>
+          </div>
 
-          <article class="card glow clickable-card" onclick="go('start')">
+          <!-- Contato Card -->
+          <div class="bento-item bento-contact" onclick="go('start')">
             <div class="thumb thumb-6"></div>
             <h3>Entre em contato</h3>
             <p>Converse conosco para identificar oportunidades e evoluir sua operação no digital.</p>
-          </article>
+          </div>
+
         </div>
         
         <!-- Protocol text -->
@@ -609,7 +607,7 @@
     <!-- Update Notification Banner -->
     <div id="update-banner" class="update-banner">
       <div class="update-content">
-        <div class="update-icon">🔄</div>
+        <div class="update-icon">↻</div>
         <div class="update-text">
           <strong>Nova versão disponível!</strong>
           <span>Atualize para ter acesso às últimas funcionalidades</span>
