@@ -44,8 +44,12 @@ build: ## Build da PWA (otimiza assets)
 	@cp blog-styles.css dist/ 2>/dev/null || true
 	@cp blog.js dist/ 2>/dev/null || true
 	@cp desktop.html dist/ 2>/dev/null || true
-	@# Copia diretório public
-	@cp -r public dist/
+	@# Copia diretório public (se existir) ou publicj
+	@if [ -d "public" ]; then \
+		cp -r public dist/; \
+	elif [ -d "publicj" ]; then \
+		cp -r publicj dist/public; \
+	fi
 	@# Otimiza HTML (remove apenas comentários, preserva atributos style)
 	@sed 's/<!--.*-->//g' dist/index.html > dist/index.tmp && mv dist/index.tmp dist/index.html
 	@echo "✅ Build concluído em ./dist/"

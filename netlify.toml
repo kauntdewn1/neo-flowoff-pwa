@@ -12,7 +12,7 @@
   # Versão do Node.js (se necessário)
   NODE_VERSION = "18"
 
-# Headers de segurança e performance
+# Headers de segurança (aplicados a todas as rotas)
 [[headers]]
   for = "/*"
   [headers.values]
@@ -21,8 +21,35 @@
     X-Content-Type-Options = "nosniff"
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    
-    # Performance
+
+# Headers para HTML - SEM cache para garantir que crawlers sempre vejam a versão mais recente
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Pragma = "no-cache"
+
+# Headers para index.html especificamente (sem extensão)
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Pragma = "no-cache"
+
+# Headers para assets estáticos - cache longo
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 # Headers específicos para Service Worker
@@ -59,15 +86,14 @@
     Content-Type = "text/plain"
     Cache-Control = "public, max-age=86400"
 
-# Redirects (se necessário)
+# Redirects para SPA - serve index.html para todas as rotas que não são arquivos estáticos
+# Isso garante que crawlers (como Meta) sempre recebam 200 ao invés de 404
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = {Role = ["admin"], Country = ["US"]}
-
-# Redirects para SPA (apenas para rotas que não são arquivos estáticos)
-# Removido redirect duplicado que estava causando problemas com arquivos estáticos
+  force = false
+  # force = false garante que arquivos estáticos (CSS, JS, imagens) sejam servidos normalmente
 
 # Configurações de deploy
 [context.production]
