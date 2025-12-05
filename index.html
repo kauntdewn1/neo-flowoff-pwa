@@ -97,7 +97,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="manifest" href="manifest.webmanifest">
   <title>NEØ.FLOWOFF</title>
-  <link rel="stylesheet" href="styles.css?v=1.5.3">
+  <link rel="stylesheet" href="styles.css?v=2.1.0">
   <link rel="stylesheet" href="glass-morphism-bottom-bar.css">
 
 </head>
@@ -507,6 +507,61 @@
         <div class="protocol-text">↳ Desenvolvido por NΞØ PROTOCOL</div>
       </section>
 
+      <!-- CHAT IA / ASI -->
+      <section class="route" id="chat">
+        <div class="chat-container card glow">
+          <div class="chat-header">
+            <div class="chat-header-content">
+              <div class="chat-avatar">
+                <img src="public/neo_ico.png" alt="NEO AI" class="chat-avatar-img">
+                <div class="chat-status-indicator"></div>
+              </div>
+              <div class="chat-header-info">
+                <h3>NEO ASI</h3>
+                <p class="chat-status">Online • Pronto para ajudar</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-messages" id="chat-messages">
+            <div class="chat-message agent">
+              <div class="message-avatar">
+                <img src="public/neo_ico.png" alt="NEO" class="message-avatar-img">
+              </div>
+              <div class="message-content">
+                <p>Olá! Sou o NEO, sua Assistente de IA da FlowOFF. 👋</p>
+                <p>Como posso ajudar você hoje? Posso falar sobre nossos serviços, agendar uma conversa ou tirar dúvidas sobre marketing digital, blockchain e desenvolvimento.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-input-container">
+            <input 
+              type="text" 
+              id="chat-input" 
+              class="chat-input" 
+              placeholder="Digite sua mensagem..."
+              autocomplete="off"
+            >
+            <button id="chat-send" class="chat-send-btn" aria-label="Enviar mensagem">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="chat-quick-actions">
+            <button class="quick-action-btn" data-action="servicos">Ver serviços</button>
+            <button class="quick-action-btn" data-action="contato">Falar com humano</button>
+            <button class="quick-action-btn" data-action="portfolio">Ver portfólio</button>
+          </div>
+        </div>
+
+        <!-- Protocol text -->
+        <div class="protocol-text">↳ Desenvolvido por NΞØ PROTOCOL</div>
+      </section>
+
       <!-- ECOSSISTEMA (selos finais) -->
       <section class="route" id="ecosystem">
         <div class="badges">
@@ -663,6 +718,17 @@
         <div class="glass-nav-indicator"></div>
       </div>
       
+      <div class="glass-nav-item" data-route="chat">
+        <div class="glass-nav-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 10h.01M12 10h.01M16 10h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="glass-nav-label">Chat IA</div>
+        <div class="glass-nav-indicator"></div>
+      </div>
+      
       <div class="glass-nav-item" data-route="ecosystem">
         <div class="glass-nav-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -702,8 +768,9 @@
 <script src="js/webp-support.js?v=1.0.0"></script>
 
 <!-- App principal -->
-<script src="js/app.js?v=1.4.9" type="module"></script>
+<script src="js/app.js?v=2.1.0" type="module"></script>
 <script src="js/index-scripts.js?v=1.0.0"></script>
+<script src="js/chat-ai.js?v=2.1.0"></script>
 
   <!-- Modais dos Projetos -->
   <dialog id="modal-site-webapp" class="project-modal">

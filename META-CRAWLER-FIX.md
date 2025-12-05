@@ -68,6 +68,7 @@ curl -I https://flowoff.xyz/
 ## 📝 Verificações Adicionais
 
 ### Meta Tags OG (Já Configuradas ✅)
+
 As seguintes meta tags já estão presentes no `index.html`:
 
 - `og:title` ✅

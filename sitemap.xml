@@ -6,53 +6,60 @@
 
   <!-- Página Principal -->
   <url>
-    <loc>https://neo-flowoff.netlify.app/</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- Página Desktop -->
   <url>
-    <loc>https://neo-flowoff.netlify.app/desktop.html</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/desktop.html</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Blog -->
   <url>
-    <loc>https://neo-flowoff.netlify.app/blog.html</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/blog.html</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Rotas SPA (Single Page Application) -->
   <url>
-    <loc>https://neo-flowoff.netlify.app/#home</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/#home</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://neo-flowoff.netlify.app/#projects</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/#projects</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://neo-flowoff.netlify.app/#start</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/#start</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://neo-flowoff.netlify.app/#ecosystem</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/#chat</loc>
+    <lastmod>2024-12-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://flowoff.xyz/#ecosystem</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -82,52 +89,52 @@
 
   <!-- Recursos Estáticos Importantes -->
   <url>
-    <loc>https://neo-flowoff.netlify.app/manifest.webmanifest</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/manifest.webmanifest</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
-    <loc>https://neo-flowoff.netlify.app/sw.js</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/sw.js</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.2</priority>
   </url>
 
   <!-- APIs e Endpoints -->
   <url>
-    <loc>https://neo-flowoff.netlify.app/api/invertexto</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/api/invertexto</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <!-- Categorias do Blog (futuras) -->
   <url>
-    <loc>https://neo-flowoff.netlify.app/blog/categoria/marketing</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/blog/categoria/marketing</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://neo-flowoff.netlify.app/blog/categoria/blockchain</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/blog/categoria/blockchain</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://neo-flowoff.netlify.app/blog/categoria/tecnologia</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/blog/categoria/tecnologia</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://neo-flowoff.netlify.app/blog/categoria/estrategia</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://flowoff.xyz/blog/categoria/estrategia</loc>
+    <lastmod>2024-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>

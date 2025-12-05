@@ -20,7 +20,7 @@ if ('serviceWorker' in navigator) {
 }
 
 // Router super simples (hashless) - Compatível com Glass Morphism Bottom Bar
-const routes = ['home','projects','start','ecosystem'];
+const routes = ['home','projects','start','chat','ecosystem'];
 const buttons = document.querySelectorAll('.glass-nav-item');
 const sections = [...document.querySelectorAll('.route')];
 

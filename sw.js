@@ -1,4 +1,4 @@
-const CACHE = 'neo-flowoff-v1.5.6-sync';
+const CACHE = 'neo-flowoff-v2.1.0-sync';
 const QUEUE_NAME = 'form-submissions';
 const MAX_RETRIES = 5;
 const RETRY_DELAYS = [1000, 2000, 5000, 10000, 30000]; // Exponential backoff em ms
@@ -7,7 +7,7 @@ const ASSETS = [
   './', './index.html', './styles.css', 
   './js/app.js', './js/p5-background.js', './js/logger.js', './js/form-validator.js',
   './js/invertexto-simple.js', './js/webp-support.js', './js/index-scripts.js', './js/offline-queue.js',
-  './js/glass-morphism-bottom-bar.js',
+  './js/glass-morphism-bottom-bar.js', './js/chat-ai.js',
   './blog.html', './blog-styles.css', './blog.js', './data/blog-articles.json',
   './manifest.webmanifest', './public/icon-192.png', './public/icon-512.png', './public/maskable-512.png',
   './public/flowoff logo.png', './public/FLOWPAY.png', './public/neo_ico.png', './public/icon-512.png',
