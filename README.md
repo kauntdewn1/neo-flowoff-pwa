@@ -89,4 +89,7 @@ Entre em contato direto pelo botão "Falar com MELLØ™" no site — ou nos inv
 
 ---
 
+## 🧾 Sobre o `package-lock.json`
+
+`package-lock.json` é gerado automaticamente pelo npm e contém a árvore de dependências completa (versões resolvidas, `integrity`, sub-subdependências etc.). Esse nível de detalhe resulta em um arquivo extenso (~1.3k linhas), mas garante que todo mundo (local, CI, Netlify) instale exatamente o mesmo conjunto binário. Quebrar esse lockfile em pedaços ou editá-lo manualmente compromete a reprodutibilidade dos deploys, por isso mantemos ele inteiro mesmo sendo maior.
 
