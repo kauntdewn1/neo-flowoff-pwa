@@ -113,41 +113,40 @@ class FormValidator {
     }
 
     try {
-      // Tentar consultar via API do servidor (sempre enviar apenas números)
-      const response = await fetch(`/api/cep/${cepLimpo}`);
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.data) {
-          const endereco = data.data;
-          const logradouro = endereco.logradouro || endereco.address || endereco.street || '';
-          const cidade = endereco.cidade || endereco.city || '';
-          const uf = endereco.uf || endereco.state || '';
-          const bairro = endereco.bairro || endereco.district || '';
-          
-          if (statusEl) {
-            let enderecoCompleto = '';
-            if (logradouro) enderecoCompleto += logradouro;
-            if (bairro) enderecoCompleto += (enderecoCompleto ? ', ' : '') + bairro;
-            if (cidade && uf) enderecoCompleto += (enderecoCompleto ? ', ' : '') + `${cidade}/${uf}`;
-            
-            statusEl.textContent = enderecoCompleto ? `✓ ${enderecoCompleto}` : '✓ CEP válido';
-            statusEl.style.color = '#4ade80';
-          }
-          this.clearError('cep');
-          return true;
-        } else {
-          // CEP não encontrado na API
-          if (statusEl) {
-            statusEl.textContent = '⚠ CEP não encontrado. Você pode continuar mesmo assim.';
-            statusEl.style.color = '#f59e0b';
-          }
-          this.clearError('cep');
-          return true; // Não bloqueia o envio
-        }
-      } else {
-        // Erro na API
+      const cepResponse = await this.fetchCepWithFallback(cepLimpo);
+      const data = cepResponse?.body;
+
+      if (!cepResponse?.ok || !data) {
         if (statusEl) {
           statusEl.textContent = '⚠ Erro ao consultar CEP. Você pode continuar mesmo assim.';
+          statusEl.style.color = '#f59e0b';
+        }
+        this.clearError('cep');
+        return true;
+      }
+
+      if (data.success && data.data) {
+        const endereco = data.data;
+        const logradouro = endereco.logradouro || endereco.address || endereco.street || '';
+        const cidade = endereco.cidade || endereco.city || '';
+        const uf = endereco.uf || endereco.state || '';
+        const bairro = endereco.bairro || endereco.district || '';
+        
+        if (statusEl) {
+          let enderecoCompleto = '';
+          if (logradouro) enderecoCompleto += logradouro;
+          if (bairro) enderecoCompleto += (enderecoCompleto ? ', ' : '') + bairro;
+          if (cidade && uf) enderecoCompleto += (enderecoCompleto ? ', ' : '') + `${cidade}/${uf}`;
+          
+          statusEl.textContent = enderecoCompleto ? `✓ ${enderecoCompleto}` : '✓ CEP válido';
+          statusEl.style.color = '#4ade80';
+        }
+        this.clearError('cep');
+        return true;
+      } else {
+        const fallbackMessage = data?.message || data?.error || 'CEP não encontrado. Você pode continuar mesmo assim.';
+        if (statusEl) {
+          statusEl.textContent = `⚠ ${fallbackMessage}`;
           statusEl.style.color = '#f59e0b';
         }
         this.clearError('cep');
@@ -161,6 +160,52 @@ class FormValidator {
       }
       this.clearError('cep');
       return true; // Não bloqueia o envio
+    }
+  }
+
+  async fetchCepWithFallback(cep) {
+    try {
+      return await this.fetchCepViaInvertexto(cep);
+    } catch (error) {
+      if (error?.message === 'FALLBACK_TO_LEGACY') {
+        return await this.fetchCepViaLegacy(cep);
+      }
+      throw error;
+    }
+  }
+
+  async fetchCepViaInvertexto(cep) {
+    const response = await fetch('/api/invertexto', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        endpoint: 'cep',
+        params: { cep }
+      })
+    });
+
+    const contentType = (response.headers.get('content-type') || '').toLowerCase();
+    if (!contentType.includes('application/json')) {
+      throw new Error('FALLBACK_TO_LEGACY');
+    }
+
+    const body = await response.json();
+    return { ok: response.ok, body };
+  }
+
+  async fetchCepViaLegacy(cep) {
+    const response = await fetch(`/api/cep/${cep}`);
+    if (!response.ok) {
+      return { ok: false, body: null };
+    }
+
+    try {
+      const body = await response.json();
+      return { ok: true, body };
+    } catch (parseError) {
+      return { ok: false, body: null };
     }
   }
 
@@ -553,4 +598,3 @@ if (document.readyState === 'loading') {
   validator.init();
   window.FormValidator = validator;
 }
-

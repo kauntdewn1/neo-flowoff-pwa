@@ -5,9 +5,13 @@
 
 # Variáveis
 SITE_NAME = neo-flowoff-pwa
-NETLIFY_SITE_ID ?= $(shell if command -v netlify >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; then \
-	netlify sites:list --json | jq -r '.[] | select(.name=="'"$(SITE_NAME)"'") | .site_id'; \
-fi)
+NETLIFY_SITE_ID ?= $(shell \
+	if [ -f .netlify/state.json ]; then \
+		node -e "const fs=require('fs');const state=JSON.parse(fs.readFileSync('.netlify/state.json','utf8'));process.stdout.write(state.siteId||'');" 2>/dev/null; \
+	elif command -v netlify >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; then \
+		netlify sites:list --json | jq -r '.[] | select(.name=="'"$(SITE_NAME)"'") | .site_id'; \
+	fi)
+NETLIFY_SITE_ARG := $(if $(strip $(NETLIFY_SITE_ID)),--site=$(NETLIFY_SITE_ID))
 
 # Comandos principais
 help: ## Mostra comandos disponíveis
@@ -62,12 +66,12 @@ deploy: build ## Deploy para Netlify
 	@# Verifica se netlify CLI está instalado
 	@command -v netlify >/dev/null 2>&1 || (echo "❌ Netlify CLI não encontrado. Instale com: npm i -g netlify-cli" && exit 1)
 	@# Deploy
-	@netlify deploy --prod --dir=dist --site=$(SITE_NAME)
+	@netlify deploy --prod --dir=dist $(NETLIFY_SITE_ARG)
 	@echo "✅ Deploy concluído!"
 
 deploy-preview: build ## Deploy preview para Netlify
 	@echo "👀 Deploying preview..."
-	@netlify deploy --dir=dist --site=$(SITE_NAME)
+	@netlify deploy --dir=dist $(NETLIFY_SITE_ARG)
 	@echo "✅ Preview deploy concluído!"
 
 dev: ## Servidor local para desenvolvimento (recomendado)
