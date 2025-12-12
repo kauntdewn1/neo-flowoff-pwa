@@ -355,8 +355,7 @@ class BlogSEO {
     }
     
     saveSitemap(sitemap) {
-        // Em produção, isso seria salvo no servidor
-        console.log('Sitemap gerado:', sitemap);
+        // Em produção, isso seria salvo no servidor (logs removed).
     }
     
     updateMetaTags() {
