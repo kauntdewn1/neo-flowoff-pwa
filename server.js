@@ -118,7 +118,7 @@ const server = http.createServer((req, res) => {
     res.end(JSON.stringify({
       status: 'ok',
       timestamp: new Date().toISOString(),
-      version: '2.1.2',
+      version: '2.1.3',
       apis: {
         invertexto: process.env.INVERTEXTO_API_TOKEN && process.env.INVERTEXTO_API_TOKEN !== 'seu_token_real_aqui' ? "✅ Configurado" : "⚠️ Token não configurado",
         lead: "✅ Disponível",

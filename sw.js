@@ -1,4 +1,4 @@
-const CACHE = 'neo-flowoff-v2.1.2-sync';
+const CACHE = 'neo-flowoff-v2.1.3-sync';
 const QUEUE_NAME = 'form-submissions';
 const MAX_RETRIES = 5;
 const RETRY_DELAYS = [1000, 2000, 5000, 10000, 30000]; // Exponential backoff em ms

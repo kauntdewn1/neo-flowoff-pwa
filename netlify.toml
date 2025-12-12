@@ -21,6 +21,7 @@
     X-Content-Type-Options = "nosniff"
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-hLdjHEsqmCj4bNeT5EbhTw==' https://cdnjs.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' data:; frame-src 'self'; base-uri 'self'; form-action 'self' https://wa.me; upgrade-insecure-requests;"
 
 # Headers para HTML - SEM cache para garantir que crawlers sempre vejam a versão mais recente
 [[headers]]

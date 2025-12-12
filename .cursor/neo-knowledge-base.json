@@ -192,14 +192,14 @@
       "data_implementacao": "2025-01-20",
       "funcionalidades": {
         "iframe_embed": {
-          "url": "https://agent-neo-flowoff.vercel.app/embed",
+          "url": "https://flowoff.xyz/embed",
           "posicao": "Seção dedicada na home",
           "responsivo": true,
           "altura_desktop": "600px",
           "altura_mobile": "400px-500px"
         },
         "api_client": {
-          "base_url": "https://agent-neo-flowoff.vercel.app/api",
+          "base_url": "https://flowoff.xyz/api",
           "endpoints": {
             "chat": "POST /api/chat",
             "leads": "GET /api/leads", 
