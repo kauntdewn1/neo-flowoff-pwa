@@ -9,6 +9,7 @@
     "dev": "nodemon server.js",
     "setup": "node setup.js",
     "build": "make build",
+    "test": "node scripts/test.js",
     "test-invertexto": "node test-invertexto.js",
     "test-invertexto-quick": "node test-invertexto.js --quick",
     "test-invertexto-netlify": "node test-invertexto-netlify.js",
