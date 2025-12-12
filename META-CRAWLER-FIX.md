@@ -18,11 +18,6 @@ O crawler do Meta estava recebendo **404** ao acessar `https://flowoff.xyz/` por
   - Permite que arquivos estáticos (CSS, JS, imagens) sejam servidos normalmente
   - Garante que crawlers sempre recebam **200** ao invés de **404**
 
-### 2. **vercel.json** - Configuração Atualizada
-
-- Adicionado `rewrites` (sintaxe moderna do Vercel) além de `routes` (compatibilidade)
-- Garante que funcione tanto no Vercel quanto no Netlify
-
 ## 🚀 Próximos Passos
 
 ### 1. **Limpar Cache do Netlify (IMPORTANTE!)**
@@ -113,4 +108,3 @@ As seguintes meta tags já estão presentes no `index.html`:
 ---
 
 **✅ Após o deploy, o crawler do Meta deve receber 200 e o app poderá ser aprovado para Live!**
-
