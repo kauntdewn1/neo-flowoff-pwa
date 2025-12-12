@@ -4,6 +4,7 @@ import path from 'path';
 import url from 'url';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import { createHmac } from 'crypto';
 
 // Carrega variáveis de ambiente
 dotenv.config();
@@ -12,6 +13,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 3000;
+const MESSENGER_VERIFY_TOKEN = process.env.FB_MESSENGER_VERIFY_TOKEN || 'flowoff-messenger-verify-token';
+const MESSENGER_APP_SECRET = process.env.FB_MESSENGER_APP_SECRET || '';
 
 // MIME types
 const mimeTypes = {
@@ -27,13 +30,77 @@ const mimeTypes = {
   '.webmanifest': 'application/manifest+json'
 };
 
+const verifyMessengerSignature = (signature = '', body = '') => {
+  if (!signature || !MESSENGER_APP_SECRET) return false;
+  const [algorithm, hash] = signature.split('=');
+  if (algorithm !== 'sha256' || !hash) return false;
+  const expectedHash = createHmac('sha256', MESSENGER_APP_SECRET).update(body).digest('hex');
+  return hash === expectedHash;
+};
+
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
   let pathname = decodeURIComponent(parsedUrl.pathname);
   
   // Remove query parameters for file serving
   const cleanPath = pathname.split('?')[0];
-  
+
+  // Messenger webhook (GET verification, POST events)
+  if (cleanPath === '/webhook/messenger') {
+    if (req.method === 'GET') {
+      const hubMode = parsedUrl.query['hub.mode'];
+      const hubToken = parsedUrl.query['hub.verify_token'];
+      const challenge = parsedUrl.query['hub.challenge'];
+      if (hubMode === 'subscribe' && hubToken === MESSENGER_VERIFY_TOKEN) {
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end(challenge || '');
+      } else {
+        res.writeHead(403, { 'Content-Type': 'text/plain' });
+        res.end('Verify token mismatch');
+      }
+      return;
+    }
+
+    if (req.method === 'POST') {
+      let payload = '';
+      req.on('data', (chunk) => {
+        payload += chunk;
+      });
+
+      req.on('end', () => {
+        const signature = req.headers['x-hub-signature-256'];
+        const signatureValid = !MESSENGER_APP_SECRET || verifyMessengerSignature(signature, payload);
+        if (MESSENGER_APP_SECRET && !signatureValid) {
+          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Invalid signature' }));
+          return;
+        }
+
+        let parsed;
+        try {
+          parsed = payload ? JSON.parse(payload) : {};
+        } catch (error) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Invalid JSON payload' }));
+          return;
+        }
+
+        console.log('Messenger webhook event received:', parsed.object || 'unknown');
+
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.writeHead(200);
+        res.end(JSON.stringify({ success: true }));
+      });
+
+      return;
+    }
+
+    res.writeHead(405, { 'Content-Type': 'text/plain' });
+    res.end('Method not allowed');
+    return;
+  }
+
   // API endpoints
   if (cleanPath === '/api/health') {
     res.setHeader('Content-Type', 'application/json');
@@ -42,7 +109,7 @@ const server = http.createServer((req, res) => {
     res.end(JSON.stringify({
       status: 'ok',
       timestamp: new Date().toISOString(),
-      version: '2.1.0',
+      version: '2.1.2',
       apis: {
         invertexto: process.env.INVERTEXTO_API_TOKEN && process.env.INVERTEXTO_API_TOKEN !== 'seu_token_real_aqui' ? "✅ Configurado" : "⚠️ Token não configurado",
         lead: "✅ Disponível",
