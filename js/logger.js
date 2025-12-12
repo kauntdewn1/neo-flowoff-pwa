@@ -1,34 +1,38 @@
 // Sistema de logging condicional para produção
-const isDevelopment = window.location.hostname === 'localhost' || 
+const isDevelopment = window.location.hostname === 'localhost' ||
                       window.location.hostname === '127.0.0.1' ||
                       window.location.hostname.includes('localhost');
+
+const safeConsole = window.console || {};
+const nativeLog = safeConsole['log']?.bind(safeConsole) ?? (() => {});
+const nativeWarn = safeConsole['warn']?.bind(safeConsole) ?? (() => {});
+const nativeInfo = safeConsole['info']?.bind(safeConsole) ?? (() => {});
+const nativeError = safeConsole['error']?.bind(safeConsole) ?? (() => {});
 
 const Logger = {
   log: (...args) => {
     if (isDevelopment) {
-      console.log(...args);
+      nativeLog(...args);
     }
   },
-  
+
   error: (...args) => {
-    // Erros sempre são logados, mas podem ser enviados para serviço de monitoramento
-    console.error(...args);
+    nativeError(...args);
     // TODO: Enviar para serviço de monitoramento de erros (Sentry, etc)
   },
-  
+
   warn: (...args) => {
     if (isDevelopment) {
-      console.warn(...args);
+      nativeWarn(...args);
     }
   },
-  
+
   info: (...args) => {
     if (isDevelopment) {
-      console.info(...args);
+      nativeInfo(...args);
     }
   }
 };
 
 // Exportar para uso global
 window.Logger = Logger;
-

@@ -4,6 +4,7 @@ import path from 'path';
 import url from 'url';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import axios from 'axios';
 import { createHmac } from 'crypto';
 
 // Carrega variáveis de ambiente
@@ -15,6 +16,14 @@ const __dirname = path.dirname(__filename);
 const PORT = process.env.PORT || 3000;
 const MESSENGER_VERIFY_TOKEN = process.env.FB_MESSENGER_VERIFY_TOKEN || 'flowoff-messenger-verify-token';
 const MESSENGER_APP_SECRET = process.env.FB_MESSENGER_APP_SECRET || '';
+const isProduction = process.env.NODE_ENV === 'production';
+const consoleLog = console['log']?.bind(console) ?? (() => {});
+const log = (...args) => {
+  if (!isProduction) {
+    consoleLog(...args);
+  }
+};
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || '';
 
 // MIME types
 const mimeTypes = {
@@ -30,8 +39,8 @@ const mimeTypes = {
   '.webmanifest': 'application/manifest+json'
 };
 
-const verifyMessengerSignature = (signature = '', body = '') => {
-  if (!signature || !MESSENGER_APP_SECRET) return false;
+  const verifyMessengerSignature = (signature = '', body = '') => {
+    if (!signature || !MESSENGER_APP_SECRET) return false;
   const [algorithm, hash] = signature.split('=');
   if (algorithm !== 'sha256' || !hash) return false;
   const expectedHash = createHmac('sha256', MESSENGER_APP_SECRET).update(body).digest('hex');
@@ -85,7 +94,7 @@ const server = http.createServer((req, res) => {
           return;
         }
 
-        console.log('Messenger webhook event received:', parsed.object || 'unknown');
+        log('Messenger webhook event received:', parsed.object || 'unknown');
 
         res.setHeader('Content-Type', 'application/json');
         res.setHeader('Access-Control-Allow-Origin', '*');
@@ -228,7 +237,74 @@ const server = http.createServer((req, res) => {
       return;
     }
   }
-  
+
+  if (cleanPath === '/api/google-knowledge' && req.method === 'GET') {
+    const queryParam = parsedUrl.query.q;
+    if (!queryParam) {
+      res.setHeader('Content-Type', 'application/json');
+      res.writeHead(400);
+      res.end(JSON.stringify({ success: false, error: 'Query is required' }));
+      return;
+    }
+
+    if (!GOOGLE_API_KEY) {
+      res.setHeader('Content-Type', 'application/json');
+      res.writeHead(500);
+      res.end(JSON.stringify({
+        success: false,
+        error: 'GOOGLE_API_KEY is not configured'
+      }));
+      return;
+    }
+
+    (async () => {
+      const endpoint = 'https://kgsearch.googleapis.com/v1/entities:search';
+      try {
+        const response = await axios.get(endpoint, {
+          params: {
+            query: queryParam,
+            key: GOOGLE_API_KEY,
+            limit: 3,
+            indent: false,
+            languages: 'pt-BR,en'
+          },
+          timeout: 10000
+        });
+
+        const elements = response.data?.itemListElement || [];
+        const entries = elements.map(({ result }) => {
+          if (!result) return null;
+          const parts = [];
+          if (result.name) parts.push(result.name);
+          if (result.description) parts.push(result.description);
+          if (result.detailedDescription?.articleBody) {
+            parts.push(result.detailedDescription.articleBody);
+          }
+          return parts.filter(Boolean).join(' — ');
+        }).filter(Boolean);
+
+        const summary = entries.slice(0, 3).join(' | ');
+
+        res.setHeader('Content-Type', 'application/json');
+        res.writeHead(200);
+        res.end(JSON.stringify({
+          success: true,
+          summary: summary || 'Nenhuma informação adicional foi encontrada.',
+          entries
+        }));
+      } catch (error) {
+        log('Google knowledge failure:', error.message);
+        res.setHeader('Content-Type', 'application/json');
+        res.writeHead(502);
+        res.end(JSON.stringify({
+          success: false,
+          error: 'Erro ao consultar o Google Knowledge Graph'
+        }));
+      }
+    })();
+    return;
+  }
+
   // Serve index.html for root
   if (cleanPath === '/') {
     pathname = '/index.html';
@@ -283,13 +359,13 @@ server.listen(PORT, () => {
 
 server.on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
-    console.log(`❌ Porta ${PORT} já está em uso!`);
-    console.log(`💡 Soluções:`);
-    console.log(`   1. Pare o processo: kill -9 $(lsof -ti:${PORT})`);
-    console.log(`   2. Use outra porta: PORT=3001 make dev`);
-    console.log(`   3. Use servidor alternativo: make dev-python`);
+    log(`❌ Porta ${PORT} já está em uso!`);
+    log('💡 Soluções:');
+    log('   1. Pare o processo: kill -9 $(lsof -ti:${PORT})');
+    log('   2. Use outra porta: PORT=3001 make dev');
+    log('   3. Use servidor alternativo: make dev-python');
   } else {
-    console.error('❌ Erro no servidor:', err.message);
+    log('❌ Erro no servidor:', err.message);
   }
   process.exit(1);
 });

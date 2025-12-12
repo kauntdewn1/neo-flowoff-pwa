@@ -90,7 +90,7 @@ Thumbs.db
 *.pfx
 
 # Projetos e tarefas
-.projetos/
+.projetos
 
 # Build output (gerado apenas no build)
 dist/
@@ -110,3 +110,4 @@ dist/
 
 # Local Netlify folder
 .netlify
+.idea/

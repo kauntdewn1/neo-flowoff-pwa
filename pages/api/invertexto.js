@@ -1,5 +1,12 @@
 // pages/api/invertexto.js - Endpoint Next.js otimizado para API Invertexto
 import axios from 'axios';
+const isProduction = process.env.NODE_ENV === 'production';
+const consoleLog = console['log']?.bind(console) ?? (() => {});
+const log = (...args) => {
+  if (!isProduction) {
+    consoleLog(...args);
+  }
+};
 
 export default async function handler(req, res) {
   // Configurar CORS
@@ -26,7 +33,7 @@ export default async function handler(req, res) {
     
     // Validação de entrada
     if (!endpoint) {
-      console.log('❌ Endpoint não fornecido');
+      log('❌ Endpoint não fornecido');
       return res.status(400).json({
         success: false,
         error: "Endpoint é obrigatório",
@@ -41,7 +48,7 @@ export default async function handler(req, res) {
     // Verificar token
     const token = process.env.INVERTEXTO_API_TOKEN;
     if (!token || token === 'seu_token_real_aqui') {
-      console.log('❌ Token não configurado');
+      log('❌ Token não configurado');
       return res.status(500).json({
         success: false,
         error: "Token não configurado",
@@ -61,8 +68,8 @@ export default async function handler(req, res) {
     };
 
     // Log detalhado
-    console.log(`🔗 [${new Date().toISOString()}] Requisição para: ${url}`);
-    console.log(`📊 [${new Date().toISOString()}] Parâmetros:`, JSON.stringify(requestParams, null, 2));
+    log(`🔗 [${new Date().toISOString()}] Requisição para: ${url}`);
+    log(`📊 [${new Date().toISOString()}] Parâmetros:`, JSON.stringify(requestParams, null, 2));
 
     // Fazer requisição com timeout otimizado
     const startTime = Date.now();
@@ -78,9 +85,9 @@ export default async function handler(req, res) {
     const endTime = Date.now();
 
     // Log de sucesso
-    console.log(`✅ [${new Date().toISOString()}] Resposta recebida em ${endTime - startTime}ms`);
-    console.log(`📈 [${new Date().toISOString()}] Status: ${response.status}`);
-    console.log(`📄 [${new Date().toISOString()}] Dados:`, JSON.stringify(response.data, null, 2));
+    log(`✅ [${new Date().toISOString()}] Resposta recebida em ${endTime - startTime}ms`);
+    log(`📈 [${new Date().toISOString()}] Status: ${response.status}`);
+    log(`📄 [${new Date().toISOString()}] Dados:`, JSON.stringify(response.data, null, 2));
 
     // Resposta otimizada
     res.status(response.status).json({

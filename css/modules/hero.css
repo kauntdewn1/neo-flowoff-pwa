@@ -129,3 +129,28 @@
   text-transform: uppercase;
 }
 
+@media (max-width: 1024px) {
+  .hero-card {
+    padding: 3rem 2rem;
+    min-height: 50vh;
+  }
+  .hero-content {
+    padding: 2rem;
+  }
+  .hero-text-simple p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-card {
+    padding: 2rem 1.2rem;
+    border-radius: 18px;
+  }
+  .hero-content {
+    padding: 1.2rem;
+  }
+  .hero-text-simple p {
+    font-size: 0.8rem;
+  }
+}

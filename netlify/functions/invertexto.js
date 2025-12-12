@@ -1,5 +1,12 @@
 // netlify/functions/invertexto.js - Função Netlify para API Invertexto
 const axios = require('axios');
+const isProduction = process.env.NODE_ENV === 'production';
+const consoleLog = console['log']?.bind(console) ?? (() => {});
+const log = (...args) => {
+  if (!isProduction) {
+    consoleLog(...args);
+  }
+};
 
 exports.handler = async (event, context) => {
   // Configurar CORS
@@ -37,7 +44,7 @@ exports.handler = async (event, context) => {
     
     // Validação de entrada
     if (!endpoint) {
-      console.log('❌ Endpoint não fornecido');
+      log('❌ Endpoint não fornecido');
       return {
         statusCode: 400,
         headers,
@@ -56,7 +63,7 @@ exports.handler = async (event, context) => {
     // Verificar token
     const token = process.env.INVERTEXTO_API_TOKEN;
     if (!token || token === 'seu_token_real_aqui') {
-      console.log('❌ Token não configurado');
+      log('❌ Token não configurado');
       return {
         statusCode: 500,
         headers,
@@ -80,8 +87,8 @@ exports.handler = async (event, context) => {
     };
 
     // Log detalhado
-    console.log(`🔗 [${new Date().toISOString()}] Requisição para: ${url}`);
-    console.log(`📊 [${new Date().toISOString()}] Parâmetros:`, JSON.stringify(requestParams, null, 2));
+    log(`🔗 [${new Date().toISOString()}] Requisição para: ${url}`);
+    log(`📊 [${new Date().toISOString()}] Parâmetros:`, JSON.stringify(requestParams, null, 2));
 
     // Fazer requisição com timeout otimizado
     const startTime = Date.now();
@@ -97,9 +104,9 @@ exports.handler = async (event, context) => {
     const endTime = Date.now();
 
     // Log de sucesso
-    console.log(`✅ [${new Date().toISOString()}] Resposta recebida em ${endTime - startTime}ms`);
-    console.log(`📈 [${new Date().toISOString()}] Status: ${response.status}`);
-    console.log(`📄 [${new Date().toISOString()}] Dados:`, JSON.stringify(response.data, null, 2));
+    log(`✅ [${new Date().toISOString()}] Resposta recebida em ${endTime - startTime}ms`);
+    log(`📈 [${new Date().toISOString()}] Status: ${response.status}`);
+    log(`📄 [${new Date().toISOString()}] Dados:`, JSON.stringify(response.data, null, 2));
 
     // Resposta otimizada
     return {

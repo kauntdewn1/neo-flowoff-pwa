@@ -50,22 +50,24 @@ class ChatAI {
     const messageDiv = document.createElement('div');
     messageDiv.className = `chat-message ${type}`;
 
+    const contentWrapper = document.createElement('div');
+    contentWrapper.className = 'message-content';
+
     if (type === 'agent') {
-      messageDiv.innerHTML = `
-        <div class="message-avatar">
-          <img src="public/neo_ico.png" alt="NEO" class="message-avatar-img">
-        </div>
-        <div class="message-content">
-          <p>${text}</p>
-        </div>
-      `;
-    } else {
-      messageDiv.innerHTML = `
-        <div class="message-content">
-          <p>${text}</p>
-        </div>
-      `;
+      const avatarWrapper = document.createElement('div');
+      avatarWrapper.className = 'message-avatar';
+      const avatarImg = document.createElement('img');
+      avatarImg.src = 'public/neo_ico.png';
+      avatarImg.alt = 'NEO';
+      avatarImg.className = 'message-avatar-img';
+      avatarWrapper.appendChild(avatarImg);
+      messageDiv.appendChild(avatarWrapper);
     }
+
+    const paragraph = document.createElement('p');
+    paragraph.textContent = text;
+    contentWrapper.appendChild(paragraph);
+    messageDiv.appendChild(contentWrapper);
 
     messagesContainer.appendChild(messageDiv);
     this.scrollToBottom();
@@ -78,10 +80,41 @@ class ChatAI {
     // Simula delay de processamento
     setTimeout(() => {
       this.hideTypingIndicator();
-      const response = this.generateResponse(userMessage.toLowerCase());
-      this.addMessage(response, 'agent');
-      this.isTyping = false;
+      this.fetchKnowledgeIfNeeded(userMessage)
+        .then(knowledge => {
+          const response = knowledge || this.generateResponse(userMessage.toLowerCase());
+          this.addMessage(response, 'agent');
+          this.isTyping = false;
+        })
+        .catch(() => {
+          const response = this.generateResponse(userMessage.toLowerCase());
+          this.addMessage(response, 'agent');
+          this.isTyping = false;
+        });
     }, 1000 + Math.random() * 1000);
+  }
+
+  async fetchKnowledgeIfNeeded(message) {
+    const keywords = ['agência', 'agency', 'flowoff', 'neo', 'protocolo', 'serviço', 'servicos', 'projetos', 'marketing'];
+    const normalized = message.toLowerCase();
+    if (!keywords.some(keyword => normalized.includes(keyword))) {
+      return null;
+    }
+
+    const fetchFn = window.fetch?.bind(window);
+    if (!fetchFn) return null;
+
+    try {
+      const response = await fetchFn(`/api/google-knowledge?q=${encodeURIComponent(message)}`);
+      if (!response.ok) return null;
+      const data = await response.json();
+      if (data?.success && data?.summary) {
+        return data.summary;
+      }
+    } catch (error) {
+      window.Logger?.warn('Google knowledge lookup failed', error);
+    }
+    return null;
   }
 
   generateResponse(message) {
@@ -141,18 +174,25 @@ class ChatAI {
     const typingDiv = document.createElement('div');
     typingDiv.className = 'chat-message agent typing';
     typingDiv.id = 'typing-indicator';
-    typingDiv.innerHTML = `
-      <div class="message-avatar">
-        <img src="public/neo_ico.png" alt="NEO" class="message-avatar-img">
-      </div>
-      <div class="message-content">
-        <div class="typing-dots">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    `;
+    const avatarWrapper = document.createElement('div');
+    avatarWrapper.className = 'message-avatar';
+    const avatarImg = document.createElement('img');
+    avatarImg.src = 'public/neo_ico.png';
+    avatarImg.alt = 'NEO';
+    avatarImg.className = 'message-avatar-img';
+    avatarWrapper.appendChild(avatarImg);
+
+    const contentWrapper = document.createElement('div');
+    contentWrapper.className = 'message-content';
+    const typingDots = document.createElement('div');
+    typingDots.className = 'typing-dots';
+    for (let i = 0; i < 3; i++) {
+      typingDots.appendChild(document.createElement('span'));
+    }
+
+    contentWrapper.appendChild(typingDots);
+    typingDiv.appendChild(avatarWrapper);
+    typingDiv.appendChild(contentWrapper);
 
     messagesContainer.appendChild(typingDiv);
     this.scrollToBottom();
@@ -179,4 +219,3 @@ if (document.readyState === 'loading') {
 } else {
   window.chatAI = new ChatAI();
 }
-
