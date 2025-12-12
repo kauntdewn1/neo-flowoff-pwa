@@ -5,7 +5,9 @@
 
 # Variáveis
 SITE_NAME = neo-flowoff-pwa
-NETLIFY_SITE_ID = $(shell netlify sites:list --json | jq -r '.[] | select(.name=="$(SITE_NAME)") | .site_id')
+NETLIFY_SITE_ID ?= $(shell if command -v netlify >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; then \
+	netlify sites:list --json | jq -r '.[] | select(.name=="'"$(SITE_NAME)"'") | .site_id'; \
+fi)
 
 # Comandos principais
 help: ## Mostra comandos disponíveis
