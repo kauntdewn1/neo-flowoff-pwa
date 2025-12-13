@@ -54,8 +54,9 @@ exports.handler = async (event, context) => {
 
     const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
     const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
-    const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
-    const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash-exp';
+    // Modelos via variáveis de ambiente (configurados no netlify.toml)
+    const OPENAI_MODEL = process.env.OPENAI_MODEL || process.env.LLM_MODEL || 'gpt-4o-mini';
+    const GEMINI_MODEL = process.env.GEMINI_MODEL || process.env.LLM_MODEL_FALLBACK || 'gemini-2.0-flash-exp';
 
     // Sistema de prompt para o agente
     const systemPrompt = `Você é NEO, o assistente IA da FlowOFF. A FlowOFF é uma agência especializada em:
