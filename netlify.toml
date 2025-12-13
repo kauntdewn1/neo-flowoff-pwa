@@ -1,6 +1,6 @@
 [build]
-  # Comando de build (usando Makefile)
-  command = "make build"
+  # Comando de build (usando script Node.js)
+  command = "npm run build"
   
   # Diretório de publicação
   publish = "dist"
@@ -98,11 +98,11 @@
 
 # Configurações de deploy
 [context.production]
-  command = "make build"
+  command = "npm run build"
   publish = "dist"
 
 [context.deploy-preview]
-  command = "make build"
+  command = "npm run build"
   publish = "dist"
 
 # Configurações de função para APIs
