@@ -127,7 +127,11 @@
   to = "/.netlify/functions/health"
   status = 200
 
-[[redirects]]
-  from = "/api/chat"
-  to = "/.netlify/functions/chat"
-  status = 200
+# Chat API agora é client-side (chamadas diretas às APIs de IA)
+# Isso elimina o uso de Netlify Functions e reduz invocações
+# A função abaixo está desabilitada por padrão para economizar recursos
+# Descomente apenas se precisar do fallback server-side
+# [[redirects]]
+#   from = "/api/chat"
+#   to = "/.netlify/functions/chat"
+#   status = 200

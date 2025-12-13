@@ -96,12 +96,52 @@ if (fs.existsSync(publicSrcDir)) {
   }
 }
 
-// Otimiza HTML (remove comentários)
+// Otimiza HTML (remove comentários) e injeta API keys do Netlify
 const indexHtmlPath = path.join(distDir, 'index.html');
 if (fs.existsSync(indexHtmlPath)) {
   let html = fs.readFileSync(indexHtmlPath, 'utf8');
   html = html.replace(/<!--.*?-->/gs, '');
+  
+  // Injeta API keys do Netlify (variáveis de ambiente) no window.APP_CONFIG
+  // Isso permite chamadas client-side sem usar Netlify Functions
+  const apiKeys = {
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
+    GOOGLE_API_KEY: process.env.GOOGLE_API_KEY || '',
+    OPENAI_MODEL: process.env.OPENAI_MODEL || process.env.LLM_MODEL || 'gpt-4o-mini',
+    GEMINI_MODEL: process.env.GEMINI_MODEL || process.env.LLM_MODEL_FALLBACK || 'gemini-2.0-flash-exp'
+  };
+  
+  // Substitui o script de configuração com as keys injetadas
+  const configScript = `
+  <!-- Configuração de API Keys para Chat AI (Client-Side) -->
+  <!-- Keys injetadas no build via variáveis de ambiente do Netlify -->
+  <script>
+    window.APP_CONFIG = window.APP_CONFIG || {};
+    window.APP_CONFIG.OPENAI_API_KEY = ${JSON.stringify(apiKeys.OPENAI_API_KEY)};
+    window.APP_CONFIG.GOOGLE_API_KEY = ${JSON.stringify(apiKeys.GOOGLE_API_KEY)};
+    window.APP_CONFIG.OPENAI_MODEL = ${JSON.stringify(apiKeys.OPENAI_MODEL)};
+    window.APP_CONFIG.GEMINI_MODEL = ${JSON.stringify(apiKeys.GEMINI_MODEL)};
+    window.APP_CONFIG.LLM_MODEL = ${JSON.stringify(apiKeys.OPENAI_MODEL)};
+    window.APP_CONFIG.LLM_MODEL_FALLBACK = ${JSON.stringify(apiKeys.GEMINI_MODEL)};
+  </script>`;
+  
+  // Substitui o placeholder ou adiciona antes do chat-ai.js
+  if (html.includes('<!-- Configuração de API Keys para Chat AI')) {
+    // Substitui o bloco existente
+    html = html.replace(
+      /<!-- Configuração de API Keys para Chat AI[^]*?<\/script>/s,
+      configScript
+    );
+  } else {
+    // Adiciona antes do chat-ai.js
+    html = html.replace(
+      /(<script src="js\/chat-ai\.js[^>]*><\/script>)/,
+      configScript + '\n$1'
+    );
+  }
+  
   fs.writeFileSync(indexHtmlPath, html, 'utf8');
+  console.log('✅ API keys injetadas no build (client-side mode)');
 }
 
 console.log('✅ Build concluído em ./dist/');

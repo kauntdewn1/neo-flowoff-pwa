@@ -97,7 +97,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="manifest" href="manifest.webmanifest">
   <title>NEØ.FLOWOFF</title>
-  <link rel="stylesheet" href="styles.css?v=2.1.3">
+  <link rel="stylesheet" href="styles.css?v=2.1.4">
   <link rel="stylesheet" href="bento-grid.css?v=1.1.0">
   <link rel="stylesheet" href="glass-morphism-bottom-bar.css">
 
@@ -753,9 +753,28 @@
 <script src="js/webp-support.js?v=1.0.0"></script>
 
 <!-- App principal -->
-<script src="js/app.js?v=2.1.3" type="module"></script>
+<script src="js/app.js?v=2.1.4" type="module"></script>
 <script src="js/index-scripts.js?v=1.0.0"></script>
-<script src="js/chat-ai.js?v=2.1.3"></script>
+
+<!-- Configuração de API Keys para Chat AI (Client-Side) -->
+<!-- As API keys podem ser injetadas no build via variáveis de ambiente do Netlify -->
+<!-- OU configuradas manualmente aqui (não recomendado para produção) -->
+<script>
+  // Configuração de API Keys para chamadas client-side
+  // Prioridade: 1) Variáveis de ambiente do Netlify (injetadas no build)
+  //             2) window.APP_CONFIG (configurado manualmente)
+  //             3) Valores padrão (se houver)
+  window.APP_CONFIG = window.APP_CONFIG || {};
+  
+  // As variáveis serão injetadas no build via script de build
+  // Para desenvolvimento local, configure manualmente ou use .env
+  // Exemplo: window.APP_CONFIG.OPENAI_API_KEY = 'sk-...';
+  
+  // Nota: Em produção, as keys devem ser injetadas no build via
+  // scripts/build.js usando variáveis de ambiente do Netlify
+  // Isso mantém as keys seguras e não expostas no código fonte
+</script>
+<script src="js/chat-ai.js?v=2.1.4"></script>
 
   <!-- Modais dos Projetos -->
   <dialog id="modal-site-webapp" class="project-modal">

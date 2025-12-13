@@ -131,40 +131,158 @@ class ChatAI {
           content: msg.text
         }));
 
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          message: message,
-          history: history
-        })
-      });
+      // Sistema de prompt para o agente
+      const systemPrompt = `Você é NEO, o assistente IA da FlowOFF. A FlowOFF é uma agência especializada em:
+- Marketing digital avançado e estratégia
+- Blockchain e Web3
+- Desenvolvimento de sistemas, WebApps e PWAs
+- Tokenização de ativos
+- Agentes IA personalizados
+- Arquitetura de ecossistemas digitais
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        console.error('❌ API retornou erro:', response.status, errorData);
-        return null;
+Você deve:
+- Responder de forma direta, útil e profissional
+- Ser proativo em ajudar, não apenas direcionar para humanos
+- Usar conhecimento real sobre os serviços da FlowOFF
+- Manter tom conversacional mas técnico quando necessário
+- Se não souber algo específico, seja honesto mas ofereça alternativas
+
+NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua inteligência.`;
+
+      // Tentar chamada direta às APIs (client-side) primeiro
+      // Isso elimina a dependência de Netlify Functions
+      const directResponse = await this.fetchDirectAI(message, history, systemPrompt);
+      if (directResponse) {
+        return directResponse;
       }
 
-      const data = await response.json();
-      
-      if (data.success && data.response && data.response.trim()) {
-        console.log('✅ Resposta IA recebida (modelo:', data.model || 'desconhecido', ')');
-        // Salvar no histórico
-        this.messages.push({ type: 'user', text: message });
-        this.messages.push({ type: 'agent', text: data.response });
-        return data.response;
-      } else {
-        console.warn('⚠️ API retornou success=false ou resposta vazia:', data);
-        return null;
+      // Fallback: tentar Netlify Function (se ainda disponível)
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: message,
+            history: history
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success && data.response && data.response.trim()) {
+            console.log('✅ Resposta IA recebida via Netlify Function (modelo:', data.model || 'desconhecido', ')');
+            return data.response;
+          }
+        }
+      } catch (netlifyError) {
+        console.warn('⚠️ Netlify Function não disponível, usando apenas client-side');
       }
+
+      return null;
     } catch (error) {
       console.error('❌ Erro ao buscar resposta IA:', error);
       window.Logger?.warn('AI response fetch failed:', error);
       return null;
     }
+  }
+
+  async fetchDirectAI(message, history, systemPrompt) {
+    // Obter API keys do window.config ou variáveis de ambiente do build
+    // As keys podem ser injetadas no build via script ou configuradas no index.html
+    const config = window.APP_CONFIG || {};
+    const OPENAI_API_KEY = config.OPENAI_API_KEY || '';
+    const GOOGLE_API_KEY = config.GOOGLE_API_KEY || '';
+    const OPENAI_MODEL = config.OPENAI_MODEL || config.LLM_MODEL || 'gpt-4o-mini';
+    const GEMINI_MODEL = config.GEMINI_MODEL || config.LLM_MODEL_FALLBACK || 'gemini-2.0-flash-exp';
+
+    // Se não houver keys configuradas, retornar null
+    if (!OPENAI_API_KEY && !GOOGLE_API_KEY) {
+      console.warn('⚠️ Nenhuma API key configurada. Configure OPENAI_API_KEY ou GOOGLE_API_KEY em window.APP_CONFIG');
+      return null;
+    }
+
+    // Tentar OpenAI primeiro
+    if (OPENAI_API_KEY) {
+      try {
+        const messages = [
+          { role: 'system', content: systemPrompt },
+          ...history,
+          { role: 'user', content: message }
+        ];
+
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${OPENAI_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: OPENAI_MODEL,
+            messages: messages,
+            temperature: 0.7,
+            max_tokens: 500
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const aiResponse = data.choices?.[0]?.message?.content?.trim();
+          if (aiResponse) {
+            console.log('✅ Resposta OpenAI recebida (client-side, modelo:', OPENAI_MODEL, ')');
+            return aiResponse;
+          }
+        } else if (response.status === 401) {
+          console.warn('⚠️ OpenAI API key inválida ou expirada');
+        }
+      } catch (error) {
+        console.warn('❌ Erro ao chamar OpenAI:', error.message);
+      }
+    }
+
+    // Fallback para Gemini se OpenAI falhar
+    if (GOOGLE_API_KEY) {
+      try {
+        const promptText = `${systemPrompt}\n\nHistórico:\n${history.map(m => `${m.role}: ${m.content}`).join('\n')}\n\nUsuário: ${message}\n\nNEO:`;
+
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GOOGLE_API_KEY}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              contents: [{
+                parts: [{
+                  text: promptText
+                }]
+              }],
+              generationConfig: {
+                temperature: 0.7,
+                maxOutputTokens: 500
+              }
+            })
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+          if (aiResponse) {
+            console.log('✅ Resposta Gemini recebida (client-side, modelo:', GEMINI_MODEL.replace('-exp', ''), ')');
+            return aiResponse;
+          }
+        } else if (response.status === 401 || response.status === 403) {
+          console.warn('⚠️ Google API key inválida ou expirada');
+        }
+      } catch (error) {
+        console.warn('❌ Erro ao chamar Gemini:', error.message);
+      }
+    }
+
+    return null;
   }
 
   async fetchKnowledgeIfNeeded(message) {
