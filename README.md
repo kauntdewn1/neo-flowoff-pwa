@@ -137,17 +137,17 @@ Crie um arquivo `.env` na raiz:
 PORT=3000
 NODE_ENV=development
 
-# APIs de IA (opcional)
-OPENAI_API_KEY=sk-...
-GOOGLE_API_KEY=...
-LLM_MODEL=gpt-4o-mini
-LLM_MODEL_FALLBACK=gemini-2.0-flash-exp
+# APIs de IA (opcional - configure no Netlify UI)
+# OPENAI_API_KEY=seu_token_aqui
+# GOOGLE_API_KEY=seu_token_aqui
+# LLM_MODEL=gpt-4o-mini
+# LLM_MODEL_FALLBACK=gemini-2.0-flash-exp
 
 # IPFS/IPNS
 IPFS_API_URL=https://ipfs.io
 IPNS_KEY_NAME=neo-flowoff-pwa
 IPNS_KEY_ID=k51qzi...
-UCAN_TOKEN=...
+UCAN_TOKEN=seu_token_aqui
 ```
 
 ---

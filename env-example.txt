@@ -1,8 +1,11 @@
 # EXEMPLO DE CONFIGURAÇÃO - COPIE PARA .env
+# ⚠️ NUNCA commite este arquivo com valores reais!
 
-# API Invertexto - Token de autenticação
-# Obtenha seu token em: https://invertexto.com/api
-INVERTEXTO_API_TOKEN=seu_token_real_aqui
+# APIs de IA (configure no Netlify UI para produção)
+# OPENAI_API_KEY=seu_token_aqui
+# GOOGLE_API_KEY=seu_token_aqui
+# LLM_MODEL=gpt-4o-mini
+# LLM_MODEL_FALLBACK=gemini-2.0-flash-exp
 
 # Outras configurações
 PORT=3000

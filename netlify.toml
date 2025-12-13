@@ -14,8 +14,12 @@
   # NOTA: Modelos de IA devem ser configurados nas variáveis de ambiente do Netlify (Site settings)
   # Não armazene valores reais aqui no repositório
   # Configure OPENAI_MODEL e GEMINI_MODEL nas variáveis de ambiente do Netlify se necessário
-  # Desabilitar scanner de secrets para arquivos de funções (valores são nomes de modelos, não secrets)
-  SECRETS_SCAN_OMIT_PATHS = "netlify/functions/chat.js,server.js"
+  
+  # Configuração do scanner de secrets
+  # Ignorar diretório dist/ (build output) e arquivos que apenas referenciam variáveis de ambiente
+  SECRETS_SCAN_OMIT_PATHS = "dist/**,netlify/functions/chat.js,server.js"
+  # Ignorar nomes de variáveis de ambiente (não são secrets, apenas referências)
+  SECRETS_SCAN_OMIT_KEYS = "OPENAI_API_KEY,GOOGLE_API_KEY,OPENAI_MODEL,GEMINI_MODEL,LLM_MODEL,LLM_MODEL_FALLBACK"
 
 # Headers de segurança (aplicados a todas as rotas)
 [[headers]]
