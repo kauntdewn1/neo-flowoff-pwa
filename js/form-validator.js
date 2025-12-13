@@ -7,11 +7,32 @@ class FormValidator {
   }
 
   async init() {
-    // Aguardar validador estar disponível
-    if (window.SimpleValidator) {
-      this.validator = new window.SimpleValidator();
-      await this.validator.checkAvailability();
-    }
+    // Criar validador local inline (sem dependência externa)
+    this.validator = {
+      validarEmail: (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+      },
+      validarCPF: (cpf) => {
+        const cpfLimpo = cpf.replace(/\D/g, '');
+        if (cpfLimpo.length !== 11) return false;
+        if (/^(\d)\1{10}$/.test(cpfLimpo)) return false;
+        let soma = 0;
+        for (let i = 0; i < 9; i++) {
+          soma += parseInt(cpfLimpo.charAt(i)) * (10 - i);
+        }
+        let resto = 11 - (soma % 11);
+        if (resto === 10 || resto === 11) resto = 0;
+        if (resto !== parseInt(cpfLimpo.charAt(9))) return false;
+        soma = 0;
+        for (let i = 0; i < 10; i++) {
+          soma += parseInt(cpfLimpo.charAt(i)) * (11 - i);
+        }
+        resto = 11 - (soma % 11);
+        if (resto === 10 || resto === 11) resto = 0;
+        return resto === parseInt(cpfLimpo.charAt(10));
+      }
+    };
     this.setupForm();
     this.setupCEPValidation();
   }
