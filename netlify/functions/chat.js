@@ -54,6 +54,8 @@ exports.handler = async (event, context) => {
 
     const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
     const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+    const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+    const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash-exp';
 
     // Sistema de prompt para o agente
     const systemPrompt = `Você é NEO, o assistente IA da FlowOFF. A FlowOFF é uma agência especializada em:
@@ -88,7 +90,7 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
         const openaiResponse = await axios.post(
           'https://api.openai.com/v1/chat/completions',
           {
-            model: 'gpt-4o-mini',
+            model: OPENAI_MODEL,
             messages: messages,
             temperature: 0.7,
             max_tokens: 500
@@ -103,7 +105,7 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
         );
 
         aiResponse = openaiResponse.data.choices[0]?.message?.content?.trim();
-        modelUsed = 'gpt-4o-mini';
+        modelUsed = OPENAI_MODEL;
         log('✅ OpenAI response received');
       } catch (error) {
         log('❌ OpenAI error:', error.message);
@@ -114,7 +116,7 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
     if (!aiResponse && GOOGLE_API_KEY) {
       try {
         const geminiResponse = await axios.post(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${GOOGLE_API_KEY}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GOOGLE_API_KEY}`,
           {
             contents: [{
               parts: [{
@@ -132,7 +134,7 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
         );
 
         aiResponse = geminiResponse.data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-        modelUsed = 'gemini-2.0-flash';
+        modelUsed = GEMINI_MODEL.replace('-exp', '');
         log('✅ Gemini response received');
       } catch (error) {
         log('❌ Gemini error:', error.message);

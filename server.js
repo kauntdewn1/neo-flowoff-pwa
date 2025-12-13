@@ -25,6 +25,8 @@ const log = (...args) => {
 };
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || '';
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || '';
+const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash-exp';
 
 // MIME types
 const mimeTypes = {
@@ -261,7 +263,7 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
             const openaiResponse = await axios.post(
               'https://api.openai.com/v1/chat/completions',
               {
-                model: 'gpt-4o-mini',
+                model: OPENAI_MODEL,
                 messages: messages,
                 temperature: 0.7,
                 max_tokens: 500
@@ -285,7 +287,7 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
         if (!aiResponse && GOOGLE_API_KEY) {
           try {
             const geminiResponse = await axios.post(
-              `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${GOOGLE_API_KEY}`,
+              `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GOOGLE_API_KEY}`,
               {
                 contents: [{
                   parts: [{
@@ -315,7 +317,7 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
         res.end(JSON.stringify({
           success: !!aiResponse,
           response: aiResponse,
-          model: aiResponse ? (OPENAI_API_KEY ? 'gpt-4o-mini' : 'gemini-2.0-flash') : null
+          model: aiResponse ? (OPENAI_API_KEY ? OPENAI_MODEL : GEMINI_MODEL.replace('-exp', '')) : null
         }));
       } catch (error) {
         log('Chat API error:', error.message);
