@@ -46,7 +46,7 @@ try {
 const filesToCopy = [
   'index.html',
   'styles.css',
-  'app.js',
+  // app.js na raiz não precisa ser copiado (é apenas wrapper)
   'manifest.webmanifest',
   'sw.js',
   'favicon.ico',

@@ -29,6 +29,7 @@ build: ## Build da PWA (otimiza assets)
 	@test -f index.html || (echo "❌ index.html não encontrado" && exit 1)
 	@test -f styles.css || (echo "❌ styles.css não encontrado" && exit 1)
 	@test -f js/app.js || (echo "❌ js/app.js não encontrado" && exit 1)
+	@# app.js na raiz foi removido (era apenas wrapper)
 	@test -f manifest.webmanifest || (echo "❌ manifest.webmanifest não encontrado" && exit 1)
 	@test -f sw.js || (echo "❌ sw.js não encontrado" && exit 1)
 	@# Cria diretório dist se não existir

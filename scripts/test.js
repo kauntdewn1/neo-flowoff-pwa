@@ -5,6 +5,7 @@ const root = process.cwd();
 const requiredFiles = [
   'index.html',
   'styles.css',
+  // app.js na raiz foi removido, apenas js/app.js é necessário
   'js/app.js',
   'manifest.webmanifest',
   'sw.js'
