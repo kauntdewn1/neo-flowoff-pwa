@@ -1,29 +1,14 @@
-// invertexto-simple.js - Versão simplificada da integração
+// validator-local.js - Validação local descentralizada (sem dependências externas)
 class SimpleValidator {
   constructor() {
-    this.isAvailable = false;
-    this.checkAvailability();
+    // Descentralizado: validação 100% local, sem APIs externas
+    this.isAvailable = true; // Sempre disponível (validação local)
   }
 
+  // Método mantido para compatibilidade, mas não faz nada
   async checkAvailability() {
-    try {
-      const response = await fetch('/api/health');
-      if (!response.ok) {
-        this.isAvailable = false;
-        return;
-      }
-      const data = await response.json();
-      this.isAvailable = data.apis?.invertexto?.includes('✓');
-      if (this.isAvailable) {
-        window.Logger?.log('• API Invertexto disponível:', this.isAvailable);
-      }
-    } catch (error) {
-      // Silencioso em produção - API pode não estar disponível
-      this.isAvailable = false;
-      if (window.Logger) {
-        window.Logger.log('⚠ API Invertexto não disponível (modo offline)');
-      }
-    }
+    // Validação local sempre disponível
+    this.isAvailable = true;
   }
 
   // Validação simples de CPF (algoritmo)

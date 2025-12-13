@@ -111,10 +111,7 @@
   node_bundler = "esbuild"
 
 # Configurações específicas para APIs
-[[redirects]]
-  from = "/api/invertexto"
-  to = "/.netlify/functions/invertexto"
-  status = 200
+# Descentralizado: sem dependência de APIs externas centralizadas
 
 [[redirects]]
   from = "/api/health"

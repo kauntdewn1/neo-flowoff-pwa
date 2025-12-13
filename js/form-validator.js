@@ -164,38 +164,11 @@ class FormValidator {
   }
 
   async fetchCepWithFallback(cep) {
-    try {
-      return await this.fetchCepViaInvertexto(cep);
-    } catch (error) {
-      if (error?.message === 'FALLBACK_TO_LEGACY') {
-        return await this.fetchCepViaLegacy(cep);
-      }
-      throw error;
-    }
+    // Descentralizado: usa apenas endpoint local, sem dependência de APIs externas
+    return await this.fetchCepLocal(cep);
   }
 
-  async fetchCepViaInvertexto(cep) {
-    const response = await fetch('/api/invertexto', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        endpoint: 'cep',
-        params: { cep }
-      })
-    });
-
-    const contentType = (response.headers.get('content-type') || '').toLowerCase();
-    if (!contentType.includes('application/json')) {
-      throw new Error('FALLBACK_TO_LEGACY');
-    }
-
-    const body = await response.json();
-    return { ok: response.ok, body };
-  }
-
-  async fetchCepViaLegacy(cep) {
+  async fetchCepLocal(cep) {
     const response = await fetch(`/api/cep/${cep}`);
     if (!response.ok) {
       return { ok: false, body: null };

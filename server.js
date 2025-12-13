@@ -120,9 +120,9 @@ const server = http.createServer((req, res) => {
       timestamp: new Date().toISOString(),
       version: '2.1.3',
       apis: {
-        invertexto: process.env.INVERTEXTO_API_TOKEN && process.env.INVERTEXTO_API_TOKEN !== 'seu_token_real_aqui' ? "✅ Configurado" : "⚠️ Token não configurado",
+        validator: "✅ Validação local descentralizada (sem APIs externas)",
         lead: "✅ Disponível",
-        cep: process.env.INVERTEXTO_API_TOKEN && process.env.INVERTEXTO_API_TOKEN !== 'seu_token_real_aqui' ? "✅ Disponível" : "⚠️ Requer token Invertexto"
+        cep: "✅ Validação local (descentralizado)"
       },
       features: {
         backgroundSync: "✅ Ativo",
@@ -189,54 +189,25 @@ const server = http.createServer((req, res) => {
       return;
     }
 
-    // Tentar consultar via API Invertexto se disponível
-    const token = process.env.INVERTEXTO_API_TOKEN;
-    if (token && token !== 'seu_token_real_aqui') {
-      // Usar IIFE async para fazer a requisição
-      (async () => {
-        try {
-          const axios = (await import('axios')).default;
-          const response = await axios.get(`https://invertexto.com/api/cep/${cep}`, {
-            params: { token },
-            timeout: 10000
-          });
-          
-          res.setHeader('Content-Type', 'application/json');
-          res.setHeader('Access-Control-Allow-Origin', '*');
-          res.writeHead(200);
-          res.end(JSON.stringify({
-            success: true,
-            data: response.data,
-            source: 'invertexto'
-          }));
-        } catch (error) {
-          // Se falhar, retornar erro mas não bloquear
-          res.setHeader('Content-Type', 'application/json');
-          res.setHeader('Access-Control-Allow-Origin', '*');
-          res.writeHead(200);
-          res.end(JSON.stringify({
-            success: false,
-            error: 'CEP não encontrado ou serviço indisponível',
-            message: 'Você pode continuar mesmo assim',
-            cep: cep
-          }));
-        }
-      })();
-      return;
-    } else {
-      // Sem token, retornar que não está disponível mas não é erro
-      res.setHeader('Content-Type', 'application/json');
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.writeHead(200);
-      res.end(JSON.stringify({
-        success: false,
-        error: 'Serviço de CEP não configurado',
-        message: 'Você pode continuar mesmo assim',
-        cep: cep
-      }));
-      return;
-    }
+    // Descentralizado: retorna estrutura básica sem dependência de APIs externas
+    // O frontend faz validação local via SimpleValidator
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.writeHead(200);
+    res.end(JSON.stringify({
+      success: true,
+      data: {
+        cep: cep.replace(/(\d{5})(\d{3})/, '$1-$2'),
+        message: 'Validação local - sem dependência de APIs externas'
+      },
+      source: 'local'
+    }));
+    return;
   }
+
+  // Endpoint removido: /api/invertexto
+  // Descentralizado: não dependemos de APIs externas centralizadas
+  // Validação local via SimpleValidator no frontend
 
   if (cleanPath === '/api/google-knowledge' && req.method === 'GET') {
     const queryParam = parsedUrl.query.q;
