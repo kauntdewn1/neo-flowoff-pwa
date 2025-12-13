@@ -11,9 +11,9 @@
 [build.environment]
   # Versão do Node.js (se necessário)
   NODE_VERSION = "18"
-  # Modelos de IA (valores padrão, podem ser sobrescritos)
-  OPENAI_MODEL = "gpt-4o-mini"
-  GEMINI_MODEL = "gemini-2.0-flash-exp"
+  # NOTA: Modelos de IA devem ser configurados nas variáveis de ambiente do Netlify (Site settings)
+  # Não armazene valores reais aqui no repositório
+  # Configure OPENAI_MODEL e GEMINI_MODEL nas variáveis de ambiente do Netlify se necessário
   # Desabilitar scanner de secrets para arquivos de funções (valores são nomes de modelos, não secrets)
   SECRETS_SCAN_OMIT_PATHS = "netlify/functions/chat.js,server.js"
 
