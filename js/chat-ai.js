@@ -47,6 +47,9 @@ class ChatAI {
     const messagesContainer = document.getElementById('chat-messages');
     if (!messagesContainer) return;
 
+    // Salvar no histórico
+    this.messages.push({ type, text });
+
     const messageDiv = document.createElement('div');
     messageDiv.className = `chat-message ${type}`;
 
@@ -73,11 +76,25 @@ class ChatAI {
     this.scrollToBottom();
   }
 
-  simulateAIResponse(userMessage) {
+  async simulateAIResponse(userMessage) {
     this.isTyping = true;
     this.showTypingIndicator();
 
-    // Simula delay de processamento
+    try {
+      // Tentar API de IA primeiro
+      const aiResponse = await this.fetchAIResponse(userMessage);
+      
+      if (aiResponse) {
+        this.hideTypingIndicator();
+        this.addMessage(aiResponse, 'agent');
+        this.isTyping = false;
+        return;
+      }
+    } catch (error) {
+      window.Logger?.warn('AI API failed, using fallback:', error);
+    }
+
+    // Fallback: conhecimento + respostas pré-definidas
     setTimeout(() => {
       this.hideTypingIndicator();
       this.fetchKnowledgeIfNeeded(userMessage)
@@ -91,7 +108,43 @@ class ChatAI {
           this.addMessage(response, 'agent');
           this.isTyping = false;
         });
-    }, 1000 + Math.random() * 1000);
+    }, 500);
+  }
+
+  async fetchAIResponse(message) {
+    try {
+      // Construir histórico de mensagens
+      const history = this.messages
+        .slice(-10) // Últimas 10 mensagens
+        .map(msg => ({
+          role: msg.type === 'user' ? 'user' : 'assistant',
+          content: msg.text
+        }));
+
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: message,
+          history: history
+        })
+      });
+
+      if (!response.ok) return null;
+
+      const data = await response.json();
+      if (data.success && data.response) {
+        // Salvar no histórico
+        this.messages.push({ type: 'user', text: message });
+        this.messages.push({ type: 'agent', text: data.response });
+        return data.response;
+      }
+    } catch (error) {
+      window.Logger?.warn('AI response fetch failed:', error);
+    }
+    return null;
   }
 
   async fetchKnowledgeIfNeeded(message) {
