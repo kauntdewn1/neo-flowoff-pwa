@@ -47,6 +47,7 @@ build: ## Build da PWA (otimiza assets)
 	@cp -r js/* dist/js/ 2>/dev/null || true
 	@# Copia arquivos CSS adicionais
 	@cp glass-morphism-bottom-bar.css dist/ 2>/dev/null || true
+	@cp bento-grid.css dist/ 2>/dev/null || true
 	@cp blog.html dist/ 2>/dev/null || true
 	@cp blog-styles.css dist/ 2>/dev/null || true
 	@cp blog.js dist/ 2>/dev/null || true
