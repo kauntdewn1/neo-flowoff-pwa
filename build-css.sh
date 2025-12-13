@@ -17,8 +17,6 @@ cat css/modules/cards.css >> css/main.css
 echo "" >> css/main.css
 cat css/modules/modals.css >> css/main.css
 echo "" >> css/main.css
-cat css/modules/pwa-banner.css >> css/main.css
-echo "" >> css/main.css
 cat css/modules/glass-morphism.css >> css/main.css
 echo "" >> css/main.css
 cat css/modules/blog.css >> css/main.css

@@ -78,6 +78,21 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
 
     let aiResponse = null;
     let modelUsed = null;
+    let errorDetails = null;
+
+    // Verificar se há chaves de API configuradas
+    if (!OPENAI_API_KEY && !GOOGLE_API_KEY) {
+      log('⚠️ Nenhuma API key configurada');
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          success: false,
+          error: 'API keys não configuradas',
+          message: 'Configure OPENAI_API_KEY ou GOOGLE_API_KEY no Netlify'
+        })
+      };
+    }
 
     // Tentar OpenAI primeiro
     if (OPENAI_API_KEY) {
@@ -107,9 +122,13 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
 
         aiResponse = openaiResponse.data.choices[0]?.message?.content?.trim();
         modelUsed = OPENAI_MODEL;
-        log('✅ OpenAI response received');
+        log('✅ OpenAI response received:', aiResponse?.substring(0, 50) + '...');
       } catch (error) {
+        errorDetails = error.response?.data || error.message;
         log('❌ OpenAI error:', error.message);
+        if (error.response?.status === 401) {
+          log('⚠️ OpenAI API key inválida ou expirada');
+        }
       }
     }
 
@@ -136,19 +155,39 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
 
         aiResponse = geminiResponse.data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
         modelUsed = GEMINI_MODEL.replace('-exp', '');
-        log('✅ Gemini response received');
+        log('✅ Gemini response received:', aiResponse?.substring(0, 50) + '...');
       } catch (error) {
+        errorDetails = error.response?.data || error.message;
         log('❌ Gemini error:', error.message);
+        if (error.response?.status === 401 || error.response?.status === 403) {
+          log('⚠️ Google API key inválida ou expirada');
+        }
       }
+    }
+
+    // Se nenhuma API funcionou, retornar erro claro
+    if (!aiResponse) {
+      log('❌ Nenhuma API de IA funcionou');
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          success: false,
+          error: 'APIs de IA indisponíveis',
+          message: 'Todas as tentativas de API falharam. Verifique as chaves de API.',
+          details: process.env.NETLIFY_DEV ? errorDetails : undefined
+        })
+      };
     }
 
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify({
-        success: !!aiResponse,
+        success: true,
         response: aiResponse,
-        model: modelUsed
+        model: modelUsed,
+        timestamp: new Date().toISOString()
       })
     };
   } catch (error) {

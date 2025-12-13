@@ -84,27 +84,37 @@ class ChatAI {
       // Tentar API de IA primeiro
       const aiResponse = await this.fetchAIResponse(userMessage);
       
-      if (aiResponse) {
+      if (aiResponse && aiResponse.trim()) {
         this.hideTypingIndicator();
         this.addMessage(aiResponse, 'agent');
         this.isTyping = false;
         return;
       }
+      
+      // Se API retornou vazio/null, logar para debug
+      console.warn('⚠️ AI API retornou resposta vazia. Verificando configuração...');
     } catch (error) {
+      console.error('❌ Erro ao chamar API de IA:', error);
       window.Logger?.warn('AI API failed, using fallback:', error);
     }
 
     // Fallback: conhecimento + respostas pré-definidas
+    // Mas avisar que não é IA real
     setTimeout(() => {
       this.hideTypingIndicator();
       this.fetchKnowledgeIfNeeded(userMessage)
         .then(knowledge => {
-          const response = knowledge || this.generateResponse(userMessage.toLowerCase());
-          this.addMessage(response, 'agent');
+          if (knowledge) {
+            this.addMessage(knowledge, 'agent');
+          } else {
+            // Resposta honesta quando não há IA disponível
+            const response = this.generateHonestResponse(userMessage.toLowerCase());
+            this.addMessage(response, 'agent');
+          }
           this.isTyping = false;
         })
         .catch(() => {
-          const response = this.generateResponse(userMessage.toLowerCase());
+          const response = this.generateHonestResponse(userMessage.toLowerCase());
           this.addMessage(response, 'agent');
           this.isTyping = false;
         });
@@ -132,19 +142,29 @@ class ChatAI {
         })
       });
 
-      if (!response.ok) return null;
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error('❌ API retornou erro:', response.status, errorData);
+        return null;
+      }
 
       const data = await response.json();
-      if (data.success && data.response) {
+      
+      if (data.success && data.response && data.response.trim()) {
+        console.log('✅ Resposta IA recebida (modelo:', data.model || 'desconhecido', ')');
         // Salvar no histórico
         this.messages.push({ type: 'user', text: message });
         this.messages.push({ type: 'agent', text: data.response });
         return data.response;
+      } else {
+        console.warn('⚠️ API retornou success=false ou resposta vazia:', data);
+        return null;
       }
     } catch (error) {
+      console.error('❌ Erro ao buscar resposta IA:', error);
       window.Logger?.warn('AI response fetch failed:', error);
+      return null;
     }
-    return null;
   }
 
   async fetchKnowledgeIfNeeded(message) {
@@ -170,41 +190,36 @@ class ChatAI {
     return null;
   }
 
-  generateResponse(message) {
-    // Respostas inteligentes baseadas em palavras-chave
+  generateHonestResponse(message) {
+    // Respostas honestas quando IA não está disponível
+    // Não fingir ser IA quando não é
+    
     if (message.includes('serviço') || message.includes('o que fazem') || message.includes('servicos')) {
-      return 'Oferecemos desenvolvimento de Sites/WebApps, SAAS/BAAS, Tokenização de Ativos e Agentes IA. Qual área te interessa mais?';
+      return 'A FlowOFF oferece desenvolvimento de Sites/WebApps, SAAS/BAAS, Tokenização de Ativos e Agentes IA. Para informações detalhadas, entre em contato: +55 62 98323-1110';
     }
 
     if (message.includes('preço') || message.includes('quanto') || message.includes('custo')) {
-      return 'Nossos projetos são personalizados. Para um orçamento preciso, que tal conversarmos? Posso conectar você com nossa equipe ou você prefere agendar uma reunião?';
+      return 'Nossos projetos são personalizados. Para um orçamento preciso, entre em contato pelo WhatsApp: +55 62 98323-1110';
     }
 
     if (message.includes('contato') || message.includes('falar') || message.includes('whatsapp')) {
-      return 'Perfeito! Você pode falar diretamente com a equipe pelo WhatsApp: +55 62 98323-1110. Ou prefere que eu agende uma conversa?';
+      return 'Entre em contato direto pelo WhatsApp: +55 62 98323-1110 ou visite flowoff.xyz';
     }
 
     if (message.includes('portfolio') || message.includes('projetos') || message.includes('trabalhos')) {
-      return 'Temos projetos incríveis! Você pode ver alguns na seção "Projetos" do menu. Quer que eu te mostre algo específico?';
+      return 'Veja nossos projetos na seção "Projetos" do menu ou visite flowoff.xyz';
     }
 
     if (message.includes('marketing') || message.includes('blockchain') || message.includes('ia') || message.includes('token')) {
-      return 'Essa é nossa especialidade! Trabalhamos com marketing digital avançado, blockchain, IA e tokenização. Qual dessas áreas você quer explorar?';
+      return 'A FlowOFF trabalha com marketing digital avançado, blockchain, IA e tokenização. Para mais informações: +55 62 98323-1110';
     }
 
     if (message.includes('olá') || message.includes('oi') || message.includes('bom dia') || message.includes('boa tarde')) {
-      return 'Olá! Fico feliz em ajudar. Como posso te auxiliar hoje?';
+      return 'Olá! Para informações sobre nossos serviços, entre em contato: +55 62 98323-1110 ou visite flowoff.xyz';
     }
 
-    // Resposta padrão inteligente
-    const defaultResponses = [
-      'Interessante! Pode me contar mais sobre o que você precisa?',
-      'Entendi. Deixa eu te ajudar melhor. Você está procurando algo específico ou quer conhecer nossos serviços?',
-      'Ótima pergunta! Nossa equipe pode te ajudar com isso. Quer que eu conecte você com alguém especializado?',
-      'Compreendo. Para te dar a melhor resposta, você poderia ser mais específico? Ou prefere que eu te mostre nossos serviços?'
-    ];
-
-    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+    // Resposta padrão honesta
+    return 'Para informações detalhadas sobre nossos serviços, entre em contato pelo WhatsApp: +55 62 98323-1110 ou visite flowoff.xyz';
   }
 
   handleQuickAction(action) {

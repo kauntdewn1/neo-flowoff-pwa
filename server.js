@@ -17,10 +17,10 @@ const PORT = process.env.PORT || 3000;
 const MESSENGER_VERIFY_TOKEN = process.env.FB_MESSENGER_VERIFY_TOKEN || 'flowoff-messenger-verify-token';
 const MESSENGER_APP_SECRET = process.env.FB_MESSENGER_APP_SECRET || '';
 const isProduction = process.env.NODE_ENV === 'production';
-const consoleLog = console['log']?.bind(console) ?? (() => {});
 const log = (...args) => {
-  if (!isProduction) {
-    consoleLog(...args);
+  // Sempre loga em desenvolvimento, mesmo se NODE_ENV não estiver definido
+  if (!isProduction || process.env.NODE_ENV === undefined) {
+    console.log(...args);
   }
 };
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || '';
@@ -251,10 +251,27 @@ Você deve:
 NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua inteligência.`;
 
         let aiResponse = null;
+        let modelUsed = null;
+        let errorDetails = null;
+
+        // Verificar se há chaves de API configuradas
+        if (!OPENAI_API_KEY && !GOOGLE_API_KEY) {
+          log('⚠️ Nenhuma API key configurada (OPENAI_API_KEY ou GOOGLE_API_KEY)');
+          res.setHeader('Content-Type', 'application/json');
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.writeHead(200);
+          res.end(JSON.stringify({
+            success: false,
+            error: 'API keys não configuradas',
+            message: 'Configure OPENAI_API_KEY ou GOOGLE_API_KEY no .env'
+          }));
+          return;
+        }
 
         // Tentar OpenAI primeiro
         if (OPENAI_API_KEY) {
           try {
+            log('🔄 Tentando OpenAI...');
             const messages = [
               { role: 'system', content: systemPrompt },
               ...history.slice(-10), // Últimas 10 mensagens para contexto
@@ -279,14 +296,21 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
             );
 
             aiResponse = openaiResponse.data.choices[0]?.message?.content?.trim();
+            modelUsed = OPENAI_MODEL;
+            log('✅ OpenAI response received:', aiResponse?.substring(0, 50) + '...');
           } catch (error) {
-            log('OpenAI error:', error.message);
+            errorDetails = error.response?.data || error.message;
+            log('❌ OpenAI error:', error.message);
+            if (error.response?.status === 401) {
+              log('⚠️ OpenAI API key inválida ou expirada');
+            }
           }
         }
 
         // Fallback para Gemini se OpenAI falhar
         if (!aiResponse && GOOGLE_API_KEY) {
           try {
+            log('🔄 Tentando Gemini como fallback...');
             const geminiResponse = await axios.post(
               `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GOOGLE_API_KEY}`,
               {
@@ -306,20 +330,42 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
             );
 
             aiResponse = geminiResponse.data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+            modelUsed = GEMINI_MODEL.replace('-exp', '');
+            log('✅ Gemini response received:', aiResponse?.substring(0, 50) + '...');
           } catch (error) {
-            log('Gemini error:', error.message);
+            errorDetails = error.response?.data || error.message;
+            log('❌ Gemini error:', error.message);
+            if (error.response?.status === 401 || error.response?.status === 403) {
+              log('⚠️ Google API key inválida ou expirada');
+            }
           }
+        }
+
+        // Se nenhuma API funcionou, retornar erro claro
+        if (!aiResponse) {
+          log('❌ Nenhuma API de IA funcionou. Erros:', errorDetails);
+          res.setHeader('Content-Type', 'application/json');
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.writeHead(200);
+          res.end(JSON.stringify({
+            success: false,
+            error: 'APIs de IA indisponíveis',
+            message: 'Todas as tentativas de API falharam. Verifique as chaves de API.',
+            details: process.env.NODE_ENV === 'development' ? errorDetails : undefined
+          }));
+          return;
         }
 
         // Se ambas falharem, retornar null para usar fallback no frontend
         res.setHeader('Content-Type', 'application/json');
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.writeHead(200);
-        res.end(JSON.stringify({
-          success: !!aiResponse,
-          response: aiResponse,
-          model: aiResponse ? (OPENAI_API_KEY ? OPENAI_MODEL : GEMINI_MODEL.replace('-exp', '')) : null
-        }));
+          res.end(JSON.stringify({
+            success: true,
+            response: aiResponse,
+            model: modelUsed || 'unknown',
+            timestamp: new Date().toISOString()
+          }));
       } catch (error) {
         log('Chat API error:', error.message);
         res.setHeader('Content-Type', 'application/json');
@@ -403,7 +449,7 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
 
   // Serve index.html for root
   if (cleanPath === '/') {
-    pathname = '/index.html';
+    cleanPath = '/index.html';
   }
   
   const filePath = path.join(__dirname, cleanPath);
@@ -419,10 +465,11 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
     if (err) {
       if (err.code === 'ENOENT') {
         // File not found, serve index.html for SPA routing
-        fs.readFile(path.join(__dirname, 'index.html'), (err, data) => {
-          if (err) {
+        fs.readFile(path.join(__dirname, 'index.html'), (err2, data2) => {
+          if (err2) {
+            log('❌ Erro ao ler index.html:', err2.message);
             res.writeHead(404, { 'Content-Type': 'text/html' });
-            res.end('File not found');
+            res.end(`<h1>404 - File not found</h1><p>Erro: ${err2.message}</p>`);
           } else {
             res.writeHead(200, { 
               'Content-Type': 'text/html',
@@ -430,12 +477,16 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
               'Pragma': 'no-cache',
               'Expires': '0'
             });
-            res.end(data);
+            res.end(data2);
           }
         });
       } else {
+        log('❌ Erro ao ler arquivo:', filePath, err.message, err.code);
         res.writeHead(500, { 'Content-Type': 'text/html' });
-        res.end('Server error');
+        const errorMsg = isProduction 
+          ? 'Internal Server Error' 
+          : `<h1>500 - Server Error</h1><p>Erro: ${err.message}</p><p>Código: ${err.code}</p><p>Arquivo: ${filePath}</p>`;
+        res.end(errorMsg);
       }
     } else {
       // Headers para evitar cache apenas para arquivos estáticos
@@ -450,7 +501,13 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
 });
 
 server.listen(PORT, () => {
-  // Servidor rodando
+  // Sempre mostra mensagem de inicialização
+  console.log(`\n🚀 Servidor rodando em http://localhost:${PORT}`);
+  console.log(`📁 Diretório: ${__dirname}`);
+  console.log(`🌍 Ambiente: ${isProduction ? 'PRODUÇÃO' : 'DESENVOLVIMENTO'}`);
+  console.log(`✅ Servidor iniciado com sucesso!`);
+  console.log(`   Acesse: http://localhost:${PORT}`);
+  console.log(`   Pressione Ctrl+C para parar\n`);
 });
 
 server.on('error', (err) => {

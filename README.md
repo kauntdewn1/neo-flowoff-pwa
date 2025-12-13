@@ -1,95 +1,172 @@
-# ⚡ NEØ.FLOWOFF — PWA Interface
+# 🚀 NEØ.FLOWOFF PWA
 
-<https://app.netlify.com/projects/flowoff>
-
-**🌐 Acesse em produção:** [flowoff.xyz](https://flowoff.xyz)
-
-> **A Nova Interface da Revolução Digital Descentralizada.**  
-> Uma Progressive Web App projetada para performance, presença e posicionamento no universo blockchain.
+**Agência de Marketing na Blockchain**  
+Desenvolvimento de sistemas, WebApp's, IAs e tokenização.
 
 ---
 
-## 🚀 Sobre o Projeto
+## 📋 Sobre
 
-**NEØ.FLOWOFF** é a vitrine viva da agência FlowOFF:  
-uma **PWA minimalista, brutalmente rápida** e com design emocional, criada para representar uma agência de marketing que já opera no futuro.
-
-Desenvolvida sem frameworks pesados. Sem dependências desnecessárias. Só **código direto ao ponto** — como toda marca com visão 2050 merece.
-
----
-
-## 🧠 Stack Tecnológica
-
-| Camada | Tecnologia | Finalidade |
-|--------|------------|------------|
-| 🖥️ UI | `Vanilla JS` + `CSS` | Router leve e design 100% custom |
-| 🧊 Design | `Glassmorphism` | Estética emocional, camadas e profundidade |
-| 🛜 Offline | `Service Worker` | Cache controlado + suporte offline |
-| 📲 App | `Webmanifest` | Instalação como app nativo (PWA) |
-| 🚀 Deploy | `Netlify` | Pipeline com cache busting e deploy instantâneo |
+PWA (Progressive Web App) da NEØ.FLOWOFF, uma agência especializada em:
+- Marketing digital avançado e estratégia
+- Blockchain e Web3
+- Desenvolvimento de sistemas, WebApps e PWAs
+- Tokenização de ativos
+- Agentes IA personalizados
+- Arquitetura de ecossistemas digitais
 
 ---
 
-## ✨ Funcionalidades
+## 🚀 Início Rápido
 
-- ✅ Navegação sem hash (#)  
-- ✅ Header com **glassmorphism suave**  
-- ✅ Cards animados com logos em 3D  
-- ✅ Layout mobile-first, com vibe iOS  
-- ✅ Cache busting real-time para novos deploys  
-- ✅ App instalável com experiência nativa  
-- ✅ Footer minimal com tipografia reduzida  
+### Desenvolvimento Local
+
+```bash
+# Instalar dependências
+npm install
+
+# Iniciar servidor de desenvolvimento
+npm run dev
+# ou
+make dev
+
+# Acesse: http://localhost:3000
+```
+
+### Build para Produção
+
+```bash
+# Build
+npm run build
+# ou
+make build
+
+# Resultado em: ./dist/
+```
 
 ---
 
 ## 📁 Estrutura do Projeto
 
-```text
-.
-├── index.html              # Entrada principal
-├── styles.css              # Design System & UI
-├── app.js                  # Router e scripts dinâmicos
-├── sw.js                   # Service Worker customizado
-├── manifest.webmanifest    # Configuração PWA
-└── public/                 # Assets (imagens, ícones, logos)
-````
+Ver documentação completa: [`docs/PROJECT-STRUCTURE.md`](docs/PROJECT-STRUCTURE.md)
+
+### Principais Diretórios
+
+- `js/` - JavaScript do frontend
+- `css/` - CSS modularizado
+- `public/` - Assets públicos (imagens, ícones)
+- `scripts/` - Scripts de build e automação
+- `netlify/functions/` - Netlify Functions
+- `docs/` - Documentação completa
 
 ---
 
-## ⚙️ Deploy Automatizado
+## 📚 Documentação
 
-> Cada push no repositório dispara um novo build via Netlify com cache invalidado.
+Toda documentação está em [`docs/`](docs/):
 
-**Cache Busting Estratégico**:
-
-* Versões explícitas no `manifest`
-* Query strings forçadas nos assets
-* Service Worker controlado por timestamp
-* Deploy sem delay: o que você vê é o que já subiu
-
----
-
-## 🧬 Protocolo NΞØ
-
-Este projeto segue a arquitetura e os princípios do **Protocolo NΞØ™**:
-
-* Desenvolvimento **sem gordura técnica**
-* Design que **comunica sensações**, não só pixels
-* Código que **não trava** e **não mente**
-
-> Porque um site não é só um site. É o **primeiro contato com o seu ecossistema**.
+- **Deploy:** [`docs/DEPLOY_NEOFLOWOFF.md`](docs/DEPLOY_NEOFLOWOFF.md) - Guia completo de deploy (Netlify + IPFS + ENS)
+- **Status:** [`docs/STATUS-RAPIDO.md`](docs/STATUS-RAPIDO.md) - Status rápido dos domínios
+- **IPFS:** [`docs/IPFS-UPLOAD-GUIDE.md`](docs/IPFS-UPLOAD-GUIDE.md) - Guia de upload para IPFS
+- **Estrutura:** [`docs/PROJECT-STRUCTURE.md`](docs/PROJECT-STRUCTURE.md) - Estrutura detalhada do projeto
+- **Configurações:** 
+  - [`docs/FACEBOOK-APP-CONFIG.md`](docs/FACEBOOK-APP-CONFIG.md)
+  - [`docs/NETLIFY-SETUP.md`](docs/NETLIFY-SETUP.md)
+  - [`docs/META-CRAWLER-FIX.md`](docs/META-CRAWLER-FIX.md)
+  - [`docs/GLASS-MORPHISM-INTEGRATION.md`](docs/GLASS-MORPHISM-INTEGRATION.md)
 
 ---
 
-## 🧠 Quer usar essa arquitetura na sua marca?
+## 🌐 Domínios
 
-> A NEØ.FLOWOFF desenvolve interfaces ultra-velozes, tokenizáveis, prontas para o mundo on-chain.
-
-Entre em contato direto pelo botão "Falar com MELLØ™" no site — ou nos invoque via protocolo.
+- **Web2:** 
+  - `flowoff.xyz` (GoDaddy + Netlify)
+  - `flowoff.com.br` (Registro.br + Netlify)
+- **Web3:** 
+  - `neoflowoff.eth` (ENS → IPNS)
+- **Netlify:** 
+  - `neo-flowoff.netlify.app`
 
 ---
 
-## 🧾 Sobre o `package-lock.json`
+## 🛠️ Scripts Disponíveis
 
-`package-lock.json` é gerado automaticamente pelo npm e contém a árvore de dependências completa (versões resolvidas, `integrity`, sub-subdependências etc.). Esse nível de detalhe resulta em um arquivo extenso (~1.3k linhas), mas garante que todo mundo (local, CI, Netlify) instale exatamente o mesmo conjunto binário. Quebrar esse lockfile em pedaços ou editá-lo manualmente compromete a reprodutibilidade dos deploys, por isso mantemos ele inteiro mesmo sendo maior.
+```bash
+npm start          # Inicia servidor
+npm run dev        # Desenvolvimento com nodemon
+npm run build      # Build para produção
+npm run test       # Testes de validação
+npm run ipns:publish # Publicar no IPNS
+```
 
+### Comandos Make
+
+```bash
+make help          # Lista comandos
+make build         # Build da PWA
+make dev           # Servidor local
+make validate      # Valida estrutura
+make clean         # Limpa build
+```
+
+---
+
+## 🔧 Tecnologias
+
+- **Frontend:** HTML5, CSS3, JavaScript (ES6+)
+- **Backend:** Node.js (server.js para dev)
+- **Deploy:** Netlify (Web2) + IPFS/IPNS (Web3)
+- **IA:** OpenAI (GPT-4o-mini) + Google Gemini
+- **PWA:** Service Worker, Manifest, Offline support
+
+---
+
+## 📦 Dependências
+
+- `axios` - HTTP client
+- `cbor` - UCAN token support
+- `dotenv` - Variáveis de ambiente
+
+---
+
+## 🔐 Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz:
+
+```env
+PORT=3000
+NODE_ENV=development
+
+# APIs de IA (opcional)
+OPENAI_API_KEY=sk-...
+GOOGLE_API_KEY=...
+LLM_MODEL=gpt-4o-mini
+LLM_MODEL_FALLBACK=gemini-2.0-flash-exp
+
+# IPFS/IPNS
+IPFS_API_URL=https://ipfs.io
+IPNS_KEY_NAME=neo-flowoff-pwa
+IPNS_KEY_ID=k51qzi...
+UCAN_TOKEN=...
+```
+
+---
+
+## 📄 Licença
+
+MIT
+
+---
+
+## 👤 Autor
+
+**MELLØ™** - Arquiteto de Ecossistemas Digitais
+
+- Website: https://flowoff.xyz
+- ENS: neoflowoff.eth
+- WhatsApp: +55 62 98323-1110
+
+---
+
+**Versão:** 2.1.3  
+**Última atualização:** 2025-01-20

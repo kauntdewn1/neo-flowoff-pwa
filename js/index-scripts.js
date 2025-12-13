@@ -43,99 +43,33 @@ if (link) {
   link.href = link.href.split('?')[0] + '?v=' + Date.now();
 }
 
-// PWA Install Banner
-var deferredPrompt;
-var pwaBannerShown = false;
-const pwaBanner = document.getElementById('pwa-install-banner');
-const installBtn = document.getElementById('pwa-install-btn');
-const dismissBtn = document.getElementById('pwa-dismiss');
-
-// Verificar se já foi instalado ou dispensado
-if (localStorage.getItem('pwa-dismissed') === 'true' || window.matchMedia('(display-mode: standalone)').matches) {
-  pwaBanner.style.display = 'none';
-}
-
-// Escutar evento beforeinstallprompt
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  
-  // Mostrar banner apenas se não foi dispensado
-  if (localStorage.getItem('pwa-dismissed') !== 'true') {
-    pwaBanner.style.display = 'block';
-    pwaBanner.classList.add('show');
-    pwaBannerShown = true;
-  }
-});
-
-// Fallback: Mostrar banner após 3 segundos se não foi dispensado
-setTimeout(() => {
-  if (!pwaBannerShown && localStorage.getItem('pwa-dismissed') !== 'true' && !window.matchMedia('(display-mode: standalone)').matches) {
-    pwaBanner.style.display = 'block';
-    pwaBanner.classList.add('show');
-    pwaBannerShown = true;
-  }
-}, 3000);
-
-// Botão instalar
-installBtn.addEventListener('click', async () => {
-  if (deferredPrompt) {
+// === REGISTRO DO SERVICE WORKER ===
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
     try {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
+      const registration = await navigator.serviceWorker.register('./sw.js', {
+        scope: './'
+      });
       
-      if (outcome === 'accepted') {
-        pwaBanner.style.display = 'none';
-        pwaBanner.classList.remove('show');
-        pwaBannerShown = false;
-      }
-      deferredPrompt = null;
+      // Verificar se há atualizações
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+        if (newWorker) {
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // Nova versão disponível - será notificado pelo sistema de atualização
+              window.Logger?.info('Nova versão do Service Worker disponível');
+            }
+          });
+        }
+      });
+      
+      window.Logger?.info('Service Worker registrado com sucesso');
     } catch (error) {
-      window.Logger?.error('Erro ao instalar PWA:', error);
+      window.Logger?.error('Erro ao registrar Service Worker:', error);
     }
-  }
-});
-
-// Botão dispensar
-dismissBtn.addEventListener('click', () => {
-  pwaBanner.style.display = 'none';
-  pwaBanner.classList.remove('show');
-  pwaBannerShown = false;
-  localStorage.setItem('pwa-dismissed', 'true');
-});
-
-// Auto-hide após 15 segundos
-setTimeout(() => {
-  if (pwaBannerShown && pwaBanner.style.display !== 'none') {
-    pwaBanner.style.opacity = '0';
-    setTimeout(() => {
-      pwaBanner.style.display = 'none';
-      pwaBanner.classList.remove('show');
-      pwaBannerShown = false;
-    }, 300);
-  }
-}, 15000);
-
-// Detectar se PWA foi instalado
-window.addEventListener('appinstalled', () => {
-  pwaBanner.style.display = 'none';
-  pwaBanner.classList.remove('show');
-  pwaBannerShown = false;
-});
-
-// Função para testar o banner manualmente (debug)
-window.testPWAInstall = () => {
-  if (pwaBanner) {
-    pwaBanner.style.display = 'block';
-    pwaBanner.classList.add('show');
-    pwaBannerShown = true;
-  }
-};
-
-// Função para limpar o estado do banner (debug)
-window.clearPWAState = () => {
-  localStorage.removeItem('pwa-dismissed');
-};
+  });
+}
 
 // === MENU HAMBÚRGUER ===
 document.addEventListener('DOMContentLoaded', function() {
@@ -379,7 +313,7 @@ setTimeout(() => {
     setTimeout(() => {
       updateBanner.style.display = 'none';
       updateBanner.classList.remove('show');
-      pwaBannerShown = false;
+      bannerShown = false;
     }, 300);
   }
 }, 10000);
@@ -389,7 +323,7 @@ window.testUpdateBanner = () => {
   if (updateBanner) {
     updateBanner.style.display = 'block';
     updateBanner.classList.add('show');
-    pwaBannerShown = true;
+    bannerShown = true;
   }
 };
 

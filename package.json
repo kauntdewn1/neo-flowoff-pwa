@@ -10,18 +10,12 @@
     "setup": "node setup.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "test-invertexto": "node test-invertexto.js",
-    "test-invertexto-quick": "node test-invertexto.js --quick",
-    "test-invertexto-netlify": "node test-invertexto-netlify.js",
-    "test-invertexto-netlify-quick": "node test-invertexto-netlify.js --quick",
     "ipns:publish": "node scripts/ipns-publisher.js"
   },
   "dependencies": {
     "axios": "^1.6.0",
     "cbor": "^10.0.11",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.2",
-    "express": "^4.18.2"
+    "dotenv": "^17.2.2"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

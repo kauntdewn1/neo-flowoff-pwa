@@ -38,7 +38,7 @@ build: ## Build da PWA (otimiza assets)
 	@# Copia arquivos principais
 	@cp index.html dist/
 	@cp styles.css dist/styles.css
-	@cp app.js dist/
+	@# app.js na raiz apenas importa js/app.js, não precisa copiar
 	@cp manifest.webmanifest dist/
 	@cp sw.js dist/
 	@cp favicon.ico dist/

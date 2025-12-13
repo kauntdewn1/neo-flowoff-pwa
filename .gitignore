@@ -100,13 +100,10 @@ dist/
 *.DS_Store
 **/.DS_Store
 
-# Scripts de desenvolvimento/teste (opcional - descomente se quiser ignorar)
+# Scripts de desenvolvimento/teste (opcional)
 # clear-cache*.js
 # optimize*.js
-# code-analysis.js
 # extract-*.js
-# invertexto-integration.js
-# glass-morphism-example.html
 
 # Local Netlify folder
 .netlify
