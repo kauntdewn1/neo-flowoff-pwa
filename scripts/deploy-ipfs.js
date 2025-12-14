@@ -20,6 +20,7 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import axios from 'axios';
 import FormData from 'form-data';
+import * as tar from 'tar';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -63,24 +64,32 @@ async function build() {
 async function uploadToPinata() {
   console.log('📦 Fazendo upload via Pinata API...\n');
   
+  // Cria arquivo tar temporário
+  const tarPath = join(PROJECT_ROOT, 'dist-temp.tar');
+  
   try {
+    // Cria tar do diretório dist
+    console.log('📦 Criando arquivo tar do diretório...');
+    await tar.create(
+      {
+        file: tarPath,
+        cwd: PROJECT_ROOT,
+        gzip: false
+      },
+      ['dist']
+    );
+
+    // Prepara FormData com o arquivo tar
     const formData = new FormData();
-    
-    // Adiciona todos os arquivos do diretório mantendo a estrutura
-    const files = getAllFiles(DIST_DIR);
-    for (const file of files) {
-      // Calcula o caminho relativo a partir de dist/
-      const relativePath = pathRelative(DIST_DIR, file);
-      // Pinata espera o caminho relativo como filepath
-      formData.append('file', fs.createReadStream(file), {
-        filepath: relativePath
-      });
-    }
+    formData.append('file', fs.createReadStream(tarPath), {
+      filename: 'dist.tar',
+      contentType: 'application/x-tar'
+    });
 
     // Configura opções de pinning
     formData.append('pinataOptions', JSON.stringify({
       cidVersion: 0,
-      wrapWithDirectory: true // Importante: mantém estrutura de diretório
+      wrapWithDirectory: false
     }));
 
     formData.append('pinataMetadata', JSON.stringify({
@@ -92,6 +101,7 @@ async function uploadToPinata() {
       }
     }));
 
+    console.log('📤 Enviando para Pinata...');
     const response = await axios.post(
       'https://api.pinata.cloud/pinning/pinFileToIPFS',
       formData,
@@ -108,8 +118,18 @@ async function uploadToPinata() {
 
     const cid = response.data.IpfsHash;
     console.log(`✅ Upload via Pinata concluído! CID: ${cid}\n`);
+    
+    // Remove arquivo tar temporário
+    if (fs.existsSync(tarPath)) {
+      fs.unlinkSync(tarPath);
+    }
+    
     return cid;
   } catch (error) {
+    // Remove arquivo tar temporário em caso de erro
+    if (fs.existsSync(tarPath)) {
+      fs.unlinkSync(tarPath);
+    }
     console.error('❌ Erro no upload via Pinata:', error.response?.data || error.message);
     throw error;
   }
@@ -175,35 +195,13 @@ async function pinToRemote(cid) {
     return;
   }
 
-  console.log('📌 Fazendo pinning remoto via Pinata...\n');
+  console.log('📌 Tentando pinning remoto via Pinata...\n');
+  console.log('ℹ️  Nota: Pinning por CID requer plano pago do Pinata.');
+  console.log('   O upload direto via Pinata já faz pinning automático.\n');
   
-  try {
-    const response = await axios.post(
-      'https://api.pinata.cloud/pinning/pinByHash',
-      {
-        hashToPin: cid,
-        pinataMetadata: {
-          name: 'neo-flowoff-pwa',
-          keyvalues: {
-            project: 'neo-flowoff-pwa',
-            version: process.env.npm_package_version || '2.1.4',
-            timestamp: new Date().toISOString()
-          }
-        }
-      },
-      {
-        headers: {
-          pinata_api_key: PINATA_API_KEY,
-          pinata_secret_api_key: PINATA_SECRET_KEY
-        }
-      }
-    );
-
-    console.log(`✅ Pinning remoto concluído! CID ${cid} está permanentemente disponível.\n`);
-  } catch (error) {
-    console.error('❌ Erro no pinning remoto:', error.response?.data || error.message);
-    console.error('⚠️  Continuando sem pinning remoto...\n');
-  }
+  // Não tenta fazer pinning por CID no plano gratuito
+  // O upload direto já faz o pinning automaticamente
+  return;
 }
 
 async function uploadToIPFS() {
@@ -221,17 +219,16 @@ async function uploadToIPFS() {
   if (USE_REMOTE_PINNING) {
     try {
       cid = await uploadToPinata();
+      console.log('✅ Upload via Pinata concluído! O conteúdo está permanentemente disponível na rede IPFS.\n');
     } catch (error) {
       console.error('❌ Falha no upload via Pinata, tentando método local...\n');
       cid = await uploadToIPFSLocal();
-      // Tenta fazer pinning remoto mesmo se o upload foi local
-      await pinToRemote(cid);
+      console.log('⚠️  Usando método local. Configure Pinata corretamente para disponibilidade permanente.\n');
     }
   } else {
     // Usa método local
     cid = await uploadToIPFSLocal();
-    // Tenta fazer pinning remoto se as credenciais estiverem disponíveis
-    await pinToRemote(cid);
+    console.log('⚠️  Configure PINATA_API_KEY e PINATA_SECRET_KEY no .env para upload permanente.\n');
   }
 
   return cid;
