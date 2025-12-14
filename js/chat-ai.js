@@ -98,11 +98,11 @@ class ChatAI {
       // Não logar warning se keys não estiverem configuradas (comportamento esperado)
       // O fallback local será usado automaticamente
       if (hasKeys) {
-        // Keys configuradas mas API retornou vazio - pode ser erro de API ou rate limit
-        console.warn('⚠️ AI API retornou resposta vazia. Verificando configuração...');
+        // Keys configuradas mas API retornou vazia - pode ser erro de API ou rate limit
+        window.Logger?.warn('⚠️ AI API retornou resposta vazia. Verificando configuração...');
       }
     } catch (error) {
-      console.error('❌ Erro ao chamar API de IA:', error);
+      window.Logger?.error('❌ Erro ao chamar API de IA:', error);
       window.Logger?.warn('AI API failed, using fallback:', error);
     }
 
@@ -153,7 +153,7 @@ class ChatAI {
 
       return null;
     } catch (error) {
-      console.error('❌ Erro ao buscar resposta IA:', error);
+      window.Logger?.error('❌ Erro ao buscar resposta IA:', error);
       window.Logger?.warn('AI response fetch failed:', error);
       return null;
     }
@@ -387,14 +387,14 @@ Tom:
     if (!OPENAI_API_KEY && !GOOGLE_API_KEY) {
       // Verificar se é desenvolvimento local (sem keys injetadas)
       if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        console.info('ℹ️ Modo desenvolvimento: API keys não configuradas. Use fallback local ou configure em window.APP_CONFIG');
+        window.Logger?.info('ℹ️ Modo desenvolvimento: API keys não configuradas. Use fallback local ou configure em window.APP_CONFIG');
       }
       return null;
     }
 
     // Log da intenção classificada (apenas em desenvolvimento)
-    if (intent && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-      console.info(`🧠 Intent classificada: ${intent.category} (confiança: ${intent.confidence}%)`);
+    if (intent) {
+      window.Logger?.info(`🧠 Intent classificada: ${intent.category} (confiança: ${intent.confidence}%)`);
     }
 
     // Tentar OpenAI primeiro
@@ -424,18 +424,18 @@ Tom:
           const data = await response.json();
           const aiResponse = data.choices?.[0]?.message?.content?.trim();
           if (aiResponse) {
-            console.log('✅ Resposta OpenAI recebida (client-side, modelo:', OPENAI_MODEL, ')');
+            window.Logger?.log('✅ Resposta OpenAI recebida (client-side, modelo:', OPENAI_MODEL, ')');
             return aiResponse;
           } else {
-            console.warn('⚠️ OpenAI retornou resposta vazia');
+            window.Logger?.warn('⚠️ OpenAI retornou resposta vazia');
           }
         } else if (response.status === 401) {
-          console.warn('⚠️ OpenAI API key inválida ou expirada');
+          window.Logger?.warn('⚠️ OpenAI API key inválida ou expirada');
         } else {
-          console.warn(`⚠️ OpenAI retornou erro HTTP ${response.status}`);
+          window.Logger?.warn(`⚠️ OpenAI retornou erro HTTP ${response.status}`);
         }
       } catch (error) {
-        console.warn('❌ Erro ao chamar OpenAI:', error.message);
+        window.Logger?.warn('❌ Erro ao chamar OpenAI:', error.message);
       }
     }
 
@@ -469,18 +469,18 @@ Tom:
           const data = await response.json();
           const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
           if (aiResponse) {
-            console.log('✅ Resposta Gemini recebida (client-side, modelo:', GEMINI_MODEL.replace('-exp', ''), ')');
+            window.Logger?.log('✅ Resposta Gemini recebida (client-side, modelo:', GEMINI_MODEL.replace('-exp', ''), ')');
             return aiResponse;
           } else {
-            console.warn('⚠️ Gemini retornou resposta vazia');
+            window.Logger?.warn('⚠️ Gemini retornou resposta vazia');
           }
         } else if (response.status === 401 || response.status === 403) {
-          console.warn('⚠️ Google API key inválida ou expirada');
+          window.Logger?.warn('⚠️ Google API key inválida ou expirada');
         } else {
-          console.warn(`⚠️ Gemini retornou erro HTTP ${response.status}`);
+          window.Logger?.warn(`⚠️ Gemini retornou erro HTTP ${response.status}`);
         }
       } catch (error) {
-        console.warn('❌ Erro ao chamar Gemini:', error.message);
+        window.Logger?.warn('❌ Erro ao chamar Gemini:', error.message);
       }
     }
 

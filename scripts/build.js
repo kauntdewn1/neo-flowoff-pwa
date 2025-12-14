@@ -8,6 +8,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
+// Garante que NODE_ENV seja production em builds de produção
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = 'production';
+}
+
 console.log('🔨 Building PWA...');
 
 // Valida estrutura mínima
