@@ -63,50 +63,39 @@ async function uploadToStoracha() {
   console.log('🌐 Fazendo upload via Storacha (Web3 descentralizado)...\n');
   
   try {
-    // Importa Storacha client dinamicamente
+    // Importa Storacha client
     const { create } = await import('@storacha/client');
-    const { Signer } = await import('@storacha/client/principal/ed25519');
-    const { Delegation } = await import('@storacha/client');
     
-    // Cria signer a partir do DID key (se disponível)
-    // Para Storacha, precisamos criar o cliente com o principal
-    let principal;
-    try {
-      // Tenta criar signer a partir de uma chave privada se disponível
-      // Se não, usa o DID diretamente
-      if (process.env.STORACHA_PRIVATE_KEY) {
-        principal = Signer.parse(process.env.STORACHA_PRIVATE_KEY);
-      } else {
-        // Cria cliente sem principal (será criado automaticamente)
-        principal = null;
-      }
-    } catch (e) {
-      console.log('ℹ️  Criando cliente Storacha sem signer específico...');
-      principal = null;
-    }
-
     // Cria cliente Storacha
-    const client = principal 
-      ? await create({ principal })
-      : await create();
+    console.log('🔧 Criando cliente Storacha...');
+    const client = await create();
 
-    // Se temos UCAN, aplica a delegação
-    if (STORACHA_UCAN) {
-      console.log('🔐 Aplicando delegação UCAN...');
+    // Cria ou obtém espaço
+    let space;
+    try {
+      // Tenta criar um novo espaço
+      console.log('📦 Criando espaço Storacha...');
+      space = await client.createSpace('neo-flowoff-pwa');
+      console.log(`✅ Espaço Storacha criado: ${space.did()}\n`);
+    } catch (spaceError) {
+      // Se falhar, tenta usar espaço existente ou criar sem nome
+      console.log('⚠️  Erro ao criar espaço nomeado, tentando alternativa...');
       try {
-        const delegationData = Buffer.from(STORACHA_UCAN, 'base64url');
-        const delegation = await Delegation.extract(new Uint8Array(delegationData));
-        
-        if (delegation.ok) {
-          // Adiciona espaço com a delegação
-          const space = await client.addSpace(delegation.ok);
-          client.setCurrentSpace(space.did());
-          console.log(`✅ Espaço Storacha configurado: ${space.did()}\n`);
-        } else {
-          console.log('⚠️  UCAN não pôde ser extraído, continuando sem delegação...\n');
+        space = await client.createSpace();
+        console.log(`✅ Espaço Storacha criado: ${space.did()}\n`);
+      } catch (e) {
+        // Se ainda falhar, tenta verificar se há espaço atual
+        try {
+          const currentSpace = client.currentSpace();
+          if (currentSpace) {
+            console.log(`✅ Usando espaço existente\n`);
+            space = { did: () => currentSpace };
+          } else {
+            throw new Error('Não foi possível criar ou obter um espaço Storacha');
+          }
+        } catch (e) {
+          throw new Error('Não foi possível criar ou obter um espaço Storacha');
         }
-      } catch (ucanError) {
-        console.log('⚠️  Erro ao processar UCAN, continuando sem delegação:', ucanError.message);
       }
     }
 
@@ -114,11 +103,12 @@ async function uploadToStoracha() {
     console.log('📦 Preparando arquivos do diretório...');
     const files = await filesFromPaths([DIST_DIR]);
 
-    // Faz upload do diretório
+    // Faz upload do diretório passando o espaço
     console.log('📤 Enviando para Storacha/IPFS...');
-    const cid = await client.uploadDirectory(files);
+    const cid = await client.uploadDirectory(files, { space });
 
     console.log(`✅ Upload via Storacha concluído! CID: ${cid}\n`);
+    console.log(`🌐 Gateway: https://storacha.link/ipfs/${cid}\n`);
     return cid;
   } catch (error) {
     console.error('❌ Erro no upload via Storacha:', error.message);
