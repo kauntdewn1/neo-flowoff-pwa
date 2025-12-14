@@ -16,11 +16,13 @@ IPNS_KEY_NAME=neo-flowoff-pwa
 IPNS_KEY_ID=k51qzi5uqu5dizgl359xn40rxijeoya8skq61lkl4n8hizc6j0zp93l1xoavh5
 UCAN_TOKEN=seu_token_ucan_aqui
 
-# Pinata (RECOMENDADO - garante disponibilidade permanente)
-# Obtenha suas chaves em: https://app.pinata.cloud/keys
-# Sem essas chaves, o conteúdo só ficará disponível enquanto o Mac estiver ligado!
-PINATA_API_KEY=seu_pinata_api_key_aqui
-PINATA_SECRET_KEY=seu_pinata_secret_key_aqui
+# Storacha (Web3 descentralizado - RECOMENDADO)
+# Storacha é uma alternativa descentralizada ao Pinata
+# Configure seu DID e UCAN para upload permanente na rede IPFS
+STORACHA_DID=did:key:z4MXj1wBzi9jUstyPWmomSd1pFwszvphKndMbzxrAdxYPNYpEhdHeDWvtULKgrWfbbSXFeQZbpnSPihq2NFL1GaqvFGRPYRRKzap12r57RdqvUEBdvbravLoKd5ZTsU6AwfoE6qfn8cGvCkxeZTwSAH5ob3frxH85px2TGYDJ9hPGFnkFo5Ysoc2gk9fvK9Q1Esod5Mv6CMDbnT3icR2jYZWsaBNzzfB5vhd4YQtkghxuzZABtyJYYz54FbjD6AXuogZksorduWuZT4f8wKoinsZ86UqsKPHxquSDSfLjGiVaT8BTGoRg7kri8fZGKA2tukYug4TiQVDprgGEbL6N85XHDJ2RQ6EVwscrhLG38aSzqms1Mjjv
+STORACHA_UCAN=seu_ucan_token_aqui
+# Opcional: chave privada para signer (se disponível)
+# STORACHA_PRIVATE_KEY=sua_chave_privada_aqui
 
 # INSTRUÇÕES:
 # 1. Copie este arquivo para .env

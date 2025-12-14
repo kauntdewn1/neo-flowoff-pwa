@@ -15,12 +15,10 @@
 
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
-import { dirname, join, relative as pathRelative } from 'path';
+import { dirname, join } from 'path';
 import dotenv from 'dotenv';
 import fs from 'fs';
-import axios from 'axios';
-import FormData from 'form-data';
-import * as tar from 'tar';
+import { filesFromPaths } from 'files-from-path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -32,10 +30,10 @@ dotenv.config({ path: join(PROJECT_ROOT, '.env') });
 const DIST_DIR = join(PROJECT_ROOT, 'dist');
 const IPNS_KEY_NAME = process.env.IPNS_KEY_NAME || 'neo-flowoff-pwa';
 
-// Configuração de pinning remoto
-const PINATA_API_KEY = process.env.PINATA_API_KEY;
-const PINATA_SECRET_KEY = process.env.PINATA_SECRET_KEY;
-const USE_REMOTE_PINNING = PINATA_API_KEY && PINATA_SECRET_KEY;
+// Configuração Storacha (Web3 descentralizado)
+const STORACHA_DID = process.env.STORACHA_DID || 'did:key:z4MXj1wBzi9jUstyPWmomSd1pFwszvphKndMbzxrAdxYPNYpEhdHeDWvtULKgrWfbbSXFeQZbpnSPihq2NFL1GaqvFGRPYRRKzap12r57RdqvUEBdvbravLoKd5ZTsU6AwfoE6qfn8cGvCkxeZTwSAH5ob3frxH85px2TGYDJ9hPGFnkFo5Ysoc2gk9fvK9Q1Esod5Mv6CMDbnT3icR2jYZWsaBNzzfB5vhd4YQtkghxuzZABtyJYYz54FbjD6AXuogZksorduWuZT4f8wKoinsZ86UqsKPHxquSDSfLjGiVaT8BTGoRg7kri8fZGKA2tukYug4TiQVDprgGEbL6N85XHDJ2RQ6EVwscrhLG38aSzqms1Mjjv';
+const STORACHA_UCAN = process.env.STORACHA_UCAN || process.env.UCAN_TOKEN;
+const USE_STORACHA = STORACHA_UCAN && STORACHA_DID;
 
 async function runCommand(command, options = {}) {
   try {
@@ -61,94 +59,77 @@ async function build() {
   console.log('✅ Build concluído\n');
 }
 
-async function uploadToPinata() {
-  console.log('📦 Fazendo upload via Pinata API...\n');
-  
-  // Cria arquivo tar temporário
-  const tarPath = join(PROJECT_ROOT, 'dist-temp.tar');
+async function uploadToStoracha() {
+  console.log('🌐 Fazendo upload via Storacha (Web3 descentralizado)...\n');
   
   try {
-    // Cria tar do diretório dist
-    console.log('📦 Criando arquivo tar do diretório...');
-    await tar.create(
-      {
-        file: tarPath,
-        cwd: PROJECT_ROOT,
-        gzip: false
-      },
-      ['dist']
-    );
-
-    // Prepara FormData com o arquivo tar
-    const formData = new FormData();
-    formData.append('file', fs.createReadStream(tarPath), {
-      filename: 'dist.tar',
-      contentType: 'application/x-tar'
-    });
-
-    // Configura opções de pinning
-    formData.append('pinataOptions', JSON.stringify({
-      cidVersion: 0,
-      wrapWithDirectory: false
-    }));
-
-    formData.append('pinataMetadata', JSON.stringify({
-      name: 'neo-flowoff-pwa',
-      keyvalues: {
-        project: 'neo-flowoff-pwa',
-        version: process.env.npm_package_version || '2.1.4',
-        timestamp: new Date().toISOString()
-      }
-    }));
-
-    console.log('📤 Enviando para Pinata...');
-    const response = await axios.post(
-      'https://api.pinata.cloud/pinning/pinFileToIPFS',
-      formData,
-      {
-        headers: {
-          ...formData.getHeaders(),
-          pinata_api_key: PINATA_API_KEY,
-          pinata_secret_api_key: PINATA_SECRET_KEY
-        },
-        maxBodyLength: Infinity,
-        maxContentLength: Infinity
-      }
-    );
-
-    const cid = response.data.IpfsHash;
-    console.log(`✅ Upload via Pinata concluído! CID: ${cid}\n`);
+    // Importa Storacha client dinamicamente
+    const { create } = await import('@storacha/client');
+    const { Signer } = await import('@storacha/client/principal/ed25519');
+    const { Delegation } = await import('@storacha/client');
     
-    // Remove arquivo tar temporário
-    if (fs.existsSync(tarPath)) {
-      fs.unlinkSync(tarPath);
+    // Cria signer a partir do DID key (se disponível)
+    // Para Storacha, precisamos criar o cliente com o principal
+    let principal;
+    try {
+      // Tenta criar signer a partir de uma chave privada se disponível
+      // Se não, usa o DID diretamente
+      if (process.env.STORACHA_PRIVATE_KEY) {
+        principal = Signer.parse(process.env.STORACHA_PRIVATE_KEY);
+      } else {
+        // Cria cliente sem principal (será criado automaticamente)
+        principal = null;
+      }
+    } catch (e) {
+      console.log('ℹ️  Criando cliente Storacha sem signer específico...');
+      principal = null;
     }
-    
+
+    // Cria cliente Storacha
+    const client = principal 
+      ? await create({ principal })
+      : await create();
+
+    // Se temos UCAN, aplica a delegação
+    if (STORACHA_UCAN) {
+      console.log('🔐 Aplicando delegação UCAN...');
+      try {
+        const delegationData = Buffer.from(STORACHA_UCAN, 'base64url');
+        const delegation = await Delegation.extract(new Uint8Array(delegationData));
+        
+        if (delegation.ok) {
+          // Adiciona espaço com a delegação
+          const space = await client.addSpace(delegation.ok);
+          client.setCurrentSpace(space.did());
+          console.log(`✅ Espaço Storacha configurado: ${space.did()}\n`);
+        } else {
+          console.log('⚠️  UCAN não pôde ser extraído, continuando sem delegação...\n');
+        }
+      } catch (ucanError) {
+        console.log('⚠️  Erro ao processar UCAN, continuando sem delegação:', ucanError.message);
+      }
+    }
+
+    // Prepara arquivos do diretório dist
+    console.log('📦 Preparando arquivos do diretório...');
+    const files = await filesFromPaths([DIST_DIR]);
+
+    // Faz upload do diretório
+    console.log('📤 Enviando para Storacha/IPFS...');
+    const cid = await client.uploadDirectory(files);
+
+    console.log(`✅ Upload via Storacha concluído! CID: ${cid}\n`);
     return cid;
   } catch (error) {
-    // Remove arquivo tar temporário em caso de erro
-    if (fs.existsSync(tarPath)) {
-      fs.unlinkSync(tarPath);
+    console.error('❌ Erro no upload via Storacha:', error.message);
+    if (error.stack) {
+      console.error('Stack:', error.stack);
     }
-    console.error('❌ Erro no upload via Pinata:', error.response?.data || error.message);
     throw error;
   }
 }
 
-function getAllFiles(dirPath, arrayOfFiles = []) {
-  const files = fs.readdirSync(dirPath);
-
-  files.forEach(file => {
-    const filePath = join(dirPath, file);
-    if (fs.statSync(filePath).isDirectory()) {
-      arrayOfFiles = getAllFiles(filePath, arrayOfFiles);
-    } else {
-      arrayOfFiles.push(filePath);
-    }
-  });
-
-  return arrayOfFiles;
-}
+// Função removida - usando files-from-path agora
 
 async function uploadToIPFSLocal() {
   console.log('📦 Fazendo upload via IPFS local...\n');
@@ -188,21 +169,7 @@ async function uploadToIPFSLocal() {
   return cid;
 }
 
-async function pinToRemote(cid) {
-  if (!USE_REMOTE_PINNING) {
-    console.log('⚠️  Pinning remoto não configurado. O conteúdo pode ficar indisponível quando o Mac desligar.');
-    console.log('   Configure PINATA_API_KEY e PINATA_SECRET_KEY no .env para garantir disponibilidade permanente.\n');
-    return;
-  }
-
-  console.log('📌 Tentando pinning remoto via Pinata...\n');
-  console.log('ℹ️  Nota: Pinning por CID requer plano pago do Pinata.');
-  console.log('   O upload direto via Pinata já faz pinning automático.\n');
-  
-  // Não tenta fazer pinning por CID no plano gratuito
-  // O upload direto já faz o pinning automaticamente
-  return;
-}
+// Função removida - Storacha faz pinning automático no upload
 
 async function uploadToIPFS() {
   console.log('📦 Passo 2: Upload para IPFS...\n');
@@ -215,20 +182,20 @@ async function uploadToIPFS() {
 
   let cid;
 
-  // Tenta usar Pinata se configurado
-  if (USE_REMOTE_PINNING) {
+  // Tenta usar Storacha se configurado (Web3 descentralizado)
+  if (USE_STORACHA) {
     try {
-      cid = await uploadToPinata();
-      console.log('✅ Upload via Pinata concluído! O conteúdo está permanentemente disponível na rede IPFS.\n');
+      cid = await uploadToStoracha();
+      console.log('✅ Upload via Storacha concluído! O conteúdo está permanentemente disponível na rede IPFS (Web3).\n');
     } catch (error) {
-      console.error('❌ Falha no upload via Pinata, tentando método local...\n');
+      console.error('❌ Falha no upload via Storacha, tentando método local...\n');
       cid = await uploadToIPFSLocal();
-      console.log('⚠️  Usando método local. Configure Pinata corretamente para disponibilidade permanente.\n');
+      console.log('⚠️  Usando método local. Configure STORACHA_UCAN e STORACHA_DID no .env para upload permanente.\n');
     }
   } else {
     // Usa método local
     cid = await uploadToIPFSLocal();
-    console.log('⚠️  Configure PINATA_API_KEY e PINATA_SECRET_KEY no .env para upload permanente.\n');
+    console.log('⚠️  Configure STORACHA_UCAN e STORACHA_DID no .env para upload permanente via Web3.\n');
   }
 
   return cid;
@@ -237,9 +204,10 @@ async function uploadToIPFS() {
 async function publishToIPNS(cid) {
   console.log('🌐 Passo 3: Publicação no IPNS...\n');
   
-  const ucanToken = process.env.UCAN_TOKEN;
+  // Usa UCAN_TOKEN ou STORACHA_UCAN como fallback
+  const ucanToken = process.env.UCAN_TOKEN || process.env.STORACHA_UCAN;
   if (!ucanToken) {
-    console.error('❌ UCAN_TOKEN não encontrado no .env');
+    console.error('❌ UCAN_TOKEN ou STORACHA_UCAN não encontrado no .env');
     process.exit(1);
   }
 
