@@ -70,45 +70,73 @@ async function uploadToStoracha() {
     // Cria cliente Storacha
     console.log('🔧 Criando cliente Storacha...');
     const client = await create();
-
-    // Usa o espaço específico configurado ou tenta criar/obter um
+    
+    // Configura o espaço - cria um novo espaço (mais confiável que usar existente)
+    // Espaços existentes podem ter problemas de permissão se não foram criados por este cliente
     let space;
-    console.log(`📦 Configurando espaço Storacha: ${STORACHA_SPACE_DID}\n`);
+    console.log(`📦 Criando/Configurando espaço Storacha...\n`);
     
     try {
-      // Tenta usar o espaço específico configurado
-      await client.setCurrentSpace(STORACHA_SPACE_DID);
-      console.log(`✅ Espaço Storacha configurado: ${STORACHA_SPACE_DID}\n`);
-      space = { did: () => STORACHA_SPACE_DID };
-    } catch (setSpaceError) {
-      console.log('⚠️  Não foi possível usar o espaço configurado, tentando criar novo...');
+      // Tenta criar um novo espaço primeiro (mais confiável)
+      console.log('🆕 Criando novo espaço...');
+      space = await client.createSpace('neo-flowoff-pwa');
+      await client.setCurrentSpace(space.did());
+      console.log(`✅ Novo espaço criado: ${space.did()}\n`);
+      console.log(`💡 Este é o espaço que será usado para uploads\n`);
+      console.log(`💡 Configure STORACHA_SPACE_DID=${space.did()} no .env para reutilizar este espaço\n`);
+    } catch (createError) {
+      console.log('⚠️  Erro ao criar novo espaço, tentando usar espaço configurado...');
+      console.log(`   Espaço desejado: ${STORACHA_SPACE_DID}\n`);
+      
       try {
-        // Tenta criar um novo espaço
-        space = await client.createSpace('neo-flowoff-pwa');
-        console.log(`✅ Novo espaço Storacha criado: ${space.did()}\n`);
-        console.log(`💡 Configure STORACHA_SPACE_DID=${space.did()} no .env para usar este espaço no futuro\n`);
-      } catch (createError) {
-        // Se falhar, tenta usar espaço atual
-        try {
-          const currentSpace = client.currentSpace();
-          if (currentSpace) {
-            console.log(`✅ Usando espaço atual: ${currentSpace}\n`);
-            space = { did: () => currentSpace };
-          } else {
-            throw new Error('Não foi possível configurar, criar ou obter um espaço Storacha');
-          }
-        } catch (e) {
-          throw new Error('Não foi possível configurar, criar ou obter um espaço Storacha');
+        // Tenta usar o espaço configurado
+        await client.setCurrentSpace(STORACHA_SPACE_DID);
+        const currentSpace = client.currentSpace?.();
+        const spaceDID = typeof currentSpace === 'string' 
+          ? currentSpace 
+          : (currentSpace?.did?.() || STORACHA_SPACE_DID);
+        
+        console.log(`✅ Usando espaço configurado: ${spaceDID}\n`);
+        space = { did: () => spaceDID };
+        
+        // Avisa sobre possíveis problemas de permissão
+        console.log('⚠️  Nota: Se ocorrer erro de permissão, o espaço pode precisar ser criado por este cliente\n');
+      } catch (setError) {
+        // Última tentativa: usa espaço atual se existir
+        const currentSpace = client.currentSpace?.();
+        if (currentSpace) {
+          const spaceDID = typeof currentSpace === 'string' 
+            ? currentSpace 
+            : (currentSpace.did?.() || String(currentSpace));
+          console.log(`✅ Usando espaço atual do cliente: ${spaceDID}\n`);
+          space = { did: () => spaceDID };
+        } else {
+          throw new Error(`Não foi possível criar ou configurar espaço. Erro: ${createError.message}`);
         }
       }
     }
+    
+    // Verifica se temos um espaço válido
+    if (!space) {
+      throw new Error('Espaço não foi configurado');
+    }
+    
+    const spaceDID = space.did();
+    console.log(`🔍 Espaço final: ${spaceDID}\n`);
 
     // Prepara arquivos do diretório dist
     console.log('📦 Preparando arquivos do diretório...');
     const files = await filesFromPaths([DIST_DIR]);
+    console.log(`   ${files.length} arquivo(s) preparado(s)\n`);
 
+    // Verifica se o espaço tem permissões antes de fazer upload
+    const finalSpaceDID = space.did();
+    console.log(`🔐 Verificando permissões do espaço: ${finalSpaceDID}\n`);
+    
     // Faz upload do diretório passando o espaço
     console.log('📤 Enviando para Storacha/IPFS...');
+    console.log('   (Isso pode falhar se o espaço não tiver permissões de escrita)\n');
+    
     const cid = await client.uploadDirectory(files, { space });
 
     console.log(`✅ Upload via Storacha concluído! CID: ${cid}\n`);
@@ -116,8 +144,18 @@ async function uploadToStoracha() {
     return cid;
   } catch (error) {
     console.error('❌ Erro no upload via Storacha:', error.message);
+    
+    // Mensagens de ajuda específicas
+    if (error.message.includes('space/blob/add')) {
+      console.error('\n💡 Possíveis soluções:');
+      console.error('   1. O espaço pode não ter permissões de escrita');
+      console.error('   2. Pode ser necessário fazer login na conta Storacha primeiro');
+      console.error('   3. Verifique se o espaço existe no console: https://console.storacha.network');
+      console.error('   4. Tente criar um novo espaço ou usar um espaço que você possui\n');
+    }
+    
     if (error.stack) {
-      console.error('Stack:', error.stack);
+      console.error('\nStack:', error.stack);
     }
     throw error;
   }
