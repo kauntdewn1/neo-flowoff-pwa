@@ -19,6 +19,7 @@ import { dirname, join } from 'path';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import { filesFromPaths } from 'files-from-path';
+import * as Proof from '@storacha/client/proof';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -33,7 +34,18 @@ const IPNS_KEY_NAME = process.env.IPNS_KEY_NAME || 'neo-flowoff-pwa';
 // Configuração Storacha (Web3 descentralizado)
 const STORACHA_DID = process.env.STORACHA_DID || 'did:key:z4MXj1wBzi9jUstyPWmomSd1pFwszvphKndMbzxrAdxYPNYpEhdHeDWvtULKgrWfbbSXFeQZbpnSPihq2NFL1GaqvFGRPYRRKzap12r57RdqvUEBdvbravLoKd5ZTsU6AwfoE6qfn8cGvCkxeZTwSAH5ob3frxH85px2TGYDJ9hPGFnkFo5Ysoc2gk9fvK9Q1Esod5Mv6CMDbnT3icR2jYZWsaBNzzfB5vhd4YQtkghxuzZABtyJYYz54FbjD6AXuogZksorduWuZT4f8wKoinsZ86UqsKPHxquSDSfLjGiVaT8BTGoRg7kri8fZGKA2tukYug4TiQVDprgGEbL6N85XHDJ2RQ6EVwscrhLG38aSzqms1Mjjv';
 const STORACHA_SPACE_DID = process.env.STORACHA_SPACE_DID || 'did:key:z6Mkjee3CCaP6q2vhRnE3wRBGNqMxEq645EvnYocsbbeZiBR';
-const STORACHA_UCAN = process.env.STORACHA_UCAN || process.env.UCAN_TOKEN;
+// Limpa o UCAN removendo espaços, quebras de linha e outros caracteres inválidos
+// Converte de base64url para base64 padrão (Storacha espera base64 padrão)
+const rawUCAN = process.env.STORACHA_UCAN || process.env.UCAN_TOKEN;
+let STORACHA_UCAN = rawUCAN ? rawUCAN.replace(/\s+/g, '').trim() : null;
+if (STORACHA_UCAN) {
+  // Converte base64url para base64 padrão
+  STORACHA_UCAN = STORACHA_UCAN.replace(/-/g, '+').replace(/_/g, '/');
+  // Adiciona padding se necessário
+  while (STORACHA_UCAN.length % 4 !== 0) {
+    STORACHA_UCAN += '=';
+  }
+}
 const USE_STORACHA = STORACHA_UCAN && STORACHA_DID;
 
 // Função para mascarar valores sensíveis nos logs
@@ -92,61 +104,62 @@ async function uploadToStoracha() {
     console.log(`📦 Configurando espaço Storacha...\n`);
     console.log(`   Espaço desejado: ${STORACHA_SPACE_DID}\n`);
     
-    // Primeiro, tenta usar o espaço existente configurado com UCAN/Proof
+    // PRIMEIRO: Tenta usar o proof/UCAN para adicionar o espaço
     if (STORACHA_UCAN) {
       try {
-        console.log('🔐 Tentando adicionar espaço existente usando proof...');
+        console.log('🔐 Adicionando espaço usando proof/UCAN...');
+        
+        // Valida se o UCAN parece ser base64 válido (já foi convertido e limpo acima)
+        const base64Regex = /^[A-Za-z0-9+/=]+$/;
+        if (!base64Regex.test(STORACHA_UCAN)) {
+          throw new Error(`UCAN contém caracteres inválidos após conversão. Tamanho: ${STORACHA_UCAN.length} chars. Primeiros 50: ${STORACHA_UCAN.substring(0, 50)}...`);
+        }
         
         // O proof gerado pelo CLI é um CAR file em base64
-        // Precisamos decodificar e usar com addSpace
-        const proofBytes = Buffer.from(STORACHA_UCAN, 'base64');
+        // Proof.parse() espera receber o base64 diretamente como string
+        // Não precisa decodificar para Buffer primeiro
+        const proof = await Proof.parse(STORACHA_UCAN);
         
-        // Adiciona o espaço usando o proof (CAR bytes)
-        const addedSpace = await client.addSpace(proofBytes);
+        // Adiciona o espaço usando o proof parseado
+        const addedSpace = await client.addSpace(proof);
         await client.setCurrentSpace(addedSpace.did());
         space = addedSpace;
-        console.log(`✅ Espaço adicionado via proof: ${space.did()}\n`);
+        
+        const spaceDID = space.did();
+        console.log(`✅ Espaço adicionado via proof: ${spaceDID}\n`);
         
         // Verifica se é o espaço desejado
-        const spaceDID = space.did();
-        if (spaceDID === STORACHA_SPACE_DID) {
+        if (STORACHA_SPACE_DID && spaceDID === STORACHA_SPACE_DID) {
           console.log(`✅ Espaço correto configurado: ${spaceDID}\n`);
-        } else {
+        } else if (STORACHA_SPACE_DID) {
           console.log(`⚠️  Espaço adicionado (${spaceDID}) difere do desejado (${STORACHA_SPACE_DID})`);
-          console.log(`   Usando o espaço adicionado: ${spaceDID}\n`);
+          console.log(`   Usando o espaço do proof: ${spaceDID}\n`);
         }
       } catch (proofError) {
-        // Não expõe detalhes do erro que podem conter informações sensíveis
-        console.log(`⚠️  Erro ao usar proof: ${proofError.message.substring(0, 100)}`);
-        console.log('   Tentando método alternativo...\n');
+        const errorMsg = proofError.message || String(proofError);
+        console.error(`❌ Erro ao usar proof: ${errorMsg.substring(0, 150)}`);
+        throw new Error(`Não foi possível adicionar espaço usando proof. Verifique se o STORACHA_UCAN está correto e foi gerado para o Agent DID correto. Erro: ${errorMsg}`);
       }
-    }
-    
-    // Se não conseguiu com UCAN, tenta usar o espaço diretamente
-    if (!space) {
-      try {
-        console.log(`🔗 Tentando usar espaço diretamente: ${STORACHA_SPACE_DID}...`);
-        await client.setCurrentSpace(STORACHA_SPACE_DID);
-        const currentSpace = client.currentSpace?.();
-        const spaceDID = typeof currentSpace === 'string' 
-          ? currentSpace 
-          : (currentSpace?.did?.() || STORACHA_SPACE_DID);
-        
-        console.log(`✅ Espaço configurado diretamente: ${spaceDID}\n`);
-        space = { did: () => spaceDID };
-      } catch (setError) {
-        console.log(`⚠️  Não foi possível usar espaço existente: ${setError.message}`);
-        console.log('   Criando novo espaço...\n');
-        
-        // Última opção: cria um novo espaço
+    } else {
+      // SEM PROOF: Tenta usar o espaço diretamente (requer que o agente já tenha acesso)
+      if (STORACHA_SPACE_DID) {
         try {
-          space = await client.createSpace('neo-flowoff-pwa');
-          await client.setCurrentSpace(space.did());
-          console.log(`✅ Novo espaço criado: ${space.did()}\n`);
-          console.log(`💡 Configure STORACHA_SPACE_DID=${space.did()} no .env para reutilizar\n`);
-        } catch (createError) {
-          throw new Error(`Não foi possível configurar espaço. Erro: ${createError.message}`);
+          console.log(`🔗 Tentando usar espaço diretamente: ${STORACHA_SPACE_DID}...`);
+          await client.setCurrentSpace(STORACHA_SPACE_DID);
+          const currentSpace = client.currentSpace?.();
+          const spaceDID = typeof currentSpace === 'string' 
+            ? currentSpace 
+            : (currentSpace?.did?.() || STORACHA_SPACE_DID);
+          
+          console.log(`✅ Espaço configurado diretamente: ${spaceDID}\n`);
+          space = { did: () => spaceDID };
+        } catch (setError) {
+          const errorMsg = setError.message || String(setError);
+          console.error(`❌ Não foi possível usar espaço existente: ${errorMsg.substring(0, 150)}`);
+          throw new Error(`Não foi possível usar o espaço ${STORACHA_SPACE_DID}. Você precisa gerar um proof/UCAN usando 'storacha delegation create'. Erro: ${errorMsg}`);
         }
+      } else {
+        throw new Error('STORACHA_UCAN ou STORACHA_SPACE_DID deve ser configurado no .env');
       }
     }
     
@@ -209,9 +222,7 @@ async function uploadToStoracha() {
       console.error('        --base64');
       console.error('');
       console.error('   2. Use o output base64 como STORACHA_UCAN no .env');
-      console.error(`   3. Espaço: ${STORACHA_SPACE_DID ? maskSensitive(STORACHA_SPACE_DID, 25, 8) : 'N/A'}`);
-      console.error('   4. Verifique no console: https://console.storacha.network\n');
-      console.error('   Ou deixe o código criar um novo espaço automaticamente.\n');
+      console.error('   3. Verifique no console: https://console.storacha.network\n');
     }
     
     // Não expõe stack trace completo (pode conter informações sensíveis)
@@ -255,11 +266,8 @@ async function uploadToIPFSLocal() {
     process.exit(1);
   }
   
-  console.log(`✅ Upload local concluído! CID: ${cid}`);
-  console.log('⚠️  ATENÇÃO: Este CID só estará disponível enquanto o nó IPFS local estiver rodando!');
-  console.log('   Configure Storacha no .env para upload permanente via Web3.\n');
-  
-  return cid;
+  // Esta função não deve ser mais usada - Storacha é obrigatório
+  throw new Error('Upload local não é mais suportado. Use Storacha para upload permanente.');
 }
 
 // Função removida - Storacha faz pinning automático no upload
@@ -275,22 +283,19 @@ async function uploadToIPFS() {
 
   let cid;
 
-  // Tenta usar Storacha se configurado (Web3 descentralizado)
-  if (USE_STORACHA) {
-    try {
-      cid = await uploadToStoracha();
-      console.log('✅ Upload via Storacha concluído! O conteúdo está permanentemente disponível na rede IPFS (Web3).\n');
-    } catch (error) {
-      console.error('❌ Falha no upload via Storacha, tentando método local...\n');
-      cid = await uploadToIPFSLocal();
-      console.log('⚠️  Usando método local. Configure STORACHA_UCAN e STORACHA_DID no .env para upload permanente.\n');
-    }
-  } else {
-    // Usa método local
-    cid = await uploadToIPFSLocal();
-    console.log('⚠️  Configure STORACHA_UCAN e STORACHA_DID no .env para upload permanente via Web3.\n');
+  // Storacha é obrigatório - não faz fallback para local
+  if (!USE_STORACHA) {
+    console.error('❌ Storacha não configurado!');
+    console.error('   Configure STORACHA_UCAN e STORACHA_DID no .env');
+    console.error('   Use: node scripts/get-agent-did.js para obter seu Agent DID');
+    console.error('   Depois gere o proof com: storacha delegation create <AGENT_DID> ...\n');
+    throw new Error('STORACHA_UCAN e STORACHA_DID devem ser configurados no .env');
   }
 
+  // Faz upload via Storacha (obrigatório)
+  cid = await uploadToStoracha();
+  console.log('✅ Upload via Storacha concluído! O conteúdo está permanentemente disponível na rede IPFS (Web3).\n');
+  
   return cid;
 }
 

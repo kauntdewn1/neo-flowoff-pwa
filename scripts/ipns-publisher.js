@@ -210,9 +210,9 @@ async function publishToIPNS(cid, ucanToken) {
     console.log(`   Expira em: ${expiresAt.toISOString()}`);
   }
 
-  // Valida CID
-  if (!cid || !cid.startsWith('Qm')) {
-    console.error('❌ CID inválido. Deve começar com "Qm"');
+  // Valida CID (aceita tanto v0 quanto v1)
+  if (!cid || (!cid.startsWith('Qm') && !cid.startsWith('bafy'))) {
+    console.error('❌ CID inválido. Deve começar com "Qm" (v0) ou "bafy" (v1)');
     process.exit(1);
   }
 
@@ -221,9 +221,24 @@ async function publishToIPNS(cid, ucanToken) {
   console.log(`🔑 IPNS Key: ${IPNS_KEY_NAME}`);
   console.log(`🌐 IPNS ID: ${IPNS_KEY_ID}`);
 
+  // Para CID v1, faz pin primeiro para garantir que está disponível localmente
+  if (cid.startsWith('bafy')) {
+    console.log('\n📌 Fazendo pin do CID v1 no IPFS local...');
+    try {
+      execSync(`ipfs pin add ${cid} --progress=false`, {
+        stdio: 'inherit',
+        cwd: PROJECT_ROOT
+      });
+      console.log('✅ Pin concluído\n');
+    } catch (pinError) {
+      console.log('⚠️  Aviso: Não foi possível fazer pin (o conteúdo já está na rede IPFS via Storacha)');
+      console.log('   Tentando publicar mesmo assim...\n');
+    }
+  }
+
   // Publica no IPNS
   try {
-    console.log('\n🚀 Publicando no IPNS...');
+    console.log('🚀 Publicando no IPNS...');
     
     const command = `ipfs name publish ${ipfsPath} --key=${IPNS_KEY_NAME} --allow-offline`;
     const output = execSync(command, { 
@@ -247,9 +262,9 @@ async function publishToIPNS(cid, ucanToken) {
     }
 
     console.log(`\n🌐 URLs públicas:`);
-    console.log(`   https://gateway.pinata.cloud/ipns/${IPNS_KEY_ID}`);
     console.log(`   https://dweb.link/ipns/${IPNS_KEY_ID}`);
     console.log(`   https://ipfs.io/ipns/${IPNS_KEY_ID}`);
+    console.log(`   https://gateway.ipfs.io/ipns/${IPNS_KEY_ID}`);
 
   } catch (error) {
     // Mascara mensagens de erro
