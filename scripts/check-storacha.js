@@ -28,21 +28,29 @@ async function checkStoracha() {
   console.log('🔍 Verificando Conta Storacha\n');
   console.log('═══════════════════════════════════════\n');
 
+  // Função para mascarar valores sensíveis
+  const maskSensitive = (value, showStart = 10, showEnd = 4) => {
+    if (!value || typeof value !== 'string') return '***';
+    if (value.length <= showStart + showEnd) return '***';
+    return `${value.substring(0, showStart)}...${value.substring(value.length - showEnd)}`;
+  };
+
   // Verifica configuração
   console.log('📋 Configuração:\n');
   console.log(`   DID: ${STORACHA_DID ? '✅ Configurado' : '❌ Não configurado'}`);
   if (STORACHA_DID) {
-    console.log(`      ${STORACHA_DID.substring(0, 50)}...`);
+    console.log(`      ${maskSensitive(STORACHA_DID, 20, 8)}`);
   }
   console.log(`   UCAN: ${STORACHA_UCAN ? '✅ Configurado' : '❌ Não configurado'}`);
   if (STORACHA_UCAN) {
-    console.log(`      ${STORACHA_UCAN.substring(0, 50)}...`);
+    console.log(`      ${maskSensitive(STORACHA_UCAN, 20, 8)}`);
   }
   console.log(`   Space DID: ${STORACHA_SPACE_DID ? '✅ Configurado' : '❌ Não configurado'}`);
   if (STORACHA_SPACE_DID) {
+    // DID de espaço pode ser mostrado completo (é público)
     console.log(`      ${STORACHA_SPACE_DID}`);
   }
-  console.log(`   Private Key: ${STORACHA_PRIVATE_KEY ? '✅ Configurado' : '⚠️  Não configurado (opcional)'}\n`);
+  console.log(`   Private Key: ${STORACHA_PRIVATE_KEY ? '✅ Configurado (oculto)' : '⚠️  Não configurado (opcional)'}\n`);
 
   if (!STORACHA_DID && !STORACHA_UCAN) {
     console.log('❌ Nenhuma credencial Storacha encontrada no .env');
@@ -78,8 +86,9 @@ async function checkStoracha() {
     try {
       const agent = client.agent;
       if (agent) {
-        const agentDID = agent.did ? agent.did() : 'N/A';
-        console.log(`   Agent DID: ${agentDID}`);
+      const agentDID = agent.did ? agent.did() : 'N/A';
+      // DID do agente pode ser mostrado (é público, usado para delegações)
+      console.log(`   Agent DID: ${agentDID}`);
       }
     } catch (e) {
       console.log('   Agent: Não disponível');
@@ -154,7 +163,10 @@ async function checkStoracha() {
       try {
         const account = await client.login(STORACHA_EMAIL);
         console.log('✅ Login realizado com sucesso!');
-        console.log(`   Email: ${STORACHA_EMAIL}`);
+        // Mascara email para privacidade
+        const emailParts = STORACHA_EMAIL.split('@');
+        const maskedEmail = emailParts[0].substring(0, 2) + '***@' + (emailParts[1] || '***');
+        console.log(`   Email: ${maskedEmail}`);
         
         // Verifica plano
         try {

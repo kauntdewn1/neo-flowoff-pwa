@@ -195,8 +195,16 @@ async function publishToIPNS(cid, ucanToken) {
   }
 
   console.log(`✅ UCAN válido`);
-  console.log(`   Issuer: ${validation.payload.iss || 'N/A'}`);
-  console.log(`   Audience: ${validation.payload.aud || 'N/A'}`);
+  // Mascara informações sensíveis do payload
+  const maskValue = (value) => {
+    if (!value || value === 'unknown') return 'N/A';
+    if (typeof value === 'string' && value.length > 20) {
+      return `${value.substring(0, 10)}...${value.substring(value.length - 6)}`;
+    }
+    return value;
+  };
+  console.log(`   Issuer: ${maskValue(validation.payload.iss)}`);
+  console.log(`   Audience: ${maskValue(validation.payload.aud)}`);
   if (validation.payload.exp) {
     const expiresAt = new Date(validation.payload.exp * 1000);
     console.log(`   Expira em: ${expiresAt.toISOString()}`);
@@ -217,7 +225,7 @@ async function publishToIPNS(cid, ucanToken) {
   try {
     console.log('\n🚀 Publicando no IPNS...');
     
-    const command = `ipfs name publish ${ipfsPath} --key=${IPNS_KEY_NAME}`;
+    const command = `ipfs name publish ${ipfsPath} --key=${IPNS_KEY_NAME} --allow-offline`;
     const output = execSync(command, { 
       encoding: 'utf-8',
       cwd: PROJECT_ROOT,
@@ -244,9 +252,16 @@ async function publishToIPNS(cid, ucanToken) {
     console.log(`   https://ipfs.io/ipns/${IPNS_KEY_ID}`);
 
   } catch (error) {
-    console.error(`❌ Erro ao publicar: ${error.message}`);
-    if (error.stdout) console.error(error.stdout);
-    if (error.stderr) console.error(error.stderr);
+    // Mascara mensagens de erro
+    const safeErrorMessage = error.message ? error.message.substring(0, 200) : 'Erro desconhecido';
+    console.error(`❌ Erro ao publicar: ${safeErrorMessage}`);
+    // Não expõe stdout/stderr que podem conter informações sensíveis
+    if (error.stdout && process.env.NODE_ENV === 'development') {
+      console.error('stdout:', error.stdout.substring(0, 200));
+    }
+    if (error.stderr && process.env.NODE_ENV === 'development') {
+      console.error('stderr:', error.stderr.substring(0, 200));
+    }
     process.exit(1);
   }
 }
