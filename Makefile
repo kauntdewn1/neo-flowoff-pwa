@@ -1,7 +1,7 @@
 # NEØ.FLOWOFF PWA - Makefile
 # Node validado do Protocolo NΞØ
 
-.PHONY: help build deploy dev clean install
+.PHONY: help build deploy deploy-ipfs dev clean install
 
 # Variáveis
 SITE_NAME = neo-flowoff-pwa
@@ -75,6 +75,11 @@ deploy-preview: build ## Deploy preview para Netlify
 	@echo "👀 Deploying preview..."
 	@netlify deploy --dir=dist $(NETLIFY_SITE_ARG)
 	@echo "✅ Preview deploy concluído!"
+
+deploy-ipfs: ## Deploy completo para IPFS/IPNS (build + upload + publish + commit + push)
+	@echo "🌐 Deploying para IPFS/IPNS..."
+	@npm run deploy:ipfs
+	@echo "✅ Deploy IPFS/IPNS concluído!"
 
 dev: ## Servidor local para desenvolvimento (recomendado)
 	@echo "🚀 Iniciando servidor Node.js..."
