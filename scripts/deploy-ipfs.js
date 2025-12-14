@@ -32,6 +32,7 @@ const IPNS_KEY_NAME = process.env.IPNS_KEY_NAME || 'neo-flowoff-pwa';
 
 // Configuração Storacha (Web3 descentralizado)
 const STORACHA_DID = process.env.STORACHA_DID || 'did:key:z4MXj1wBzi9jUstyPWmomSd1pFwszvphKndMbzxrAdxYPNYpEhdHeDWvtULKgrWfbbSXFeQZbpnSPihq2NFL1GaqvFGRPYRRKzap12r57RdqvUEBdvbravLoKd5ZTsU6AwfoE6qfn8cGvCkxeZTwSAH5ob3frxH85px2TGYDJ9hPGFnkFo5Ysoc2gk9fvK9Q1Esod5Mv6CMDbnT3icR2jYZWsaBNzzfB5vhd4YQtkghxuzZABtyJYYz54FbjD6AXuogZksorduWuZT4f8wKoinsZ86UqsKPHxquSDSfLjGiVaT8BTGoRg7kri8fZGKA2tukYug4TiQVDprgGEbL6N85XHDJ2RQ6EVwscrhLG38aSzqms1Mjjv';
+const STORACHA_SPACE_DID = process.env.STORACHA_SPACE_DID || 'did:key:z6Mkjee3CCaP6q2vhRnE3wRBGNqMxEq645EvnYocsbbeZiBR';
 const STORACHA_UCAN = process.env.STORACHA_UCAN || process.env.UCAN_TOKEN;
 const USE_STORACHA = STORACHA_UCAN && STORACHA_DID;
 
@@ -70,31 +71,34 @@ async function uploadToStoracha() {
     console.log('🔧 Criando cliente Storacha...');
     const client = await create();
 
-    // Cria ou obtém espaço
+    // Usa o espaço específico configurado ou tenta criar/obter um
     let space;
+    console.log(`📦 Configurando espaço Storacha: ${STORACHA_SPACE_DID}\n`);
+    
     try {
-      // Tenta criar um novo espaço
-      console.log('📦 Criando espaço Storacha...');
-      space = await client.createSpace('neo-flowoff-pwa');
-      console.log(`✅ Espaço Storacha criado: ${space.did()}\n`);
-    } catch (spaceError) {
-      // Se falhar, tenta usar espaço existente ou criar sem nome
-      console.log('⚠️  Erro ao criar espaço nomeado, tentando alternativa...');
+      // Tenta usar o espaço específico configurado
+      await client.setCurrentSpace(STORACHA_SPACE_DID);
+      console.log(`✅ Espaço Storacha configurado: ${STORACHA_SPACE_DID}\n`);
+      space = { did: () => STORACHA_SPACE_DID };
+    } catch (setSpaceError) {
+      console.log('⚠️  Não foi possível usar o espaço configurado, tentando criar novo...');
       try {
-        space = await client.createSpace();
-        console.log(`✅ Espaço Storacha criado: ${space.did()}\n`);
-      } catch (e) {
-        // Se ainda falhar, tenta verificar se há espaço atual
+        // Tenta criar um novo espaço
+        space = await client.createSpace('neo-flowoff-pwa');
+        console.log(`✅ Novo espaço Storacha criado: ${space.did()}\n`);
+        console.log(`💡 Configure STORACHA_SPACE_DID=${space.did()} no .env para usar este espaço no futuro\n`);
+      } catch (createError) {
+        // Se falhar, tenta usar espaço atual
         try {
           const currentSpace = client.currentSpace();
           if (currentSpace) {
-            console.log(`✅ Usando espaço existente\n`);
+            console.log(`✅ Usando espaço atual: ${currentSpace}\n`);
             space = { did: () => currentSpace };
           } else {
-            throw new Error('Não foi possível criar ou obter um espaço Storacha');
+            throw new Error('Não foi possível configurar, criar ou obter um espaço Storacha');
           }
         } catch (e) {
-          throw new Error('Não foi possível criar ou obter um espaço Storacha');
+          throw new Error('Não foi possível configurar, criar ou obter um espaço Storacha');
         }
       }
     }

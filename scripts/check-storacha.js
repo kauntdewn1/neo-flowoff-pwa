@@ -22,6 +22,7 @@ dotenv.config({ path: join(PROJECT_ROOT, '.env') });
 const STORACHA_DID = process.env.STORACHA_DID;
 const STORACHA_UCAN = process.env.STORACHA_UCAN || process.env.UCAN_TOKEN;
 const STORACHA_PRIVATE_KEY = process.env.STORACHA_PRIVATE_KEY;
+const STORACHA_SPACE_DID = process.env.STORACHA_SPACE_DID || 'did:key:z6Mkjee3CCaP6q2vhRnE3wRBGNqMxEq645EvnYocsbbeZiBR';
 
 async function checkStoracha() {
   console.log('🔍 Verificando Conta Storacha\n');
@@ -36,6 +37,10 @@ async function checkStoracha() {
   console.log(`   UCAN: ${STORACHA_UCAN ? '✅ Configurado' : '❌ Não configurado'}`);
   if (STORACHA_UCAN) {
     console.log(`      ${STORACHA_UCAN.substring(0, 50)}...`);
+  }
+  console.log(`   Space DID: ${STORACHA_SPACE_DID ? '✅ Configurado' : '❌ Não configurado'}`);
+  if (STORACHA_SPACE_DID) {
+    console.log(`      ${STORACHA_SPACE_DID}`);
   }
   console.log(`   Private Key: ${STORACHA_PRIVATE_KEY ? '✅ Configurado' : '⚠️  Não configurado (opcional)'}\n`);
 

@@ -21,6 +21,9 @@ UCAN_TOKEN=seu_token_ucan_aqui
 # Configure seu DID e UCAN para upload permanente na rede IPFS
 STORACHA_DID=did:key:z4MXj1wBzi9jUstyPWmomSd1pFwszvphKndMbzxrAdxYPNYpEhdHeDWvtULKgrWfbbSXFeQZbpnSPihq2NFL1GaqvFGRPYRRKzap12r57RdqvUEBdvbravLoKd5ZTsU6AwfoE6qfn8cGvCkxeZTwSAH5ob3frxH85px2TGYDJ9hPGFnkFo5Ysoc2gk9fvK9Q1Esod5Mv6CMDbnT3icR2jYZWsaBNzzfB5vhd4YQtkghxuzZABtyJYYz54FbjD6AXuogZksorduWuZT4f8wKoinsZ86UqsKPHxquSDSfLjGiVaT8BTGoRg7kri8fZGKA2tukYug4TiQVDprgGEbL6N85XHDJ2RQ6EVwscrhLG38aSzqms1Mjjv
 STORACHA_UCAN=seu_ucan_token_aqui
+# Espaço Storacha específico para usar (DID do espaço)
+# Se não configurado, será criado um novo espaço automaticamente
+STORACHA_SPACE_DID=did:key:z6Mkjee3CCaP6q2vhRnE3wRBGNqMxEq645EvnYocsbbeZiBR
 # Opcional: chave privada para signer (se disponível)
 # STORACHA_PRIVATE_KEY=sua_chave_privada_aqui
 

@@ -1,7 +1,7 @@
 # NEØ.FLOWOFF PWA - Makefile
 # Node validado do Protocolo NΞØ
 
-.PHONY: help build deploy deploy-ipfs dev clean install
+.PHONY: help build deploy deploy-ipfs check-storacha dev clean install
 
 # Variáveis
 SITE_NAME = neo-flowoff-pwa
@@ -76,10 +76,15 @@ deploy-preview: build ## Deploy preview para Netlify
 	@netlify deploy --dir=dist $(NETLIFY_SITE_ARG)
 	@echo "✅ Preview deploy concluído!"
 
-deploy-ipfs: ## Deploy completo para IPFS/IPNS (build + upload + publish + commit + push)
-	@echo "🌐 Deploying para IPFS/IPNS..."
+deploy-ipfs: ## Deploy completo para IPFS/IPNS via Storacha (Web3) - build + upload + publish + commit + push
+	@echo "🌐 Deploying para IPFS/IPNS via Storacha (Web3 descentralizado)..."
 	@npm run deploy:ipfs
 	@echo "✅ Deploy IPFS/IPNS concluído!"
+
+check-storacha: ## Verifica configuração e espaços da conta Storacha
+	@echo "🔍 Verificando conta Storacha..."
+	@npm run check:storacha
+	@echo "✅ Verificação concluída!"
 
 dev: ## Servidor local para desenvolvimento (recomendado)
 	@echo "🚀 Iniciando servidor Node.js..."
