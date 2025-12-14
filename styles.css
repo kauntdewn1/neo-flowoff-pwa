@@ -2934,8 +2934,9 @@ canvas {
 
 .chat-header {
   padding: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
 }
 
 .chat-header-content {
@@ -2990,7 +2991,8 @@ canvas {
 .chat-status {
   margin: 4px 0 0 0;
   font-size: 12px;
-  color: var(--muted);
+  color: rgba(154, 160, 170, 0.9);
+  font-weight: 400;
 }
 
 .chat-messages {
@@ -3001,6 +3003,25 @@ canvas {
   flex-direction: column;
   gap: 16px;
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 47, 179, 0.3) transparent;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(255, 47, 179, 0.3);
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 47, 179, 0.5);
 }
 
 .chat-message {
@@ -3037,17 +3058,20 @@ canvas {
 .message-content {
   padding: 12px 16px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   color: var(--text);
-  line-height: 1.5;
+  line-height: 1.6;
   word-wrap: break-word;
+  font-size: 14px;
 }
 
 .chat-message.user .message-content {
   background: linear-gradient(135deg, var(--neon), var(--blue));
-  color: var(--bg);
+  color: #ffffff;
   border: none;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(255, 47, 179, 0.3);
 }
 
 .message-content p {
@@ -3068,12 +3092,12 @@ canvas {
 
 .chat-input {
   flex: 1;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 25px;
   padding: 12px 20px;
   color: var(--text);
-  font-size: 14px;
+  font-size: 15px;
   outline: none;
   transition: all 0.2s ease;
   font-family: inherit;
@@ -3081,12 +3105,14 @@ canvas {
 
 .chat-input:focus {
   border-color: var(--neon);
-  box-shadow: 0 0 0 2px rgba(255, 47, 179, 0.2);
-  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(255, 47, 179, 0.25), 0 0 20px rgba(255, 47, 179, 0.15);
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
 }
 
 .chat-input::placeholder {
-  color: var(--muted);
+  color: rgba(154, 160, 170, 0.7);
+  opacity: 1;
 }
 
 .chat-send-btn {
@@ -3106,7 +3132,12 @@ canvas {
 
 .chat-send-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 20px rgba(255, 47, 179, 0.4);
+  box-shadow: 0 4px 20px rgba(255, 47, 179, 0.5), 0 0 30px rgba(0, 208, 255, 0.3);
+}
+
+.chat-send-btn:focus {
+  outline: 2px solid var(--neon);
+  outline-offset: 2px;
 }
 
 .chat-send-btn:active {
@@ -3122,21 +3153,29 @@ canvas {
 }
 
 .quick-action-btn {
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   color: var(--text);
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
+  white-space: nowrap;
 }
 
 .quick-action-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   border-color: var(--neon);
+  color: #ffffff;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 47, 179, 0.2);
+}
+
+.quick-action-btn:active {
+  transform: translateY(0);
 }
 
 .typing-dots {
@@ -3149,8 +3188,9 @@ canvas {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--muted);
+  background: var(--blue);
   animation: typingDot 1.4s infinite;
+  opacity: 0.7;
 }
 
 .typing-dots span:nth-child(2) {
@@ -3206,7 +3246,17 @@ canvas {
   }
 
   .quick-action-btn {
-    font-size: 11px;
-    padding: 6px 12px;
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+  
+  .message-content {
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+  
+  .chat-input {
+    font-size: 14px;
+    padding: 10px 16px;
   }
 }

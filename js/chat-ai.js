@@ -213,8 +213,10 @@ DOMÍNIOS DE ATUAÇÃO DA FLOWOFF:
 • Estratégia digital e crescimento orientado a sistemas
 • Blockchain, Web3 e tokenização de ativos
 • Desenvolvimento de WebApps, PWAs e plataformas customizadas
+• SAAS/BAAS (Software/Backend as a Service)
+• POSTØN (Sistema de comunicação e automação)
+• PRO.IA (Agentes de IA personalizados e automações inteligentes)
 • Arquitetura de ecossistemas digitais e produtos conectados
-• Agentes de IA personalizados e automações inteligentes
 • Integração entre marketing, tecnologia e comportamento humano
 
 COMO VOCÊ DEVE OPERAR:
@@ -513,7 +515,7 @@ Tom:
     // Não fingir ser IA quando não é
     
     if (message.includes('serviço') || message.includes('o que fazem') || message.includes('servicos')) {
-      return 'A FlowOFF oferece desenvolvimento de Sites/WebApps, SAAS/BAAS, Tokenização de Ativos e Agentes IA. Para informações detalhadas, entre em contato: +55 62 98323-1110';
+      return 'A FlowOFF oferece desenvolvimento de Sites/WebApps, SAAS/BAAS, Tokenização de Ativos, POSTØN e PRO.IA (Agentes de IA personalizados). Para informações detalhadas, entre em contato: +55 62 98323-1110';
     }
 
     if (message.includes('preço') || message.includes('quanto') || message.includes('custo')) {
@@ -528,8 +530,8 @@ Tom:
       return 'Veja nossos projetos na seção "Projetos" do menu ou visite flowoff.xyz';
     }
 
-    if (message.includes('marketing') || message.includes('blockchain') || message.includes('ia') || message.includes('token')) {
-      return 'A FlowOFF trabalha com marketing digital avançado, blockchain, IA e tokenização. Para mais informações: +55 62 98323-1110';
+    if (message.includes('marketing') || message.includes('blockchain') || message.includes('ia') || message.includes('token') || message.includes('poston') || message.includes('proia') || message.includes('pro.ia')) {
+      return 'A FlowOFF trabalha com marketing digital avançado, blockchain, IA (PRO.IA), tokenização e POSTØN. Para mais informações: +55 62 98323-1110';
     }
 
     if (message.includes('olá') || message.includes('oi') || message.includes('bom dia') || message.includes('boa tarde')) {
