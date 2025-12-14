@@ -100,7 +100,8 @@ class FormValidator {
           // Formata visualmente: 74230-130
           cepInput.value = value.slice(0, 5) + '-' + value.slice(5, 8);
         }
-        await this.validateCEP(value); // Sempre enviar apenas números para validação
+        // CEP: apenas validação de formato (8 dígitos), sem consulta à API
+        this.validateCEPFormat(value);
       });
 
       // Remover formatação ao focar (voltar para apenas números)
@@ -112,95 +113,28 @@ class FormValidator {
     }
   }
 
-  async validateCEP(cep) {
+  validateCEPFormat(cep) {
     if (!cep) return true;
 
     // Garantir que recebemos apenas números
     const cepLimpo = String(cep).replace(/\D/g, '');
+    const statusEl = document.getElementById('cep-validation');
     
     if (cepLimpo.length !== 8) {
-      const statusEl = document.getElementById('cep-validation');
       if (statusEl) {
         statusEl.textContent = '⚠ CEP deve ter exatamente 8 dígitos';
         statusEl.style.color = '#f59e0b';
       }
-      return true; // Não bloqueia o envio, apenas avisa
+      return false;
     }
 
-    const statusEl = document.getElementById('cep-validation');
+    // CEP válido (formato correto)
     if (statusEl) {
-      statusEl.textContent = '• Consultando CEP...';
-      statusEl.style.color = '#3b82f6';
+      statusEl.textContent = '✓ CEP válido';
+      statusEl.style.color = '#4ade80';
     }
-
-    try {
-      const cepResponse = await this.fetchCepWithFallback(cepLimpo);
-      const data = cepResponse?.body;
-
-      if (!cepResponse?.ok || !data) {
-        if (statusEl) {
-          statusEl.textContent = '⚠ Erro ao consultar CEP. Você pode continuar mesmo assim.';
-          statusEl.style.color = '#f59e0b';
-        }
-        this.clearError('cep');
-        return true;
-      }
-
-      if (data.success && data.data) {
-        const endereco = data.data;
-        const logradouro = endereco.logradouro || endereco.address || endereco.street || '';
-        const cidade = endereco.cidade || endereco.city || '';
-        const uf = endereco.uf || endereco.state || '';
-        const bairro = endereco.bairro || endereco.district || '';
-        
-        if (statusEl) {
-          let enderecoCompleto = '';
-          if (logradouro) enderecoCompleto += logradouro;
-          if (bairro) enderecoCompleto += (enderecoCompleto ? ', ' : '') + bairro;
-          if (cidade && uf) enderecoCompleto += (enderecoCompleto ? ', ' : '') + `${cidade}/${uf}`;
-          
-          statusEl.textContent = enderecoCompleto ? `✓ ${enderecoCompleto}` : '✓ CEP válido';
-          statusEl.style.color = '#4ade80';
-        }
-        this.clearError('cep');
-        return true;
-      } else {
-        const fallbackMessage = data?.message || data?.error || 'CEP não encontrado. Você pode continuar mesmo assim.';
-        if (statusEl) {
-          statusEl.textContent = `⚠ ${fallbackMessage}`;
-          statusEl.style.color = '#f59e0b';
-        }
-        this.clearError('cep');
-        return true; // Não bloqueia o envio
-      }
-    } catch (error) {
-      window.Logger?.error('Erro ao consultar CEP:', error);
-      if (statusEl) {
-        statusEl.textContent = '⚠ Erro ao consultar CEP. Você pode continuar mesmo assim.';
-        statusEl.style.color = '#f59e0b';
-      }
-      this.clearError('cep');
-      return true; // Não bloqueia o envio
-    }
-  }
-
-  async fetchCepWithFallback(cep) {
-    // Descentralizado: usa apenas endpoint local, sem dependência de APIs externas
-    return await this.fetchCepLocal(cep);
-  }
-
-  async fetchCepLocal(cep) {
-    const response = await fetch(`/api/cep/${cep}`);
-    if (!response.ok) {
-      return { ok: false, body: null };
-    }
-
-    try {
-      const body = await response.json();
-      return { ok: true, body };
-    } catch (parseError) {
-      return { ok: false, body: null };
-    }
+    this.clearError('cep');
+    return true;
   }
 
   setupForm() {
@@ -413,7 +347,7 @@ class FormValidator {
         // Validar CEP se fornecido (não bloqueia se falhar)
         const cep = formData.get('cep');
         if (cep) {
-          await this.validateCEP(cep);
+          this.validateCEPFormat(cep);
         }
       }
 

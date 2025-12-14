@@ -1,4 +1,4 @@
-const CACHE = 'neo-flowoff-v2.1.3-sync';
+const CACHE = 'neo-flowoff-v2.1.4-sync';
 const QUEUE_NAME = 'form-submissions';
 const MAX_RETRIES = 5;
 const RETRY_DELAYS = [1000, 2000, 5000, 10000, 30000]; // Exponential backoff em ms
@@ -226,14 +226,23 @@ async function processQueue() {
             deleteRequest.onerror = () => reject(deleteRequest.error);
           });
           
-          // Notificar clientes
-          const clients = await self.clients.matchAll();
-          clients.forEach(client => {
-            client.postMessage({
-              type: 'FORM_SYNC_SUCCESS',
-              id: item.id
+          // Notificar clientes (com tratamento de erro para evitar mensagens fechadas)
+          try {
+            const clients = await self.clients.matchAll();
+            clients.forEach(client => {
+              // Verificar se o cliente ainda está ativo antes de enviar
+              if (client && !client.closed) {
+                client.postMessage({
+                  type: 'FORM_SYNC_SUCCESS',
+                  id: item.id
+                }).catch(() => {
+                  // Ignorar erros de mensagens fechadas
+                });
+              }
             });
-          });
+          } catch (error) {
+            // Ignorar erros ao enviar mensagens para clientes fechados
+          }
         } else {
           // Incrementar retries
           item.retries++;

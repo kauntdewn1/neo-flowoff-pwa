@@ -91,8 +91,16 @@ class ChatAI {
         return;
       }
       
-      // Se API retornou vazio/null, logar para debug
-      console.warn('⚠️ AI API retornou resposta vazia. Verificando configuração...');
+      // Se API retornou vazio/null, verificar se é problema de configuração
+      const config = window.APP_CONFIG || {};
+      const hasKeys = !!(config.OPENAI_API_KEY || config.GOOGLE_API_KEY);
+      
+      // Não logar warning se keys não estiverem configuradas (comportamento esperado)
+      // O fallback local será usado automaticamente
+      if (hasKeys) {
+        // Keys configuradas mas API retornou vazio - pode ser erro de API ou rate limit
+        console.warn('⚠️ AI API retornou resposta vazia. Verificando configuração...');
+      }
     } catch (error) {
       console.error('❌ Erro ao chamar API de IA:', error);
       window.Logger?.warn('AI API failed, using fallback:', error);
@@ -232,9 +240,13 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
           if (aiResponse) {
             console.log('✅ Resposta OpenAI recebida (client-side, modelo:', OPENAI_MODEL, ')');
             return aiResponse;
+          } else {
+            console.warn('⚠️ OpenAI retornou resposta vazia');
           }
         } else if (response.status === 401) {
           console.warn('⚠️ OpenAI API key inválida ou expirada');
+        } else {
+          console.warn(`⚠️ OpenAI retornou erro HTTP ${response.status}`);
         }
       } catch (error) {
         console.warn('❌ Erro ao chamar OpenAI:', error.message);
@@ -273,9 +285,13 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
           if (aiResponse) {
             console.log('✅ Resposta Gemini recebida (client-side, modelo:', GEMINI_MODEL.replace('-exp', ''), ')');
             return aiResponse;
+          } else {
+            console.warn('⚠️ Gemini retornou resposta vazia');
           }
         } else if (response.status === 401 || response.status === 403) {
           console.warn('⚠️ Google API key inválida ou expirada');
+        } else {
+          console.warn(`⚠️ Gemini retornou erro HTTP ${response.status}`);
         }
       } catch (error) {
         console.warn('❌ Erro ao chamar Gemini:', error.message);

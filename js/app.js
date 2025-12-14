@@ -75,7 +75,9 @@ setOffline(!navigator.onLine);
 // Escutar mensagens do Service Worker sobre sincronização
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.addEventListener('message', event => {
-    if (event.data && event.data.type === 'FORM_SYNC_SUCCESS') {
+    // Não retornar true - não precisamos manter o canal aberto
+    // Apenas processar a mensagem se ela existir
+    if (event && event.data && event.data.type === 'FORM_SYNC_SUCCESS') {
       // Notificar usuário sobre sincronização bem-sucedida
       const statusEl = document.getElementById('lead-status');
       if (statusEl) {
@@ -88,6 +90,7 @@ if ('serviceWorker' in navigator) {
         }, 3000);
       }
     }
+    // Não retornar nada (undefined = false = não espera resposta assíncrona)
   });
 }
 
