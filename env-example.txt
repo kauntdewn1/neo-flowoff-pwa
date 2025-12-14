@@ -17,7 +17,7 @@ IPNS_KEY_ID=k51qzi5uqu5dizgl359xn40rxijeoya8skq61lkl4n8hizc6j0zp93l1xoavh5
 UCAN_TOKEN=seu_token_ucan_aqui
 
 # Storacha (Web3 descentralizado - RECOMENDADO)
-# Storacha é uma alternativa descentralizada ao Pinata
+# Storacha - Serviço descentralizado Web3 para armazenamento IPFS
 # Configure seu DID e UCAN para upload permanente na rede IPFS
 STORACHA_DID=did:key:z4MXj1wBzi9jUstyPWmomSd1pFwszvphKndMbzxrAdxYPNYpEhdHeDWvtULKgrWfbbSXFeQZbpnSPihq2NFL1GaqvFGRPYRRKzap12r57RdqvUEBdvbravLoKd5ZTsU6AwfoE6qfn8cGvCkxeZTwSAH5ob3frxH85px2TGYDJ9hPGFnkFo5Ysoc2gk9fvK9Q1Esod5Mv6CMDbnT3icR2jYZWsaBNzzfB5vhd4YQtkghxuzZABtyJYYz54FbjD6AXuogZksorduWuZT4f8wKoinsZ86UqsKPHxquSDSfLjGiVaT8BTGoRg7kri8fZGKA2tukYug4TiQVDprgGEbL6N85XHDJ2RQ6EVwscrhLG38aSzqms1Mjjv
 STORACHA_UCAN=seu_ucan_token_aqui
@@ -35,5 +35,5 @@ STORACHA_SPACE_DID=did:key:z6Mkjee3CCaP6q2vhRnE3wRBGNqMxEq645EvnYocsbbeZiBR
 # INSTRUÇÕES:
 # 1. Copie este arquivo para .env
 # 2. Substitua 'seu_token_real_aqui' pelos seus tokens reais
-# 3. Para Pinata: crie conta em https://pinata.cloud e obtenha as chaves em https://app.pinata.cloud/keys
+# 3. Para Storacha: use o CLI (storacha) para gerar proof/UCAN de delegação
 # 4. Reinicie o servidor (npm run dev)
