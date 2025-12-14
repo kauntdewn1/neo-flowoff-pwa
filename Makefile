@@ -1,10 +1,11 @@
 # NEØ.FLOWOFF PWA - Makefile
 # Node validado do Protocolo NΞØ
 
-.PHONY: help build deploy deploy-ipfs check-storacha dev clean install
+.PHONY: help build deploy deploy-ipfs check-storacha get-agent-did dev clean install test test-ui test-run
 
 # Variáveis
 SITE_NAME = neo-flowoff-pwa
+PORT ?= 3000
 NETLIFY_SITE_ID ?= $(shell \
 	if [ -f .netlify/state.json ]; then \
 		node -e "const fs=require('fs');const state=JSON.parse(fs.readFileSync('.netlify/state.json','utf8'));process.stdout.write(state.siteId||'');" 2>/dev/null; \
@@ -86,6 +87,11 @@ check-storacha: ## Verifica configuração e espaços da conta Storacha
 	@npm run check:storacha
 	@echo "✅ Verificação concluída!"
 
+get-agent-did: ## Obtém o Agent DID do cliente Storacha (útil para gerar delegações)
+	@echo "🔍 Obtendo Agent DID do cliente Storacha..."
+	@node scripts/get-agent-did.js
+	@echo "✅ Agent DID obtido!"
+
 dev: ## Servidor local para desenvolvimento (recomendado)
 	@echo "🚀 Iniciando servidor Node.js..."
 	@command -v node >/dev/null 2>&1 && node server.js || \
@@ -127,6 +133,22 @@ install: ## Instala dependências (Netlify CLI)
 	@echo "📦 Instalando dependências..."
 	@command -v netlify >/dev/null 2>&1 || npm install -g netlify-cli
 	@echo "✅ Dependências instaladas!"
+
+# Comandos de teste
+test: ## Executa testes do formulário (modo watch)
+	@echo "🧪 Executando testes do formulário..."
+	@command -v node >/dev/null 2>&1 || (echo "❌ Node.js não encontrado" && exit 1)
+	@npm test
+
+test-ui: ## Executa testes com interface visual
+	@echo "🧪 Executando testes com interface visual..."
+	@command -v node >/dev/null 2>&1 || (echo "❌ Node.js não encontrado" && exit 1)
+	@npm run test:ui
+
+test-run: ## Executa testes uma vez e exibe resultado
+	@echo "🧪 Executando testes do formulário..."
+	@command -v node >/dev/null 2>&1 || (echo "❌ Node.js não encontrado" && exit 1)
+	@npm run test:run
 
 # Comandos de validação
 validate: ## Valida estrutura da PWA

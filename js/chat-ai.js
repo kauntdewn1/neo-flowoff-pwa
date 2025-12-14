@@ -145,35 +145,10 @@ class ChatAI {
       // Ⅱ. OBTER SUB-PROMPT ESPECIALIZADO BASEADO NA INTENÇÃO
       const systemPrompt = this.buildSystemPrompt(intent);
 
-      // Tentar chamada direta às APIs (client-side) primeiro
-      // Isso elimina a dependência de Netlify Functions
+      // Chamada direta às APIs (client-side)
       const directResponse = await this.fetchDirectAI(message, history, systemPrompt, intent);
       if (directResponse) {
         return directResponse;
-      }
-
-      // Fallback: tentar Netlify Function (se ainda disponível)
-      try {
-        const response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: message,
-            history: history
-          })
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success && data.response && data.response.trim()) {
-            console.log('✅ Resposta IA recebida via Netlify Function (modelo:', data.model || 'desconhecido', ')');
-            return data.response;
-          }
-        }
-      } catch (netlifyError) {
-        console.warn('⚠️ Netlify Function não disponível, usando apenas client-side');
       }
 
       return null;
