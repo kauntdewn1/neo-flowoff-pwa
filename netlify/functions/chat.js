@@ -58,23 +58,29 @@ exports.handler = async (event, context) => {
     const OPENAI_MODEL = process.env.OPENAI_MODEL || process.env.LLM_MODEL || 'gpt-4o-mini';
     const GEMINI_MODEL = process.env.GEMINI_MODEL || process.env.LLM_MODEL_FALLBACK || 'gemini-2.0-flash-exp';
 
-    // Sistema de prompt para o agente
-    const systemPrompt = `Você é NEO, o assistente IA da FlowOFF. A FlowOFF é uma agência especializada em:
-- Marketing digital avançado e estratégia
-- Blockchain e Web3
-- Desenvolvimento de sistemas, WebApps e PWAs
-- Tokenização de ativos
-- Agentes IA personalizados
-- Arquitetura de ecossistemas digitais
-
-Você deve:
-- Responder de forma direta, útil e profissional
-- Ser proativo em ajudar, não apenas direcionar para humanos
-- Usar conhecimento real sobre os serviços da FlowOFF
-- Manter tom conversacional mas técnico quando necessário
-- Se não souber algo específico, seja honesto mas ofereça alternativas
-
-NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua inteligência.`;
+    // Ⅰ. CLASSIFICAÇÃO AUTOMÁTICA DE INTENÇÃO
+    // Importar módulo de classificação de intenção
+    let classifyIntent, buildSystemPrompt;
+    try {
+      const intentModule = require('../../scripts/neo-intent-classifier.js');
+      classifyIntent = intentModule.classifyIntent;
+      buildSystemPrompt = intentModule.buildSystemPrompt;
+    } catch (error) {
+      // Fallback se módulo não estiver disponível
+      log('⚠️ Módulo de classificação não disponível, usando prompt padrão');
+      classifyIntent = (msg, hist) => ({ category: 'ONBOARDING', confidence: 50 });
+      buildSystemPrompt = (intent) => `Você é NEO, o assistente IA da FlowOFF. Responda de forma direta, útil e profissional.`;
+    }
+    
+    const intent = classifyIntent(message, history);
+    
+    // Ⅱ. OBTER SUB-PROMPT ESPECIALIZADO BASEADO NA INTENÇÃO
+    const systemPrompt = buildSystemPrompt(intent);
+    
+    // Log da intenção (apenas em desenvolvimento)
+    if (process.env.NETLIFY_DEV) {
+      log(`🧠 Intent classificada: ${intent.category} (confiança: ${intent.confidence}%)`);
+    }
 
     let aiResponse = null;
     let modelUsed = null;
@@ -145,7 +151,7 @@ NÃO direcione imediatamente para humanos. Tente resolver primeiro com sua intel
             }],
             generationConfig: {
               temperature: 0.7,
-              maxOutputTokens: 500
+              maxOutputTokens: 800 // Aumentado para respostas mais completas
             }
           },
           {

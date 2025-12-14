@@ -134,10 +134,16 @@ if (fs.existsSync(indexHtmlPath)) {
     );
   } else {
     // Adiciona antes do chat-ai.js
-    html = html.replace(
-      /(<script src="js\/chat-ai\.js[^>]*><\/script>)/,
-      configScript + '\n$1'
-    );
+    const chatAiScriptMatch = html.match(/(<script src="js\/chat-ai\.js[^>]*><\/script>)/);
+    if (chatAiScriptMatch) {
+      html = html.replace(
+        /(<script src="js\/chat-ai\.js[^>]*><\/script>)/,
+        configScript + '\n$1'
+      );
+    } else {
+      // Se não encontrar, adicionar antes do fechamento do body
+      html = html.replace(/<\/body>/, configScript + '\n</body>');
+    }
   }
   
   fs.writeFileSync(indexHtmlPath, html, 'utf8');
